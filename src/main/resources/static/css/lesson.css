@@ -1,0 +1,167 @@
+
+      /* ------- */
+
+      .containerLession {
+        max-width: 1065px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding: 10px;
+      }
+      .lessionBackgroundPic {
+        background: url(/img/lession/lovely.png);
+        background-size: cover;
+      }
+      .forFlex {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .forHorizontalCenterFlex {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .forVerticalCenterFlex {
+        width: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .forAllCenterFlex {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .borderShadow {
+        /* border: 1px solid; */
+        box-shadow: 0 2px 4px 0 rgba(81, 81, 81, 0.2),
+          0 3px 10px 0 rgba(0, 0, 0, 0.19);
+      }
+      .col_55 {
+        width: 55%;
+      }
+      .col_45 {
+        width: 45%;
+      }
+
+      .col_50 {
+        width: 50%;
+      }
+
+      .col_25 {
+        width: 25%;
+      }
+      .col_40 {
+        width: 40%;
+      }
+      .col_60 {
+        width: 60%;
+      }
+      .buttonClass {
+        background-color: rgb(208, 132, 81);
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+      }
+      .buttonClass:hover {
+        background-color: white;
+        color: rgb(208, 132, 81);
+      }
+      /* 課程公告那欄 */
+      .pageTouching {
+        height: 80px;
+      }
+
+      .pageTouching:hover {
+        background-color: rgb(222, 250, 222);
+      }
+      .borderBot {
+        box-sizing: border-box;
+        border-bottom: 8px solid rgb(63, 182, 82);
+      }
+      .pageLinkText {
+        width: 100%;
+        height: 100%;
+      }
+      /* 課程公告那欄結束 */
+      /* 課程公告(頁面) */
+      .bulletinBoard {
+        height: 500px;
+        border-radius: 5%;
+        background-color: rgb(246, 255, 242);
+        border: 1px solid black;
+        padding: 15px;
+        box-sizing: border-box;
+      }
+      /* 介紹老師 */
+      .introduceTeacher {
+        background-color: rgb(246, 255, 242);
+        border-radius: 5%;
+        padding: 1% 2%;
+        box-sizing: border-box;
+      }
+      .teacherPhoto {
+        background-color: rgb(252, 248, 232);
+        width: 80%;
+        flex-wrap: wrap;
+        padding: 10px;
+        box-sizing: border-box;
+        border-radius: 10%;
+      }
+      .PcNone {
+        display: none;
+      }
+
+      @media screen and (max-width: 950px) {
+        .col_55 {
+          width: 100%;
+        }
+        .col_45 {
+          width: 100%;
+        }
+        .col_40 {
+          width: 100%;
+        }
+        .col_60 {
+          width: 100%;
+        }
+      }
+
+      @media screen and (max-width: 750px) {
+        .MobileNone {
+          display: none;
+        }
+        .PcNone {
+          display: block;
+        }
+        .col_50 {
+          width: 100%;
+        }
+        .col_25 {
+          width: 100%;
+        }
+
+        /* 課程公告那欄 */
+
+        .pageTouching {
+          justify-content: space-between;
+        }
+        .pageTouching:hover {
+          background-color: rgb(242, 252, 241);
+        }
+        .borderBot {
+          border-bottom: none;
+        }
+        .pageLinkText {
+          width: auto;
+          height: auto;
+        }
+        /* 課程公告那欄結束 */
+      }
+
+      .intdroucePadding {
+        padding-top: 15px;
+      }

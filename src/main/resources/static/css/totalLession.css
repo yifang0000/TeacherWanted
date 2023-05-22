@@ -1,0 +1,22 @@
+img {
+    border: 0;
+    max-width: 100%;
+    height: auto;
+  }
+  .pc_col_3 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .col {
+    width: 23.4%;
+  }
+  @media screen and (max-width: 750px) {
+    .pc_col_3 {
+      display: block;
+    }
+    .col {
+      width: 100%;
+      height: auto;
+    }
+  }

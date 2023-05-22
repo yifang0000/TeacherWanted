@@ -1,0 +1,216 @@
+p,
+a {
+  font-size: 20px;
+  margin-bottom: 0 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.flexWrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flexHorizontalCenter {
+  display: flex;
+  justify-content: center;
+}
+.flexVerticalCenter {
+  display: flex;
+  align-items: center;
+}
+
+.flexAllCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flexSpaceBetween {
+  display: flex;
+  justify-content: space-between;
+}
+.containerActiveEdit {
+  max-width: 95%;
+  margin: auto;
+}
+
+.left_col {
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+select,
+option,
+textarea {
+  height: 30px;
+  border-radius: 4px;
+  border: 1px solid #b3b3b3;
+  width: 100%;
+  font-size: 18px !important;
+  outline: none;
+}
+input:focus select:focus,
+option:focus {
+  /* box-shadow: 0 0 0 0.15rem rgba(255, 255, 255, 0.25); */
+  /* border: 1px solid #b3b3b3;
+  outline: none; */
+  outline-color: #b3b3b3;
+  /* border: none;
+
+  box-shadow: 1px 2px 1px #996; */
+}
+input::file-selector-button {
+  height: 30px;
+  font-size: 18px !important;
+  /* background-color: #b3b3b3; */
+}
+.activeBackTitle {
+  background-color: #3c6a36;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  border-radius: 10px 10px 0px 0px;
+  color: white;
+}
+.activeBackEditBk {
+  background-color: white;
+  border-radius: 10px;
+}
+.oneArea {
+  justify-content: space-between;
+}
+.oneActiveEdit {
+  width: 100%;
+}
+.oneActiveEdit h6 {
+  margin-bottom: 5px;
+  color: #616161;
+}
+.oneActiveEdit .flexVerticalCenter,
+.oneActiveEdit textarea {
+  margin-bottom: 20px;
+}
+
+.lastArea {
+  flex: 1;
+  /* background-color: lightblue; */
+  min-height: 297.4px;
+}
+#preview {
+  /* max-width: 50%;
+  max-height: 250px; */
+  /* max-width: 100%;
+  max-height: 250px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  height: 275px;
+  border: 1px dashed #b3b3b3;
+  border-radius: 4px;
+}
+
+#preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.col_30 {
+  width: 28%;
+}
+.col_20 {
+  width: 18%;
+}
+.col_33 {
+  width: 31%;
+}
+.col_50 {
+  width: 48%;
+}
+
+@media screen and (max-width: 1060px) {
+  .col_30,
+  .col_33,
+  .col_50 {
+    width: 100%;
+  }
+  .col_20 {
+    width: 50%;
+  }
+}
+
+#editor {
+  height: 400px; /* 设置你想要的高度 */
+}
+.ck-editor__editable {
+  height: 300px; /* 设置你想要的特定高度 */
+  overflow-y: auto;
+}
+
+/* .ck-editor__main {
+  height: 300px; 设置你想要的特定高度
+  overflow-y: auto;
+} */
+
+.submitActiveAdd {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.submitActiveAdd p {
+  background-color: #57954f;
+  width: 30%;
+  border-radius: 30px;
+  border: 2px solid #57954f;
+  padding: 3px;
+  box-sizing: border-box;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+.submitActiveAdd p:hover {
+  color: white;
+  background-color: #3c6a36;
+  border: 2px solid #3c6a36;
+}
+#cancelActiveAddBtn,
+#submitActiveAdd {
+  margin: 0 20px;
+}
+#cancelActiveAddBtn {
+  background-color: #f0f0f0;
+  width: 30%;
+  border-radius: 30px;
+  border: 2px solid #f0f0f0;
+  padding: 3px;
+  box-sizing: border-box;
+  font-size: 1.5rem;
+  color: #57954f;
+  cursor: pointer;
+}
+#cancelActiveAddBtn:hover {
+  color: #57954f;
+  background-color: #dedede;
+  border: 2px solid #dedede;
+}
+#upload {
+  display: none;
+}
+
+#map {
+  width: 100%;
+  height: 340.4px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}

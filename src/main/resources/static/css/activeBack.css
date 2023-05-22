@@ -1,0 +1,259 @@
+p,
+a {
+  font-size: 20px;
+  margin-bottom: 0 !important;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.flexWrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flexHorizontalCenter {
+  display: flex;
+  justify-content: center;
+}
+.flexVerticalCenter {
+  display: flex;
+  align-items: center;
+}
+
+.flexAllCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerActive {
+  max-width: 90%;
+  margin: auto;
+}
+
+.backstageBar {
+  height: 40px;
+  background-color: #3c6a36;
+  margin-top: 20px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  color: white;
+}
+
+.activeSearch {
+  margin-top: 10px;
+}
+
+.activeSearch select,
+.activeSearch input {
+  width: 95%;
+  height: 30px;
+  border-radius: 4px;
+  border-style: none;
+  font-size: 20px;
+}
+.activeSearch select:focus,
+.activeSearch input:focus {
+  outline: none;
+  /* outline-color: #3c6a36; */
+}
+
+.col_50 {
+  width: 50%;
+}
+
+@media screen and (max-width: 800px) {
+  .col_50 {
+    width: 100%;
+  }
+}
+
+.searchRemake {
+  margin-top: 10px;
+  width: 100%;
+  /* background-color: white; */
+  height: 50px;
+}
+.searchRemake a {
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 0px 15px;
+}
+
+.searchBtn {
+  color: white;
+  background-color: #3c6a36;
+}
+.searchBtn:hover {
+  color: white;
+}
+.remakeBtn {
+  border: 1px solid #3c6a36;
+  color: #3c6a36;
+}
+.remakeBtn:hover {
+  color: #3c6a36;
+}
+
+/* 表個大小 */
+.tableOutside {
+  min-height: 400px;
+}
+
+/* 表格 */
+
+.activeBackTable {
+  border: 1px solid #3c6a36;
+  width: 100%;
+  margin: auto;
+  margin-top: 30px;
+  border: none;
+}
+
+.activeBackTable > thead td {
+  background-color: #3c6a36;
+  border: 1px solid #3c6a36;
+  color: white;
+}
+
+.activeBackTable td {
+  /* border: 1px solid #3c6a36; */
+  padding: 10px 0px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.activeBackTable > tbody td {
+  color: #3c6a36;
+  border-bottom: 1px solid #3c6a36;
+}
+/* 欄位按鈕 */
+.tbodyBtn a {
+  box-sizing: border-box;
+  padding: 2px 10px;
+  background-color: #57954f;
+  border-radius: 4px;
+  /* margin: 0 5px; */
+  color: white;
+  border: 1px solid #57954f;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 23%;
+  display: block;
+}
+.tbodyBtn a:hover {
+  background-color: #3c6a36;
+  color: white;
+  border: 1px solid #3c6a36;
+  /* margin: 0 5px; */
+}
+/* 欄位按鈕 -> 刪除 */
+.tbodyBtn .deleteBtn {
+  background-color: rgb(228, 125, 125);
+  border: 1px solid rgb(228, 125, 125);
+}
+.tbodyBtn .deleteBtn:hover {
+  background-color: rgb(255, 63, 63);
+  border: 1px solid rgb(255, 63, 63);
+  color: black;
+}
+.editBtn:disabled {
+  background-color: dimgrey;
+  opacity: 1;
+}
+
+/* 燈箱部分 */
+/* 遮罩層 */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* 彈出框 */
+.lightbox-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  /* width: 400px; */
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+}
+
+/* 關閉按鈕 */
+.lightbox-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #000; /* 修改為黑色 */
+  cursor: pointer;
+}
+
+/* 分頁位置 */
+#pageModule {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+/* 分頁 按鈕 */
+.pageBtn,
+.pageBtnQuick {
+  background-color: #3c6a36;
+  color: white;
+  font-size: 1rem;
+  margin: 0px 10px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 2px solid #3c6a36;
+}
+
+.pageBtn:hover,
+.pageBtnQuick:hover {
+  background-color: white;
+  color: #3c6a36;
+  border: 2px solid #3c6a36;
+}
+
+/* 欄位大小 */
+
+.activity_id,
+.teaId,
+.currentNumber,
+.status {
+  width: 10%;
+}
+.activityType {
+  width: 12%;
+}
+.activityName {
+  width: 25%;
+}
+.tbodyBtn {
+  width: 23%;
+}
+.btnList {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* 分頁跳轉 */
+
+/* #numberPage {
+  border-radius: 4px;
+  border-style: none;
+  font-size: 20px;
+}
+#numberPage:focus {
+  outline: none;
+} */

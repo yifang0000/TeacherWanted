@@ -1,0 +1,161 @@
+.activeMain {
+  background-color: white;
+  border-radius: 10px 10px 0px 0px;
+  box-shadow: 0 2px 4px 0 rgba(81, 81, 81, 0.2),
+    0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+.activeIntroduce > * {
+  margin-top: 20px;
+  border-radius: 4px;
+}
+.col_65 {
+  width: 65%;
+}
+.col_25 {
+  width: 25%;
+}
+.col_10_blank {
+  width: 10%;
+}
+.col_70_to_85 {
+  width: 70%;
+}
+.col_30_to_15 {
+  width: 30%;
+}
+@media screen and (max-width: 1050px) {
+  .col_65,
+  .col_25 {
+    width: 100%;
+  }
+  .col_70_to_85 {
+    width: 90%;
+  }
+  .col_30_to_15 {
+    width: 10%;
+  }
+}
+.borderShadow {
+  /* border: 1px solid; */
+  /* box-shadow: 0 2px 4px 0 rgba(81, 81, 81, 0.2),
+    0 3px 10px 0 rgba(0, 0, 0, 0.19); */
+  -webkit-box-shadow: 0 0 15px rgba(81, 81, 81, 0.2);
+  -moz-box-shadow: 0 0 15px rgba(81, 81, 81, 0.2);
+  box-shadow: 0 0 15px rgba(81, 81, 81, 0.2);
+}
+.borderShadowLight {
+  /* border: 1px solid; */
+  /* box-shadow: 0 2px 4px 0 rgba(81, 81, 81, 0.2),
+      0 3px 10px 0 rgba(0, 0, 0, 0.19); */
+  -webkit-box-shadow: 0 0 15px rgba(146, 146, 146, 0.2);
+  -moz-box-shadow: 0 0 15px rgba(146, 146, 146, 0.2);
+  box-shadow: 0 0 15px rgba(146, 146, 146, 0.2);
+}
+.activeBtn {
+  padding: 5px 20px;
+  box-sizing: border-box;
+  border-radius: 30px;
+}
+.activeShare {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.activeBtnShare {
+  background-color: #a4c964;
+  color: white;
+  box-shadow: none;
+}
+.activeBtnShare:hover {
+  background-color: #3c6a36;
+  color: white;
+}
+
+.mustLikeLession {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 10px;
+  scrollbar-width: thin;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.mustLikeLession::-webkit-scrollbar {
+  width: 1px;
+  height: 8px;
+}
+
+.mustLikeLession::-webkit-scrollbar-button {
+  background: transparent;
+
+  border-radius: 2px;
+}
+
+.mustLikeLession ::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+
+.mustLikeLession::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+
+  background-color: rgba(0, 0, 0, 0.4);
+
+  border: 1px solid slategrey;
+}
+
+.mustLikeLession::-webkit-scrollbar-track {
+  box-shadow: transparent;
+}
+.recommendActivities {
+  height: 270px;
+  /* background-color: #f8f9fa; */
+  width: 200px;
+  margin-right: 20px;
+  vertical-align: top;
+
+  display: inline-block;
+}
+.recommendActivities:last-child {
+  margin-right: 0;
+}
+.recommendActivities img {
+  border-radius: 4px 4px 0px 0px;
+}
+.moreLessionIntroduce {
+  display: block;
+}
+.moreLessionPrice {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  color: #a4c964;
+  font-size: 1rem;
+}
+.moreLessionPrice p {
+  font-size: 1.5rem;
+}
+
+/* 地圖 */
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+.leaflet-container {
+  height: 400px;
+  max-width: 100%;
+  max-height: 100%;
+}
+table {
+  width: 100%;
+}
+table,
+td {
+  border: 1px solid #333;
+}
+
+thead,
+tfoot {
+  background-color: #3c6a36;
+  color: #fff;
+}

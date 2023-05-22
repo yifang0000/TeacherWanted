@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 加上 viewport 的設定 -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>懸賞啼雀後台</title>
+    <!-- backindex的css連結 -->
+    <link rel="stylesheet" href="./css/backindex.css" />
+
+    <link rel="stylesheet" href="./css/activeBackEdit.css" />
+
+    <!-- Bootstrap 連結1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <!-- 表格的 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
+    />
+    <!-- JQuery連結 -->
+    <script src="jquery/jquery-3.6.4.min.js"></script>
+
+    <script src="js/activeBackEdit.js"></script>
+
+    <!-- 上稿器連結 -->
+    <script src="utils/ckeditor.js"></script>
+  </head>
+  <body>
+    <!-- 設定字體 -->
+    <!-- 可從這邊調整https://fonts.google.com/share?selection.family=DotGothic16%7CNoto%20Sans%20TC:wght@100;300;400;500;700;900 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <div class="container-all">
+      <!-- 左邊(側邊欄) -->
+      <!-- accordion與下方的data-bs-parent="#accordion一個sublist打開時讓其他關閉 -->
+      <div class="container-left" id="accordion">
+        <nav id="sidebar">
+          <!-- 展開/縮起按鈕 -->
+          <div class="div1">
+            <!-- list列表,加入list-unstyled可去除列表的點點 -->
+
+            <div class="divtitle">後台管理</div>
+          </div>
+          <hr />
+          <ul class="list-unstyled">
+            <li>
+              <!-- 收和展開href="#sublist" data-bs-toggle="collapse" id="dropdown" -->
+              <a href="#sublist1" data-bs-toggle="collapse" id="dropdown"
+                >使用者管理 <i class="fa-solid fa-gears"></i
+              ></a>
+              <!-- 子連結 -->
+              <ul
+                id="sublist1"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">使用者列表</a></li>
+                <li><a href="#">新增使用者</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">會員管理<i class="fa-solid fa-user"></i></a>
+            </li>
+            <li>
+              <a href="#sublist2" data-bs-toggle="collapse" id="dropdown"
+                >課程管理<i class="fa-solid fa-graduation-cap"></i
+              ></a>
+              <ul
+                id="sublist2"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">課程列表</a></li>
+                <li><a href="#">上傳課程</a></li>
+                <li><a href="#">審核課程</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sublist3" data-bs-toggle="collapse" id="dropdown"
+                >活動管理<i class="fa-solid fa-calendar-days"></i
+              ></a>
+              <ul
+                id="sublist3"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">活動列表</a></li>
+                <li><a href="#">上傳活動</a></li>
+                <li><a href="#">審核活動</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sublist4" data-bs-toggle="collapse" id="dropdown"
+                >商城管理<i class="fa-sharp fa-solid fa-shop"></i
+              ></a>
+              <ul
+                id="sublist4"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">商品列表</a></li>
+                <li><a href="#">新增商品</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sublist5" data-bs-toggle="collapse" id="dropdown"
+                >訂單管理<i class="fa-solid fa-cart-shopping"></i
+              ></a>
+              <ul
+                id="sublist5"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">課程訂單</a></li>
+                <li><a href="#">活動訂單</a></li>
+                <li><a href="#">商城訂單</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">許願管理<i class="fa-solid fa-face-smile"></i></a>
+            </li>
+            <li>
+              <a href="#">論壇管理<i class="fa-solid fa-comments"></i></a>
+            </li>
+            <li>
+              <a href="#sublist6" data-bs-toggle="collapse" id="dropdown"
+                >公告管理<i class="fa-solid fa-bell"></i
+              ></a>
+              <ul
+                id="sublist6"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">公告列表</a></li>
+                <li><a href="#">新增公告</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sublist7" data-bs-toggle="collapse" id="dropdown"
+                >優惠碼管理<i class="fa-solid fa-gift"></i
+              ></a>
+              <ul
+                id="sublist7"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">優惠碼列表</a></li>
+                <li><a href="#">新增優惠碼</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">站內信管理 <i class="fa-solid fa-envelope"></i></a>
+            </li>
+            <li>
+              <a href="#">客服信管理<i class="fa-solid fa-paper-plane"></i></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- 右邊： -->
+      <div class="container-right">
+        <!-- 右邊的導航欄 -->
+        <header class="p-2 mb-2 border-bottom">
+          <div class="container m-0">
+            <div
+              class="d-flex nowrap align-items-center justify-content-center justify-content-lg-start"
+            >
+              <div>
+                <button
+                  type="button"
+                  id="collapse"
+                  class="collapse-btn text-start"
+                >
+                  <i class="fa-solid fa-bars"></i>
+                </button>
+              </div>
+              <div class="bartitle">
+                <span>懸賞啼雀</span>
+              </div>
+              <div class="dropdown text-end ms-auto mb-lg-0 me-lg-0 p-0 m-0">
+                <a
+                  href="#"
+                  class="d-block link-dark text-decoration-none dropdown-toggle"
+                  id="dropdownUser1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <span class="barname"> 歡迎登入 三重金城武 老師</span>
+                  <img
+                    src="https://github.com/mdo.png"
+                    alt="mdo"
+                    width="32"
+                    height="32"
+                    class="rounded-circle"
+                  />
+                </a>
+                <ul
+                  class="dropdown-menu text-small dropdown-menu-end"
+                  aria-labelledby="dropdownUser1"
+                >
+                  <li><a class="dropdown-item" href="#">設定</a></li>
+                  <li><a class="dropdown-item" href="#">預覽</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">登出</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="main">
+          <!--主體文字1  -->
+
+          <!-- ====================主要區========================== -->
+          <div class="containerActiveEdit">
+            <div class="activeBackEditBk">
+              <div class="flexVerticalCenter activeBackTitle">
+                <p style="font-size: 2rem">活動修改</p>
+              </div>
+              <div class="containerActiveEdit" style="padding: 20px 10px">
+                <!-- 表單 開始 -->
+                <div class="flexWrap oneArea">
+                  <!-- 左半部分 開始 -->
+                  <div class="col_50 left_col">
+                    <!-- 活動名稱 開始 -->
+                    <section class="oneActiveEdit">
+                      <div>
+                        <h6>活動名稱</h6>
+                      </div>
+                      <div class="flexVerticalCenter">
+                        <input id="activityName" type="text" />
+                      </div>
+                    </section>
+                    <!-- 活動名稱 結束 -->
+
+                    <!-- 類型 上限人數 活動價格 開始-->
+                    <div class="flexWrap flexSpaceBetween">
+                      <!-- 類型 開始 -->
+                      <section class="oneActiveEdit col_33">
+                        <div><h6>類型</h6></div>
+                        <div class="flexVerticalCenter">
+                          <select name="" id="activityType">
+                            <option value="戶外運動">戶外運動</option>
+                            <option value="全民教育">全民教育</option>
+                            <option value="休閒娛樂">休閒娛樂</option>
+                          </select>
+                        </div>
+                      </section>
+                      <!-- 類型 結束 -->
+                      <!-- 上限人數 開始 -->
+                      <section class="oneActiveEdit col_33">
+                        <div><h6>上限人數</h6></div>
+                        <div class="flexVerticalCenter">
+                          <input id="maxNumber" type="text" />
+                        </div>
+                      </section>
+                      <!-- 上限人數 結束 -->
+                      <!-- 活動價格 開始 -->
+                      <section class="oneActiveEdit col_33">
+                        <div><h6>活動價格(台幣)</h6></div>
+                        <div class="flexVerticalCenter">
+                          <input id="activityPrice" type="text" />
+                        </div>
+                      </section>
+                      <!-- 活動價格 結束 -->
+                    </div>
+                    <!-- 類型 上限人數 活動價格 結束-->
+
+                    <!-- 報名截止日期 開始 -->
+                    <section class="oneActiveEdit">
+                      <div><h6>報名截止日期</h6></div>
+                      <div class="flexVerticalCenter">
+                        <input
+                          type="datetime-local"
+                          id="stopTime"
+                          class="date-picker"
+                        />
+                      </div>
+                    </section>
+                    <!-- 報名截止日期 結束 -->
+                    <!-- 活動開始日期 開始 -->
+                    <section class="oneActiveEdit">
+                      <div><h6>活動開始日期</h6></div>
+                      <div class="flexVerticalCenter">
+                        <input
+                          type="datetime-local"
+                          id="activeStartTime"
+                          class="date-picker"
+                        />
+                      </div>
+                    </section>
+                    <!-- 活動開始日期 結束 -->
+                    <!-- 活動結束日期 開始 -->
+                    <section class="oneActiveEdit">
+                      <div><h6>活動結束日期</h6></div>
+                      <div class="flexVerticalCenter">
+                        <input
+                          type="datetime-local"
+                          id="activeStopTime"
+                          class="date-picker"
+                        />
+                      </div>
+                    </section>
+                    <!-- 活動結束日期 結束 -->
+                    <!-- 活動介紹 開始 -->
+                    <section class="oneActiveEdit lastArea">
+                      <div><h6>活動介紹</h6></div>
+                      <div><textarea id="editor"></textarea></div>
+                    </section>
+                    <!-- 活動介紹 結束 -->
+                  </div>
+                  <!-- 左半部分 結束 -->
+
+                  <!-- 右半部分 開始 -->
+                  <div class="col_50">
+                    <!-- 活動封面圖片 開始 -->
+                    <section class="oneActiveEdit">
+                      <div><h6>活動封面圖片(點選上傳或更改圖片)</h6></div>
+                      <div class="flexVerticalCenter" style="margin: 0">
+                        <input type="file" id="upload" accept="image/*" />
+                      </div>
+                      <div id="preview" class="flexHorizontalCenter"></div>
+                    </section>
+                    <!-- 活動封面圖片 結束 -->
+                    <!-- 地址 開始 -->
+                    <section class="oneActiveEdit">
+                      <div><h6>地址</h6></div>
+                      <div class="flexVerticalCenter">
+                        <input
+                          id="address-input"
+                          type="text"
+                          placeholder="輸入地址"
+                        />
+                      </div>
+
+                      <div id="map"></div>
+                    </section>
+                    <!-- 地址 結束 -->
+                  </div>
+                  <!-- 右半部分 結束 -->
+                  <!-- 表單 結束 -->
+                  <!-- 送出與取消按紐 開始 -->
+                  <div class="flexAllCenter submitActiveAdd">
+                    <p class="flexAllCenter" id="cancelActiveAddBtn">取消</p>
+                    <p class="flexAllCenter" id="submitActiveAddBtn">送出</p>
+                  </div>
+                  <!-- 送出與取消按紐 結束 -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===================================================== -->
+        </div>
+      </div>
+    </div>
+    <!-- FontAwesome 連結 -->
+    <script
+      src="https://kit.fontawesome.com/664595efd5.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- JQuery連結 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- backindex的JS連結 -->
+    <script src="./js/backindex.js"></script>
+    <!-- Bootstrap 連結2 -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- table連結 -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- 地圖連結 -->
+    <!-- <script
+      src="https://maps.googleapis.com/maps/api/js?callback=initAutocomplete&libraries=places&key=AIzaSyB441MwqLRSXsrgHti3UTkvIhoRTitofAw&libraries=places"
+      async
+      defer
+    ></script> -->
+    <script src="utils/googleMapKey.js " async defer></script>
+
+    <!-- 地圖連結 -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+  </body>
+</html>
