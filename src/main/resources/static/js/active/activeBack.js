@@ -10,12 +10,16 @@ $(function () {
       // request 成功取得回應後執行
       for (let i = 0; i < data.length; i++) {
         let status;
+        let dropBtnText;
         if (data[i].activityStatus == 1) {
           status = "上架中";
+          dropBtnText = "下架";
         } else if (data[i].activityStatus == 0) {
           status = "已下架";
+          dropBtnText = "上架";
         } else {
           status = "已截止";
+          dropBtnText = "限制";
         }
         $("#activeTbody").append(
           `<tr>
@@ -31,7 +35,7 @@ $(function () {
        <div class="btnList">
         <a class="introduceBtn">詳情</a>
         <a class="editBtn">修改</a>
-        <a class="dropBtn">下架</a>
+        <a class="dropBtn">${dropBtnText}</a>
         <a class="deleteBtn">刪除</a>
        </div>
      </td>
