@@ -382,7 +382,7 @@ $(document).ready(function () {
           // 处理返回的数据
           if (response === "更新成功") {
             alert("更新成功");
-            window.location.href = "/activeBack.html";
+            window.location.href = "/active/activeBack.html";
             // 新增成功的逻辑
           } else {
             // 新增失败的逻辑
@@ -400,7 +400,7 @@ $(document).ready(function () {
   // 取消按鈕相關 開始
   $("#cancelActiveAddBtn").on("click", function () {
     if (confirm("系統不會儲存您的變更")) {
-      window.location.href = "/activeBack.html";
+      window.location.href = "/active/activeBack.html";
     }
   });
   // 取消按鈕相關 結束

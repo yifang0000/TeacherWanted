@@ -95,7 +95,7 @@ $(function () {
         var tbodyBtnThis = this;
         $(this).on("click", ".editBtn", function () {
           window.location.href =
-            "/activeBackEdit.html?activityId=" +
+            "/active/activeBackEdit.html?activityId=" +
             $(tbodyBtnThis).siblings(".activityId").text();
         });
       });
@@ -158,7 +158,7 @@ function deleteById(id) {
       console.log(data);
       if (data == "刪除成功") {
         alert("刪除成功");
-        window.location.href = "/activeBack.html";
+        window.location.href = "/active/activeBack.html";
       } else {
         alert("刪除失敗，如遇問題請聯繫管理員");
       }

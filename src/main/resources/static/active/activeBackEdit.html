@@ -11,9 +11,9 @@
     />
     <title>懸賞啼雀後台</title>
     <!-- backindex的css連結 -->
-    <link rel="stylesheet" href="./css/backindex.css" />
+    <link rel="stylesheet" href="../css/backindex.css" />
 
-    <link rel="stylesheet" href="./css/activeBackEdit.css" />
+    <link rel="stylesheet" href="../css/active/activeBackEdit.css" />
 
     <!-- Bootstrap 連結1 -->
     <link
@@ -32,12 +32,12 @@
       href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
     />
     <!-- JQuery連結 -->
-    <script src="jquery/jquery-3.6.4.min.js"></script>
+    <script src="../jquery/jquery-3.6.4.min.js"></script>
 
-    <script src="js/activeBackAdd.js"></script>
+    <script src="../js/active/activeBackEdit.js"></script>
 
     <!-- 上稿器連結 -->
-    <script src="utils/ckeditor.js"></script>
+    <script src="../utils/active/ckeditor.js"></script>
   </head>
   <body>
     <!-- 設定字體 -->
@@ -234,7 +234,7 @@
           <div class="containerActiveEdit">
             <div class="activeBackEditBk">
               <div class="flexVerticalCenter activeBackTitle">
-                <p style="font-size: 2rem">活動新增</p>
+                <p style="font-size: 2rem">活動修改</p>
               </div>
               <div class="containerActiveEdit" style="padding: 20px 10px">
                 <!-- 表單 開始 -->
@@ -358,9 +358,12 @@
                   </div>
                   <!-- 右半部分 結束 -->
                   <!-- 表單 結束 -->
+                  <!-- 送出與取消按紐 開始 -->
                   <div class="flexAllCenter submitActiveAdd">
+                    <p class="flexAllCenter" id="cancelActiveAddBtn">取消</p>
                     <p class="flexAllCenter" id="submitActiveAddBtn">送出</p>
                   </div>
+                  <!-- 送出與取消按紐 結束 -->
                 </div>
               </div>
             </div>
@@ -379,7 +382,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <!-- backindex的JS連結 -->
-    <script src="./js/backindex.js"></script>
+    <script src="../js/backindex.js"></script>
     <!-- Bootstrap 連結2 -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
@@ -397,7 +400,7 @@
       async
       defer
     ></script> -->
-    <script src="utils/googleMapKey.js " async defer></script>
+    <script src="../utils/active/googleMapKey.js " async defer></script>
 
     <!-- 地圖連結 -->
     <link

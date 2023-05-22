@@ -258,7 +258,7 @@ $(document).ready(function () {
           // 处理返回的数据
           if (response === "新增成功") {
             alert("新增成功");
-            window.location.href = "/activeBack.html";
+            window.location.href = "/active/activeBack.html";
             // 新增成功的逻辑
           } else {
             // 新增失败的逻辑
