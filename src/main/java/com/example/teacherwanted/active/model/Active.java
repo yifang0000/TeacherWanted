@@ -1,6 +1,6 @@
 package com.example.teacherwanted.active.model;
 
-import com.example.demo.active.utils.ActivityDeserializer;
+import com.example.teacherwanted.active.utils.ActivityDeserializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package com.example.teacherwanted;
+package com.example.teacherwanted.active.controller;
 
 import com.example.teacherwanted.active.dao.ActiveDao;
 import com.example.teacherwanted.active.model.Active;
