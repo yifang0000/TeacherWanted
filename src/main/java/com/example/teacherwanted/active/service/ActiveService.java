@@ -21,6 +21,8 @@ public interface ActiveService {
 
     String updateStatus(Active active, Integer status);
 
+    Active selectBackById(Integer id);
+
     Active selectById(Integer id);
 
 

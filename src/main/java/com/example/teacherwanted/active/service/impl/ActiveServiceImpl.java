@@ -20,6 +20,15 @@ public class ActiveServiceImpl implements ActiveService {
         return activeDao.recommendActivities(activityType);
     };
 
+    @Override
+    public Active selectById(Integer id) {
+        Active active = activeDao.selectById(id);
+        if(active!=null && active.getActivityStatus()!=0){
+            return active;
+        }else {
+            return null;}
+        }
+
     //    前臺操作 結束
 
     //    後臺操作 開始
@@ -91,7 +100,7 @@ public class ActiveServiceImpl implements ActiveService {
     }
 
     @Override
-    public Active selectById(Integer id) {
+    public Active selectBackById(Integer id) {
         return activeDao.selectById(id);
     }
 

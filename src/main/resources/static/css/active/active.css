@@ -129,6 +129,7 @@
 }
 .moreLessionIntroduce {
   display: block;
+  border-radius: 4px 4px 0px 0px;
 }
 .moreLessionPrice {
   width: 50%;
@@ -168,4 +169,19 @@ tfoot {
 
 td {
   width: auto;
+}
+.recommendActivitiesNameAndLocation {
+  width: 80%;
+  font-size: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activeRecommendImg {
+  max-height: 100px;
+  background-color: #d5dfc4;
+}
+
+.activeRecommendImg img {
+  max-height: 100px;
 }
