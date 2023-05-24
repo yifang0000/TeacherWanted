@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>CKEditor 5 - 上傳圖片功能</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script>
+</head>
+<body>
+<h1>CKEditor 5 - 上傳圖片功能</h1>
+<textarea id="editor"></textarea>
+
+<script>
+    ClassicEditor.create(document.querySelector("#editor"), {
+        toolbar: [
+            "heading",
+            "|",
+            "bold",
+            "italic",
+            "link",
+            "bulletedList",
+            "numberedList",
+            "blockQuote",
+            "imageUpload",
+            "insertTable",
+            "undo",
+            "redo",
+        ],
+        ckfinder: {
+            uploadUrl: "/upload", // 上傳圖片的路徑，請根據你的伺服器端設定進行修改
+        },
+    })
+        .then((editor) => {
+            console.log("CKEditor 5 初始化成功", editor);
+
+            // 監聽圖片上傳完成事件
+            editor.plugins.get("FileRepository").on("uploadDone", (evt, data) => {
+                const response = data.response;
+                if (response && response.url) {
+                    const imageUrl = response.url;
+
+                    // 動態生成 <img> 標籤
+                    const imgElement = document.createElement("img");
+                    imgElement.setAttribute("src", imageUrl);
+
+                    // 插入 <img> 標籤到編輯器的光標位置
+                    editor.model.insertContent(imgElement, editor.model.document.selection);
+                }
+            });
+        })
+        .catch((error) => {
+            console.error("CKEditor 5 初始化失敗", error);
+        });
+</script>
+</body>
+</html>
