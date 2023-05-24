@@ -241,22 +241,20 @@
             <section class="activeSearch flexWrap">
               <div class="col_50">
                 <p>搜尋類別</p>
-                <select>
-                  <option></option>
-                  <option>標籤1</option>
-                  <option>標籤2</option>
-                  <option>標籤3</option>
-                  <option>標籤4</option>
+                <select id="activityType">
+                  <option value=""></option>
+                  <option value="戶外運動">戶外運動</option>
+                  <option value="全民教育">全民教育</option>
+                  <option value="休閒娛樂">休閒娛樂</option>
                 </select>
               </div>
               <div class="col_50">
                 <p>輸入欄位</p>
-                <input type="text" />
+                <input type="text" id="searchKey" />
               </div>
               <div class="searchRemake">
-                <div></div>
-                <a href="" class="searchBtn">搜尋</a>
-                <a href="" class="remakeBtn">重製</a>
+                <a class="searchBtn">搜尋</a>
+                <a class="remakeBtn">重製</a>
               </div>
             </section>
             <!-- <section class="backstageBar">
@@ -267,15 +265,15 @@
                 <table class="activeBackTable">
                   <thead>
                     <tr>
-                      <td>編號</td>
-                      <td>類別</td>
-                      <td>課程名稱</td>
-                      <td>開課教師</td>
+                      <td class="activityId">編號</td>
+                      <td class="activityType">類別</td>
+                      <td class="activityName">課程名稱</td>
+                      <td class="teaId">開課教師</td>
                       <!-- <td>活動開始時間</td> -->
                       <!-- <td>活動結束時間</td> -->
-                      <td>報名人數</td>
-                      <td>狀態</td>
-                      <td>操作</td>
+                      <td class="currentNumber">報名人數</td>
+                      <td class="status">狀態</td>
+                      <td class="tbodyBtn">操作</td>
                     </tr>
                   </thead>
                   <tbody id="activeTbody"></tbody>

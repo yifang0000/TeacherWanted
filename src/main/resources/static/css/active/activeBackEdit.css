@@ -157,7 +157,11 @@ input::file-selector-button {
   height: 300px; /* 设置你想要的特定高度 */
   overflow-y: auto;
 }
-
+.ck-content table td,
+.ck-content table th {
+  height: 1.5rem;
+  width: auto;
+}
 /* .ck-editor__main {
   height: 300px; 设置你想要的特定高度
   overflow-y: auto;
