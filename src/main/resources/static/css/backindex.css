@@ -1,28 +1,28 @@
 /* 全部自行設定 */
-*{
-    font-family: 'Noto Sans TC', sans-serif;
+* {
+  font-family: "Noto Sans TC", sans-serif;
 }
 
-.container-all{
-    /* 排版為左右邊 */
-    display: flex;
-/* 撐開到滿版 */
-    align-items: stretch;
+.container-all {
+  /* 排版為左右邊 */
+  display: flex;
+  /* 撐開到滿版 */
+  align-items: stretch;
 }
 
 /* 左邊的側邊欄設定：顏色、寬、高 */
-#sidebar{
-    width: 200px;
-    min-height: 700px;
-    background-color: #3c6a36;
-    color:white;
-    transition: 1s;
+#sidebar {
+  width: 200px;
+  height: 100%;
+  background-color: #3c6a36;
+  color: white;
+  transition: 1s;
 }
 
 /* 收起來！當按下按鈕sidebar的class會加上active 得到這邊的效果 */
 #sidebar.active {
-    margin-left: -150px;
-    text-align:left;
+  margin-left: -150px;
+  text-align: left;
 }
 #sidebar .barbtn,
 #sidebar .divtitle {
@@ -31,30 +31,29 @@
   /* vertical-align: bottom; */
 }
 /* 左邊的標題 */
-#sidebar .divtitle{
-    font-size: 30px;
-    margin: 9.38px;
-    text-align: center;
-    letter-spacing: 1px;
-    
+#sidebar .divtitle {
+  font-size: 30px;
+  margin: 9.38px;
+  text-align: center;
+  letter-spacing: 1px;
 }
-#sidebar hr{
-    border-radius: 4px;
-    margin-top: 0;
-    width: 180px;
-    position: relative;
-    left: 50%;
-    transform: translate(-50%, -50%);
+#sidebar hr {
+  border-radius: 4px;
+  margin-top: 0;
+  width: 180px;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 /* 收合的按鈕 */
-.container-right .collapse-btn{
-position: relative;
-left:0px;
-background-color: #F8F9FA;
-color:#3c6a36;
-border: none;
-font-size: 30px;
-/* padding: 3px; */
+.container-right .collapse-btn {
+  position: relative;
+  left: 0px;
+  background-color: #f8f9fa;
+  color: #3c6a36;
+  border: none;
+  font-size: 30px;
+  /* padding: 3px; */
 }
 /* 
 .fa-shake{
@@ -62,74 +61,72 @@ font-size: 30px;
 } */
 
 /* 按鈕當滑鼠移過去時：背景顏色 */
-.container-left .collapse-btn:hover{
-    background-color:#A4C964;
-    transition: 0.4s;
+.container-left .collapse-btn:hover {
+  background-color: #a4c964;
+  transition: 0.4s;
 }
 
 /* icon */
 .container-left li .fa-solid {
-    text-align:center;
-    display: block;
-    position: absolute;
-    font-size: 20px;
-    top: 10px;
-    left: 150px;
-    width: 50px;
-    height: 50px;
-    /* float: right; */
+  text-align: center;
+  display: block;
+  position: absolute;
+  font-size: 20px;
+  top: 10px;
+  left: 150px;
+  width: 50px;
+  height: 50px;
+  /* float: right; */
 }
 
 /* 左側的文字 */
 #sidebar ul li a {
-    letter-spacing: 1px;
-    text-align:left;
-    padding: 5px 10px;
-    font-size: 20px;
-    display: block;
-    /* 不要底線 */
-    text-decoration: none;
-    color: white;
-    position: relative;
+  letter-spacing: 1px;
+  text-align: left;
+  padding: 5px 10px;
+  font-size: 20px;
+  display: block;
+  /* 不要底線 */
+  text-decoration: none;
+  color: white;
+  position: relative;
 
-    font-weight: 400;
+  font-weight: 400;
 }
 
 #sidebar ul li a:hover {
-    color: #3c6a36;
-    background: #A4C964;
+  color: #3c6a36;
+  background: #a4c964;
 }
 
 /* 下拉式選單裡面 */
-#sidebar ul ul li a{
-    background-color: #F8F9FA;
-    color: #3c6a36;
-
+#sidebar ul ul li a {
+  background-color: #f8f9fa;
+  color: #3c6a36;
 }
 
-
 /* 響應式 */
-@media (max-width:600px) {
-    #sidebar {
-        width: 200px;
-        margin-left: -150px;
-    }
-    #sidebar.active {
-        margin-left: 0px;
-    }
-    /* 按鈕 */
-.container-left .collapse-btn{
+@media (max-width: 600px) {
+  #sidebar {
+    width: 200px;
+    margin-left: -150px;
+  }
+  #sidebar.active {
+    margin-left: 0px;
+  }
+  /* 按鈕 */
+  .container-left .collapse-btn {
     position: relative;
     top: 1%;
     margin-left: -50px;
-    color:white;
+    color: white;
     border: none;
     font-size: 30px;
     padding: 5px;
     transition: 1s;
-    }
+  }
 
-   #sidebar ul li a {
+  #sidebar ul li a {
     padding: 5px;
     font-size: 16px;
     display: block;
@@ -137,67 +134,62 @@ font-size: 30px;
     text-decoration: none;
     color: white;
     position: relative;
-    
+
     font-weight: 600;
-     
-    }
-    .container-left li .fa-solid {
-        text-align:center;
-        display: block;
-        position: absolute;
-        font-size: 16px;
-        top: 10px;
-        left: 150px;
-        width: 50px;
-        height: 50px;
-        /* float: right; */
-    }
+  }
+  .container-left li .fa-solid {
+    text-align: center;
+    display: block;
+    position: absolute;
+    font-size: 16px;
+    top: 10px;
+    left: 150px;
+    width: 50px;
+    height: 50px;
+    /* float: right; */
+  }
 
-    /* 隱藏歡迎登入.... */
-    .barname{
-        display: none;
-    }
-
+  /* 隱藏歡迎登入.... */
+  .barname {
+    display: none;
+  }
 }
-
 
 /* ============================右邊開始線================================== */
 
 /* 右邊 */
-.container-right{
-    background-color:#F8F9FA;
-    width: 100%;
-    min-height: 700px;
-    border: 1px solid #aaaaaa;
-    /* margin: 20px 20px; */
-    
+.container-right {
+  background-color: #f8f9fa;
+  width: 100%;
+  min-height: 700px;
+  border: 1px solid #aaaaaa;
+  /* margin: 20px 20px; */
 }
 
-@media (max-width:600px) {
-    .container-right{
-
-        width: calc( 100% - 50px );
-    }
+@media (max-width: 600px) {
+  .container-right {
+    width: calc(100% - 50px);
+  }
 }
 /* 右邊的導覽列 */
-.bartitle{
-    font-size: 26px;
+.bartitle {
+  font-size: 26px;
+  color: #3c6a36;
+}
+@media (max-width: 600px) {
+  .bartitle {
+    font-size: 16px;
     color: #3c6a36;
   }
-  @media (max-width:600px) {
-    .bartitle{
-        font-size: 16px;
-        color: #3c6a36;
-      }
-  }
+}
 
 /* ============================================================== */
 /* 右邊的主體 */
-.main{
-    margin: 10px;
-  }
+.main {
+  margin: 10px;
+}
 
 /* 右邊的標題 */
-  #section1 p{
-    font-size: 26px;
-  }
+#section1 p {
+  font-size: 26px;
+}

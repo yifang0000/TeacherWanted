@@ -51,6 +51,12 @@
   -moz-box-shadow: 0 0 15px rgba(146, 146, 146, 0.2);
   box-shadow: 0 0 15px rgba(146, 146, 146, 0.2);
 }
+
+#app {
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+  padding-top: 15px;
+}
 .activeBtn {
   padding: 5px 20px;
   box-sizing: border-box;
@@ -158,4 +164,8 @@ thead,
 tfoot {
   background-color: #3c6a36;
   color: #fff;
+}
+
+td {
+  width: auto;
 }

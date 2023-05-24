@@ -1,18 +1,19 @@
 package com.example.teacherwanted.active.model;
 
 import com.example.teacherwanted.active.utils.ActivityDeserializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
 
 @ToString
 @Entity
 @Table(name = "ACTIVITY")
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Active {
@@ -43,17 +44,22 @@ public class Active {
     @Column(name = "activity_location")
     private String activityLocation;  // 活動地點
 
+
     @Column(name = "activity_start_time")
     private Timestamp activityStartTime;  // 活動開始時間
+
 
     @Column(name = "activity_end_time")
     private Timestamp activityEndTime;  // 活動結束時間
 
+
     @Column(name = "activity_due_time")
     private Timestamp activityDueTime;  // 活動報名截止時間
 
+
     @Column(name = "create_time")
     private Timestamp createTime;  // 新增日期
+
 
     @Column(name = "update_time")
     private Timestamp updateTime;  // 更新日期

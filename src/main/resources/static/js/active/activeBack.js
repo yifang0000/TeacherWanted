@@ -1,13 +1,44 @@
 var uniqueParam = Date.now(); // 使用时间戳作为唯一参数
 var url = "/activeBack?param=" + uniqueParam;
 $(function () {
+  let data = {};
+  activeAjax(data);
+});
+
+$(function () {
+  // 搜尋按鈕 標籤選取 開始
+  $(".searchBtn").on("click", function () {
+    $("#activeTbody").empty();
+    let searchKeyword = $("#searchKey").val();
+    let activityType = $("#activityType").val();
+    let dataSearch = {
+      searchKeyword: searchKeyword,
+      activityType: activityType,
+    };
+    activeAjax(dataSearch);
+  });
+  // 搜尋按鈕 結束
+  // 重製按鈕 開始
+  $(".remakeBtn").on("click", function () {
+    $("#activeTbody").empty();
+    $("#searchKey").val("");
+    $("#activityType").val("");
+    let data = {};
+    activeAjax(data);
+  });
+  // 重製按鈕 結束
+});
+
+// function區域 開始
+function activeAjax(data) {
   $.ajax({
     url: url, // 資料請求的網址
     type: "GET", // GET | POST | PUT | DELETE | PATCH
-    // data: 物件資料,             // 將物件資料(不用雙引號) 傳送到指定的 url
+    data: data, // 將物件資料(不用雙引號) 傳送到指定的 url
     dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
     success: function (data) {
       // request 成功取得回應後執行
+      $("#activeTbody").empty();
       for (let i = 0; i < data.length; i++) {
         let status;
         let dropBtnText;
@@ -21,122 +52,122 @@ $(function () {
           status = "已截止";
           dropBtnText = "限制";
         }
-        $("#activeTbody").append(
-          `<tr>
-     <td class="activityId">${data[i].activityId}</td>
-     <td class="activityType">${data[i].activityType}</td>
-     <td class="activityName">${data[i].activityName}</td>
-     <td class="teaId">${data[i].teaId}</td>
-     <!-- <td>${data[i].activityStartTime}</td> -->
-     <!-- <td>${data[i].activityEndTime}</td> -->
-     <td class="currentNumber">${data[i].currentNumber}</td>
-     <td class="status">${status}</td>
-     <td class="tbodyBtn">
-       <div class="btnList">
-        <a class="introduceBtn">詳情</a>
-        <a class="editBtn">修改</a>
-        <a class="dropBtn">${dropBtnText}</a>
-        <a class="deleteBtn">刪除</a>
-       </div>
-     </td>
-   </tr>
-   `
-        );
+
+        tableData(data, i, status, dropBtnText);
       }
-
-      // 詳情按鈕  燈箱部分開始
-
-      // 監聽按鈕點擊事件
-      $(".introduceBtn").on("click", function () {
-        console.log("詳情");
-        $(".lightbox").fadeIn();
-      });
-
-      // 監聽關閉按鈕點擊事件
-      $(".lightbox").on("click", ".lightbox-close", function () {
-        $(".lightbox").fadeOut();
-      });
-
-      // 監聽燈箱以外的地方點擊事件
-      $(".lightbox").on("click", function (event) {
-        var lightboxContent = $(".lightbox-content");
-        if (
-          !lightboxContent.is(event.target) &&
-          lightboxContent.has(event.target).length === 0
-        ) {
-          $(".lightbox").fadeOut();
-        }
-      });
-
-      // 監聽按下 "Esc" 鍵事件
-      $(document).on("keydown", function (event) {
-        if (event.keyCode === 27) {
-          $(".lightbox").fadeOut();
-        }
-      });
-
-      $(".tbodyBtn").each(function (i) {
-        var tbodyBtnThis = this;
-        $(this).on("click", ".introduceBtn", function () {
-          console.log($(tbodyBtnThis).siblings(".activityId").text());
-          $(".lightbox").empty().append(`
-          <div class="lightbox-content">
-          <span class="lightbox-close">&times;</span>
-          <p>活動ID:${data[i].activityId}</p>
-          <p>活動名稱:${data[i].activityName}</p>
-          <p>類型:${data[i].activityType}</p>
-          <p>報名截止日期:${data[i].activityDueTime}</p>
-          <p>活動開始日期:${data[i].activityStartTime}</p>
-          <p>活動結束日期${data[i].activityEndTime}</p>
-          <p>報名人數:${data[i].currentNumber}</p>
-          <p>活動介紹:${data[i].activityDetail}</p>
-          </div>`);
-        });
-      });
-      // 詳情按鈕  燈箱部分結束
-      // 修改按鈕部分開始
-      $(".tbodyBtn").each(function (i) {
-        var tbodyBtnThis = this;
-        $(this).on("click", ".editBtn", function () {
-          window.location.href =
-            "/active/activeBackEdit.html?activityId=" +
-            $(tbodyBtnThis).siblings(".activityId").text();
-        });
-      });
-      // 修改按鈕部分結束
-      // 刪除按鈕部分開始
-      $(".tbodyBtn").each(function (i) {
-        var tbodyBtnThis = this;
-        $(this).on("click", ".deleteBtn", function () {
-          console.log(
-            "這個活動id" + $(tbodyBtnThis).siblings(".activityId").text()
-          );
-          if (confirm("請問要刪除嗎?")) {
-            deleteById($(tbodyBtnThis).siblings(".activityId").text());
-          }
-        });
-      });
-      // 刪除按鈕部分結束
-
-      // 分頁開始
-      /*----產生data-th-----*/
-      let $table = $(".activeBackTable");
-      let $thRows = $table.find("thead th");
-      $thRows.each(function (key, thRow) {
-        $table
-          .find("tbody tr td:nth-child(" + (key + 1) + ")")
-          .attr("data-th", $(thRow).text());
-      });
-      /*-----------*/
-      goPage(1, 5); // 一開始先秀第一頁,以及每一頁最多兩筆資料
-      // 分頁結束
+      tableAction(data);
     },
-    // success回傳部分
+    error: function (xhr) {
+      // request 發生錯誤的話執行
+      console.log(xhr);
+      alert("無登入狀態，或登入異常，請重新登入。\n如有問題請聯繫管理員");
+      window.location.href = "/active/easyLogin.html";
+    },
+    // success回傳部分 結束
   });
-});
+}
 
-$(function () {
-  // 分頁相關
+//表格操作按鈕 開始
+function tableAction(data) {
+  // 詳情按鈕  燈箱部分開始
+  // 監聽按鈕點擊事件
+  $(".introduceBtn").on("click", function () {
+    console.log("詳情");
+    $(".lightbox").fadeIn();
+  });
+
+  // 監聽關閉按鈕點擊事件
+  $(".lightbox").on("click", ".lightbox-close", function () {
+    $(".lightbox").fadeOut();
+  });
+
+  // 監聽燈箱以外的地方點擊事件
+  $(".lightbox").on("click", function (event) {
+    var lightboxContent = $(".lightbox-content");
+    if (
+      !lightboxContent.is(event.target) &&
+      lightboxContent.has(event.target).length === 0
+    ) {
+      $(".lightbox").fadeOut();
+    }
+  });
+
+  // 監聽按下 "Esc" 鍵事件
+  $(document).on("keydown", function (event) {
+    if (event.keyCode === 27) {
+      $(".lightbox").fadeOut();
+    }
+  });
+
+  $(".tbodyBtn").each(function (i) {
+    var tbodyBtnThis = this;
+    i--; //去掉表頭欄位
+    $(this).on("click", ".introduceBtn", function () {
+      console.log($(tbodyBtnThis).siblings(".activityId").text());
+      $(".lightbox").empty().append(`
+      <div class="lightbox-content">
+      <span class="lightbox-close">&times;</span>
+      <p>活動ID:${data[i].activityId}</p>
+      <p>活動名稱:${data[i].activityName}</p>
+      <p>類型:${data[i].activityType}</p>
+      <p>報名截止日期:${data[i].activityDueTime}</p>
+      <p>活動開始日期:${data[i].activityStartTime}</p>
+      <p>活動結束日期${data[i].activityEndTime}</p>
+      <p>報名人數:${data[i].currentNumber}</p>
+      <p>活動介紹:${data[i].activityDetail}</p>
+      </div>`);
+    });
+  });
+  // 詳情按鈕  燈箱部分結束
+  // 修改按鈕部分開始
+  $(".tbodyBtn").each(function (i) {
+    var tbodyBtnThis = this;
+    $(this).on("click", ".editBtn", function () {
+      window.location.href =
+        "/active/activeBackEdit.html?activityId=" +
+        $(tbodyBtnThis).siblings(".activityId").text();
+    });
+  });
+  // 修改按鈕部分結束
+  // 上/下架按鈕 開始
+  $(".tbodyBtn").each(function (i) {
+    var tbodyBtnThis = this;
+    $(this).on("click", ".dropBtn", function () {
+      id = $(tbodyBtnThis).siblings(".activityId").text();
+      console.log(id);
+
+      let statusValue;
+      if ($(tbodyBtnThis).siblings(".status").text() == "已下架") {
+        statusValue = 1;
+      } else if ($(tbodyBtnThis).siblings(".status").text() == "上架中") {
+        statusValue = 0;
+      } else {
+        statusValue = 2;
+      }
+      console.log(statusValue);
+      let data = JSON.stringify({
+        activityId: id,
+        activityStatus: statusValue,
+      });
+      updateStatus(data);
+    });
+  });
+  // 上/下架按鈕 結束
+  // 刪除按鈕部分開始
+  $(".tbodyBtn").each(function (i) {
+    var tbodyBtnThis = this;
+    $(this).on("click", ".deleteBtn", function () {
+      console.log(
+        "這個活動id" + $(tbodyBtnThis).siblings(".activityId").text()
+      );
+      if (confirm("請問要刪除嗎?")) {
+        deleteById($(tbodyBtnThis).siblings(".activityId").text());
+      }
+    });
+  });
+  // 刪除按鈕部分結束
+
+  // 分頁開始
   /*----產生data-th-----*/
   let $table = $(".activeBackTable");
   let $thRows = $table.find("thead th");
@@ -147,9 +178,63 @@ $(function () {
   });
   /*-----------*/
   goPage(1, 5); // 一開始先秀第一頁,以及每一頁最多兩筆資料
-});
+  // 分頁結束
+}
+//表格操作按鈕 結束
 
-// function區域 開始
+// 表格帶入 開始
+
+function tableData(data, i, status, dropBtnText) {
+  $("#activeTbody").append(
+    `<tr>
+<td class="activityId">${data[i].activityId}</td>
+<td class="activityType">${data[i].activityType}</td>
+<td class="activityName">${data[i].activityName}</td>
+<td class="teaId">${data[i].teaId}</td>
+<!-- <td>${data[i].activityStartTime}</td> -->
+<!-- <td>${data[i].activityEndTime}</td> -->
+<td class="currentNumber">${data[i].currentNumber}</td>
+<td class="status">${status}</td>
+<td class="tbodyBtn">
+<div class="btnList">
+<a class="introduceBtn">詳情</a>
+<a class="editBtn">修改</a>
+<a class="dropBtn">${dropBtnText}</a>
+<a class="deleteBtn">刪除</a>
+</div>
+</td>
+</tr>
+`
+  );
+}
+
+// 表格帶入 結束
+// 更新請求 開始
+function updateStatus(data) {
+  $.ajax({
+    url: "/activeBackStatusEdit", // 資料請求的網址
+    type: "PUT", // GET | POST | PUT | DELETE | PATCH
+    data: data, // 將物件資料(不用雙引號) 傳送到指定的 url
+    dataType: "text", // 預期會接收到回傳資料的格式： json | xml | html
+    contentType: "application/json; charset=utf-8",
+    success: function (response) {
+      // 请求成功后执行的代码
+      console.log(response); // 在控制台打印返回的数据
+      if (response == "上架成功") {
+        alert("上架成功");
+        window.location.href = "/active/activeBack.html";
+      } else if (response == "下架成功") {
+        alert("下架成功");
+        window.location.href = "/active/activeBack.html";
+      } else {
+        alert("無法操作");
+        window.location.href = "/active/activeBack.html";
+      }
+    },
+  });
+}
+// 更新請求 結束
+
 // 刪除請求 開始
 function deleteById(id) {
   $.ajax({
