@@ -11,20 +11,9 @@ import java.util.List;
 
 
 public interface ActiveService {
-
-    List<Active> recommendActivities(String activityType);
     String insert(Active active);
-
     String deleteById(Integer id);
-
     String update(Active active);
-
-    String updateStatus(Active active, Integer status);
-
-    Active selectBackById(Integer id);
-
     Active selectById(Integer id);
-
-
-    List<Active> selectBackAll(String key,String type,Integer id);
+    List<Active>  selectAll();
 }

@@ -5,55 +5,6 @@ var marker;
 var lng = 121.540678;
 var lat = 25.052128;
 
-// 轉換時間格式 開始
-// 接收
-function inputFormattedDate(dateString) {
-  // 將時間字串轉換成 Date 物件
-  var date = new Date(dateString);
-
-  // 取得年、月、日、時、分
-  var year = date.getFullYear();
-  var month = ("0" + (date.getMonth() + 1)).slice(-2);
-  var day = ("0" + date.getDate()).slice(-2);
-  var hours = ("0" + date.getHours()).slice(-2);
-  var minutes = ("0" + date.getMinutes()).slice(-2);
-
-  // 組合成指定格式的時間字串
-  var formattedDate =
-    year + "-" + month + "-" + day + "T" + hours + ":" + minutes;
-
-  return formattedDate;
-}
-// 傳輸
-function convertToFormattedDate(dateString) {
-  var date = new Date(dateString);
-
-  // 取得年、月、日、時、分、秒
-  var year = date.getFullYear();
-  var month = ("0" + (date.getMonth() + 1)).slice(-2);
-  var day = ("0" + date.getDate()).slice(-2);
-  var hours = ("0" + date.getHours()).slice(-2);
-  var minutes = ("0" + date.getMinutes()).slice(-2);
-  var seconds = ("0" + date.getSeconds()).slice(-2);
-
-  // 組合成指定格式的時間字串
-  var formattedDate =
-    year +
-    "-" +
-    month +
-    "-" +
-    day +
-    " " +
-    hours +
-    ":" +
-    minutes +
-    ":" +
-    seconds;
-
-  return formattedDate;
-}
-// 轉換時間格式 結束
-
 // 不留下base64部分
 function extractBase64String(dataURL) {
   var prefix = "data:image/";
@@ -272,7 +223,7 @@ $(document).ready(function () {
     } else {
       const data = JSON.stringify({
         activityName: $("#activityName").val(),
-        // teaId: 8,
+        teaId: 8,
         activityType: $("#activityType").val(),
         currentNumber: 0,
         maxNumber: $("#maxNumber").val(),
