@@ -31,10 +31,7 @@ public class ActiveController {
     public ResponseEntity<?> selectByIdActive(@RequestParam Integer activityId) {
         //  System.out.println(activityId);
         Active active = activeService.selectById(activityId);
-<<<<<<< HEAD
         //  判斷狀態
-=======
->>>>>>> origin/Michael
         if (active != null) {
             return ResponseEntity.ok(active);
         } else {
@@ -44,7 +41,6 @@ public class ActiveController {
     }
 
     //    推薦活動
-<<<<<<< HEAD
     @GetMapping("/activeRecommend")
     public List<Active> recommendActivities(@RequestParam(required = false) String activityType) {
         System.out.println(activityType);
@@ -52,10 +48,6 @@ public class ActiveController {
 
         return activeService.recommendActivities(activityType);
     }
-=======
-
-//    public
->>>>>>> origin/Michael
     //    前臺操作 結束
 
     //    後臺操作 開始
@@ -81,11 +73,7 @@ public class ActiveController {
     @GetMapping("/activeBackEdit")
     public Active selectByIdActiveBack(@RequestParam Integer activityId) {
         //  System.out.println(activityId);
-<<<<<<< HEAD
         Active activeEdit = activeService.selectBackById(activityId);
-=======
-        Active activeEdit = activeService.selectById(activityId);
->>>>>>> origin/Michael
         return activeEdit;
     }
 

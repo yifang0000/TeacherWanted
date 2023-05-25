@@ -19,7 +19,6 @@ public class ActiveServiceImpl implements ActiveService {
     public List<Active> recommendActivities(String activityType){
         return activeDao.recommendActivities(activityType);
     };
-<<<<<<< HEAD
 
     @Override
     public Active selectById(Integer id) {
@@ -35,14 +34,6 @@ public class ActiveServiceImpl implements ActiveService {
     //    後臺操作 開始
 
     @Override
-=======
-
-    //    前臺操作 結束
-
-    //    後臺操作 開始
-
-    @Override
->>>>>>> origin/Michael
     @Transactional
     public String insert(Active active) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -109,11 +100,7 @@ public class ActiveServiceImpl implements ActiveService {
     }
 
     @Override
-<<<<<<< HEAD
     public Active selectBackById(Integer id) {
-=======
-    public Active selectById(Integer id) {
->>>>>>> origin/Michael
         return activeDao.selectById(id);
     }
 

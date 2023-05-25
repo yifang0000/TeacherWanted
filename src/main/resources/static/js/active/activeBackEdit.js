@@ -46,15 +46,9 @@ $(function () {
       // 原本上下架狀態
       activityStatus = response.activityStatus;
       // 原本時間設定
-<<<<<<< HEAD
       $("#activeStartTime").val(inputFormattedDate(response.activityStartTime));
       $("#activeStopTime").val(inputFormattedDate(response.activityEndTime));
       $("#stopTime").val(inputFormattedDate(response.activityDueTime));
-=======
-      $("#activeStartTime").val(response.activityStartTime);
-      $("#activeStopTime").val(response.activityEndTime);
-      $("#stopTime").val(response.activityDueTime);
->>>>>>> origin/Michael
       // $("#activeStartTime").val(
       //   convertToDateTimeLocal(response.activityStartTime)
       // );
@@ -120,7 +114,6 @@ $(function () {
 //  $("#activeStopTime").val(),
 //  $("#stopTime").val(),
 
-<<<<<<< HEAD
 // 轉換時間格式 開始
 // 接收
 function inputFormattedDate(dateString) {
@@ -141,9 +134,6 @@ function inputFormattedDate(dateString) {
   return formattedDate;
 }
 // 傳輸
-=======
-// 轉換時間格式
->>>>>>> origin/Michael
 function convertToFormattedDate(dateString) {
   var date = new Date(dateString);
 
@@ -171,10 +161,7 @@ function convertToFormattedDate(dateString) {
 
   return formattedDate;
 }
-<<<<<<< HEAD
 // 轉換時間格式 結束
-=======
->>>>>>> origin/Michael
 
 // 圖片格式相關 開始
 function extractBase64String(dataURL) {
@@ -424,17 +411,10 @@ $(document).ready(function () {
         activityLocation: $("#address-input").val(),
         activityLng: lng,
         activityLat: lat,
-<<<<<<< HEAD
         activityStartTime: $("#activeStartTime").val(),
         activityEndTime: $("#activeStopTime").val(),
         activityDueTime: $("#stopTime").val(),
         activityStatus: activityStatus,
-=======
-        activityStartTime: convertToFormattedDate($("#activeStartTime").val()),
-        activityEndTime: convertToFormattedDate($("#activeStopTime").val()),
-        activityDueTime: convertToFormattedDate($("#stopTime").val()),
-        activityStatus: 0,
->>>>>>> origin/Michael
         // activityPhoto: $("#preview").children("img").attr("src"),
 
         activityPhotoType: extractBase64String(

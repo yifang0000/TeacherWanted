@@ -21,11 +21,8 @@ public interface ActiveService {
 
     String updateStatus(Active active, Integer status);
 
-<<<<<<< HEAD
     Active selectBackById(Integer id);
 
-=======
->>>>>>> origin/Michael
     Active selectById(Integer id);
 
 

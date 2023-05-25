@@ -5,7 +5,6 @@ var marker;
 var lng = 121.540678;
 var lat = 25.052128;
 
-<<<<<<< HEAD
 // 轉換時間格式 開始
 // 接收
 function inputFormattedDate(dateString) {
@@ -26,9 +25,6 @@ function inputFormattedDate(dateString) {
   return formattedDate;
 }
 // 傳輸
-=======
-// 轉換時間格式
->>>>>>> origin/Michael
 function convertToFormattedDate(dateString) {
   var date = new Date(dateString);
 
@@ -56,10 +52,7 @@ function convertToFormattedDate(dateString) {
 
   return formattedDate;
 }
-<<<<<<< HEAD
 // 轉換時間格式 結束
-=======
->>>>>>> origin/Michael
 
 // 不留下base64部分
 function extractBase64String(dataURL) {
@@ -288,9 +281,9 @@ $(document).ready(function () {
         activityLocation: $("#address-input").val(),
         activityLng: lng,
         activityLat: lat,
-        activityStartTime: convertToFormattedDate($("#activeStartTime").val()),
-        activityEndTime: convertToFormattedDate($("#activeStopTime").val()),
-        activityDueTime: convertToFormattedDate($("#stopTime").val()),
+        activityStartTime: $("#activeStartTime").val(),
+        activityEndTime: $("#activeStopTime").val(),
+        activityDueTime: $("#stopTime").val(),
         activityStatus: 0,
         activityPhotoType: extractBase64String(
           $("#preview").children("img").attr("src")

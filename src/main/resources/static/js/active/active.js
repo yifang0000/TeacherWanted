@@ -12,15 +12,11 @@ const app = Vue.createApp({
       activityStartTime: "",
       activityEndTime: "",
       activityPrice: "",
-<<<<<<< HEAD
       activeRecommendList: [],
-=======
->>>>>>> origin/Michael
     };
   },
   mounted() {
     // 呼叫預先執行的函式
-<<<<<<< HEAD
     axiosGetActive()
       .then((data) => {
         console.log(data);
@@ -85,34 +81,11 @@ const app = Vue.createApp({
   },
 });
 
-=======
-    axiosGetActive().then((data) => {
-      console.log(data);
-      this.activityDetail = data.activityDetail;
-      this.activityLocation = data.activityLocation;
-      this.activityName = data.activityName;
-      this.activityStartTime = data.activityStartTime;
-      this.activityEndTime = data.activityEndTime;
-      this.activityPrice = data.activityPrice;
-      let lng = data.activityLng;
-      let lat = data.activityLat;
-      leafletMap(lat, lng);
-
-      this.imgSrc =
-        "data:image/" +
-        data.activityPhotoType +
-        ";base64," +
-        data.activityPhoto;
-    });
-  },
-});
->>>>>>> origin/Michael
 window.addEventListener("load", () => {
   app.mount("#app");
 });
 
 function axiosGetActive() {
-<<<<<<< HEAD
   const urlParams = new URLSearchParams(window.location.search);
   const activityId = urlParams.get("activityId");
   console.log("我在axiosGetActive裡面啦智障AI");
@@ -139,11 +112,6 @@ function axiosGetActiveRecommend(activityType) {
         activityType: activityType,
       },
     })
-=======
-  console.log("我在axiosGetActive裡面啦智障AI");
-  return axios
-    .get("/active?activityId=33")
->>>>>>> origin/Michael
     .then((response) => {
       return response.data;
     })
@@ -168,7 +136,6 @@ function leafletMap(lat, lng) {
   marker.setLatLng([lat, lng]);
 }
 // 地圖 結束
-<<<<<<< HEAD
 
 // 推薦課程 時間轉換 開始
 
@@ -195,5 +162,3 @@ function convertToFormattedDate(dateString) {
 }
 
 // 推薦課程 時間轉換 結束
-=======
->>>>>>> origin/Michael
