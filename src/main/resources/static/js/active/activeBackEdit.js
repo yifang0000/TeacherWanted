@@ -8,11 +8,12 @@ var marker;
 var lng = 121.540678;
 var lat = 25.052128;
 var url = new URL(window.location.href);
+var activityStatus;
 // 获取 URL 参数
 var params = new URLSearchParams(url.search);
 // 获取 activityId 的值
 var activityId = params.get("activityId");
-var activityId;
+var teaId;
 
 // 預設值
 
@@ -32,6 +33,8 @@ $(function () {
     },
     success: function (response) {
       console.log(response);
+      // 教師ID
+      teaId = response.teaId;
       // 原本活動名稱
       $("#activityName").val(response.activityName);
       // 原本活動類型
@@ -40,14 +43,25 @@ $(function () {
       $("#maxNumber").val(response.maxNumber);
       // 原本活動價格
       $("#activityPrice").val(response.activityPrice);
+      // 原本上下架狀態
+      activityStatus = response.activityStatus;
       // 原本時間設定
-      $("#activeStartTime").val(
-        convertToDateTimeLocal(response.activityStartTime)
-      );
-      $("#activeStopTime").val(
-        convertToDateTimeLocal(response.activityEndTime)
-      );
-      $("#stopTime").val(convertToDateTimeLocal(response.activityDueTime));
+<<<<<<< HEAD
+      $("#activeStartTime").val(inputFormattedDate(response.activityStartTime));
+      $("#activeStopTime").val(inputFormattedDate(response.activityEndTime));
+      $("#stopTime").val(inputFormattedDate(response.activityDueTime));
+=======
+      $("#activeStartTime").val(response.activityStartTime);
+      $("#activeStopTime").val(response.activityEndTime);
+      $("#stopTime").val(response.activityDueTime);
+>>>>>>> origin/Michael
+      // $("#activeStartTime").val(
+      //   convertToDateTimeLocal(response.activityStartTime)
+      // );
+      // $("#activeStopTime").val(
+      //   convertToDateTimeLocal(response.activityEndTime)
+      // );
+      // $("#stopTime").val(convertToDateTimeLocal(response.activityDueTime));
 
       // 原本上稿器
       editor.setData(response.activityDetail);
@@ -105,6 +119,62 @@ $(function () {
 //  $("#activeStartTime").val(),
 //  $("#activeStopTime").val(),
 //  $("#stopTime").val(),
+
+<<<<<<< HEAD
+// 轉換時間格式 開始
+// 接收
+function inputFormattedDate(dateString) {
+  // 將時間字串轉換成 Date 物件
+  var date = new Date(dateString);
+
+  // 取得年、月、日、時、分
+  var year = date.getFullYear();
+  var month = ("0" + (date.getMonth() + 1)).slice(-2);
+  var day = ("0" + date.getDate()).slice(-2);
+  var hours = ("0" + date.getHours()).slice(-2);
+  var minutes = ("0" + date.getMinutes()).slice(-2);
+
+  // 組合成指定格式的時間字串
+  var formattedDate =
+    year + "-" + month + "-" + day + "T" + hours + ":" + minutes;
+
+  return formattedDate;
+}
+// 傳輸
+=======
+// 轉換時間格式
+>>>>>>> origin/Michael
+function convertToFormattedDate(dateString) {
+  var date = new Date(dateString);
+
+  // 取得年、月、日、時、分、秒
+  var year = date.getFullYear();
+  var month = ("0" + (date.getMonth() + 1)).slice(-2);
+  var day = ("0" + date.getDate()).slice(-2);
+  var hours = ("0" + date.getHours()).slice(-2);
+  var minutes = ("0" + date.getMinutes()).slice(-2);
+  var seconds = ("0" + date.getSeconds()).slice(-2);
+
+  // 組合成指定格式的時間字串
+  var formattedDate =
+    year +
+    "-" +
+    month +
+    "-" +
+    day +
+    " " +
+    hours +
+    ":" +
+    minutes +
+    ":" +
+    seconds;
+
+  return formattedDate;
+}
+<<<<<<< HEAD
+// 轉換時間格式 結束
+=======
+>>>>>>> origin/Michael
 
 // 圖片格式相關 開始
 function extractBase64String(dataURL) {
@@ -345,7 +415,7 @@ $(document).ready(function () {
       const data = JSON.stringify({
         activityId: activityId,
         activityName: $("#activityName").val(),
-        teaId: 8,
+        teaId: teaId,
         activityType: $("#activityType").val(),
         currentNumber: 0,
         maxNumber: $("#maxNumber").val(),
@@ -354,10 +424,17 @@ $(document).ready(function () {
         activityLocation: $("#address-input").val(),
         activityLng: lng,
         activityLat: lat,
+<<<<<<< HEAD
         activityStartTime: $("#activeStartTime").val(),
         activityEndTime: $("#activeStopTime").val(),
         activityDueTime: $("#stopTime").val(),
+        activityStatus: activityStatus,
+=======
+        activityStartTime: convertToFormattedDate($("#activeStartTime").val()),
+        activityEndTime: convertToFormattedDate($("#activeStopTime").val()),
+        activityDueTime: convertToFormattedDate($("#stopTime").val()),
         activityStatus: 0,
+>>>>>>> origin/Michael
         // activityPhoto: $("#preview").children("img").attr("src"),
 
         activityPhotoType: extractBase64String(

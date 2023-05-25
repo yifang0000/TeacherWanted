@@ -51,6 +51,12 @@
   -moz-box-shadow: 0 0 15px rgba(146, 146, 146, 0.2);
   box-shadow: 0 0 15px rgba(146, 146, 146, 0.2);
 }
+
+#app {
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+  padding-top: 15px;
+}
 .activeBtn {
   padding: 5px 20px;
   box-sizing: border-box;
@@ -123,6 +129,7 @@
 }
 .moreLessionIntroduce {
   display: block;
+  border-radius: 4px 4px 0px 0px;
 }
 .moreLessionPrice {
   width: 50%;
@@ -159,3 +166,25 @@ tfoot {
   background-color: #3c6a36;
   color: #fff;
 }
+
+td {
+  width: auto;
+}
+<<<<<<< HEAD
+.recommendActivitiesNameAndLocation {
+  width: 80%;
+  font-size: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activeRecommendImg {
+  max-height: 100px;
+  background-color: #d5dfc4;
+}
+
+.activeRecommendImg img {
+  max-height: 100px;
+}
+=======
+>>>>>>> origin/Michael
