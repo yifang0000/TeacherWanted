@@ -1,6 +1,7 @@
 package com.example.teacherwanted.administrator.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
@@ -36,4 +37,12 @@ public class Administrator {
     private Integer permissionId;
     @Column(name="admin_status")
     private Integer adminStatus;
+
+    @Column(name = "CREATED_DATE", insertable = false)
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
+    private Timestamp createdDate;
+
+    @Column(name = "LAST_UPDATED_DATE")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
+    private Timestamp lastUpdatedDate;
 }

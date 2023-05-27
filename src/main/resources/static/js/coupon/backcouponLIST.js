@@ -12,7 +12,7 @@ $(document).ready(function(){
           // "serverSide": false, 
 
           ajax: {
-            url: "http://localhost:8080/tw0/coupons",
+            url: "/coupons",
             dataSrc: "",
           },
           columns: [
@@ -133,7 +133,21 @@ $(document).ready(function(){
             }
         },
         });
+  //TODO:加一個按鈕用時間區分上下架
 
+
+  // // 篩選出現在時間以後的資料
+  // var table = $('#myTable').DataTable();
+  // var now = new Date();
+  // table.rows().every(function() {
+  //   var activateTime = this.data().activateTime;
+  //   if (activateTime) {
+  //     activateTime = new Date(activateTime);
+  //     if (activateTime <= now) {
+  //       this.remove(); // 移除不符合條件的資料
+  //     }
+  //   }
+  // });
 
 
         
