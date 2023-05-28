@@ -14,6 +14,10 @@ $(document).ready(function(){
           ajax: {
             url: "/coupons",
             dataSrc: "",
+            error: function(xhr, status, error) {
+              var errorMessage = "從伺服器獲取資料時發生錯誤：" + error; // 自訂錯誤訊息
+              alert(errorMessage);
+            }
           },
           columns: [
             { data: "couponId" },

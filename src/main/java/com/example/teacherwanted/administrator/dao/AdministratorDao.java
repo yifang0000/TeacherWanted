@@ -16,8 +16,7 @@ public interface AdministratorDao {
     public List<Administrator> findAll();
     //    查詢單個使用者
     public Administrator selectByAdminId(Integer adminId);
-
-//    登入=>儲存session =>js hidden
+    public Administrator selectByAccount(String adminAccount);
 
 //    登出
 

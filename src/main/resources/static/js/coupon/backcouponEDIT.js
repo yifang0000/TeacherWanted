@@ -1,5 +1,6 @@
-      // 假設你的後端網址是 http://localhost:8080/backcouponEDIT
-      var url = "http://localhost:8080/backcouponEDIT";
+
+// =====================================================
+
 
       // 從網址中獲取couponId的值
       var urlParams = new URLSearchParams(window.location.search);

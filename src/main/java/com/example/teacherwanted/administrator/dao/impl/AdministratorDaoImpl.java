@@ -8,7 +8,6 @@ import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.PreparedStatement;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -47,8 +46,7 @@ public class AdministratorDaoImpl implements AdministratorDao {
                 .setParameter("adminStatus", 1)
                 .setParameter("createdDate", new Date())
                 .setParameter("lastUpdatedDate", new Date());
-
-        return query.executeUpdate();
+        return  query.executeUpdate();
         //        entityManager.persist(administrator);
 //        return 1;
     }
@@ -71,6 +69,22 @@ public class AdministratorDaoImpl implements AdministratorDao {
     public Administrator selectByAdminId(Integer adminId) {
         return entityManager.find(Administrator.class, adminId);
     }
+
+    @Override
+    public Administrator selectByAccount(String adminAccount) {
+        final String sql = "SELECT * FROM ADMINISTRATOR WHERE admin_account = :adminAccount";
+        List<Administrator> resultList = entityManager.createNativeQuery(sql, Administrator.class)
+                .setParameter("adminAccount", adminAccount)
+                .getResultList();
+        if(resultList.size() >0) {
+            System.out.println(resultList.get(0));
+            return resultList.get(0);
+        }else{
+            return null;
+        }
+
+    }
+
 
     @Override
     public List<Administrator> findAll() {

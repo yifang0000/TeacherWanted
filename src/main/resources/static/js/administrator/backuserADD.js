@@ -55,8 +55,12 @@ $(document).ready(function(){
         success: function(response) {
           alert('新增成功！');
         },
-        error: function(jqXHR, textStatus, errorThrown) {
-          alert('新增失敗');
+        error: function(xhr, textStatus, errorThrown) {
+       if (xhr.status === 502) {
+            alert("該帳號：「"+formData.adminAccount+"」，\n已經存在，請勿重複新增。");
+        } else {
+            alert("發生錯誤");
+        }
         }
       });
 })

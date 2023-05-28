@@ -17,7 +17,7 @@ public interface AdministratorService {
     public Administrator selectByAdminId(Integer adminId);
 
 //    登入=>儲存session =>js hidden
-
+    public Administrator login(Administrator administrator);
 //    登出
 
 }
