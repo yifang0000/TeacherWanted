@@ -10,12 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Repository
+@Transactional
 public class CouponDaoImpl implements CouponDao {
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public int insert(Coupon coupon) {
         entityManager.persist(coupon);
 //        todo:觀察是否為新建的id
@@ -25,7 +25,6 @@ public class CouponDaoImpl implements CouponDao {
     }
 
     @Override
-    @Transactional
     public int deleteByCouponId(Integer couponId) {
         Coupon coupon = entityManager.find(Coupon.class, couponId);
         entityManager.remove(coupon);
@@ -36,14 +35,12 @@ public class CouponDaoImpl implements CouponDao {
     public int updateBycouponId(Coupon coupon) {
         entityManager.merge(coupon);
         return 1;
-
     }
 
 
 
 //  新增
     @Override
-
     public Coupon selectBycouponId(Integer couponId) {
         Coupon coupon = entityManager.find(Coupon.class, couponId);
         if(coupon!=null) {

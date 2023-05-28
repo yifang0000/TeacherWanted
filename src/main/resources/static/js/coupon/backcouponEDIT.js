@@ -7,7 +7,7 @@
 
 $.ajax({
   type: 'GET',
-  url: 'http://localhost:8080/tw0/backcouponEDIT?couponId='+couponId,
+  url: '/coupons/'+couponId,
   contentType: 'application/json',
   success: function(data) {
     console.log(data)
@@ -155,8 +155,8 @@ $(document).ready(function(){
     
 
           $.ajax({
-            type: 'POST',
-            url: 'backcouponUPDATE',
+            type: 'PUT',
+            url: '/coupons/'+couponId,
             data: JSON.stringify(formData),
             contentType: 'application/json',
             success: function(response) {

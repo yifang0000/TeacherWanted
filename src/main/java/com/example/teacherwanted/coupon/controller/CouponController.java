@@ -14,19 +14,14 @@ public class CouponController {
 
     @Autowired
     private CouponService couponService;
-//    查詢全部 ok
+//    查詢全部：[restful設計]無論查詢列表有無資料，都需要回傳200給前端
     @GetMapping("/coupons")
     public ResponseEntity<List<Coupon>> findAll(){
         List<Coupon> couponList = couponService.findAll();
-
-        if(!couponList.isEmpty()){
             return ResponseEntity.status(HttpStatus.OK).body(couponList);
-        }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
     }
 
-//    查詢單個 ok
+//    查詢單個：[restful設計]：若該資料查詢不到，須回傳404給前端
     @GetMapping("/coupons/{couponId}")
     public ResponseEntity<Coupon> selectBycouponId(@PathVariable Integer couponId){
         Coupon coupon = couponService.selectBycouponId(couponId);
