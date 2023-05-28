@@ -12,7 +12,7 @@ $(document).ready(function(){
           // "serverSide": false, 
 
           ajax: {
-            url: "http://localhost:8080/tw0/administrators",
+            url: "/administrators",
             dataSrc: "",
           },
           columns: [
@@ -115,13 +115,6 @@ $(document).ready(function(){
         });
 
 
-        //         // 綁定 click 事件
-        // $("#adminTable tbody").on("click", "button", function () {
-        //   // 取得所在列的資料
-        //   var data = $("#adminTable").DataTable().row($(this).parents("tr")).data();
-        //   console.log(data);
-        //   // 在這裡加入對該列資料的修改功能
-        // });
 
         // ================表格內的按鈕綁定點擊事件========================= //
         $("#adminTable").on("click", "#editbtn", function () {

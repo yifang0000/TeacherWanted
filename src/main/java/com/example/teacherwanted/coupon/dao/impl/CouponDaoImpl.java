@@ -57,11 +57,8 @@ public class CouponDaoImpl implements CouponDao {
         List<Coupon> resultList = entityManager
                 .createQuery(hql, Coupon.class)
                 .getResultList();
-//        System.out.println(resultList);
+        System.out.println(resultList);
         return resultList;
     }
-
-
-
 }
 
