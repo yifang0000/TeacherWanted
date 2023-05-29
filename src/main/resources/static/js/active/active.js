@@ -5,6 +5,7 @@ var data;
 const app = Vue.createApp({
   data() {
     return {
+      activityId: "",
       activityDetail: "",
       imgSrc: "",
       activityLocation: "",
@@ -13,6 +14,7 @@ const app = Vue.createApp({
       activityEndTime: "",
       activityPrice: "",
       activeRecommendList: [],
+      activeRecentlyList: [],
     };
   },
   mounted() {
@@ -20,6 +22,7 @@ const app = Vue.createApp({
     axiosGetActive()
       .then((data) => {
         console.log(data);
+        this.activityId = data.activityId;
         this.activityDetail = data.activityDetail;
         this.activityLocation = data.activityLocation;
         this.activityName = data.activityName;
@@ -47,8 +50,16 @@ const app = Vue.createApp({
         this.activeRecommendList = data;
         console.log("------>推薦活動:" + data);
         for (i in data) {
-          console.log("推薦活動:" + data[i]);
+          console.log("推薦活動:" + i);
         }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    axiosGetActiveRecommend()
+      .then((data) => {
+        this.activeRecentlyList = data;
+        console.log("我有拿到資料ㄟ");
       })
       .catch((error) => {
         console.error(error);
@@ -78,6 +89,23 @@ const app = Vue.createApp({
       return formattedDate;
     },
     // 推薦課程 時間轉換 Vue方法裡 結束
+    // 活動訂單 確認是否有參加活動過 開始
+    activityParticipation(activityId) {
+      return axios
+        .get("/activeOrderDetail", {
+          params: { activityId: activityId },
+        })
+        .then((res) => {
+          console.log(res.data);
+          window.location.href =
+            "/active/activeOrder.html?activityId=" + activityId;
+        })
+        .catch((err) => {
+          console.error(err.response.data);
+          alert(err.response.data);
+        });
+    },
+    // 活動訂單 確認是否有參加活動過 結束
   },
 });
 
@@ -88,7 +116,6 @@ window.addEventListener("load", () => {
 function axiosGetActive() {
   const urlParams = new URLSearchParams(window.location.search);
   const activityId = urlParams.get("activityId");
-  console.log("我在axiosGetActive裡面啦智障AI");
   return axios
     .get("/active", {
       params: {
@@ -100,7 +127,11 @@ function axiosGetActive() {
     })
 
     .catch((error) => {
-      console.error(error);
+      console.error(error.response.data);
+      if (error.response.data == "查無此活動") {
+        alert("查無此活動");
+        window.location.href = "/active/activeIndex.html";
+      }
     });
 }
 

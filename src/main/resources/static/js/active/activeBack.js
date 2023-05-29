@@ -132,6 +132,16 @@ function tableAction(data) {
   // 上/下架按鈕 開始
   $(".tbodyBtn").each(function (i) {
     var tbodyBtnThis = this;
+    let dropBtnTextColor = $(this).find(".dropBtn").text();
+    console.log("上/下架按鈕文字:" + $(this).find(".dropBtn").text());
+    // 根據上下架狀態改變顏色 開始
+    if (dropBtnTextColor == "上架") {
+      $(this).find(".dropBtn").addClass("dropUpBtn");
+    } else if (dropBtnTextColor == "下架") {
+      $(this).find(".dropBtn").addClass("dropDownBtn");
+    }
+    // 根據上下架狀態改變顏色 結束
+    // 上/下架按鈕 點擊事件 開始
     $(this).on("click", ".dropBtn", function () {
       id = $(tbodyBtnThis).siblings(".activityId").text();
       console.log(id);
@@ -151,6 +161,7 @@ function tableAction(data) {
       });
       updateStatus(data);
     });
+    // 上/下架按鈕 點擊事件 結束
   });
   // 上/下架按鈕 結束
   // 刪除按鈕部分開始

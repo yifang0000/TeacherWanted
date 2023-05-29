@@ -19,6 +19,27 @@ public class ActiveDaoImpl implements ActiveDao {
 
     //    前臺操作 開始
     @Override
+    public List<Active> selectAllByKeyWorldAndType(String key, String activityType) {
+        String customQuery = "FROM Active WHERE activityName LIKE :keyword";
+
+        if (activityType != null) {
+            customQuery += " AND activityType = :type";
+        }
+
+        customQuery += " AND activityStatus = 1 ORDER BY activityId";
+
+        TypedQuery<Active> query = entityManager.createQuery(customQuery, Active.class)
+                .setParameter("keyword", key);
+
+        if (activityType != null) {
+            query.setParameter("type", activityType);
+        }
+
+        return query.getResultList();
+    }
+
+    //    推薦活動
+    @Override
     public List<Active> recommendActivities(String activityType) {
         String queryStr = "SELECT a FROM Active a " +
                 "WHERE a.activityStatus = 1 ";
@@ -75,16 +96,14 @@ public class ActiveDaoImpl implements ActiveDao {
         return entityManager.find(Active.class, id);
     }
 
-    public List<Active> selectBackAll(String key, String activityType, Integer teaId) {
-        if (key == null || key.isEmpty()) {
-            key = "%";
-        } else {
-            key = "%" + key + "%";
-        }
+    @Override
+    public List<Active> selectAll() {
+        return null;
+    }
 
-        if (activityType == null || activityType.isEmpty()) {
-            activityType = null; // 或根據需要設置為默認值
-        }
+
+
+    public List<Active> selectBackAll(String key, String activityType, Integer teaId) {
 
         String customQuery = "FROM Active WHERE activityName LIKE :keyword";
 

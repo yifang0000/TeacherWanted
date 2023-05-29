@@ -8,6 +8,12 @@ import java.util.List;
 
 public interface ActiveDao extends CoreDao<Active,Integer,String> {
 
-    List<Active> recommendActivities(String activityType);
+    //  前台所有活動
+    List<Active> selectBackAll(String key, String type,Integer id);
+    //  前台推薦活動
+    List<Active> recommendActivities(String type);
+    //  後臺更改狀態
     int updateStatus(Active active);
+
+    List<Active> selectAllByKeyWorldAndType(String key,String type );
 }

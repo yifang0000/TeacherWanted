@@ -45,9 +45,11 @@
     <!-- jquery套件 -->
     <script src="../jquery/jquery-3.6.4.min.js"></script>
     <!-- axios套件 -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+    <script src="../axios/axios.js"></script>
     <!-- vue3套件 -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+    <script src="../vue/vue-3.3.4.js"></script>
     <!-- js匯入 -->
     <script src="../js/base.js"></script>
     <script src="../js/active/active.js"></script>
@@ -162,7 +164,7 @@
       </div>
     </header>
 
-    <main class="TeacherWanted" style="">
+    <main class="TeacherWanted">
       <!-- vue掛載 -->
       <div id="app">
         <!-- 寫在這裡 -->
@@ -237,7 +239,7 @@
                     style="margin-top: 10px"
                   >
                     <!-- 收藏分享區塊 開始 -->
-                    <div class="flexWrap flexVerticalCenter">
+                    <div class="flexWrap flexVerticalCenter favoriteBlock">
                       <!-- 收藏icon + 文字 -->
                       <div
                         class="flexWrap flexAllCenter borderShadowLight activeBtn"
@@ -269,6 +271,7 @@
                         href="#"
                         class="flexWrap flexAllCenter activeBtn activeBtnShare"
                         style="margin-left: 10px"
+                        @click="activityParticipation(activityId)"
                       >
                         立即參與
                       </a>
@@ -333,7 +336,11 @@
                             </div>
                           </div>
                           <div class="flexAllCenter" style="width: 100%">
-                            <a href="" class="activeBtn activeBtnShare">詳情</a>
+                            <a
+                              :href="'/active/active.html?activityId=' + activeRecommend.activityId"
+                              class="activeBtn activeBtnShare"
+                              >詳情</a
+                            >
                           </div>
                         </div>
                       </div>
@@ -386,93 +393,26 @@
                     近期活動
                   </h2>
                   <!-- 近期活動1 -->
-                  <div class="flexWrap">
+                  <div
+                    v-for="activeRecently in activeRecentlyList"
+                    :key="activeRecentlyList.id"
+                    class="flexWrap activeRecently"
+                  >
                     <p style="font-size: 1rem; width: 100%">
-                      2023.05.06(六)20:30 至 2023.05.13(六)20:30
+                      {{convertToFormattedDate(activeRecently.activityStartTime)}}
+                      至
+                      {{convertToFormattedDate(activeRecently.activityEndTime)}}
                     </p>
-                    <div class="flexHorizontalCenter col_30_to_15">
-                      <img
-                        src="../img/active/nowActivitys.png"
-                        style="width: 100%"
-                        alt=""
-                      />
-                    </div>
-                    <div class="col_70_to_85">
-                      <p style="font-size: 1.5rem">浪漫實戰教學</p>
-                      <div
-                        style="
-                          width: 100%;
-                          display: flex;
-                          justify-content: flex-end;
-                        "
+
+                    <div class="activeRecentlyBlock">
+                      <p class="activeRecentlyName">
+                        {{activeRecently.activityName}}
+                      </p>
+                      <a
+                        class="activeBtn activeBtnShare flexAllCenter activeRecentlyBtn"
+                        :href="'/active/active.html?activityId=' + activeRecently.activityId"
+                        >詳情</a
                       >
-                        <a
-                          class="activeBtn activeBtnShare"
-                          style="padding: 2px 5px; font-size: 1rem"
-                          href=""
-                          >詳情</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <!-- 近期活動2 -->
-                  <div class="flexWrap">
-                    <p style="font-size: 1rem; width: 100%">
-                      2023.05.06(六)20:30 至 2023.05.13(六)20:30
-                    </p>
-                    <div class="flexHorizontalCenter col_30_to_15">
-                      <img
-                        src="../img/active/nowActivitys.png"
-                        style="width: 100%"
-                        alt=""
-                      />
-                    </div>
-                    <div class="col_70_to_85">
-                      <p style="font-size: 1.5rem">浪漫實戰教學</p>
-                      <div
-                        style="
-                          width: 100%;
-                          display: flex;
-                          justify-content: flex-end;
-                        "
-                      >
-                        <a
-                          class="activeBtn activeBtnShare"
-                          style="padding: 2px 5px; font-size: 1rem"
-                          href=""
-                          >詳情</a
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <!-- 近期活動3 -->
-                  <div class="flexWrap">
-                    <p style="font-size: 1rem; width: 100%">
-                      2023.05.06(六)20:30 至 2023.05.13(六)20:30
-                    </p>
-                    <div class="flexHorizontalCenter col_30_to_15">
-                      <img
-                        src="../img/active/nowActivitys.png"
-                        style="width: 100%"
-                        alt=""
-                      />
-                    </div>
-                    <div class="col_70_to_85">
-                      <p style="font-size: 1.5rem">浪漫實戰教學</p>
-                      <div
-                        style="
-                          width: 100%;
-                          display: flex;
-                          justify-content: flex-end;
-                        "
-                      >
-                        <a
-                          class="activeBtn activeBtnShare"
-                          style="padding: 2px 5px; font-size: 1rem"
-                          href=""
-                          >詳情</a
-                        >
-                      </div>
                     </div>
                   </div>
                 </div>

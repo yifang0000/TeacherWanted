@@ -1,111 +1,99 @@
-.activeTextAndMore {
-  padding: 30px 10px;
-}
-
-.moreActivity {
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-around;
-}
-.oneActivity {
-  width: 21%;
-  height: 400px;
-  background-color: white;
-
-  border-radius: 4px;
-}
-
 .containerActiveIndex {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  max-width: 1550px;
+  max-width: 1200px;
 }
 
-@media screen and (max-width: 1250px) {
-  .oneActivity {
-    width: 45%;
-    margin-top: 30px;
-  }
-  .oneActivity:nth-child(1) {
-    margin-top: 0px;
-  }
-  .oneActivity:nth-child(2) {
-    margin-top: 0px;
-  }
+#app {
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+  padding: 50px 0px;
 }
-
-@media screen and (max-width: 650px) {
-  .oneActivity {
-    width: 100%;
-    margin-top: 30px;
-  }
-  .oneActivity:nth-child(1) {
-    margin-top: 0px;
-  }
-  .oneActivity:nth-child(2) {
-    margin-top: 30px;
-  }
+.activeIndexBlock {
+  padding: 5px;
+  border-bottom: 3px solid black;
+  margin-bottom: 10px;
 }
-
-.activityImgs {
-  height: 200px;
-  background-color: #d5dfc4;
-  border-radius: 4px 4px 0px 0px;
+.activeIndexName {
+  width: 50%;
 }
-.activityImgs img {
-  border-radius: 4px 4px 0px 0px;
-  max-height: 200px;
-}
-
-.oneActivityMapAndPrice {
-  height: 20%;
-  display: flex;
-  align-items: flex-end;
-  width: 100%;
-}
-
-.oneActivityPrice {
-  width: 70%;
+.activeIndexIcon {
+  width: 50%;
   display: flex;
   justify-content: flex-end;
-  color: #3c6a36;
-  font-size: 1.5rem;
 }
-
-.activityIndexBtn {
-  border-radius: 30px;
+.activeIndexIcon a {
   background-color: #a4c964;
+  padding: 2px 5px;
+  border-radius: 4px;
   color: white;
-  box-sizing: border-box;
-  padding: 3px 20px;
+  cursor: pointer;
 }
 
-.activityIndexBtn:hover {
+.activeIndexIcon a:hover {
   background-color: #3c6a36;
-  color: white;
 }
-
-.oneActivityIntroduce {
-  height: calc(100% - 200px);
-  padding: 10px;
+.activeIndexOneBlock {
+  width: 50%;
+  height: 230px;
+  display: flex;
   box-sizing: border-box;
+  padding: 10px 20px;
 }
 
-.carousel .carousel-item {
-  height: 400px;
+.activeIndexOne {
+  border-bottom: 1px solid black;
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 15px;
+  width: 100%;
+  cursor: pointer;
 }
 
-.carousel-item img {
-  position: absolute;
-  object-fit: cover;
-  top: 0;
-  left: 50%;
-  max-height: 400px;
-  width: auto;
-  transform: translate(-50%, 0);
+.activeIndexOneImgBlock {
+  width: 50%;
+  height: 100%;
+  overflow: hidden; /* 隱藏多餘的內容 */
+  position: relative; /* 設定容器為相對定位 */
+  margin-bottom: 10px;
+}
+.activeIndexOneImgBlock img {
+  height: 100%; /* 高度填滿容器 */
+  width: 100%; /* 寬度填滿容器 */
+  object-fit: cover; /* 使用object-fit屬性調整圖片大小，以覆蓋容器 */
+  position: absolute; /* 設定圖片為絕對定位 */
+  top: 50%; /* 將圖片頂端置於容器的中央位置 */
+  left: 50%; /* 將圖片左側置於容器的中央位置 */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* 使用transform平移圖片，使其水平垂直居中 */
+  transition: transform 0.3s ease-in-out;
+}
+.activeIndexOne:hover img {
+  transform: translate(-50%, -50%) scale(1.2); /* 使用缩放转换来放大图像 */
+}
+.activeIndexOneIntroduceBlock {
+  width: 50%;
+  padding-left: 10px;
+}
+.activeIndexOneIntroduceBlock > * {
+  margin-bottom: 8px;
 }
 
-.carousel-indicators button {
-  color: black;
+.activeIndexOneIntroduceType {
+  border: 1px solid #3c6a36;
+  color: #3c6a36;
+  width: initial;
+  padding: 1px;
+}
+.activeIndexOneIntroduceType p {
+  width: initial;
+}
+
+@media screen and (max-width: 855px) {
+  .activeIndexOneBlock {
+    width: 100%;
+  }
 }

@@ -7,5 +7,7 @@ public interface CoreDao<P, I,S> {
     int deleteById(I id);
     int update(P pojo);
     P selectById(I id);
-    List<P> selectBackAll(S key,S type ,Integer id);
+    List<P> selectAll();
+
+    List<P> selectAllByKeyWorldAndType(S key,S type );
 }

@@ -265,3 +265,21 @@ a {
 #numberPage:focus {
   outline: none;
 } */
+
+.tbodyBtn .dropUpBtn {
+  background-color: rgb(235, 133, 97);
+  border: 1px rgb(235, 133, 97);
+}
+.tbodyBtn .dropUpBtn:hover {
+  background-color: rgb(209, 118, 85);
+  border: 1px rgb(209, 118, 85);
+}
+
+.tbodyBtn .dropDownBtn {
+  background-color: rgb(30, 112, 139);
+  border: 1px solid rgb(30, 112, 139);
+}
+.tbodyBtn .dropDownBtn:hover {
+  background-color: rgb(24, 89, 110);
+  border: 1px solid rgb(24, 89, 110);
+}

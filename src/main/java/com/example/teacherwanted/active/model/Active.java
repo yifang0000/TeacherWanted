@@ -33,7 +33,7 @@ public class Active {
     private Integer currentNumber;  // 目前人數
 
     @Column(name = "max_number")
-    private String maxNumber;  // 上限人數
+    private Integer maxNumber;  // 上限人數
 
     @Column(name = "activity_detail")
     private String activityDetail;  // 活動介紹

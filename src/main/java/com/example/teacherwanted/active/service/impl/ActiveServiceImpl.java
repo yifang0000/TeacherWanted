@@ -15,10 +15,29 @@ public class ActiveServiceImpl implements ActiveService {
     @Autowired
     private ActiveDao activeDao;
     //    前臺操作 開始
+//    @Override
+    public List<Active> selectAll(String key, String activityType) {
+        if (key == null || key.isEmpty()) {
+            key = "%";
+        } else {
+            key = "%" + key + "%";
+        }
+
+        if (activityType == null || activityType.isEmpty()) {
+            activityType = null; // 或根據需要設置為默認值
+        }
+
+        return activeDao.selectAllByKeyWorldAndType(key, activityType);
+    }
+
+
+    //    推薦活動
     @Override
     public List<Active> recommendActivities(String activityType){
         return activeDao.recommendActivities(activityType);
     };
+
+    //    單個活動
 
     @Override
     public Active selectById(Integer id) {

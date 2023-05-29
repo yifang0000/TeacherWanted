@@ -38,7 +38,9 @@ input {
   background-color: #a4c964;
   color: white;
   border: none;
+  cursor: pointer;
 }
 .sendoutBtn:hover {
+  color: white;
   background-color: #3c6a36;
 }

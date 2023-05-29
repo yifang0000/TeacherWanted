@@ -1,7 +1,11 @@
 package com.example.teacherwanted.active.controller;
 
 import com.example.teacherwanted.active.model.Active;
+import com.example.teacherwanted.active.model.ActiveOrderDetail;
+import com.example.teacherwanted.active.model.Member;
+import com.example.teacherwanted.active.service.ActiveOrderDetailService;
 import com.example.teacherwanted.active.service.ActiveService;
+import com.example.teacherwanted.active.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -23,9 +28,74 @@ public class ActiveController {
 
     @Autowired
     private ActiveService activeService;
+    @Autowired
+    private ActiveOrderDetailService activeOrderDetailService;
 
 
     //    前臺操作 開始
+    @Autowired
+    private MemberService memberService;
+
+
+    //    在訂單中拿到顧客資訊
+    @GetMapping("/memberInfo")
+    public ResponseEntity<?> selectByMemId(
+            @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+//        System.out.println(memId);
+        if (memId == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無登入狀態");
+        } else {
+            Member memberInfo = activeOrderDetailService.selectMemBerOrderInfo(memId);
+            return ResponseEntity.ok(memberInfo);
+
+        }
+
+    }
+
+    //    查詢訂單
+    @GetMapping("/activeOrderDetail")
+    public ResponseEntity<?> selectActiveOrderDetailByMemberId(
+            @RequestParam Integer activityId,
+            @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+        System.out.println(activityId);
+        if (memId == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無登入狀態");
+        } else {
+            if (activeOrderDetailService.queryActiveOrderHistory(activityId, memId)) {
+                return ResponseEntity.ok("未參加此活動");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("已參加此活動");
+            }
+        }
+
+
+    }
+
+    //    送出訂單
+    @PostMapping("/activeOrderDetail")
+    public ResponseEntity<?> insertActiveOrderDetail(@RequestBody(required = false) ActiveOrderDetail activeOrderDetail,
+                                                     @SessionAttribute(value = "MemberId",
+                                                             required = false) Integer memId) {
+        Integer activityIdOrder = activeOrderDetail.getActivityId();
+        //        查找是否已經報名和沒有超過人數
+        if (activeOrderDetailService.queryActiveOrderHistory(activityIdOrder, memId) &&
+                activeOrderDetailService.insert(activeOrderDetail)) {
+            return ResponseEntity.ok("報名成功");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("已參加此活動");
+        }
+    }
+
+    //    所有活動
+    @GetMapping("/activeIndex")
+    public List<Active> selectAllActive(@RequestParam(required = false) String searchKeyword,
+                                        @RequestParam(required = false) String activityType) {
+
+
+        List<Active> activeList = activeService.selectAll(searchKeyword, activityType);
+        return activeList;
+    }
+
     //    單個活動
     @GetMapping("/active")
     public ResponseEntity<?> selectByIdActive(@RequestParam Integer activityId) {
@@ -53,6 +123,7 @@ public class ActiveController {
     //    後臺操作 開始
 
 
+    //    查全部活動，包含老師比對跟類別以及關鍵字
     @GetMapping("/activeBack")
     public List<Active> selectAllActiveBack(@RequestParam(required = false) String searchKeyword,
                                             @RequestParam(required = false) String activityType,
@@ -63,6 +134,7 @@ public class ActiveController {
         return activeList;
     }
 
+    //    創建活動
     @PostMapping("/activeBackAdd")
     public String insertActiveBack(@RequestBody Active active,
                                    @SessionAttribute("TeacherSession") Integer teaId) {

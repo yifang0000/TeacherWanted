@@ -62,6 +62,10 @@
   box-sizing: border-box;
   border-radius: 30px;
 }
+.favoriteBlock .activeBtn:hover {
+  border: 1px solid white;
+  cursor: pointer;
+}
 .activeShare {
   flex-grow: 1;
   display: flex;
@@ -184,4 +188,28 @@ td {
 
 .activeRecommendImg img {
   max-height: 100px;
+}
+
+.activeRecently {
+  border-top: 1px solid #d5dfc4;
+  border-bottom: 1px solid #d5dfc4;
+}
+.activeRecentlyBlock {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.activeRecentlyName {
+  width: 75%;
+  font-size: 1.5rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.activeRecentlyBtn {
+  width: 25%;
+  font-size: 1rem;
+  padding: 0;
+  height: 1.8rem;
 }

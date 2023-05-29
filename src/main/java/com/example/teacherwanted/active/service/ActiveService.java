@@ -12,7 +12,8 @@ import java.util.List;
 
 public interface ActiveService {
 
-    List<Active> recommendActivities(String activityType);
+    List<Active> selectAll(String key, String type);
+    List<Active> recommendActivities(String type);
     String insert(Active active);
 
     String deleteById(Integer id);

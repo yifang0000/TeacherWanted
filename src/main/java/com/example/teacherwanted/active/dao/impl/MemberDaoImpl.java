@@ -1,13 +1,14 @@
 package com.example.teacherwanted.active.dao.impl;
 
 import com.example.teacherwanted.active.dao.MemberDao;
-import com.example.teacherwanted.active.model.Active;
 import com.example.teacherwanted.active.model.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class MemberDaoImpl implements MemberDao {
 
     @PersistenceContext
@@ -19,9 +20,10 @@ public class MemberDaoImpl implements MemberDao {
     }
 
     @Override
-    public int deleteById(String id) {
+    public int deleteById(Integer id) {
         return 0;
     }
+
 
     @Override
     public int update(Member pojo) {
@@ -29,12 +31,20 @@ public class MemberDaoImpl implements MemberDao {
     }
 
     @Override
-    public Member selectById(String id) {
+    public Member selectById(Integer id) {
         return entityManager.find(Member.class, id);
     }
 
     @Override
-    public List<Member> selectBackAll(Integer key, Integer type, Integer id) {
+    public List<Member> selectAll() {
         return null;
     }
+
+    @Override
+    public List<Member> selectAllByKeyWorldAndType(String key, String type) {
+        return null;
+    }
+
+
+
 }
