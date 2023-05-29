@@ -1,5 +1,6 @@
-      // 假設你的後端網址是 http://localhost:8080/backcouponEDIT
-      var url = "http://localhost:8080/backcouponEDIT";
+
+// =====================================================
+
 
       // 從網址中獲取couponId的值
       var urlParams = new URLSearchParams(window.location.search);
@@ -7,7 +8,7 @@
 
 $.ajax({
   type: 'GET',
-  url: 'http://localhost:8080/tw0/backcouponEDIT?couponId='+couponId,
+  url: '/coupons/'+couponId,
   contentType: 'application/json',
   success: function(data) {
     console.log(data)
@@ -155,8 +156,8 @@ $(document).ready(function(){
     
 
           $.ajax({
-            type: 'POST',
-            url: 'backcouponUPDATE',
+            type: 'PUT',
+            url: '/coupons/'+couponId,
             data: JSON.stringify(formData),
             contentType: 'application/json',
             success: function(response) {

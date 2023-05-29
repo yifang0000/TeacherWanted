@@ -2,223 +2,67 @@
 $(document).ready(function(){
     $("#collapse").on("click",function(){
         $("#sidebar").toggleClass("active")
-        // 讓圖示轉換成另一個圖示
-        // $(".fa-bars").toggleClass("fa-arrow-right")
-        // $(".fa-solid").toggleClass("fa-shake")  
         
     })
-
-
-
-    
-        // =================================表單====================================//
-        // ====================表單驗證===================//
-      // Example starter JavaScript for disabling form submissions if there are invalid fields
-      $(function() {
-        'use strict';
-        
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation');
-        
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-        .forEach(function (form) {
-        $(form).on('submit', function (event) {
-        if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-        }
-        
-            $(form).addClass('was-validated');
-          });
-        });
-        });
+// ================當按下送出按鈕========================
+    $('#btnsubmit').click(function(event) {
+      // console.log("1111");
+      event.preventDefault();
       
-        // ====================表單送出===================//
-        $(document).ready(function () {
-          $("form.needs-validation").submit(function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-            if (this.checkValidity() === false) {
-              $(this).addClass("was-validated");
-            } else {
-              // 取得表單資料
-              var formData = {
-                username: $("#username").val(),
-                password: $("#password").val(),
-                name: $("#name").val(),
-                email: $("#email").val(),
-                phone: $("#phone").val(),
-                role: $("#role").val(),
-              };
 
-              console.log(formData);
-              alert('資料已送出');
+           // 檢查每個 input 元素的值
+           var allInputsFilled = true;
+           $(".needvalue").each(function() {
+             if ($(this).val() === "") {
+               allInputsFilled = false;
+               console.log("有空值")
+               return false;  // 結束迴圈
+             }
+           });
+ 
+           // 如果所有 input 元素都有值，執行送出資料的動作
+           if (allInputsFilled) {
+           } else {
+             // 如果有任何一個 input 元素沒有值，提示使用者填寫完整
+             alert("請填寫完整資料！");
+             return;
+           }
+ 
+      // =====隨機產生密碼===============
+        var randomCode = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for (var i = 0; i < 8; i++) {
+          randomCode += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
 
+        // =====================ajax======//
+      var formData = {
+        adminAccount:$('#adminAccount').val(),
+        adminName:$('#adminName').val(),
+        adminEmail:$('#adminEmail').val(),
+        permissionId:$('#role').val(),
+        adminPhone:$('#adminPhone').val(),
+        admin_status:1,
+        // adminPassword:randomCode
+      };
 
-              // 使用 AJAX 發送 POST 請求
-              // $.ajax({
-              //   type: "POST",
-              //   url: "/api/users",
-              //   data: JSON.stringify(formData),
-              //   contentType: "application/json",
-              //   success: function () {
-              //     // 顯示彈窗
-              //     alert('資料已送出');
-              //   },
-              //   error: function () {
-              //     console.log(data);
-              //   },
-              // });
-
-
-            }
-          });
-        });
-
-
-
-
-        // =================================表格====================================//
-
-        $("#adminTable").DataTable({
-          // "serverSide": false, 
-
-          ajax: {
-            url: "http://localhost:8081/Project3/administrators",
-            dataSrc: "",
-          },
-          columns: [
-            { data: "adminId" },
-            { data: "adminAccount" },
-            { data: "adminPassword" },
-            { data: "adminName" },
-            { data: "adminEmail" },
-            { data: "adminPhone" },
-            // 如果資料為1顯示"管理員"、2則顯示"老師"
-            {
-              data: "permissionId",
-              render: function (data, type, row) {
-                if (data == 1) {
-                  return "管理員";
-                } else if (data == 2) {
-                  return "老師";
-                } else {
-                  return "";
-                }
-              },
-            },
-
-            // 如果資料為0則顯示"停權"、1則顯示"正常"
-            {
-              data: "adminStatus",
-              render: function (data, type, row) {
-                if (data == 0) {
-                  return "停權";
-                } else if (data == 1) {
-                  return "正常";
-                } else {
-                  return "";
-                }
-              },
-            },
-            {
-              data: null,
-              render: function (data, type, row) {
-                return (
-                  '<button id="editbtn" class="btn btn-outline-danger btn-sm p-0" data-id="' +
-                  row.adminId +
-                  '">修改</button><button id="showbtn" class="showbtn btn btn-outline-success btn-sm p-0" data-id="' +
-                  row.adminId +
-                  '">預覽</button>'
-                );
-              },
-            },
-
-            // 如果按下按鈕是跳轉至其他頁面 可改寫為：
-            // {
-            //   data: null,
-            //   render: function (data, type, row) {
-            //     var editUrl =
-            //       'edit-admin.php?id=' + row.adminId;
-            //     var deleteUrl =
-            //       'delete-admin.php?id=' + row.adminId;
-            //     return (
-            //       '<a class="btn btn-outline-success btn-sm p-0 mr-2" style="width: 50%; height: 100%; display: flex; align-items: center; justify-content: center;" href="' +
-            //       editUrl +
-            //       '">修改</a><a class="btn btn-outline-danger btn-sm p-0" style="width: 50%; height: 100%; display: flex; align-items: center; justify-content: center;" href="' +
-            //       deleteUrl +
-            //       '">刪除</a>'
-            //     );
-            //   },
-            // },
-          ],
-          columnDefs: [
-            {
-              targets: [1, 2, 3, 4, 5, 6, 7],
-              className: "align-middle",
-            },
-            {
-              targets: [8],
-              orderable: false,
-              "searchable": false
-            },
-            {
-              "targets": [1, 2], // 隱藏第2和第3欄
-              "visible": false,
-              "searchable": false
-            },
-          ],
-          
-              // 表格翻譯
-          language: {
-            "lengthMenu": "顯示 _MENU_ 筆資料",
-            "sProcessing": "處理中...",
-            "sZeroRecords": "没有匹配结果",
-            "sInfo": "_START_ 至 _END_ / 共 _TOTAL_ 筆",
-            "sInfoEmpty": "目前共有 0 筆紀錄",
-            "sInfoFiltered": " ",
-            "sInfoPostFix": "",
-            "sSearch": "搜尋:",
-            "sUrl": "",
-            "sEmptyTable": "尚未有資料紀錄存在",
-            "sLoadingRecords": "載入資料中...",
-            "sInfoThousands": ",",
-            "oPaginate": {
-                "sFirst": "首頁",
-                "sPrevious": "上一頁",
-                "sNext": "下一頁",
-                "sLast": "末頁"
-            },
-            "order": [[0, "desc"]],
-            "oAria": {
-                "sSortAscending": ": 以升序排列此列",
-                "sSortDescending": ": 以降序排列此列"
-            }
+      console.log(formData)
+      $.ajax({
+        type: 'POST',
+        url: '/administrators/insert',
+        data: JSON.stringify(formData),
+        contentType: 'application/json',
+        success: function(response) {
+          alert('新增成功！');
         },
-        });
+        error: function(xhr, textStatus, errorThrown) {
+       if (xhr.status === 502) {
+            alert("該帳號：「"+formData.adminAccount+"」，\n已經存在，請勿重複新增。");
+        } else {
+            alert("發生錯誤");
+        }
+        }
+      });
+})
 
-
-        //         // 綁定 click 事件
-        // $("#adminTable tbody").on("click", "button", function () {
-        //   // 取得所在列的資料
-        //   var data = $("#adminTable").DataTable().row($(this).parents("tr")).data();
-        //   console.log(data);
-        //   // 在這裡加入對該列資料的修改功能
-        // });
-
-        // ================表格內的按鈕綁定點擊事件========================= //
-        $("#adminTable").on("click", "#editbtn", function () {
-            // 取得所在列的id
-          var adminId = $(this).data("id");
-          // 在這裡加入對該列資料的修改功能
-          console.log(adminId);
-        });
-
-        $("#adminTable").on("click", "#showbtn", function () {
-            // 取得所在列的id
-          var adminId = $(this).data("id");
-          // 在這裡加入對該列資料的預覽功能
-          console.log(adminId);
-        });
 })

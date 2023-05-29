@@ -12,8 +12,12 @@ $(document).ready(function(){
           // "serverSide": false, 
 
           ajax: {
-            url: "http://localhost:8080/tw0/coupons",
+            url: "/coupons",
             dataSrc: "",
+            error: function(xhr, status, error) {
+              var errorMessage = "從伺服器獲取資料時發生錯誤：" + error; // 自訂錯誤訊息
+              alert(errorMessage);
+            }
           },
           columns: [
             { data: "couponId" },
@@ -24,8 +28,8 @@ $(document).ready(function(){
                 if (type === 'display' || type === 'filter') {
                   // 將"<br>"標籤替換為空格
                   var formattedData = data.replace(/<br>/g, ' ');
-                  if (formattedData.length > 10) {
-                    formattedData = formattedData.substring(0, 10) + '...';
+                  if (formattedData.length > 8) {
+                    formattedData = formattedData.substring(0, 8) + '...';
                   }
                   return formattedData;
                 }
@@ -57,21 +61,6 @@ $(document).ready(function(){
               }
             },
             { data: "discount" },
-            // 如果資料為1顯示"管理員"、2則顯示"老師"
-
-            // 如果資料為0則顯示"停權"、1則顯示"正常"
-            // {
-            //   data: null,
-            //   render: function (data, type, row) {
-            //     return (
-            //       '<button id="editbtn" class="btn btn-outline-danger btn-sm p-0" data-id="' +
-            //       row.adminId +
-            //       '">修改</button><button id="showbtn" class="showbtn btn btn-outline-success btn-sm p-0" data-id="' +
-            //       row.adminId +
-            //       '">預覽</button>'
-            //     );
-            //   },
-            // },
 
             // 如果按下按鈕是跳轉至其他頁面 可改寫為：
             {
@@ -79,12 +68,11 @@ $(document).ready(function(){
               render: function (data, type, row) {
                 var editUrl =
                   'backcouponEDIT.html?couponId=' + row.couponId;
-                  offID = row.couponId;
                   // console.log(this.data)
                 return (
                   '<a class="btn btn-outline-danger btn-sm p-0 mr-2"  id="editbtn" href="' +
                   editUrl +
-                  '">修改</a><a href="#" class="btn btn-outline-success btn-sm p-0" id="offbtn" data-bs-toggle="modal" onclick="sendRequestToServlet('+offID+')" data-bs-target="#staticBackdrop">刪除</a>'
+                  '">修改</a><a href="#" class="btn btn-outline-success btn-sm p-0" id="offbtn" data-bs-toggle="modal" onclick="sendId('+row.couponId+')" data-bs-target="#staticBackdrop">刪除</a>'
                 );
               },
             },
@@ -133,39 +121,47 @@ $(document).ready(function(){
             }
         },
         });
+  //TODO:加一個按鈕用時間區分上下架
 
+
+  // // 篩選出現在時間以後的資料
+  // var table = $('#myTable').DataTable();
+  // var now = new Date();
+  // table.rows().every(function() {
+  //   var activateTime = this.data().activateTime;
+  //   if (activateTime) {
+  //     activateTime = new Date(activateTime);
+  //     if (activateTime <= now) {
+  //       this.remove(); // 移除不符合條件的資料
+  //     }
+  //   }
+  // });
 
 
         
 })
 
 
-// to do ：下架優惠券＝＞用ID去找並將終止日期訂到現在更新
 
-// function sendRequestToServlet() {
-        // // 取得目前時間
-        // var now = new Date();
-        // now.setHours(now.getHours() + 8);
-        // var formattedDate = now.toISOString().slice(0, 16);
-        // var formData = {
-        //   couponCode:offID,
-        //   expirationDate:formattedDate
-        // };
-// console.log(offID)
-//   // 使用 Ajax 或 fetch API 將 id 值傳送給 servlet 後端
-//   // 下方為示範程式碼
-//   fetch('/your/servlet/endpoint', {
-//     method: 'POST',
-//     body: JSON.stringify(formData),
-//     headers: {
-//       'Content-Type': 'application/json'
-//     }
-//   })
-//   .then(response => {
-//      console.log("下架成功")
-//   })
-//   .catch(error => {
-//     // 處理錯誤的程式碼
-//     console.log("下架失敗")
-//   });
-// }
+function sendId(couponId){
+offID=couponId;
+}
+
+function sendRequestToServlet() {
+console.log(offID);
+  // 使用 Ajax 或 fetch API 將 id 值傳送給 servlet 後端
+  var couponId=offID;
+  console.log(couponId);
+  $.ajax({
+    type: 'DELETE',
+    url: '/coupons/'+couponId,
+    contentType: 'application/json',
+    success: function(response) {
+      location.reload();
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      alert('刪除失敗');
+    }
+  });
+
+}

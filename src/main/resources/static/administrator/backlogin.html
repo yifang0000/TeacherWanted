@@ -13,15 +13,6 @@
       integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
       crossorigin="anonymous"
     />
-    <!-- 表格的 -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
-    />
   </head>
   <body>
     <!-- Main Content -->
@@ -44,37 +35,36 @@
               <h2>後台登入</h2>
             </div>
             <div class="row">
-              <form action="backuserLIST.html" method="get" class="form-group">
-                <div class="row">
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    class="form__input"
-                    placeholder="帳號"
-                  />
-                </div>
-                <div class="row">
-                  <!-- <span class="fa fa-lock"></span> -->
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    class="form__input"
-                    placeholder="密碼"
-                  />
-                </div>
+              <div class="row">
+                <input
+                  type="text"
+                  name="adminAccount"
+                  id="adminAccount"
+                  class="form__input needvalue"
+                  placeholder="帳號"
+                />
+              </div>
+              <div class="row">
+                <!-- <span class="fa fa-lock"></span> -->
+                <input
+                  type="text"
+                  name="adminPassword"
+                  id="adminPassword"
+                  class="form__input needvalue"
+                  placeholder="密碼"
+                />
+              </div>
 
-                <div>
-                  <button
-                    type="submit"
-                    class="btn btn-success"
-                    　style="width:10px"
-                  >
-                    確認
-                  </button>
-                </div>
-              </form>
+              <div>
+                <button
+                  type="submit"
+                  id="btnsubmit"
+                  class="btn btn-success"
+                  　style="width:10px"
+                >
+                  確認
+                </button>
+              </div>
             </div>
             <div class="row">
               <p>忘記帳號密碼？ <a href="#">請聯繫我們</a></p>
@@ -99,5 +89,56 @@
       integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
       crossorigin="anonymous"
     ></script>
+    <script>
+      $("#btnsubmit").click(function (event) {
+        // console.log("1111");
+        event.preventDefault();
+
+        // 檢查每個 input 元素的值
+        var allInputsFilled = true;
+        $(".needvalue").each(function () {
+          if ($(this).val() === "") {
+            allInputsFilled = false;
+            console.log("有空值");
+            return false; // 結束迴圈
+          }
+        });
+
+        // 如果所有 input 元素都有值，執行送出資料的動作
+        if (allInputsFilled) {
+        } else {
+          // 如果有任何一個 input 元素沒有值，提示使用者填寫完整
+          alert("請填寫完整資料！");
+          return;
+        }
+
+        // =====================ajax======//
+        var formData = {
+          adminAccount: $("#adminAccount").val(),
+          adminPassword: $("#adminPassword").val(),
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "/administrators/login",
+          data: JSON.stringify(formData),
+          contentType: "application/json",
+          success: function (response) {
+            if (response.permissionId == 1) {
+              alert("歡迎管理員：" + response.adminName + "，登入成功！");
+              window.location.href = "../administrator/backuserLIST.html";
+            } else {
+              alert("歡迎老師：" + response.adminName + "，登入成功！");
+              window.location.href = "../administrator/backuserLIST.html";
+            }
+            // window.location.href = 'activeBack.html';
+            // activeBack.html
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            alert("登入失敗");
+          },
+        });
+      });
+    </script>
   </body>
 </html>

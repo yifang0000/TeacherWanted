@@ -9,7 +9,6 @@ public interface CouponDao {
 
 	int deleteByCouponId(Integer couponId);
 
-
     int updateBycouponId(Coupon coupon);
 
 //    int offcoupon(Coupon coupon);

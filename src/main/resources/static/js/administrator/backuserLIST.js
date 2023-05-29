@@ -1,5 +1,7 @@
 
+
 $(document).ready(function(){
+  console.log(admin);
     $("#collapse").on("click",function(){
         $("#sidebar").toggleClass("active")
         // 讓圖示轉換成另一個圖示
@@ -8,12 +10,23 @@ $(document).ready(function(){
         
     })
 
+    $.fn.dataTable.ext.errMode = 'none';
+    if(admin.permissionId==1){
         $("#adminTable").DataTable({
           // "serverSide": false, 
 
           ajax: {
-            url: "http://localhost:8080/tw0/administrators",
+            url: "/administrators",
             dataSrc: "",
+            error: function(xhr, status, error) {
+              if(xhr.status==400){
+
+                var errorMessage = "請登入"; // 自訂錯誤訊息
+                alert(errorMessage);
+              }else{
+                alert("非登入之其他錯誤");
+              }
+            }
           },
           columns: [
             { data: "adminId" },
@@ -113,15 +126,8 @@ $(document).ready(function(){
             }
         },
         });
+      }
 
-
-        //         // 綁定 click 事件
-        // $("#adminTable tbody").on("click", "button", function () {
-        //   // 取得所在列的資料
-        //   var data = $("#adminTable").DataTable().row($(this).parents("tr")).data();
-        //   console.log(data);
-        //   // 在這裡加入對該列資料的修改功能
-        // });
 
         // ================表格內的按鈕綁定點擊事件========================= //
         $("#adminTable").on("click", "#editbtn", function () {

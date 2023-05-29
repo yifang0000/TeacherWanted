@@ -1,11 +1,10 @@
-package com.example.teacherwanted.administrator.dao;
+package com.example.teacherwanted.administrator.service;
 
 import com.example.teacherwanted.administrator.model.Administrator;
 
 import java.util.List;
 
-public interface AdministratorDao {
-
+public interface AdministratorService {
     //    新增使用者
     public int insert(Administrator administrator);
     //    刪除
@@ -16,8 +15,9 @@ public interface AdministratorDao {
     public List<Administrator> findAll();
     //    查詢單個使用者
     public Administrator selectByAdminId(Integer adminId);
-    public Administrator selectByAccount(String adminAccount);
 
+//    登入=>儲存session =>js hidden
+    public Administrator login(Administrator administrator);
 //    登出
 
 }
