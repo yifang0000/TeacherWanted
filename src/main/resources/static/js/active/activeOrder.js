@@ -37,6 +37,7 @@ const app = Vue.createApp({
     });
   },
   methods: {
+    // 建立訂單 Vue方裡 開始
     buildActiveOrder(memId, memName, memPhone, memEmail) {
       let data = {
         activityId: activityId,
@@ -56,6 +57,7 @@ const app = Vue.createApp({
           alert("已參加此活動");
         });
     },
+    // 建立訂單 Vue方法裡 結束
   },
 });
 

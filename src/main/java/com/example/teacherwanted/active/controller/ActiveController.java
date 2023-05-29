@@ -1,8 +1,10 @@
 package com.example.teacherwanted.active.controller;
 
 import com.example.teacherwanted.active.model.Active;
+import com.example.teacherwanted.active.model.ActiveFavorite;
 import com.example.teacherwanted.active.model.ActiveOrderDetail;
 import com.example.teacherwanted.active.model.Member;
+import com.example.teacherwanted.active.service.ActiveFavoriteService;
 import com.example.teacherwanted.active.service.ActiveOrderDetailService;
 import com.example.teacherwanted.active.service.ActiveService;
 import com.example.teacherwanted.active.service.MemberService;
@@ -30,6 +32,8 @@ public class ActiveController {
     private ActiveService activeService;
     @Autowired
     private ActiveOrderDetailService activeOrderDetailService;
+    @Autowired
+    private ActiveFavoriteService activeFavoriteService;
 
 
     //    前臺操作 開始
@@ -84,6 +88,24 @@ public class ActiveController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("已參加此活動");
         }
+    }
+
+    //    活動收藏
+    @PostMapping("/activityFavoriteAdd")
+    public ResponseEntity<?> activityFavoriteAdd(@RequestBody ActiveFavorite activeFavorite,
+                                                 @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+
+        if (memId == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無登入狀態");
+        } else {
+            if(activeFavoriteService.queryActiveFavoriteHistory(activeFavorite.getActivityId(),memId) &&
+                    activeFavoriteService.insert(activeFavorite)){
+                return ResponseEntity.ok("收藏成功");
+            }else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("以收藏過");
+            }
+        }
+
     }
 
     //    所有活動

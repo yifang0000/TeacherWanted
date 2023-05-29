@@ -40,10 +40,7 @@ public class MemberDaoImpl implements MemberDao {
         return null;
     }
 
-    @Override
-    public List<Member> selectAllByKeyWorldAndType(String key, String type) {
-        return null;
-    }
+
 
 
 

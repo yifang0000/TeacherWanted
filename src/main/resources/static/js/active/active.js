@@ -2,6 +2,9 @@ var id = 33;
 var map;
 var data;
 
+const urlParams = new URLSearchParams(window.location.search);
+const activityId = urlParams.get("activityId");
+
 const app = Vue.createApp({
   data() {
     return {
@@ -89,7 +92,7 @@ const app = Vue.createApp({
       return formattedDate;
     },
     // 推薦課程 時間轉換 Vue方法裡 結束
-    // 活動訂單 確認是否有參加活動過 開始
+    // 活動訂單 確認是否有參加活動過 Vue方法裡 開始
     activityParticipation(activityId) {
       return axios
         .get("/activeOrderDetail", {
@@ -105,7 +108,20 @@ const app = Vue.createApp({
           alert(err.response.data);
         });
     },
-    // 活動訂單 確認是否有參加活動過 結束
+    // 活動訂單 確認是否有參加活動過 Vue方法裡 結束
+    // 收藏功能 確認收藏過 Vue方法裡 開始
+    activityFavorite() {
+      let data = { activityId: activityId };
+      axios
+        .post("/activityFavoriteAdd", data)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.error(err.response.data);
+        });
+    },
+    // 收藏功能 確認收藏過 Vue方法裡 結束
   },
 });
 
@@ -114,8 +130,6 @@ window.addEventListener("load", () => {
 });
 
 function axiosGetActive() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const activityId = urlParams.get("activityId");
   return axios
     .get("/active", {
       params: {
