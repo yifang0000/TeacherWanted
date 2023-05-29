@@ -46,10 +46,7 @@ public class ActiveOrderDetailDaoImpl implements ActiveOrderDetailDao {
 
     }
 
-    @Override
-    public List<ActiveOrderDetail> selectAllByKeyWorldAndType(String key, String type) {
-        return null;
-    }
+
 
     public List<ActiveOrderDetail> selectActiveOrderDetailByMemberId(Integer memId) {
         TypedQuery<ActiveOrderDetail> query = entityManager.createQuery(

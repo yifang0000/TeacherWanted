@@ -9,5 +9,4 @@ public interface CoreDao<P, I,S> {
     P selectById(I id);
     List<P> selectAll();
 
-    List<P> selectAllByKeyWorldAndType(S key,S type );
 }
