@@ -4,6 +4,8 @@ var admin="";
     Checklogin()
 // }
   function Checklogin() {
+    var ulElement = document.querySelector('.list-unstyled');
+ulElement.innerHTML = '';
     $.ajax({
       type: 'GET',
       url: "/administrators/session",
