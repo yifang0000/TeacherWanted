@@ -243,7 +243,19 @@
                       <!-- 收藏icon + 文字 -->
                       <div
                         class="flexWrap flexAllCenter borderShadowLight activeBtn"
-                        @click="activityFavorite(activityId)"
+                        @click="activityFavoriteDelete(activityId)"
+                        v-if="favoriteStatic"
+                      >
+                        <img
+                          src="../img/active/brokenHeart.svg"
+                          style="height: 25px; color: #3c6a36"
+                          alt=""
+                        />取消收藏
+                      </div>
+                      <div
+                        class="flexWrap flexAllCenter borderShadowLight activeBtn"
+                        @click="activityFavoriteAdd(activityId)"
+                        v-else
                       >
                         <img
                           src="../img/active/heart.svg"

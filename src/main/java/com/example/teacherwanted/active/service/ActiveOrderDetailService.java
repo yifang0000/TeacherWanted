@@ -15,4 +15,6 @@ public interface ActiveOrderDetailService {
     Member selectMemBerOrderInfo(Integer memId);
 
     boolean queryActiveOrderHistory(Integer activityId, Integer memId);
+
+    List<ActiveOrderDetail> findByActiveId(Integer id);
 }

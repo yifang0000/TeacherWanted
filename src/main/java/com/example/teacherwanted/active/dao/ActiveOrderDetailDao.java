@@ -8,5 +8,5 @@ import java.util.List;
 public interface ActiveOrderDetailDao extends CoreDao<ActiveOrderDetail,Integer,String> {
     List<ActiveOrderDetail> selectActiveOrderDetailByMemberId(Integer id);
 
-
+    List<ActiveOrderDetail> findByActiveId(Integer id);
 }

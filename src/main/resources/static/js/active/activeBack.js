@@ -107,15 +107,72 @@ function tableAction(data) {
       $(".lightbox").empty().append(`
       <div class="lightbox-content">
       <span class="lightbox-close">&times;</span>
-      <p>活動ID:${data[i].activityId}</p>
-      <p>活動名稱:${data[i].activityName}</p>
-      <p>類型:${data[i].activityType}</p>
-      <p>報名截止日期:${data[i].activityDueTime}</p>
-      <p>活動開始日期:${data[i].activityStartTime}</p>
-      <p>活動結束日期${data[i].activityEndTime}</p>
-      <p>報名人數:${data[i].currentNumber}</p>
-      <p>活動介紹:${data[i].activityDetail}</p>
+      <div
+      class="borderShadow"
+      style="width: 700px; height: 500px; overflow: auto"
+    >
+      <!-- 活動詳情 開始 -->
+      <section>
+        <div class="activeBackOneImgBlock flexAllCenter" style="height:300px" >
+          <img
+            src="../img/active/active.png"
+            style="width: 80%; height: 80%"
+            alt=""
+          />
+        </div>
+        <div class="flexAllCenter" >
+          <div style="width: 80%; height: 80%">
+            <p>活動ID:${data[i].activityId}</p>
+            <p>活動名稱:${data[i].activityName}</p>
+            <p>類型:${data[i].activityType}</p>
+            <p>報名截止日期:${convertToFormattedDate(
+              data[i].activityDueTime
+            )}</p>
+            <p>活動開始日期:${convertToFormattedDate(
+              data[i].activityStartTime
+            )}</p>
+            <p>活動結束日期:${convertToFormattedDate(
+              data[i].activityEndTime
+            )}</p>
+            <p>報名人數:${data[i].currentNumber}</p>
+            <p>活動介紹:${data[i].activityDetail}</p>
+          </div>
+        </div>
+      </section>
+      <!-- 活動詳情 結束 -->
+      <!-- 報名人的資料 開始 -->
+      <table class="activeBackTable" style="max-height: 100%">
+        <thead>
+          <tr>
+            <th class="activityOrderName">名稱</th>
+            <th class="activityOrderPhone">電話</th>
+            <th class="activityOrderEmail">信箱</th>
+            <th class="activityOrderRegisterTime">報名時間</th>
+          </tr>
+        </thead>
+        <tbody id="activeOrderTbody"></tbody>
+      </table>
+      <!-- 報名人的資料 結束 -->
+    </div>
       </div>`);
+      // 報名成員列表 開始
+      axiosOrderList(data[i].activityId).then((data) => {
+        console.log(data);
+        $("#activeOrderTbody").empty();
+        for (let i = 0; i < data.length; i++) {
+          $("#activeOrderTbody").append(`
+          <tr>
+            <th>${data[i].memName}</th>
+            <th>${data[i].memPhone}</th>
+            <th>${data[i].memEmail}</th>
+            <th>${convertToFormattedDate(data[i].registerTime)}</th>
+          </tr>
+          
+          
+          `);
+        }
+      });
+      // 報名成員列表 結束
     });
   });
   // 詳情按鈕  燈箱部分結束
@@ -328,4 +385,40 @@ function goPage(currentPage, pageSize) {
   $("#pageModule").html(tempStr);
 }
 // 分頁功能 結束
+// 請求報名成員訂單明細 開始
+function axiosOrderList(activityId) {
+  return axios
+    .get("/activeOrderList", {
+      params: {
+        activityId: activityId,
+      },
+    })
+    .then((res) => {
+      return res.data;
+    });
+}
+// 請求訂單明細 結束
+// 時間轉換 開始
+function convertToFormattedDate(dateString) {
+  // 移除 "T" 字元並分割時間字串
+  var dateTimeParts = dateString.split("T");
+  var datePart = dateTimeParts[0];
+  var timePart = dateTimeParts[1];
+
+  // 取得年、月、日
+  var year = datePart.substr(0, 4);
+  var month = datePart.substr(5, 2);
+  var day = datePart.substr(8, 2);
+
+  // 取得時、分
+  var hour = timePart.substr(0, 2);
+  var minute = timePart.substr(3, 2);
+
+  // 組合成指定格式的時間字串
+  var formattedDate =
+    year + "-" + month + "-" + day + " " + hour + ":" + minute;
+
+  return formattedDate;
+}
+// 時間轉換 結束
 // function區域 結束

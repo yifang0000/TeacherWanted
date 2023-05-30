@@ -50,10 +50,10 @@ const app = Vue.createApp({
         .post("/activeOrderDetail", data)
         .then((res) => {
           console.log(res.data);
-          window.href.location = "/active/activeIndex.html";
+          alert("報名成功");
+          window.location.href = "/active/activeIndex.html";
         })
         .catch((err) => {
-          console.error(err.response.data);
           alert("已參加此活動");
         });
     },
@@ -114,7 +114,7 @@ function axiosGetActive() {
 // 帶入使用者資料 開始
 function axiosGetMember() {
   return axios
-    .get("/memberInfo")
+    .get("/activeOrderMemberInfo")
     .then((res) => {
       console.log(res.data);
       return res.data;

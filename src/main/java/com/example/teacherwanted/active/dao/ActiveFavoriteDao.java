@@ -8,4 +8,7 @@ import java.util.List;
 
 public interface ActiveFavoriteDao extends CoreDao<ActiveFavorite,Integer,String> {
     List<ActiveFavorite> selectActiveFavoriteByMemberId(Integer id);
+    int deleteByIdAndMemId(Integer id, Integer memId);
+
+
 }
