@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Random;
 
 @Repository
-@Transactional
 public class AdministratorDaoImpl implements AdministratorDao {
     @PersistenceContext
     private EntityManager entityManager;

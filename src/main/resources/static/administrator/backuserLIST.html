@@ -63,7 +63,7 @@
       <div class="container-right">
         <!-- 右邊的導航欄 -->
         <header class="p-2 mb-2 mr-0 border-bottom">
-          <div class="container m-0 pr-0">
+          <div class="container m-0 pr-0" id="bar">
             <div
               class="d-flex nowrap align-items-center justify-content-center justify-content-lg-start"
             >
@@ -89,7 +89,7 @@
                 >
                   <span class="barname"></span>
                   <img
-                    src="../img/logobgg.png"
+                    src="../img/logo1.png"
                     alt="mdo"
                     width="32"
                     height="32"
@@ -118,7 +118,9 @@
                   <li>
                     <a
                       class="dropdown-item text-center"
-                      href="../administrator/backlogin.html"
+                      id="logout"
+                      onclick="logout()"
+                      href="#"
                       >登出</a
                     >
                   </li>

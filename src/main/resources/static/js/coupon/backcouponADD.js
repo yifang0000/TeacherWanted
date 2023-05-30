@@ -81,6 +81,7 @@ $(document).ready(function(){
             data: JSON.stringify(formData),
             contentType: 'application/json',
             success: function(response) {
+              // history.go(-1);
               alert('新增優惠券成功！');
             },
             error: function(jqXHR, textStatus, errorThrown) {

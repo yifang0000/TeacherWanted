@@ -141,9 +141,6 @@ ulElement.innerHTML = '';
             role="老師"
             // $("#sublist6").parent("li").hide();
             newSubMenu=`
-            
-
-
 
             <li>
               <a href="#sublist2" data-bs-toggle="collapse"
@@ -187,3 +184,19 @@ ulElement.innerHTML = '';
       }
     });
   }
+
+
+  function logout() {
+    console.log("想登出");
+    $.ajax({
+      url: "/administrators/logout", // 修正URL
+      type: "GET",
+      success: function(response) {
+        window.location.href = "../administrator/backlogin.html";
+      },
+      error: function(xhr, status, error) {
+        console.log("登出失敗"); // 添加引号
+      }
+    });
+  }
+  

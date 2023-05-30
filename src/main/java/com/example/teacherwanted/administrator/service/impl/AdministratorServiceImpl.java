@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.lang.module.ResolutionException;
@@ -21,6 +22,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     private AdministratorDao administratorDao;
 
     @Override
+    @Transactional
     public int insert(Administrator administrator) {
         //先查詢資料庫是否有同帳號？
         Administrator administrator1 = administratorDao.selectByAccount(administrator.getAdminAccount());
@@ -33,11 +35,13 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
+    @Transactional
     public int deleteByAdminId(Integer adminId) {
         return administratorDao.deleteByAdminId(adminId);
     }
 
     @Override
+    @Transactional
     public int updateByAdminId(Administrator administrator) {
         return administratorDao.updateByAdminId(administrator);
     }
@@ -60,6 +64,11 @@ public class AdministratorServiceImpl implements AdministratorService {
         if(administratorDb== null){
             log.warn("該帳號:{}尚未存在",administrator.getAdminAccount());
             //400
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        if(administratorDb.getAdminStatus()!=1){
+            log.warn("該帳號:{}已停權",administrator.getAdminAccount());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 

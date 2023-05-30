@@ -67,8 +67,12 @@
                 class="list-unstyled collapse"
                 data-bs-parent="#accordion"
               >
-                <li><a href="../administrator/backuserLIST.html">使用者列表</a></li>
-                <li><a href="../administrator/backuserADD.html">新增使用者</a></li>
+                <li>
+                  <a href="../administrator/backuserLIST.html">使用者列表</a>
+                </li>
+                <li>
+                  <a href="../administrator/backuserADD.html">新增使用者</a>
+                </li>
               </ul>
             </li>
             <li>
@@ -230,7 +234,9 @@
                   </li>
                   <li><hr class="dropdown-divider" /></li>
                   <li>
-                    <a class="dropdown-item text-center" href="../administrator/backlogin.html"
+                    <a class="dropdown-item text-center" id="logout"
+                      onclick="logout()"
+                      href="#"
                       >登出</a
                     >
                   </li>

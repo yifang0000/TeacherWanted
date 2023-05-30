@@ -1,6 +1,5 @@
 package com.example.teacherwanted.coupon.controller;
 
-import com.example.teacherwanted.administrator.model.Administrator;
 import com.example.teacherwanted.coupon.model.Coupon;
 import com.example.teacherwanted.coupon.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;

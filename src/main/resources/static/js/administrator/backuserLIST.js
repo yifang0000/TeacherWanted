@@ -1,5 +1,4 @@
 
-
 $(document).ready(function(){
   console.log(admin);
     $("#collapse").on("click",function(){
@@ -9,7 +8,7 @@ $(document).ready(function(){
         // $(".fa-solid").toggleClass("fa-shake")  
         
     })
-
+    console.log(admin.adminId);
     $.fn.dataTable.ext.errMode = 'none';
     if(admin.permissionId==1){
         $("#adminTable").DataTable({
@@ -68,9 +67,9 @@ $(document).ready(function(){
               data: null,
               render: function (data, type, row) {
                 var editUrl =
-                  'backuserEDIT.html?id=' + row.adminId;
+                  'backuserEDIT.html?adminId=' + row.adminId;
                 var showUrl =
-                  'backuserLOOK.html?id=' + row.adminId;
+                  'backuserLOOK.html?adminId=' + row.adminId;
             
                 return (
                   '<a class="btn btn-outline-danger btn-sm p-0 mr-2"  id="editbtn" href="' +
@@ -128,19 +127,10 @@ $(document).ready(function(){
         });
       }
 
+      console.log("準備登出")
 
-        // ================表格內的按鈕綁定點擊事件========================= //
-        $("#adminTable").on("click", "#editbtn", function () {
-            // 取得所在列的id
-          var adminId = $(this).data("id");
-          // 在這裡加入對該列資料的修改功能
-          console.log(adminId);
-        });
+      
 
-        $("#adminTable").on("click", "#showbtn", function () {
-            // 取得所在列的id
-          var adminId = $(this).data("id");
-          // 在這裡加入對該列資料的預覽功能
-          console.log(adminId);
-        });
+
+
 })

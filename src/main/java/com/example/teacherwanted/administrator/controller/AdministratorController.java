@@ -83,5 +83,21 @@ public class AdministratorController {
         return ResponseEntity.status(HttpStatus.OK).body(administrator1);
     }
 //    登出
+    @GetMapping("/administrators/logout")
+    public ResponseEntity<String> logout(HttpSession session){
+        String message;
+        if(session.getAttribute("adminSession")!=null){
+            Administrator admin = (Administrator) session.getAttribute("adminSession");
+            message =  admin.getAdminName()+"登出ㄌ";
+            log.info(message);
+            session.removeAttribute("adminSession");
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        }else{
+            message = "沒有session";
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        }
+
+    }
+
 
 }

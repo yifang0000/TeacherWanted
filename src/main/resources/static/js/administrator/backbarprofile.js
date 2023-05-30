@@ -84,15 +84,6 @@ $(document).ready(function(){
           };
         });
 
-        var bankAccountInput = document.getElementById('bankAccount');
-
-        bankAccountInput.addEventListener('blur', function() {
-          var bankAccountValue = bankAccountInput.value;
-          if (bankAccountValue.length < 14) {
-            bankAccountInput.value = '0'.repeat(14 - bankAccountValue.length) + bankAccountValue;
-          }
-        });
-
         // ====================表單送出===================//
         $(document).ready(function () {
           $("form.needs-validation").submit(function (event) {
