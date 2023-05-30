@@ -104,7 +104,7 @@ a {
   border: 2px solid #dedede;
 }
 
-/* 表個大小 */
+/* 表格大小 */
 .tableOutside {
   min-height: 400px;
 }
@@ -247,6 +247,15 @@ a {
 .activityName {
   width: 25%;
 }
+.activityOrderName,
+.activityOrderPhone {
+  width: 20%;
+}
+.activityOrderEmail,
+.activityOrderRegisterTime {
+  width: 30%;
+}
+
 .tbodyBtn {
   width: 23%;
 }
@@ -282,4 +291,24 @@ a {
 .tbodyBtn .dropDownBtn:hover {
   background-color: rgb(24, 89, 110);
   border: 1px solid rgb(24, 89, 110);
+}
+.activeBackOneImgBlock {
+  /* width: 50%; */
+  height: 100%;
+  overflow: hidden; /* 隱藏多餘的內容 */
+  position: relative; /* 設定容器為相對定位 */
+  /* margin-bottom: 10px; */
+}
+.activeBackOneImgBlock img {
+  height: 100%; /* 高度填滿容器 */
+  width: 100%; /* 寬度填滿容器 */
+  object-fit: cover; /* 使用object-fit屬性調整圖片大小，以覆蓋容器 */
+  position: absolute; /* 設定圖片為絕對定位 */
+  top: 50%; /* 將圖片頂端置於容器的中央位置 */
+  left: 50%; /* 將圖片左側置於容器的中央位置 */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* 使用transform平移圖片，使其水平垂直居中 */
+  transition: transform 0.3s ease-in-out;
 }

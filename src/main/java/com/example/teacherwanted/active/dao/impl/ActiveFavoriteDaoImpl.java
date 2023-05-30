@@ -5,6 +5,7 @@ import com.example.teacherwanted.active.model.ActiveFavorite;
 import com.example.teacherwanted.active.model.ActiveOrderDetail;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +27,19 @@ public class ActiveFavoriteDaoImpl implements ActiveFavoriteDao {
     public int deleteById(Integer id) {
         return 0;
     }
+
+    @Override
+    public int deleteByIdAndMemId(Integer activityId, Integer memId) {
+        Query query = entityManager.createQuery(
+                "DELETE FROM ActiveFavorite WHERE activityId = :activityId AND memId = :memId");
+        query.setParameter("activityId", activityId);
+        query.setParameter("memId", memId);
+
+        int deletedCount = query.executeUpdate();
+        return deletedCount;
+    }
+
+
 
     @Override
     public int update(ActiveFavorite pojo) {
