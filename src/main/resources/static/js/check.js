@@ -1,8 +1,6 @@
 
 var admin="";
-// $(document).ready(function(){
     Checklogin()
-// }
   function Checklogin() {
     var ulElement = document.querySelector('.list-unstyled');
 ulElement.innerHTML = '';

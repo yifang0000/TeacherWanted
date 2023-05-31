@@ -34,8 +34,9 @@ $(document).ready(function(){
              return;
            }
 
-           var date = new Date();
 
+           //=============取得現在時間=================
+           var date = new Date();
 // 取得日期和時間的各個部分
 var year = date.getFullYear();
 var month = ("0" + (date.getMonth() + 1)).slice(-2);  // 注意月份要加 1，且補零
@@ -60,7 +61,7 @@ var formattedDate = year + "/" + month + "/" + day + " " + hours + ":" + minutes
         lastUpdatedDate:formattedDate
       };
 
-
+//修改
       $.ajax({
         type: 'PUT',
         url: '/administrators/'+admin.adminId,

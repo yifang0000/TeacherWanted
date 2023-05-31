@@ -59,6 +59,8 @@ public class AdministratorController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+
+
     //    刪除
     @DeleteMapping("/administrators/{adminId}")
     public ResponseEntity<?> deleteByAdminId(@PathVariable Integer adminId) {

@@ -222,7 +222,7 @@ font-size: 30px;
 
   /* 表格：按鈕並排、調整大小 */
   table #editbtn,
-  table #showbtn {
+  table #offbtn {
   display: inline-block;
   width: 40%;
   height: 100%;

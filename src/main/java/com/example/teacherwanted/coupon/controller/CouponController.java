@@ -14,33 +14,35 @@ public class CouponController {
 
     @Autowired
     private CouponService couponService;
-//    查詢全部：[restful設計]無論查詢列表有無資料，都需要回傳200給前端
+
+    //    查詢全部：[restful設計]無論查詢列表有無資料，都需要回傳200給前端
     @GetMapping("/coupons")
-    public ResponseEntity<List<Coupon>> findAll(){
+    public ResponseEntity<List<Coupon>> findAll() {
         List<Coupon> couponList = couponService.findAll();
-            return ResponseEntity.status(HttpStatus.OK).body(couponList);
+        return ResponseEntity.status(HttpStatus.OK).body(couponList);
     }
 
-//    查詢單個：[restful設計]：若該資料查詢不到，須回傳404給前端
+    //    查詢單個：[restful設計]：若該資料查詢不到，須回傳404給前端
     @GetMapping("/coupons/{couponId}")
-    public ResponseEntity<Coupon> selectBycouponId(@PathVariable Integer couponId){
+    public ResponseEntity<Coupon> selectBycouponId(@PathVariable Integer couponId) {
         Coupon coupon = couponService.selectBycouponId(couponId);
-        if(coupon != null){
+        if (coupon != null) {
             return ResponseEntity.status(HttpStatus.OK).body(coupon);
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
-//    新增 ok
+    //    新增 ok
     @PostMapping("/coupons")
-    public ResponseEntity<Coupon> insert(@RequestBody Coupon coupon){
+    public ResponseEntity<Coupon> insert(@RequestBody Coupon coupon) {
         couponService.insert(coupon);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-//    修改
+
+    //    修改
     @PutMapping("/coupons/{couponId}")
-    public ResponseEntity<?> updateBycouponId(@RequestBody Coupon coupon){
+    public ResponseEntity<?> updateBycouponId(@RequestBody Coupon coupon) {
         System.out.println(coupon);
         couponService.updateBycouponId(coupon);
 //        Coupon updatecoupon = couponService.selectBycouponId(coupon.getCouponId());
@@ -48,8 +50,7 @@ public class CouponController {
     }
 
 
-
-//    刪除
+    //    刪除
     @DeleteMapping("/coupons/{couponId}")
     public ResponseEntity<?> deleteByCouponId(@PathVariable Integer couponId) {
         couponService.deleteByCouponId(couponId);

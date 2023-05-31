@@ -1,4 +1,5 @@
 
+
 $(document).ready(function(){
   console.log(admin);
     $("#collapse").on("click",function(){
@@ -66,17 +67,19 @@ $(document).ready(function(){
             {
               data: null,
               render: function (data, type, row) {
-                var editUrl =
-                  'backuserEDIT.html?adminId=' + row.adminId;
-                var showUrl =
-                  'backuserLOOK.html?adminId=' + row.adminId;
-            
+                var s;
+                if(row.adminStatus==0){
+                  s=`復權<i class="fa-solid fa-shield-halved"></i>`;
+                }else{
+                  s=`停權<i class="fa-solid fa-ban"></i>`;
+                }
+                // var editUrl =
+                //   'backcouponEDIT.html?couponId=' + row.adminId;
+                  // console.log(this.data)
                 return (
-                  '<a class="btn btn-outline-danger btn-sm p-0 mr-2"  id="editbtn" href="' +
-                  editUrl +
-                  '">修改</a><a class="btn btn-outline-success btn-sm p-0" id="showbtn" href="' +
-                  showUrl +
-                  '">查看</a>'
+                  `<a class="btn btn-outline-success btn-sm p-0 mr-2"  id="editbtn" href="#" onclick="edit(${row.adminId},${row.adminStatus})">${s}</a>
+                  <a href="#" class="btn btn-outline-danger btn-sm p-0 mr-2" id="offbtn" data-bs-toggle="modal" onclick="sendId(${row.adminId})" 
+                  data-bs-target="#staticBackdrop">刪除<i class="fa-solid fa-xmark"></i></a>`
                 );
               },
             },
@@ -134,3 +137,77 @@ $(document).ready(function(){
 
 
 })
+
+
+var offID;
+
+function edit(adminId,adminStatus){
+  var adminId=adminId;
+  var adminStatusBefore=adminStatus;
+  var adminStatusAfter;
+  // if(adminStatusBefore==0){
+  //   adminStatusAfter="1";
+  // }else{
+  //   adminStatusAfter="0";
+  // }
+  adminStatusAfter = (adminStatusBefore == 0) ? "1" : "0";
+  console.log(adminId)
+  console.log(adminStatusBefore)
+  console.log(adminStatusAfter)
+           //=============取得現在時間=================
+           var date = new Date();
+// 取得日期和時間的各個部分
+var year = date.getFullYear();
+var month = ("0" + (date.getMonth() + 1)).slice(-2);  // 注意月份要加 1，且補零
+var day = ("0" + date.getDate()).slice(-2);  // 補零
+var hours = ("0" + date.getHours()).slice(-2);  // 補零
+var minutes = ("0" + date.getMinutes()).slice(-2);  // 補零
+var seconds = ("0" + date.getSeconds()).slice(-2);  // 補零
+
+// 格式化為指定的字串格式
+var formattedDate = year + "/" + month + "/" + day + " " + hours + ":" + minutes + ":" + seconds;
+
+
+  var formData={
+    adminId:adminId,
+    adminStatus:adminStatusAfter,
+    lastUpdatedDate:formattedDate
+  }
+//修改
+$.ajax({
+  type: 'PUT',
+  url: '/administrators/'+adminId,
+  data: JSON.stringify(formData),
+  contentType: 'application/json',
+  success: function(response) {
+    location.reload();
+  },
+  error: function(jqXHR, textStatus, errorThrown) {
+    alert('失敗' );
+  }
+});
+
+}
+
+function sendId(adminId){
+  offID=adminId;
+  }
+  
+  function sendRequestToServlet() {
+  console.log(offID);
+    // 使用 Ajax 或 fetch API 將 id 值傳送給 servlet 後端
+    adminId=offID;
+    console.log(adminId);
+    $.ajax({
+      type: 'DELETE',
+      url: '/administrators/'+adminId,
+      contentType: 'application/json',
+      success: function(response) {
+        location.reload();
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        alert('刪除失敗');
+      }
+    });
+  
+  }
