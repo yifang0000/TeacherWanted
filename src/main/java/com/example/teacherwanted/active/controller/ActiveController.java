@@ -1,8 +1,10 @@
 package com.example.teacherwanted.active.controller;
 
 import com.example.teacherwanted.active.model.Active;
+import com.example.teacherwanted.active.model.ActiveFavorite;
 import com.example.teacherwanted.active.model.ActiveOrderDetail;
 import com.example.teacherwanted.active.model.Member;
+import com.example.teacherwanted.active.service.ActiveFavoriteService;
 import com.example.teacherwanted.active.service.ActiveOrderDetailService;
 import com.example.teacherwanted.active.service.ActiveService;
 import com.example.teacherwanted.active.service.MemberService;
@@ -20,7 +22,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -30,15 +31,22 @@ public class ActiveController {
     private ActiveService activeService;
     @Autowired
     private ActiveOrderDetailService activeOrderDetailService;
+    @Autowired
+    private ActiveFavoriteService activeFavoriteService;
 
 
     //    前臺操作 開始
     @Autowired
     private MemberService memberService;
 
+    //    拿到活動相關訂單
+    @GetMapping("/activeOrderList")
+    public List<ActiveOrderDetail> activeOrderList(@RequestParam Integer activityId) {
+        return activeOrderDetailService.findByActiveId(activityId);
+    }
 
     //    在訂單中拿到顧客資訊
-    @GetMapping("/memberInfo")
+    @GetMapping("/activeOrderMemberInfo")
     public ResponseEntity<?> selectByMemId(
             @SessionAttribute(value = "MemberId", required = false) Integer memId) {
 //        System.out.println(memId);
@@ -52,7 +60,7 @@ public class ActiveController {
 
     }
 
-    //    查詢訂單
+    //    查詢有無參加訂單
     @GetMapping("/activeOrderDetail")
     public ResponseEntity<?> selectActiveOrderDetailByMemberId(
             @RequestParam Integer activityId,
@@ -84,6 +92,51 @@ public class ActiveController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("已參加此活動");
         }
+    }
+
+    //    查詢有無收藏活動
+    @GetMapping("/activityFavorite")
+    public String selectActivityFavorite(
+            @RequestParam Integer activityId,
+            @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+        if (memId == null) {
+            return "無登入狀態";
+        } else {
+            if (activeFavoriteService.queryActiveFavoriteHistory(activityId, memId)) {
+                return "未收藏";
+            } else {
+                return "以收藏過";
+            }
+        }
+//        return "以收藏";
+    }
+
+    //    收藏活動
+    @PostMapping("/activityFavoriteAdd")
+    public ResponseEntity<?> activityFavoriteAdd(@RequestBody ActiveFavorite activeFavorite,
+                                                 @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+
+        if (memId == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無登入狀態");
+        } else {
+            activeFavorite.setMemId(memId);
+            if (activeFavoriteService.queryActiveFavoriteHistory(activeFavorite.getActivityId(), memId) &&
+                    activeFavoriteService.insert(activeFavorite)) {
+                return ResponseEntity.ok("收藏成功");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("以收藏過");
+            }
+        }
+
+    }
+
+    //    刪除收藏活動
+    @DeleteMapping("/activityFavoriteDelete")
+    public String activityFavoriteDelete(@RequestParam Integer activityId,
+                                         @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+
+        activeFavoriteService.deleteByIdAndMemId(activityId, memId);
+        return "取消收藏成功";
     }
 
     //    所有活動

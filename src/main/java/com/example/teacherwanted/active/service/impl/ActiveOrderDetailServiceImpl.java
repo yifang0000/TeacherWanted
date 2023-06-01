@@ -32,7 +32,7 @@ public class ActiveOrderDetailServiceImpl implements ActiveOrderDetailService {
     public boolean queryActiveOrderHistory(Integer activityId, Integer memId) {
         List<ActiveOrderDetail> activeOrderDetail = activeOrderDetailDao.selectActiveOrderDetailByMemberId(memId);
         if (activeOrderDetail.size() == 0) {
-            return false;
+            return true;
         } else {
             for (int i = 0; i < activeOrderDetail.size(); i++) {
                 if (Objects.equals(activeOrderDetail.get(i).getActivityId(), activityId)) {
@@ -43,6 +43,11 @@ public class ActiveOrderDetailServiceImpl implements ActiveOrderDetailService {
         }
 
 
+    }
+
+    @Override
+    public List<ActiveOrderDetail> findByActiveId(Integer id) {
+        return activeOrderDetailDao.findByActiveId(id);
     }
 
     //    查找訂單使用者簡易資訊
