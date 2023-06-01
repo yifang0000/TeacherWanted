@@ -2,81 +2,84 @@
 $(document).ready(function(){
     $("#collapse").on("click",function(){
         $("#sidebar").toggleClass("active")
-        // 讓圖示轉換成另一個圖示
-        // $(".fa-bars").toggleClass("fa-arrow-right")
-        // $(".fa-solid").toggleClass("fa-shake")  
-        
     })
 
-        $("#adminTable").DataTable({
+                // 建立 Date 物件，並解析日期時間值
+                var now = new Date();
+                var now1=now.toISOString().slice(0, 16);
+              
+                // 取得年、月、日、時、分、秒
+                var yearnow = now.getFullYear();
+                var monthnow = ('0' + (now.getMonth() + 1)).slice(-2);
+                var daynow = ('0' + now.getDate()).slice(-2);
+                var hoursnow = ('0' + now.getHours()).slice(-2);
+                var minutesnow = ('0' + now.getMinutes()).slice(-2);
+                var secondsnow = ('0' + now.getSeconds()).slice(-2);
+              
+                // 格式化日期時間字串
+                now = yearnow + '/' + monthnow + '/' + daynow + ' ' + hoursnow + ':' + minutesnow + ':' + secondsnow;
+         
+        $("#annTable").DataTable({
           // "serverSide": false, 
-
           ajax: {
-            url: "http://localhost:8081/Project3/administrators",
+            url: "/announcements",
             dataSrc: "",
           },
           columns: [
             { data: "annId" },
             { data: "adminId" },
+            { data: "annCategory" },
             { data: "annTitle" },
-            { data: "annContent" },
-            { data: "annTime" },
-
-
+            { data: "annContent",
+            render: function(data, type, row) {
+              if (type === 'display' || type === 'filter') {
+                // 將"<br>"標籤替換為空格
+                var formattedData0 = data.replace(/<br>/g, ' ');
+                if (formattedData0.length > 10) {
+                  formattedData0 = formattedData0.substring(0, 10) + '...';
+                }
+                return formattedData0;
+              }
+              return data;
+            } },
+            { data: "annDate" },
             // 如果資料為0則顯示"停權"、1則顯示"正常"
             {
               data: "annStatus",
               render: function (data, type, row) {
-                if (data == 0) {
-                  return "停權";
+                if (data == 1 && row.annDate > now) {
+                  return "排程中";
                 } else if (data == 1) {
-                  return "正常";
+                  return "上架中";
                 } else {
-                  return "";
+                  return "下架中";
                 }
               },
             },
             {
               data: null,
               render: function (data, type, row) {
+                var editUrl =
+                  'backannEDIT.html?annId=' + row.annId;
+                  // console.log(this.data)
                 return (
-                  '<button id="editbtn" class="btn btn-outline-danger btn-sm p-0" data-id="' +
-                  row.adminId +
-                  '">修改</button><button id="showbtn" class="showbtn btn btn-outline-success btn-sm p-0" data-id="' +
-                  row.adminId +
-                  '">預覽</button>'
+                  '<a class="btn btn-outline-success btn-sm p-0 mr-2"  id="editbtn" href="' +
+                  editUrl +
+                  '">修改<i class="fa-solid fa-pen"></i></a><a href="#" class="btn btn-outline-danger btn-sm p-0 mr-2" id="offbtn" data-bs-toggle="modal" onclick="sendId('+row.annId+')" data-bs-target="#staticBackdrop">刪除<i class="fa-solid fa-xmark"></i></a>'
                 );
               },
             },
-
-            // 如果按下按鈕是跳轉至其他頁面 可改寫為：
-            // {
-            //   data: null,
-            //   render: function (data, type, row) {
-            //     var editUrl =
-            //       'edit-admin.php?id=' + row.adminId;
-            //     var deleteUrl =
-            //       'delete-admin.php?id=' + row.adminId;
-            //     return (
-            //       '<a class="btn btn-outline-success btn-sm p-0 mr-2" style="width: 50%; height: 100%; display: flex; align-items: center; justify-content: center;" href="' +
-            //       editUrl +
-            //       '">修改</a><a class="btn btn-outline-danger btn-sm p-0" style="width: 50%; height: 100%; display: flex; align-items: center; justify-content: center;" href="' +
-            //       deleteUrl +
-            //       '">刪除</a>'
-            //     );
-            //   },
-            // },
           ],
           columnDefs: [
             {
               targets: [1, 2, 3, 4, 5],
               className: "align-middle",
             },
-            // {
-            //   targets: [8],
-            //   orderable: false,
-            //   "searchable": false
-            // },
+            {
+              targets: [7],
+              orderable: false,
+              "searchable": false
+            },
             // {
             //   "targets": [1, 2], // 隱藏第2和第3欄
             //   "visible": false,
@@ -112,27 +115,29 @@ $(document).ready(function(){
         },
         });
 
-
-        //         // 綁定 click 事件
-        // $("#adminTable tbody").on("click", "button", function () {
-        //   // 取得所在列的資料
-        //   var data = $("#adminTable").DataTable().row($(this).parents("tr")).data();
-        //   console.log(data);
-        //   // 在這裡加入對該列資料的修改功能
-        // });
-
-        // ================表格內的按鈕綁定點擊事件========================= //
-        $("#adminTable").on("click", "#editbtn", function () {
-            // 取得所在列的id
-          var adminId = $(this).data("id");
-          // 在這裡加入對該列資料的修改功能
-          console.log(adminId);
-        });
-
-        $("#adminTable").on("click", "#showbtn", function () {
-            // 取得所在列的id
-          var adminId = $(this).data("id");
-          // 在這裡加入對該列資料的預覽功能
-          console.log(adminId);
-        });
 })
+
+var offID;
+
+function sendId(annId){
+  offID=annId;
+  }
+  
+  function sendRequestToServlet() {
+  console.log(offID);
+    // 使用 Ajax 或 fetch API 將 id 值傳送給 servlet 後端
+    var annId=offID;
+    console.log(annId);
+    $.ajax({
+      type: 'DELETE',
+      url: '/announcements/'+annId,
+      contentType: 'application/json',
+      success: function(response) {
+        location.reload();
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        alert('刪除失敗');
+      }
+    });
+  
+  }
