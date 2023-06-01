@@ -2,10 +2,10 @@ package com.example.teacherwanted.active.service.impl;
 
 import com.example.teacherwanted.active.dao.ActiveDao;
 import com.example.teacherwanted.active.dao.ActiveOrderDetailDao;
-import com.example.teacherwanted.active.dao.MemberDao;
+import com.example.teacherwanted.active.dao.MemberDaoActive;
 import com.example.teacherwanted.active.model.Active;
 import com.example.teacherwanted.active.model.ActiveOrderDetail;
-import com.example.teacherwanted.active.model.Member;
+import com.example.teacherwanted.active.model.MemberActive;
 import com.example.teacherwanted.active.service.ActiveOrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class ActiveOrderDetailServiceImpl implements ActiveOrderDetailService {
     private ActiveOrderDetailDao activeOrderDetailDao;
 
     @Autowired
-    private MemberDao memberDao;
+    private MemberDaoActive memberDao;
 
     //    進行是否有購買過訂單判斷
     @Override
@@ -52,9 +52,9 @@ public class ActiveOrderDetailServiceImpl implements ActiveOrderDetailService {
 
     //    查找訂單使用者簡易資訊
     @Override
-    public Member selectMemBerOrderInfo(Integer id) {
-        Member member = memberDao.selectById(id);
-        Member memberInfo = new Member();
+    public MemberActive selectMemBerOrderInfo(Integer id) {
+        MemberActive member = memberDao.selectById(id);
+        MemberActive memberInfo = new MemberActive();
         memberInfo.setMemId(id);
         memberInfo.setMemName(member.getMemName());
         memberInfo.setMemEmail(member.getMemEmail());

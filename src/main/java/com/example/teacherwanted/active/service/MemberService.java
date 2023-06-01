@@ -1,7 +1,7 @@
 package com.example.teacherwanted.active.service;
 
-import com.example.teacherwanted.active.model.Member;
+import com.example.teacherwanted.active.model.MemberActive;
 
 public interface MemberService {
-    Member selectById(Integer id);
+    MemberActive selectById(Integer id);
 }
