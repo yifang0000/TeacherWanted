@@ -55,6 +55,21 @@
             <scope>test</scope>
         </dependency>
 
+        <!--        websocket相關 開始-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <!--        websocket相關 結束-->
+        <!--        redis相關 開始-->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>4.2.3</version>
+        </dependency>
+        <!--        redis相關 結束-->
+
 
     </dependencies>
 
