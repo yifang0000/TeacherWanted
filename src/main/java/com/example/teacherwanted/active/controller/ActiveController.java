@@ -3,7 +3,7 @@ package com.example.teacherwanted.active.controller;
 import com.example.teacherwanted.active.model.Active;
 import com.example.teacherwanted.active.model.ActiveFavorite;
 import com.example.teacherwanted.active.model.ActiveOrderDetail;
-import com.example.teacherwanted.active.model.Member;
+import com.example.teacherwanted.active.model.MemberActive;
 import com.example.teacherwanted.active.service.ActiveFavoriteService;
 import com.example.teacherwanted.active.service.ActiveOrderDetailService;
 import com.example.teacherwanted.active.service.ActiveService;
@@ -53,7 +53,7 @@ public class ActiveController {
         if (memId == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無登入狀態");
         } else {
-            Member memberInfo = activeOrderDetailService.selectMemBerOrderInfo(memId);
+            MemberActive memberInfo = activeOrderDetailService.selectMemBerOrderInfo(memId);
             return ResponseEntity.ok(memberInfo);
 
         }
