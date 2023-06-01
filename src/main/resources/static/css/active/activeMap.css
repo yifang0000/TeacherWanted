@@ -1,0 +1,94 @@
+#map {
+  height: 100%;
+}
+.activeMap {
+  height: calc(100vh - 95px);
+}
+
+/* 設定icon提示文字 */
+.custom-tooltip {
+  max-width: 200px; /* 設定最大寬度 */
+  font-size: 14px; /* 設定字型大小 */
+  padding: 10px; /* 設定內邊距 */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.scrollableSection {
+  width: 20%;
+  height: 100%;
+  overflow: auto;
+}
+
+.searchBox {
+  width: 100%;
+  margin: 15px 0px;
+}
+
+.searchBox input {
+  width: 100%;
+}
+.activeMapOne {
+  height: 100px;
+  padding: 10px;
+  border: 1px solid lightgrey;
+  box-sizing: border-box;
+}
+
+.activeMapOneImgBlock {
+  width: 30%;
+  height: 100%;
+  overflow: hidden; /* 隱藏多餘的內容 */
+  position: relative; /* 設定容器為相對定位 */
+}
+.activeMapOneImgBlock img {
+  height: 100%; /* 高度填滿容器 */
+  width: 100%; /* 寬度填滿容器 */
+  object-fit: cover; /* 使用object-fit屬性調整圖片大小，以覆蓋容器 */
+  position: absolute; /* 設定圖片為絕對定位 */
+}
+
+.activeMapOneIntroduce {
+  width: 70%;
+  padding-left: 10px;
+}
+
+/* 文字「...」效果 */
+.activeMapOneIntroduce h4 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.activeMapOneBtn {
+  margin-top: 18px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.location,
+.more {
+  /* width: 50%; */
+  padding: 0px 5px;
+}
+.more p {
+  cursor: pointer;
+  background-color: #57954f;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.more p:hover {
+  background-color: #3c6a36;
+}
+.location p {
+  background-color: #f0f0f0;
+  color: #3c6a36;
+  cursor: pointer;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.location p:hover {
+  background-color: #dedede;
+}

@@ -109,13 +109,15 @@ function tableAction(data) {
       <span class="lightbox-close">&times;</span>
       <div
       class="borderShadow"
-      style="width: 700px; height: 500px; overflow: auto"
+      style="width: 700px; "
     >
       <!-- 活動詳情 開始 -->
       <section>
         <div class="activeBackOneImgBlock flexAllCenter" style="height:300px" >
           <img
-            src="../img/active/active.png"
+            src= "data:image/${
+              data[i].activityPhotoType
+            };base64,${data[i].activityPhoto}" 
             style="width: 80%; height: 80%"
             alt=""
           />
