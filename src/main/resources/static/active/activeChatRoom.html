@@ -21,7 +21,7 @@
 
     <link href="../css/baseVer2.css" rel="stylesheet" type="text/css" />
     <link
-      href="../css/active/activeOrder.css"
+      href="../css/active/activeChatRoom.css"
       rel="stylesheet"
       type="text/css"
     />
@@ -33,6 +33,9 @@
     />
     <script src="../jquery/jquery-3.6.4.min.js"></script>
     <script src="../js/base.js"></script>
+    <script src="../js/active/activeChatRoom.js"></script>
+
+    <script src="../vue/vue-3.3.4.js"></script>
 
     <title>Document</title>
   </head>
@@ -147,49 +150,30 @@
     <main class="TeacherWanted">
       <!-- ！！！寫在這裡！！！
       如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
-      <section class="containerBase flexAllCenter" style="padding: 30px">
-        <div class="borderShadow flexWrap" style="width: 100%">
-          <div class="col_40" style="padding: 10px">
-            <img src="../img/active/active.png" alt="" />
+      <div class="flexWrap">
+        <section class="activeChatRoomIntroduceBlock">
+          <div class="activeChatRoomIntroduceBtnBlock">
+            <a href="">回首頁</a>
+            <a href="">回活動列表</a>
+            <a href=""></a>
           </div>
-          <div class="col_60" style="padding: 30px 10px">
-            <h3>時間：2023.05.13(六)20:30</h3>
-            <h3>地點：台灣台北市信義區忠孝東路5段</h3>
-            <h3 style="margin-top: 30px">價格：500NT</h3>
+          <div class="activeChatOneImgBlock">
+            <img src="../img/active/active.png" />
           </div>
-        </div>
-        <div></div>
-      </section>
-      <section>
-        <form class="containerBase" style="padding: 50px 30px; width: 100%">
-          <h2>付款資訊</h2>
-          <div class="flexWrap" style="width: 100%; margin-top: 10px">
-            <div class="flexWrap col_50">
-              <h5>姓名：</h5>
-              <input type="text" />
-            </div>
-            <div class="flexWrap col_50">
-              <h5>聯絡電話：</h5>
-              <input type="text" />
-            </div>
+        </section>
+        <section class="activeChatRoomBlock">
+          <div class="chatMessage">
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
+            <p>123</p>
           </div>
-          <div class="flexWrap" style="width: 100%; margin-top: 10px">
-            <h5>常用信箱：</h5>
-            <input type="text" />
+          <div class="chatMessageInput flexWrap flexAllCenter">
+            <input type="text" /><a href="">發送</a>
           </div>
-          <h4 style="margin-top: 20px">經由綠界</h4>
-          <div class="flexWrap">
-            <input type="radio" name="" id="" />
-            <h5>我同意以下條款</h5>
-          </div>
-          <h5>
-            本服務可能隨時根據市場情況和用戶需求進行變更和調整。使用者應當仔細閱讀相關服務條款和使用規則。使用者同意並遵守所有相關法律法規及服務條款和使用規則。
-          </h5>
-          <div class="flexHorizontalCenter" style="width: 100%">
-            <button class="sendoutBtn">立即參與</button>
-          </div>
-        </form>
-      </section>
+        </section>
+      </div>
     </main>
 
     <footer

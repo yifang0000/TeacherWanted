@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class MemberActive {
     private static final long serialVersionUID = 1062013212345367218L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
