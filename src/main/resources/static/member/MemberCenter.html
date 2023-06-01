@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/jquery/jquery-3.6.4.min.js"></script>
+    <!-- bootstrap相關 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+    <!-- bootstrap相關 -->
+
+    <link href="/css/member/MemberCenter.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    
+    <!--  CSS  -->
+    <link href="/css/member/MemberCenter.css" rel="stylesheet" type="text/css" />
+
+    <!-- FontAwesome 連結 -->
+    
+    <script
+      src="https://kit.fontawesome.com/664595efd5.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>懸賞啼雀-會員中心</title>
+    
+  
+
+  </head>
+  <body class="TeacherWanted">
+    <!-- 手機板導引列(粗糙) -->
+    <header class="TeacherWanted">
+      <div id="mySidebar">
+        <img src="img/base/logo.png" alt="" />
+        <a href="#" class="">首頁</a>
+        <a href="#" class="">課程</a>
+        <a href="#" class="">活動</a>
+        <a href="#" class="">許願池</a>
+        <a href="#" class="">論壇</a>
+        <a href="#" class="">商城</a>
+      </div>
+      <div class="navBar">
+        <ul class="containerHearder flexWrap flexVerticalCenter">
+          <li>
+            <img
+              src="img/base/menu.png"
+              id="phoneMenu"
+              class="mobileHave"
+              style="height: 30px; margin: 10px"
+              alt=""
+            />
+          </li>
+
+          <li
+            class="flexWrap flexAllCenter"
+            style="font-size: 50px; color: #a4c964; margin: 10px 0px"
+          >
+            <img
+              src="img/base/logo.png"
+              class="miniMobile"
+              style="height: 50px; margin: 0px 5px"
+              alt=""
+            />
+            <p>懸賞啼雀</p>
+          </li>
+          <li
+            class="flexWrap"
+            style="
+              flex-grow: 1;
+              display: flex;
+              align-items: center;
+              justify-content: end;
+            "
+          >
+            <!-- 電腦版導引列 -->
+            <div
+              id="navLink"
+              class="flexWrap flexAllCenter pcHave"
+              style="flex-grow: 1"
+            >
+              <a class="flexAllCenter" href="">首頁</a>
+              <a class="flexAllCenter" href="">課程</a>
+              <a class="flexAllCenter" href="">活動</a>
+              <a class="flexAllCenter" href="">許願池</a>
+              <a class="flexAllCenter" href="">論壇</a>
+              <a class="flexAllCenter" href="">商城</a>
+            </div>
+            <div
+              class="flexWrap flexAllCenter"
+              style="position: relative; top: 2px"
+            >
+              <div class="miniMobile">
+                <form id="navSearch" action="">
+                  <select>
+                    <option>課程</option>
+                    <option>活動</option>
+                    <option>商城</option>
+                    <option>許願</option>
+                  </select>
+                  <input type="text" />
+                  <img src="img/base/search.svg" alt="" />
+                </form>
+              </div>
+              <img
+                src="img//base/mailForNavbar.svg"
+                class="miniMobile"
+                style="
+                  height: 30px;
+                  margin: 3px 5px;
+                  cursor: pointer;
+                  position: relative;
+                  bottom: 1px;
+                "
+                alt=""
+              />
+              <img
+                src="img/base/shoppingCart.svg"
+                class="miniMobile"
+                style="height: 30px; margin: 3px 5px; cursor: pointer"
+                alt=""
+              />
+              <img
+                src="img/base/bell.svg"
+                class="miniMobile"
+                style="height: 30px; margin: 3px 5px; cursor: pointer"
+                alt=""
+              />
+
+              <a class="btnCss flexAllCenter" style="color: white" href=""
+                >登入</a
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="TeacherWanted">
+      <!-- ！！！寫在這裡！！！
+      如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
+      <section class="container" style="display: flex">
+        <!-- 頁面左邊 -->
+        <div class="aside">
+          <div style="width: 100%">
+            <div class="detailSearch">
+              <!--按鈕圖示-->
+              <div
+                class="flexWrap flexAllCenter"
+                style="position: relative; top: 2px"
+              >
+                <div>
+                  <form id="navSearch" action="">
+                    <select style="width: 125px; margin-left: 80px" name="formal" onchange="javascript:handleSelect(this)">
+                      <option value="MemberCenter">我的課程</option>
+                      <option value="MemberDetail">會員資料</option>
+                      <option value="MySubscribe">訂閱與收藏</option>
+                      <option value="orderList">訂單管理</option>
+                      <option>站內信</option>
+                    </select>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!--會員照片-->
+            <div class="memInfo">
+              <div class="flexWrap flexAllCenter">
+                     <!-- 頭像開始 -->
+                    <div class="profile_picture m-0">
+                      <div style="text-align: center" class="pb-2"
+                      alt="頭像設置">                        
+                      </div>
+                      <div>
+                        <img
+                          id="eximg"
+                          class="rounded-circle"
+                          src="img/aside/logobgg.png"
+                          alt=""
+                        />
+                      </div>
+                      
+                    </div>
+                    <!-- 頭像結束 -->
+                <div class="memName">
+                  <img
+                    src="/teacherWanted/baseVer2/img/aside/icons8-bird-48.png"
+                    alt=""
+                  />
+                  <span>會員姓名:</span>
+                </div>
+                
+                  <!-- <span>簽到日期:2023-04-11</span><br> -->
+                                
+                  <!--在此加入行事曆-->
+                  <div class="flexWrap flexAllCenter">
+                    <div id='calendar' style="height: 400px;"></div>
+                  </div>
+
+
+
+
+
+                </div>
+              </div>
+            </div>  
+        </div>
+    </div>          
+                
+
+          <!-- 頁面右邊 -->
+          <div class="main">
+            <div>
+              <!--課程搜尋-->
+              <div class="wrap">
+                <div class="search">
+                  <form id="navSearch" action="">
+                    <input type="text" />
+                    <img src="img/base/search.svg" alt="" />
+                  </form>
+                </div>
+              </div>
+
+              <ul class="item_list">
+                <li>
+                  <a href="#">
+                    <div class="img_block">
+                      <img src="/teacherWanted/baseVer2/img/main/3.png" />
+                    </div>
+                    <span class="item_text">5HRS JAVA從入門到入土</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <div class="img_block">
+                      <img src="/teacherWanted/baseVer2/img/main/4.png" />
+                    </div>
+                    <span class="item_text">5HRS MYSQL從刪庫到跑路</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <div class="img_block">
+                      <img src="/teacherWanted/baseVer2/img/main/5.png" />
+                    </div>
+                    <span class="item_text">5HRS C#從開始到放棄</span>
+                  </a>
+                </li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        
+      </section>
+    </main>
+
+    <footer
+      class="TeacherWanted"
+      style="background-color: #3c6a36; color: white"
+    >
+      <div
+        class="containerFooter flexAllCenter"
+        style="box-sizing: border-box; padding-top: 50px"
+      >
+        <div class="flexWrap">
+          <ul class="col_33">
+            <li class="flexAllCenter" style="color: #a4c964; font-size: 40px">
+              懸賞啼雀
+            </li>
+            <li
+              class="flexAllCenter"
+              style="margin: 10px 30px; font-weight: normal"
+            >
+              Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
+              dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
+              elitr stet diam duo eos rebum ipsum diam ipsum elitr.
+            </li>
+            <li
+              id="imgIcon"
+              class="flexVerticalCenter"
+              style="margin: 20px 30px"
+            >
+              <img src="img/base/facebook.svg" class="imgIntroduce" alt="" />
+              <img src="img/base/twitter.svg" class="imgIntroduce" alt="" />
+              <img src="img/base/instagram.svg" class="imgIntroduce" alt="" />
+            </li>
+          </ul>
+          <ul class="col_33 flexHorizontalCenter footerMobile">
+            <div style="width: 70%">
+              <li
+                class="flexAllCenter"
+                style="color: #a4c964; font-size: 30px; height: 65px"
+              >
+                Get In Touch
+              </li>
+              <div class="" style="height: 250px; font-weight: 400">
+                <li class="flexWrap" style="margin-top: 10px">
+                  <img
+                    src="img/base/map-marker.svg"
+                    style="height: 24px; padding-right: 10px; margin-top: 6px"
+                    alt=""
+                  />
+                  <div>
+                    <h3 style="font-size: 1.3rem">地址</h3>
+                    <h5 style="font-size: 1rem">123</h5>
+                  </div>
+                </li>
+
+                <li class="flexWrap" style="margin-top: 10px">
+                  <img
+                    src="img/base/mail.svg"
+                    style="height: 24px; padding-right: 10px; margin-top: 6px"
+                    alt=""
+                  />
+                  <div>
+                    <h3 style="font-size: 1.3rem">信箱</h3>
+                    <h5 style="font-size: 1rem">a1234567890@gmail.com</h5>
+                  </div>
+                </li>
+
+                <li class="flexWrap" style="margin-top: 10px">
+                  <img
+                    src="img/base/phone.svg"
+                    style="height: 24px; padding-right: 10px; margin-top: 6px"
+                    alt=""
+                  />
+                  <div>
+                    <h3 style="font-size: 1.3rem">連絡電話</h3>
+                    <h5 style="font-size: 1rem">0900123456</h5>
+                  </div>
+                </li>
+              </div>
+            </div>
+          </ul>
+          <ul class="col_33 flexHorizontalCenter footerMobile">
+            <div style="width: 40%">
+              <li
+                class="flexAllCenter"
+                style="color: #a4c964; font-size: 30px; height: 65px"
+              >
+                網站地圖
+              </li>
+              <div class="webMap">
+                <li style="margin-top: 5px">
+                  <a class="webMapLink" href="">>首頁</a>
+                </li>
+                <li style="margin-top: 5px">
+                  <a class="webMapLink" href="">>課程</a>
+                </li>
+                <li style="margin-top: 5px">
+                  <a class="webMapLink" href="">>活動</a>
+                </li>
+                <li style="margin-top: 5px">
+                  <a class="webMapLink" href="">>許願池</a>
+                </li>
+                <li style="margin-top: 5px">
+                  <a class="webMapLink" href="">>論壇</a>
+                </li>
+                <li style="margin-top: 5px">
+                  <a class="webMapLink" href="">>商城</a>
+                </li>
+              </div>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <!--  Jquery -->
+    <script src="/jquery/jquery-3.6.4.min.js"></script>
+    <script src="/js/member/Moment.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+
+    <!--  axios -->
+    <script src="/axios/axios.js"></script>
+    <!--  vue   -->
+    <script src="/vue/vue-3.3.4.js"></script>
+    <!--  js  -->
+    <script src="/js/base.js"></script>
+    <script src="/js/member/MemberCenter.js"></script>
+
+
+  </body>
+</html>
