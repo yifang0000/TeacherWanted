@@ -3,11 +3,11 @@ package com.example.teacherwanted.active.controller;
 import com.example.teacherwanted.active.model.Active;
 import com.example.teacherwanted.active.model.ActiveFavorite;
 import com.example.teacherwanted.active.model.ActiveOrderDetail;
-import com.example.teacherwanted.active.model.Member;
+import com.example.teacherwanted.active.model.MemberActive;
 import com.example.teacherwanted.active.service.ActiveFavoriteService;
 import com.example.teacherwanted.active.service.ActiveOrderDetailService;
 import com.example.teacherwanted.active.service.ActiveService;
-import com.example.teacherwanted.active.service.MemberService;
+import com.example.teacherwanted.active.service.MemberServiceActive;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +37,7 @@ public class ActiveController {
 
     //    前臺操作 開始
     @Autowired
-    private MemberService memberService;
+    private MemberServiceActive memberService;
 
     //    拿到活動相關訂單
     @GetMapping("/activeOrderList")
@@ -53,7 +53,7 @@ public class ActiveController {
         if (memId == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無登入狀態");
         } else {
-            Member memberInfo = activeOrderDetailService.selectMemBerOrderInfo(memId);
+            MemberActive memberInfo = activeOrderDetailService.selectMemBerOrderInfo(memId);
             return ResponseEntity.ok(memberInfo);
 
         }

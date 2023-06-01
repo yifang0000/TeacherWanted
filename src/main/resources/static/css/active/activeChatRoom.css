@@ -39,7 +39,7 @@ section.activeChatRoomBlock {
 
 .chatMessageInput {
   height: 90px;
-  background-color: blanchedalmond;
+  background-color: #f8f9fa;
 }
 
 .chatMessageInput input {
