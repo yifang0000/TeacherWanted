@@ -19,34 +19,41 @@
     ></script>
     <!-- bootstrap相關 -->
 
-    <link href="/css/member/MemberDetailEdit.css" rel="stylesheet" type="text/css" />
+    <link href="css/MemberCenter.css" rel="stylesheet" type="text/css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
       rel="stylesheet"
     />
-
+    <script src="jquery/jquery-3.6.4.min.js"></script>
+    <script src="js/base.js"></script>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-    <!--  css  -->
-    <link href="/css/member/MemberDetailEdit.css" rel="stylesheet" type="text/css" />
+    
+   
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="js/MemberDetailEdit.js"></script>
+
 
 
     <script
       src="https://kit.fontawesome.com/664595efd5.js"
       crossorigin="anonymous"
     ></script>
-
-    <title>懸賞啼雀-會員中心編輯</title>
+    
+    <title>Document</title>
   </head>
   <body class="TeacherWanted">
     <!-- 手機板導引列(粗糙) -->
     <header class="TeacherWanted">
       <div id="mySidebar">
-        <img src="img/base/logo.png" alt="" />
+        <img src="../img/base/logo.png" alt="" />
         <a href="#" class="">首頁</a>
         <a href="#" class="">課程</a>
         <a href="#" class="">活動</a>
@@ -58,7 +65,7 @@
         <ul class="containerHearder flexWrap flexVerticalCenter">
           <li>
             <img
-              src="img/base/menu.png"
+              src="../img/base/menu.png"
               id="phoneMenu"
               class="mobileHave"
               style="height: 30px; margin: 10px"
@@ -71,7 +78,7 @@
             style="font-size: 50px; color: #a4c964; margin: 10px 0px"
           >
             <img
-              src="img/base/logo.png"
+              src="../img/base/logo.png"
               class="miniMobile"
               style="height: 50px; margin: 0px 5px"
               alt=""
@@ -113,11 +120,11 @@
                     <option>許願</option>
                   </select>
                   <input type="text" />
-                  <img src="img/base/search.svg" alt="" />
+                  <img src="../img/base/search.svg" alt="" />
                 </form>
               </div>
               <img
-                src="img//base/mailForNavbar.svg"
+                src="../img//base/mailForNavbar.svg"
                 class="miniMobile"
                 style="
                   height: 30px;
@@ -129,13 +136,13 @@
                 alt=""
               />
               <img
-                src="img/base/shoppingCart.svg"
+                src="../img/base/shoppingCart.svg"
                 class="miniMobile"
                 style="height: 30px; margin: 3px 5px; cursor: pointer"
                 alt=""
               />
               <img
-                src="img/base/bell.svg"
+                src="../img/base/bell.svg"
                 class="miniMobile"
                 style="height: 30px; margin: 3px 5px; cursor: pointer"
                 alt=""
@@ -153,7 +160,7 @@
     <main class="TeacherWanted">
       <!-- ！！！寫在這裡！！！
       如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
-      <section class="container" style="display: flex">
+      <section class="container" style="display: flex" id="app">
         <!-- 頁面左邊 -->
         <div class="aside">
           <div style="width: 100%">
@@ -216,7 +223,7 @@
                     src="/teacherWanted/baseVer2/img/aside/icons8-bird-48.png"
                     alt=""
                   />
-                  <span>會員姓名:</span>
+                  <span>會員姓名:{{member.memName}}</span>
                 </div>
   
                 <div class="flexHorizontalCenter">
@@ -236,135 +243,254 @@
                 
 
           <!-- 頁面右邊 -->
-          <div class="main" style="height: max-content;">                
-                    <div class="">
-                        <!-- 會員資料 -->
-                        <div class="">
-                            <h1>會員資料</h1><br>
-                          <div class="memDetail">                              
-                            <!-- 會員資料表身 -->
-                            <form class="pure-form">
-                                                         
-                              <div class="d-grid gap-3" >
-                                <div class="row g-2">
-                                  <div class="col-md">
-                                    <div class="form-floating">
-                                      <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="">
-                                      <label for="floatingInputGrid">會員編號</label>
-                                    </div>
-                                  </div>
-                                  <div class="col-md">
-                                    <div class="form-floating">
-                                      <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="">
-                                      <label for="floatingInputGrid">姓名</label>
-                                    </div>
-                                  </div>
-                                  </div>
-
-
-                                  <div class="row g-2">
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="">
-                                        <label for="floatingInputGrid">帳號</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="">
-                                        <label for="floatingInputGrid">密碼</label>
-                                      </div>
-                                    </div>
-                                  </div>
-
-
-                                  <div class="row g-2">
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="">
-                                        <label for="floatingInputGrid">暱稱</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="">
-                                        <label for="floatingInputGrid">生日</label>
-                                      </div>
-                                    </div>
-                                  </div>
-
-
-                                  <div class="row g-2">
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
-                                          <option selected></option>
-                                          <option value="1">男</option>
-                                          <option value="2">女</option>
-                                          <option value="3">無</option>
-                                        </select>
-                                        <label for="floatingSelectGrid">性別</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="">
-                                        <label for="floatingInputGrid">Email</label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                
-                                  <div class="row g-2">
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="">
-                                        <label for="floatingInputGrid">地區</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="">
-                                        <label for="floatingInputGrid">有興趣主題1</label>
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div class="row g-2">
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="">
-                                        <label for="floatingInputGrid">有興趣主題2</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="">
-                                        <label for="floatingInputGrid">有興趣主題3</label>
-                                      </div>
-                                    </div>
-                                  </div> 
-
-                                  <div class="row g-2">
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="">
-                                        <label for="floatingInputGrid">新增日期</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="">
-                                        <label for="floatingInputGrid">更新日期</label>
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div class="row g-2">
-                                    
-                                  </div>                                          
-                                
-                              </div>
-                          </form> <br>  
+          <div class="main" style="height: max-content">
+            <div class="">
+              <!-- 會員資料 -->
+              <div class="">
+                <h1>會員資料</h1>
+                <br />
+                <div class="memDetail" id="app">
+                  <!-- 會員資料表身 -->
+                  <form class="pure-form">
+                    <div class="d-grid gap-3">
+                      <div class="row g-2">
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              
+                              v-model="member.memId"
+                            />
+                            <label for="floatingInputGrid">會員編號</label>
+                          </div>
+                        </div>
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type=""
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              value=""
+                              
+                              v-model="member.memName"
+                            />
+                            <label for="floatingInputGrid">姓名</label>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <div class="row g-2">
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type=""
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              value=""
+                              
+                              v-model="member.memAccount"
+                            />
+                            <label for="floatingInputGrid">帳號</label>
+                          </div>
+                        </div>
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type=""
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              value=""
+                              
+                              v-model="member.memPassword"
+                            />
+                            <label for="floatingInputGrid">密碼</label>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <div class="row g-2">
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type=""
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              value=""
+                              
+                              v-model="member.memNickname"
+                            />
+                            <label for="floatingInputGrid">暱稱</label>
+                          </div>
+                        </div>
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type=""
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              value=""
+                              
+                              v-model="member.memBirthday"
+                            />
+                            <label for="floatingInputGrid">生日</label>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <div class="row g-2">
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <select
+                              class="form-select"
+                              id="floatingSelectGrid"
+                              aria-label="Floating label select example"
+                              
+                              v-model="member.memGender"
+                            >
+                              <option selected></option>
+                              <option value="1">男</option>
+                              <option value="2">女</option>
+                              <option value="3">無</option>
+                            </select>
+                            <label for="floatingSelectGrid">性別</label>
+                          </div>
+                        </div>
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type=""
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              value=""
+                              
+                              v-model="member.memEmail"
+                            />
+                            <label for="floatingInputGrid">Email</label>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <div class="row g-2">
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type=""
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              value=""
+                              
+                              v-model="member.memLocation"
+                            />
+                            <label for="floatingInputGrid">地區</label>
+                          </div>
+                        </div>
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type=""
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              value=""
+                              
+                              v-model="member.interest1"
+                            />
+                            <label for="floatingInputGrid">有興趣主題1</label>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <div class="row g-2">
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type=""
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              value=""
+                              
+                              v-model="member.interest2"
+                            />
+                            <label for="floatingInputGrid">有興趣主題2</label>
+                          </div>
+                        </div>
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type=""
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              value=""
+                              
+                              v-model="member.interest3"
+                            />
+                            <label for="floatingInputGrid">有興趣主題3</label>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <div class="row g-2">
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type=""
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              value=""
+                              
+                              v-model="member.createTime"
+                            />
+                            <label for="floatingInputGrid">新增日期</label>
+                          </div>
+                        </div>
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type=""
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              value=""
+                              
+                              v-model="member.updateTime"
+                            />
+                            <label for="floatingInputGrid">更新日期</label>
+                          </div>
+                        </div>
+                      </div>
+  
+                      <div class="row g-2">
+                        <div class="col-md">
+                          <div class="form-floating">
+                            <input
+                              type=""
+                              class="form-control"
+                              id="floatingInputGrid"
+                              placeholder=""
+                              value=""
+                              
+                              v-model="member.memStatus"
+                            />
+                            <label for="floatingInputGrid">會員狀態</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <br />
             
 
             <!-- Modal -->
@@ -380,7 +506,7 @@
                         </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">關閉</button>
-                      <button type="button" class="btn btn-outline-success">確定變更</button>
+                      <button type="button" class="btn btn-outline-success" @click="edit">確定變更</button>
                      </div>
                   </div>
                 </div>
@@ -401,124 +527,7 @@
       </section>
     </main>
 
-    <footer
-      class="TeacherWanted"
-      style="background-color: #3c6a36; color: white"
-    >
-      <div
-        class="containerFooter flexAllCenter"
-        style="box-sizing: border-box; padding-top: 50px"
-      >
-        <div class="flexWrap">
-          <ul class="col_33">
-            <li class="flexAllCenter" style="color: #a4c964; font-size: 40px">
-              懸賞啼雀
-            </li>
-            <li
-              class="flexAllCenter"
-              style="margin: 10px 30px; font-weight: normal"
-            >
-              Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
-              dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
-              elitr stet diam duo eos rebum ipsum diam ipsum elitr.
-            </li>
-            <li
-              id="imgIcon"
-              class="flexVerticalCenter"
-              style="margin: 20px 30px"
-            >
-              <img src="img/base/facebook.svg" class="imgIntroduce" alt="" />
-              <img src="img/base/twitter.svg" class="imgIntroduce" alt="" />
-              <img src="img/base/instagram.svg" class="imgIntroduce" alt="" />
-            </li>
-          </ul>
-          <ul class="col_33 flexHorizontalCenter footerMobile">
-            <div style="width: 70%">
-              <li
-                class="flexAllCenter"
-                style="color: #a4c964; font-size: 30px; height: 65px"
-              >
-                Get In Touch
-              </li>
-              <div class="" style="height: 250px; font-weight: 400">
-                <li class="flexWrap" style="margin-top: 10px">
-                  <img
-                    src="img/base/map-marker.svg"
-                    style="height: 24px; padding-right: 10px; margin-top: 6px"
-                    alt=""
-                  />
-                  <div>
-                    <h3 style="font-size: 1.3rem">地址</h3>
-                    <h5 style="font-size: 1rem">123</h5>
-                  </div>
-                </li>
-
-                <li class="flexWrap" style="margin-top: 10px">
-                  <img
-                    src="img/base/mail.svg"
-                    style="height: 24px; padding-right: 10px; margin-top: 6px"
-                    alt=""
-                  />
-                  <div>
-                    <h3 style="font-size: 1.3rem">信箱</h3>
-                    <h5 style="font-size: 1rem">a1234567890@gmail.com</h5>
-                  </div>
-                </li>
-
-                <li class="flexWrap" style="margin-top: 10px">
-                  <img
-                    src="img/base/phone.svg"
-                    style="height: 24px; padding-right: 10px; margin-top: 6px"
-                    alt=""
-                  />
-                  <div>
-                    <h3 style="font-size: 1.3rem">連絡電話</h3>
-                    <h5 style="font-size: 1rem">0900123456</h5>
-                  </div>
-                </li>
-              </div>
-            </div>
-          </ul>
-          <ul class="col_33 flexHorizontalCenter footerMobile">
-            <div style="width: 40%">
-              <li
-                class="flexAllCenter"
-                style="color: #a4c964; font-size: 30px; height: 65px"
-              >
-                網站地圖
-              </li>
-              <div class="webMap">
-                <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>首頁</a>
-                </li>
-                <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>課程</a>
-                </li>
-                <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>活動</a>
-                </li>
-                <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>許願池</a>
-                </li>
-                <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>論壇</a>
-                </li>
-                <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>商城</a>
-                </li>
-              </div>
-            </div>
-          </ul>
-        </div>
-      </div>
-    </footer>
-    <!--   Jquery   -->
-    <script src="/jquery/jquery-3.6.4.min.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    
 
     <!--  axios -->
     <script src="/axios/axios.js"></script>
