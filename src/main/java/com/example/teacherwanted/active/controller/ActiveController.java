@@ -1,5 +1,6 @@
 package com.example.teacherwanted.active.controller;
 
+import com.example.teacherwanted.active.dao.MemberDaoActive;
 import com.example.teacherwanted.active.model.Active;
 import com.example.teacherwanted.active.model.ActiveFavorite;
 import com.example.teacherwanted.active.model.ActiveOrderDetail;
@@ -8,6 +9,8 @@ import com.example.teacherwanted.active.service.ActiveFavoriteService;
 import com.example.teacherwanted.active.service.ActiveOrderDetailService;
 import com.example.teacherwanted.active.service.ActiveService;
 import com.example.teacherwanted.active.service.MemberServiceActive;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,11 +19,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Key;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -230,9 +238,56 @@ public class ActiveController {
 
     //    會員登入狀態
 
+    @Autowired
+    private MemberDaoActive memberDaoActive;
+
+    @PostMapping("/loginTest")
+    public String easyLoginTest(@RequestBody MemberActive memberActive, HttpServletResponse response) {
+        MemberActive memberActive1 = memberDaoActive.selectById(memberActive.getMemId());
+
+
+        byte[] encryptedMessageBytes = new byte[0];
+        try {
+            String secretMessage = memberActive1.getMemPassword();
+            System.out.println("Origin Message: " + secretMessage);
+
+            /*** Set Key ***/
+            KeyGenerator generator = KeyGenerator.getInstance("AES");
+            generator.init(256);
+            Key key = generator.generateKey();
+
+            /*** do Encrypt ***/
+            Cipher encryptCipher = Cipher.getInstance("AES");
+            encryptCipher.init(Cipher.ENCRYPT_MODE, key);
+            byte[] secretMessageBytes = secretMessage.getBytes(StandardCharsets.UTF_8);
+            encryptedMessageBytes = encryptCipher.doFinal(secretMessageBytes);
+            System.out.println("AES Encrypt: " + encryptedMessageBytes);
+
+            /*** do Decrypt ***/
+            Cipher decryptCipher = Cipher.getInstance("AES");
+            decryptCipher.init(Cipher.DECRYPT_MODE, key);
+            byte[] decryptedMessageBytes = decryptCipher.doFinal(encryptedMessageBytes);
+            String decryptedMessage = new String(decryptedMessageBytes, StandardCharsets.UTF_8);
+            System.out.println("AES Decrypt: " + decryptedMessage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String PasswordBase64 = Base64.getEncoder().encodeToString(encryptedMessageBytes);
+        Cookie cookie = new Cookie("TeacherWantedPassword", PasswordBase64);
+
+        // 設置過期時間，若無設置時間，其生命週期將持續到Session 過期為止
+        cookie.setMaxAge(365 * 7 * 24 * 60 * 60);
+        response.addCookie(cookie);
+
+//        session.setAttribute("MemberId", memberId);
+        return "會員登入成功";
+    }
+
     @PostMapping("/activeLogin")
     public String easyLogin(@RequestBody Integer memberId, HttpSession session) {
         session.setAttribute("MemberId", memberId);
+        System.out.println("會員登入成功，id="+memberId);
         return "會員登入成功";
     }
 
