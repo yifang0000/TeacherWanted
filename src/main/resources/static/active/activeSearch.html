@@ -20,25 +20,14 @@
     <!-- bootstrap相關 -->
 
     <link href="../css/baseVer2.css" rel="stylesheet" type="text/css" />
-    <link
-      href="../css/active/activeIndex.css"
-      rel="stylesheet"
-      type="text/css"
-    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
       rel="stylesheet"
     />
-    <!-- 網路上的函式庫 -->
     <script src="../jquery/jquery-3.6.4.min.js"></script>
-    <script src="../vue/vue-3.3.4.js"></script>
-    <script src="../axios/axios.js"></script>
-
-    <!-- 自己的js -->
     <script src="../js/base.js"></script>
-    <script src="../js/active/activeIndex.js"></script>
 
     <title>Document</title>
   </head>
@@ -153,68 +142,6 @@
     <main class="TeacherWanted">
       <!-- ！！！寫在這裡！！！
       如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
-      <div id="app">
-        <div class="containerActiveIndex">
-          <!-- 上方活動列表和活動地圖 開始 -->
-          <section class="activeIndexBlock flexWrap">
-            <div class="activeIndexName flexVerticalCenter">
-              <h1>活動列表</h1>
-            </div>
-            <div class="activeIndexIcon flexVerticalCenter">
-              <select
-                name=""
-                id="activityIndexType"
-                v-model="activityIndexType"
-                @change="searchByType"
-              >
-                <option value="戶外運動">戶外運動</option>
-                <option value="全民教育">全民教育</option>
-                <option value="休閒娛樂">休閒娛樂</option>
-              </select>
-              <a href="/active/activeMap.html" class="flexAllCenter"
-                >活動地圖</a
-              >
-            </div>
-          </section>
-          <!-- 上方活動列表和活動地圖 結束 -->
-          <section class="activeIndexList flexWrap">
-            <!-- 活動列表區塊 開始 -->
-            <div
-              v-for="activityIndex in activityIndexList"
-              :key="activityIndex.id"
-              class="activeIndexOneBlock"
-            >
-              <div
-                @click="navigateToPage(activityIndex.activityId)"
-                class="activeIndexOne"
-              >
-                <div class="activeIndexOneImgBlock">
-                  <img
-                    :src="'data:image/'+activityIndex.activityPhotoType+';base64,'+activityIndex.activityPhoto"
-                  />
-                </div>
-
-                <div class="activeIndexOneIntroduceBlock">
-                  <h5>
-                    <strong>
-                      {{convertDateTimeEasy(activityIndex.activityStartTime)}} -
-                      {{convertDateTimeEasy(activityIndex.activityEndTime)}}
-                    </strong>
-                  </h5>
-                  <span class="activeIndexOneIntroduceType"
-                    >{{activityIndex.activityType}}</span
-                  >
-
-                  <h2>{{activityIndex.activityName}}</h2>
-                  <h6>活動票價:{{activityIndex.activityPrice}}NT</h6>
-                  <h6>活動地點:{{activityIndex.activityLocation}}</h6>
-                </div>
-              </div>
-            </div>
-            <!-- 活動列表區塊 結束 -->
-          </section>
-        </div>
-      </div>
     </main>
 
     <footer
