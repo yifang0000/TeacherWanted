@@ -15,7 +15,10 @@ public class ActiveServiceImpl implements ActiveService {
     @Autowired
     private ActiveDao activeDao;
     //    前臺操作 開始
-//    @Override
+
+
+    //    查詢所有活動
+    @Override
     public List<Active> selectAll(String key, String activityType) {
         if (key == null || key.isEmpty()) {
             key = "%";
@@ -33,20 +36,23 @@ public class ActiveServiceImpl implements ActiveService {
 
     //    推薦活動
     @Override
-    public List<Active> recommendActivities(String activityType){
+    public List<Active> recommendActivities(String activityType) {
         return activeDao.recommendActivities(activityType);
-    };
+    }
+
+    ;
 
     //    單個活動
 
     @Override
     public Active selectById(Integer id) {
         Active active = activeDao.selectById(id);
-        if(active!=null && active.getActivityStatus()!=0){
+        if (active != null && active.getActivityStatus() != 0) {
             return active;
-        }else {
-            return null;}
+        } else {
+            return null;
         }
+    }
 
     //    前臺操作 結束
 

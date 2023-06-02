@@ -1,3 +1,6 @@
+const urlParams = new URLSearchParams(window.location.search);
+const searchText = urlParams.get("searchText");
+
 const app = Vue.createApp({
   data() {
     return {
@@ -5,9 +8,9 @@ const app = Vue.createApp({
     };
   },
   mounted() {
-    axiosGetActive()
+    axiosGetActive(searchText)
       .then((data) => {
-        console.log("mounted:" + data);
+        // console.log("mounted:" + data);
         this.activityIndexList = data;
       })
       .catch((error) => {
@@ -51,7 +54,11 @@ window.addEventListener("load", () => {
 // 取得所有活動
 function axiosGetActive() {
   return axios
-    .get("/activeIndex")
+    .get("/activeIndex", {
+      params: {
+        searchKeyword: searchText,
+      },
+    })
     .then((response) => {
       //   console.log(response.data);
       return response.data;

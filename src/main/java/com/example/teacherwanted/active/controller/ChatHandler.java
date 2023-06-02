@@ -88,6 +88,7 @@ public class ChatHandler extends TextWebSocketHandler {
             String chatKey = "chat:" + chatRoomId;
 
             String modifiedPayload = "ID" + memId + ":" + payload;
+//            儲存資料，用list
             jedis.rpush(chatKey, modifiedPayload);
             System.out.println("接收到消息: " + payload);
             System.out.println("聊天室ID: " + chatRoomId);
