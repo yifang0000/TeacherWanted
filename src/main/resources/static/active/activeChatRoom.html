@@ -31,11 +31,13 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
       rel="stylesheet"
     />
+
+    <script src="../axios/axios.js"></script>
+    <script src="../vue/vue-3.3.4.js"></script>
+
     <script src="../jquery/jquery-3.6.4.min.js"></script>
     <script src="../js/base.js"></script>
     <script src="../js/active/activeChatRoom.js"></script>
-
-    <script src="../vue/vue-3.3.4.js"></script>
 
     <title>Document</title>
   </head>
@@ -150,7 +152,7 @@
     <main class="TeacherWanted">
       <!-- ！！！寫在這裡！！！
       如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
-      <div class="flexWrap">
+      <div id="app" class="flexWrap">
         <section class="activeChatRoomIntroduceBlock">
           <div class="activeChatRoomIntroduceBtnBlock">
             <a href="">回首頁</a>
@@ -162,15 +164,15 @@
           </div>
         </section>
         <section class="activeChatRoomBlock">
-          <div class="chatMessage">
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
-            <p>123</p>
+          <div id="chatMessageBlock" class="chatMessage">
+            <p>歡迎來到{{activityName}}的聊天室</p>
           </div>
           <div class="chatMessageInput flexWrap flexAllCenter">
-            <input type="text" /><a href="">發送</a>
+            <input
+              v-model="intputVal"
+              @keyup.enter="sendMessage"
+              type="text"
+            /><a @click="sendMessage">發送</a>
           </div>
         </section>
       </div>

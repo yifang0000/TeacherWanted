@@ -39,7 +39,7 @@ section.activeChatRoomBlock {
 
 .chatMessageInput {
   height: 90px;
-  background-color: #f8f9fa;
+  background-color: #a5bd69;
 }
 
 .chatMessageInput input {
@@ -58,6 +58,7 @@ section.activeChatRoomBlock {
   color: white;
   margin-left: 10px;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .chatMessageInput a:hover {

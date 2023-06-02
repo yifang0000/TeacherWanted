@@ -35,6 +35,11 @@ public class ChatHandler extends TextWebSocketHandler {
         //        將list轉為json放進broadcast裡xxx的位置
 
         List<String> chatHistory = jedis.lrange("chat:" + chatRoomId, 0, jedis.llen(chatRoomId) - 1);
+//        用br換行
+//        String result = String.join("<br>", chatHistory);
+//        用p標籤包住
+        String result = String.join("</p><p>", chatHistory);
+        result = "<p>" + result + "</p>";
 
         for (String chatOne : chatHistory) {
             System.out.println("資料:" + chatOne);
@@ -55,10 +60,18 @@ public class ChatHandler extends TextWebSocketHandler {
             Set<WebSocketSession> set = new HashSet<>();
             set.add(session);
 
-            broadcast(set, "xxx");
+            broadcast(set, result);
         } else {
             // 身份验证失败
             // 可以添加其他处理，例如发送错误消息给客户端
+            //發送错误消息给客户端給當前使用者
+//            Set<WebSocketSession> sessions = chatRooms.getOrDefault(chatRoomId, new HashSet<>());
+//            sessions.add(session);
+//            chatRooms.put(chatRoomId, sessions);
+            Set<WebSocketSession> set = new HashSet<>();
+            set.add(session);
+
+            broadcast(set, "無報名活動");
             session.close();
         }
     }
