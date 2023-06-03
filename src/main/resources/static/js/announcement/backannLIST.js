@@ -27,8 +27,17 @@ $(document).ready(function(){
           },
           columns: [
             { data: "annId" },
-            { data: "adminId" },
-            { data: "annCategory" },
+            // { data: "adminId" },
+            { data: "annCategory",
+            render: function (data, type, row) {
+              if (data == 1) {
+                return "優惠券";
+              } else if (data == 2) {
+                return "綜合";
+              } else {
+                return "";
+              }
+            }, },
             { data: "annTitle",
             render: function(data, type, row) {
               if (type === 'display' || type === 'filter') {
@@ -87,7 +96,7 @@ $(document).ready(function(){
               className: "align-middle",
             },
             {
-              targets: [7],
+              targets: [6],
               orderable: false,
               "searchable": false
             },

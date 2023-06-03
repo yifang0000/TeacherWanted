@@ -26,7 +26,7 @@ public class Announcement {
     @Column(name = "ann_title")
     private String annTitle;
     @Column(name = "ann_category")
-    private String annCategory;
+    private Integer annCategory;
 
     @Column(name = "ann_content")
     private String annContent;

@@ -40,38 +40,91 @@ $(document).ready(function () {
     stripe: false,
     stripeClasses: ["#ffffff", "#f6f6f6"],
     order:[[2,"desc"]],
-    // ajax: {
-    //   url: "http://localhost:8081/Project3/administrators",
-    //   dataSrc: "",
-    // },
-    columns: [
-      { data: 'annCategory' },
-      { data: 'annTitle' },
-      { data: 'annDate' }
-    ],
-    rowCallback: function(row, data) {
-      // 取得目前列的索引值，從 0 開始
-      var index = $(row).index()+1;
-      var Url = "annCont.html?annId=";
-      var annTitle=data.annTitle;
-      // 設定連結為 http://ex.html?id=點擊的 row 索引值
-      // $('td:eq(1)', row).html('<a href="http://ex.html?id=' + index + '">' + data.title + '</a>');
-      
-      $('td:eq(1)', row).html('<a href="'+Url + index + '">' + annTitle + '</a>');
+    ajax: {
+      url: "/announcements",
+      dataSrc: "",
     },
-    // ajax: {
-    //   url: "http://localhost:8081/Project3/#",
-    //   dataSrc: "",
-    // },
-    // columns: [
-    //   { data: "adminId" },
-    //   { data: "adminAccount" },
-    //   { data: "adminPassword" },
-    //   { data: "adminName" },
-    //   { data: "adminEmail" },
-    //   { data: "adminPhone" }
-    // ],
-    // 表格翻譯
+    columns: [
+      { data: "annId" },
+      // { data: "adminId" },
+      { data: "annCategory",
+      render: function (data, type, row) {
+        if (data == 1) {
+          return "優惠券";
+        } else if (data == 2) {
+          return "綜合";
+        } else {
+          return "";
+        }
+      }, },
+      { data: "annTitle",
+      render: function(data, type, row) {
+        if (type === 'display' || type === 'filter') {
+          // 將"<br>"標籤替換為空格
+          var formattedData0 = data.replace(/<br>/g, ' ');
+          if (formattedData0.length > 8) {
+            formattedData0 = formattedData0.substring(0, 8) + '...';
+          }
+          return formattedData0;
+        }
+        return data;
+      } },
+      { data: "annContent",
+      render: function(data, type, row) {
+        if (type === 'display' || type === 'filter') {
+          // 將"<br>"標籤替換為空格
+          var formattedData0 = data.replace(/<br>/g, ' ');
+          if (formattedData0.length > 10) {
+            formattedData0 = formattedData0.substring(0, 10) + '...';
+          }
+          return formattedData0;
+        }
+        return data;
+      } },
+      { data: "annDate" },
+      // 如果資料為0則顯示"停權"、1則顯示"正常"
+      {
+        data: "annStatus",
+        render: function (data, type, row) {
+          if (data == 1 && row.annDate > now) {
+            return "排程中";
+          } else if (data == 1) {
+            return "上架中";
+          } else {
+            return "下架中";
+          }
+        },
+      },
+      {
+        data: null,
+        render: function (data, type, row) {
+          var editUrl =
+            'backannEDIT.html?annId=' + row.annId;
+            // console.log(this.data)
+          return (
+            '<a class="btn btn-outline-success btn-sm p-0 mr-2"  id="editbtn" href="' +
+            editUrl +
+            '">修改<i class="fa-solid fa-pen"></i></a><a href="#" class="btn btn-outline-danger btn-sm p-0 mr-2" id="offbtn" data-bs-toggle="modal" onclick="sendId('+row.annId+')" data-bs-target="#staticBackdrop">刪除<i class="fa-solid fa-xmark"></i></a>'
+          );
+        },
+      },
+    ],
+    columnDefs: [
+      {
+        targets: [1, 2, 3, 4, 5],
+        className: "align-middle",
+      },
+      {
+        targets: [6],
+        orderable: false,
+        "searchable": false
+      },
+      // {
+      //   "targets": [1, 2], // 隱藏第2和第3欄
+      //   "visible": false,
+      //   "searchable": false
+      // },
+    ],
 language: {
   "lengthMenu": "顯示 _MENU_ 筆資料",
   "sProcessing": "處理中...",

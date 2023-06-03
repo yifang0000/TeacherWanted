@@ -113,7 +113,7 @@ $(document).ready(function(){
                   var formDataAnn = {
                     adminId:admin.adminId,
                     annTitle:"優惠券新增！",
-                  annCategory:"優惠券",
+                  annCategory:1,
                   annContent:annTest,
                   annDate:now,
                   annStatus:"1"

@@ -38,8 +38,13 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         return announcementDao.selectByAnnId(annId);
     }
 
+//    @Override
+//    public List<Announcement> findAll() {
+//        return announcementDao.findAll();
+//    }
+
     @Override
-    public List<Announcement> findAll() {
-        return announcementDao.findAll();
+    public List<Announcement> findAll(String annCategory) {
+        return announcementDao.findAll(annCategory);
     }
 }

@@ -14,13 +14,20 @@ public class AnnouncementController {
     @Autowired
     public AnnouncementService announcementService;
 
+    //    原版查詢全部：[restful設計]無論查詢列表有無資料，都需要回傳200給前端
+//    @GetMapping("/announcements")
+//    public ResponseEntity<List<Announcement>> findAll() {
+//        List<Announcement> all = announcementService.findAll();
+//        return ResponseEntity.status(HttpStatus.OK).body(all);
+//    }
+
+
     //    查詢全部：[restful設計]無論查詢列表有無資料，都需要回傳200給前端
     @GetMapping("/announcements")
-    public ResponseEntity<List<Announcement>> findAll() {
-        List<Announcement> all = announcementService.findAll();
+    public ResponseEntity<List<Announcement>> findAll(@RequestParam(required = false) String annCategory) {
+        List<Announcement> all = announcementService.findAll(annCategory);
         return ResponseEntity.status(HttpStatus.OK).body(all);
     }
-
     //    查詢單個：[restful設計]：若該資料查詢不到，須回傳404給前端
     @GetMapping("/announcements/{annId}")
     public ResponseEntity<Announcement> selectByAnnId(@PathVariable Integer annId) {

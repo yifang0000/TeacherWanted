@@ -6,32 +6,59 @@ var annDate = document.getElementById("annDate");
 // 設定最小值為目前時間
 annDate.min = now;
 
-
-
-
-
-
-// // 使用AJAX将选项和时间发送到后端
-// var xhr = new XMLHttpRequest();
-// var url = 'your_backend_url';
-// var data = {
-//   option: selectedOption,
-//   time: scheduledTime
-// };
-// xhr.open('POST', url, true);
-// xhr.setRequestHeader('Content-Type', 'application/json');
-// xhr.send(JSON.stringify(data));
-
-
-
 function toggleScheduledTime(show) {
-    var scheduledTimeDiv = document.getElementById('scheduled_time');
-    if (show) {
-        scheduledTimeDiv.removeAttribute("hidden");
-    } else {
-        scheduledTimeDiv.setAttribute("hidden", "");
-    }
+  var scheduledTimeDiv = document.getElementById('scheduled_time');
+  if (show) {
+      scheduledTimeDiv.removeAttribute("hidden");
+  } else {
+      scheduledTimeDiv.setAttribute("hidden", "");
   }
+}
+
+
+
+      // 從網址中獲取couponId的值
+      var urlParams = new URLSearchParams(window.location.search);
+      var annId = urlParams.get("annId");
+      console.log(1)
+
+      $.ajax({
+        type: 'GET',
+        url: '/announcements/'+annId,
+        contentType: 'application/json',
+        success: function(data) {
+          console.log(data)
+          function addLeadingZero(value) {
+            return value < 10 ? "0" + value : value;
+        }
+          function formatDateTime(date0) {
+            var dateObj = new Date(date0);  // 將日期字串轉換成 JavaScript Date 物件
+                  
+            var year = dateObj.getFullYear();
+            var month = dateObj.getMonth() + 1;  // JavaScript 的月份從 0 開始，所以要加 1
+            var day = dateObj.getDate();
+            var hour = dateObj.getHours();
+            var minute = dateObj.getMinutes();
+            var second = dateObj.getSeconds();
+            
+            var formattedDateTime = year + "-" + addLeadingZero(month) + "-" + addLeadingZero(day) + "T" +
+                addLeadingZero(hour) + ":" + addLeadingZero(minute) + ":" + addLeadingZero(second);
+            
+            return formattedDateTime;
+        }
+        
+        console.log(formatDateTime(data.activateTime))
+          $('#annTitle').val(data.annTitle);
+          $('#annCategory').val(data.annCategory);
+          $('#annContent').val(data.annContent.replace(/<br>/g, '\n'));
+          $('#annDate').val(formatDateTime(data.annDate));
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log("error")
+        }
+      });
+
+
 
 $(document).ready(function(){
     $("#collapse").on("click",function(){
@@ -78,7 +105,21 @@ $(document).ready(function(){
 
             for (var i = 0; i < scheduleOptions.length; i++) {
             if (scheduleOptions[0].checked) {
-                annDate = now;
+                
+                // 建立 Date 物件，並解析日期時間值
+                var date = new Date();
+
+                // 取得年、月、日、時、分、秒
+                var year = date.getFullYear();
+                var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                var day = ('0' + date.getDate()).slice(-2);
+                var hours = ('0' + date.getHours()).slice(-2);
+                var minutes = ('0' + date.getMinutes()).slice(-2);
+                var seconds = ('0' + date.getSeconds()).slice(-2);
+
+                // 格式化日期時間字串
+                var annDate = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+
                 annStatus=1;
             } else if (scheduleOptions[1].checked) {
                 // 取得 input 元素
@@ -102,14 +143,12 @@ $(document).ready(function(){
                 var annDate = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 
                 annStatus=1;
-            } else if (scheduleOptions[2].checked) {
-                annDate = "";
-                annStatus=0;
             }
             }
 
               // =====================ajax======//
             var formData = {
+              annId:annId,
                 adminId:"2",
                 annTitle:$('#annTitle').val(),
               annCategory:$('#annCategory').val(),
@@ -120,16 +159,16 @@ $(document).ready(function(){
   
             console.log(JSON.stringify(formData));
             $.ajax({
-              type: 'POST',
-              url: '/announcements',
+              type: 'PUT',
+              url: '/announcements/'+annId,
               data: JSON.stringify(formData),
               contentType: 'application/json',
               success: function(response) {
-                // history.go(-1);
-                alert('新增公告成功！');
+                alert('修改公告成功！');
+                location.reload();
               },
               error: function(jqXHR, textStatus, errorThrown) {
-                alert('新增公告失敗');
+                alert('修改公告失敗');
               }
             });
       })

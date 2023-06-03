@@ -128,8 +128,8 @@
                       required
                     >
                       <option value="">請選擇</option>
-                      <option value="優惠券">優惠券</option>
-                      <option value="綜合">綜合</option>
+                      <option value="1">優惠券</option>
+                      <option value="2">綜合</option>
                     </select>
                   </div>
                 </div>
@@ -230,7 +230,13 @@
                     />
                   </div>
                 </div>
-                <button type="button" class="btn btn-secondary">取消</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  onclick="history.back()"
+                >
+                  取消
+                </button>
                 <button type="submit" class="btn btn-success" id="btnsubmit">
                   確認
                 </button>
