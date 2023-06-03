@@ -17,26 +17,36 @@
     const name = document.querySelector("#name");
     const file = document.querySelector("#file");
     const img = document.querySelector("img");
+
+    // 當檔案選擇框的內容改變時觸發事件
     file.addEventListener("change", () => {
+        // 將圖片的 src 屬性設定為選擇的檔案的 URL
         img.src = URL.createObjectURL(file.files[0]);
     });
 
+    // 當按鈕被點擊時觸發事件
     document.querySelector("button").addEventListener("click", () => {
-        const fr =new FileReader();
-        fr.addEventListener("load",e=>{
-            fetch("/test/t1",{
-                method:"POST",
-                headers:{
-                  "Content-Type":"application/json"
+        // 建立一個 FileReader 物件
+        const fr = new FileReader();
+
+        // 當 FileReader 讀取完成時觸發事件
+        fr.addEventListener("load", e => {
+            // 發送 POST 請求到 "/test/t1"
+            fetch("/test/t1", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
                 },
-                body:JSON.stringify({
-                    name:name.value,
-                    avatar:btoa(e.target.result)
+                body: JSON.stringify({
+                    name: name.value,                          // 傳送名字資料
+                    avatar: btoa(e.target.result)               // 將讀取結果編碼為 base64 字串並傳送
                 })
-            })
-        })
+            });
+        });
+
+        // 以二進位字串讀取選擇的檔案
         fr.readAsBinaryString(file.files[0]);
-    })
+    });
 
 
 </script>

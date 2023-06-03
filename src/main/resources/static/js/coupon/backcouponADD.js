@@ -112,7 +112,7 @@ $(document).ready(function(){
                   annTest=`優惠代碼：${$('#couponCode').val()}<br />有效期間：${forDateTime('activateTime')}~${forDateTime('expirationDate')}<br />折扣金額：${$('#discount').val()}<br />${htmlValue}`
                   var formDataAnn = {
                     adminId:admin.adminId,
-                    annTitle:"今日優惠券",
+                    annTitle:"優惠券新增！",
                   annCategory:"優惠券",
                   annContent:annTest,
                   annDate:now,

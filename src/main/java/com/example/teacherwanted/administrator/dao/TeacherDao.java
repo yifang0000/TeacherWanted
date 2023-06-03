@@ -1,21 +1,19 @@
 package com.example.teacherwanted.administrator.dao;
 
 import com.example.teacherwanted.administrator.model.Administrator;
+import com.example.teacherwanted.administrator.model.Teacher;
 
 import java.util.List;
 
-public interface AdministratorDao {
-
+public interface TeacherDao {
     //    新增使用者
-    public int insert(Administrator administrator);
+    public int insert(Teacher teacher);
     //    刪除
     public int deleteByAdminId(Integer adminId);
     //    修改
-    public int updateByAdminId(Administrator administrator);
+    public int updateByAdminId(Teacher teacher);
     //    查詢全部使用者
-    public List<Administrator> findAll();
+    public List<Teacher> findAll();
     //    查詢單個使用者
-    public Administrator selectByAdminId(Integer adminId);
-    public Administrator selectByAccount(String adminAccount);
-
+    public Teacher selectByAdminId(Integer adminId);
 }

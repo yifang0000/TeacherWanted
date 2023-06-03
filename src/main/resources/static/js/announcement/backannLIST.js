@@ -29,7 +29,18 @@ $(document).ready(function(){
             { data: "annId" },
             { data: "adminId" },
             { data: "annCategory" },
-            { data: "annTitle" },
+            { data: "annTitle",
+            render: function(data, type, row) {
+              if (type === 'display' || type === 'filter') {
+                // 將"<br>"標籤替換為空格
+                var formattedData0 = data.replace(/<br>/g, ' ');
+                if (formattedData0.length > 8) {
+                  formattedData0 = formattedData0.substring(0, 8) + '...';
+                }
+                return formattedData0;
+              }
+              return data;
+            } },
             { data: "annContent",
             render: function(data, type, row) {
               if (type === 'display' || type === 'filter') {

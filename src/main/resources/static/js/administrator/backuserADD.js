@@ -34,15 +34,31 @@ $(document).ready(function(){
         for (var i = 0; i < 8; i++) {
           randomCode += characters.charAt(Math.floor(Math.random() * characters.length));
         }
+                // 建立 Date 物件
+                var date = new Date();
 
-        // =====================ajax======//
+                // 取得年、月、日、時、分、秒
+                var year = date.getFullYear();
+                var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                var day = ('0' + date.getDate()).slice(-2);
+                var hours = ('0' + date.getHours()).slice(-2);
+                var minutes = ('0' + date.getMinutes()).slice(-2);
+                var seconds = ('0' + date.getSeconds()).slice(-2);
+
+                // 格式化日期時間字串
+                var nowdate = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+
+        // ===============新增管理員=====//
       var formData = {
         adminAccount:$('#adminAccount').val(),
         adminName:$('#adminName').val(),
+        adminPassword:randomCode,
         adminEmail:$('#adminEmail').val(),
-        permissionId:$('#role').val(),
         adminPhone:$('#adminPhone').val(),
+        permissionId:2,
         admin_status:1,
+        createdDate:nowdate,
+        lastUpdatedDate:nowdate
         // adminPassword:randomCode
       };
 
@@ -53,7 +69,12 @@ $(document).ready(function(){
         data: JSON.stringify(formData),
         contentType: 'application/json',
         success: function(response) {
-          alert('新增成功！');
+          var newAdminId=response;
+          alert(newAdminId+'新增成功！');
+          if(formData.permissionId==2){
+            insertTea(newAdminId)
+          }
+
         },
         error: function(xhr, textStatus, errorThrown) {
        if (xhr.status === 502) {
@@ -63,6 +84,30 @@ $(document).ready(function(){
         }
         }
       });
+
+        function insertTea(newAdminId){
+        //==========同步新增老師=======//
+            var formDataTeacher = {
+              adminId:newAdminId,
+              teaName:formData.adminName
+            };
+  
+            console.log(formDataTeacher)
+            $.ajax({
+              type: 'POST',
+              url: '/teachers',
+              data: JSON.stringify(formDataTeacher),
+              contentType: 'application/json',
+                success: function(response) {
+                  alert('老師新增成功！');
+                },
+                error: function(xhr, textStatus, errorThrown) {
+
+                    alert("發生錯誤");
+                }
+            });
+        }
+
 })
 
 })

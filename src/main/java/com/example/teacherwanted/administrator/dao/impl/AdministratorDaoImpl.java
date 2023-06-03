@@ -20,35 +20,37 @@ public class AdministratorDaoImpl implements AdministratorDao {
 
     @Override
     public int insert(Administrator administrator) {
-        final String sql = "INSERT INTO ADMINISTRATOR (admin_account, admin_password, admin_name, admin_email, admin_phone, permission_id, admin_status, CREATED_DATE, LAST_UPDATED_DATE) "
-                + "VALUES (:adminAccount, :adminPassword, :adminName, :adminEmail, :adminPhone, :permissionId, :adminStatus, :createdDate, :lastUpdatedDate)";
-
-//        密碼隨機生成
-        String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        StringBuilder randomPassword = new StringBuilder();
-        Random random = new Random();
-
-        for (int i = 0; i < 8; i++) {
-            int index = random.nextInt(characters.length());
-            randomPassword.append(characters.charAt(index));
-        }
-
-
-        String password = randomPassword.toString();
-
-        Query query = entityManager.createNativeQuery(sql)
-                .setParameter("adminAccount", administrator.getAdminAccount())
-                .setParameter("adminPassword", password)
-                .setParameter("adminName", administrator.getAdminName())
-                .setParameter("adminEmail", administrator.getAdminEmail())
-                .setParameter("adminPhone", administrator.getAdminPhone())
-                .setParameter("permissionId", administrator.getPermissionId())
-                .setParameter("adminStatus", 1)
-                .setParameter("createdDate", new Date())
-                .setParameter("lastUpdatedDate", new Date());
-        return query.executeUpdate();
-        //        entityManager.persist(administrator);
-//        return 1;
+//        final String sql = "INSERT INTO ADMINISTRATOR (admin_account, admin_password, admin_name, admin_email, admin_phone, permission_id, admin_status, CREATED_DATE, LAST_UPDATED_DATE) "
+//                + "VALUES (:adminAccount, :adminPassword, :adminName, :adminEmail, :adminPhone, :permissionId, :adminStatus, :createdDate, :lastUpdatedDate)";
+//
+////        密碼隨機生成
+//        String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+//        StringBuilder randomPassword = new StringBuilder();
+//        Random random = new Random();
+//
+//        for (int i = 0; i < 8; i++) {
+//            int index = random.nextInt(characters.length());
+//            randomPassword.append(characters.charAt(index));
+//        }
+//
+//
+//        String password = randomPassword.toString();
+//
+//        Query query = entityManager.createNativeQuery(sql)
+//                .setParameter("adminAccount", administrator.getAdminAccount())
+//                .setParameter("adminPassword", password)
+//                .setParameter("adminName", administrator.getAdminName())
+//                .setParameter("adminEmail", administrator.getAdminEmail())
+//                .setParameter("adminPhone", administrator.getAdminPhone())
+//                .setParameter("permissionId", administrator.getPermissionId())
+//                .setParameter("adminStatus", 1)
+//                .setParameter("createdDate", new Date())
+//                .setParameter("lastUpdatedDate", new Date());
+//        return query.executeUpdate();
+                 entityManager.persist(administrator);
+        System.out.println(administrator.getAdminId());
+        Integer NewadminId = administrator.getAdminId();
+        return NewadminId;
     }
 
 
@@ -137,7 +139,7 @@ public class AdministratorDaoImpl implements AdministratorDao {
                 .setParameter("adminAccount", adminAccount)
                 .getResultList();
         if (resultList.size() > 0) {
-            System.out.println(resultList.get(0));
+//            System.out.println(resultList.get(0));
             return resultList.get(0);
         } else {
             return null;
@@ -148,9 +150,8 @@ public class AdministratorDaoImpl implements AdministratorDao {
 
     @Override
     public List<Administrator> findAll() {
-        final String hql = "FROM Administrator";
-        List<Administrator> resultList = entityManager
-                .createQuery(hql, Administrator.class)
+        final String sql = "select * FROM Administrator WHERE Permission_id = 2";
+        List<Administrator> resultList = entityManager.createNativeQuery(sql, Administrator.class)
                 .getResultList();
         return resultList;
     }

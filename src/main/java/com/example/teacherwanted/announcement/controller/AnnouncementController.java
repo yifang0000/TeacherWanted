@@ -34,9 +34,9 @@ public class AnnouncementController {
 
     //    新增 ok
     @PostMapping("/announcements")
-    public ResponseEntity<Announcement> insert(@RequestBody Announcement announcement) {
-        announcementService.insert(announcement);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<?> insert(@RequestBody Announcement announcement) {
+        int adminId = announcementService.insert(announcement);
+        return ResponseEntity.status(HttpStatus.CREATED).body(adminId);
     }
 
     //    修改

@@ -31,7 +31,14 @@ public class AdministratorServiceImpl implements AdministratorService {
             throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "該帳號已存在");
         }
         //創建
-        return administratorDao.insert(administrator);
+//        System.out.println("2");
+//        administratorDao.insert(administrator);
+//        System.out.println("4");
+////        System.out.println(administrator);
+//        Administrator administratorDb = administratorDao.selectByAccount(administrator.getAdminAccount());
+        int NewadminId  = administratorDao.insert(administrator);
+        System.out.println(NewadminId);
+        return NewadminId;
     }
 
     @Override

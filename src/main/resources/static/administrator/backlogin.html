@@ -15,6 +15,14 @@
     />
   </head>
   <body>
+    <!-- 設定字體 -->
+    <!-- 可從這邊調整https://fonts.google.com/share?selection.family=DotGothic16%7CNoto%20Sans%20TC:wght@100;300;400;500;700;900 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
     <!-- Main Content -->
     <div class="container-fluid">
       <div class="row main-content bg-success text-center">
@@ -47,7 +55,7 @@
               <div class="row">
                 <!-- <span class="fa fa-lock"></span> -->
                 <input
-                  type="text"
+                  type="password"
                   name="adminPassword"
                   id="adminPassword"
                   class="form__input needvalue"
@@ -126,10 +134,10 @@
           success: function (response) {
             if (response.permissionId == 1) {
               alert("歡迎管理員：" + response.adminName + "，登入成功！");
-              window.location.href = "../administrator/backuserLIST.html";
+              window.location.href = "../administrator/backIndex.html";
             } else {
               alert("歡迎老師：" + response.adminName + "，登入成功！");
-              window.location.href = "../administrator/backuserLIST.html";
+              window.location.href = "../administrator/backIndex.html";
             }
             // window.location.href = 'activeBack.html';
             // activeBack.html

@@ -11,7 +11,7 @@ $(document).ready(function(){
     })
     console.log(admin.adminId);
     $.fn.dataTable.ext.errMode = 'none';
-    if(admin.permissionId==1){
+
         $("#adminTable").DataTable({
           // "serverSide": false, 
 
@@ -128,7 +128,7 @@ $(document).ready(function(){
             }
         },
         });
-      }
+
 
       console.log("準備登出")
 

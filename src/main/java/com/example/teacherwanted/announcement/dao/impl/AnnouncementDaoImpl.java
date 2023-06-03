@@ -16,7 +16,7 @@ public class AnnouncementDaoImpl implements AnnouncementDao {
     @Override
     public int insert(Announcement announcement) {
         entityManager.persist(announcement);
-        return 1;
+        return announcement.getAdminId();
     }
 
     @Override
