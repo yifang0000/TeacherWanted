@@ -182,6 +182,20 @@
                           alt=""
                         />
                       </div>
+                      <div class="setfileinput" v-else>
+                        <div>
+                          <input
+                            type="file"
+                            id="p_file"
+                            name="image_uploads"
+                            accept=".jpg, .jpeg, .png"
+                            :disabled=" isDisabled"
+                          />
+                        </div>
+                        <div id="file_camera">
+                          <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                      </div>
                       
                     </div>
                     <!-- 頭像結束 -->
@@ -221,14 +235,14 @@
                                 <div class="row g-2">
                                   <div class="col-md">
                                     <div class="form-floating">
-                                      <input type="text" class="form-control" id="floatingInputGrid" placeholder="" disabled v-model="member.memId" > 
+                                      <input type="text" class="form-control" id="floatingInputGrid" placeholder="" :disabled=" isDisabled" v-model="member.memId" > 
                                       <label for="floatingInputGrid">會員編號</label>
                                       
                                     </div>
                                   </div>
                                   <div class="col-md">
                                     <div class="form-floating">
-                                      <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.memName">
+                                      <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memName">
                                       <label for="floatingInputGrid">姓名</label>
                                     </div>
                                   </div>
@@ -238,13 +252,13 @@
                                   <div class="row g-2">
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.memAccount">
+                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memAccount">
                                         <label for="floatingInputGrid">帳號</label>
                                       </div>
                                     </div>
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.memPassword">
+                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memPassword">
                                         <label for="floatingInputGrid">密碼</label>
                                       </div>
                                     </div>
@@ -254,13 +268,13 @@
                                   <div class="row g-2">
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.memNickname">
+                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memNickname">
                                         <label for="floatingInputGrid">暱稱</label>
                                       </div>
                                     </div>
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.memBirthday">
+                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memBirthday">
                                         <label for="floatingInputGrid">生日</label>
                                       </div>
                                     </div>
@@ -270,7 +284,7 @@
                                   <div class="row g-2">
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example"disabled v-model="member.memGender" >
+                                        <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example":disabled=" isDisabled" v-model="member.memGender" >
                                           <option selected></option>
                                           <option value="1">男</option>
                                           <option value="2">女</option>
@@ -281,7 +295,7 @@
                                     </div>
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.memEmail">
+                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memEmail">
                                         <label for="floatingInputGrid">Email</label>
                                       </div>
                                     </div>
@@ -290,13 +304,13 @@
                                   <div class="row g-2">
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.memLocation">
+                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memLocation">
                                         <label for="floatingInputGrid">地區</label>
                                       </div>
                                     </div>
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.interest1">
+                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.interest1">
                                         <label for="floatingInputGrid">有興趣主題1</label>
                                       </div>
                                     </div>
@@ -305,13 +319,13 @@
                                   <div class="row g-2">
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.interest2">
+                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.interest2">
                                         <label for="floatingInputGrid">有興趣主題2</label>
                                       </div>
                                     </div>
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.interest3">
+                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.interest3">
                                         <label for="floatingInputGrid">有興趣主題3</label>
                                       </div>
                                     </div>
@@ -320,13 +334,13 @@
                                   <div class="row g-2">
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.createTime">
+                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.createTime">
                                         <label for="floatingInputGrid">新增日期</label>
                                       </div>
                                     </div>
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.updateTime">
+                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.updateTime">
                                         <label for="floatingInputGrid">更新日期</label>
                                       </div>
                                     </div>
@@ -335,7 +349,7 @@
                                   <div class="row g-2">
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.memStatus">
+                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memStatus">
                                         <label for="floatingInputGrid">會員狀態</label>
                                       </div>
                                     </div>
@@ -344,9 +358,75 @@
                               </div>
                           </form> <br>               
                                
-                            <div class="flexHorizontalCenter">
-                              <button type="button" class="btn btn-outline-success" @click="edit">編輯</button>
-                            </div>
+        <!-- Modal -->
+                <div
+                class="modal fade"
+                id="exampleModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+                style="z-index: 10000"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        資料修改
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body">確定修改資料?</div>
+                    <div v-else class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-outline-success"
+                        data-bs-dismiss="modal"
+                      >
+                        關閉
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-success"
+                        @click="submit"
+                      >
+                        確定變更
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div v-if="isDisabled" class="flexHorizontalCenter">
+                <button
+                  type="button"
+                  class="btn btn-outline-success"
+                  @click="edit"
+                >
+                  編輯
+                </button>
+              </div>
+              <div v-else class="flexHorizontalCenter">
+                <button
+                  type="button"
+                  class="btn btn-outline-success"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  確認</button
+                >&emsp;
+                <button
+                  type="button"
+                  class="btn btn-outline-success"
+                  @click="cancel"
+                >
+                  取消
+                </button>
+              </div>
                             
                             </div>
                         </div>

@@ -635,9 +635,14 @@ section.container div.memInfo{
   
 }
 /*行事曆*/
-#calendar{
-  width: 100px;
-}
+
+  #calendar {
+  
+    margin: 0 20px 20px 0;
+    font-size: 12px;
+    padding-top: 20px;
+  }
+
 
 /* @media (max-width: 767.98px) {
   aside.aside {

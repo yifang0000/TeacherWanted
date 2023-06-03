@@ -19,14 +19,14 @@
     ></script>
     <!-- bootstrap相關 -->
 
-    <link href="/css/baseVer2.css" rel="stylesheet" type="text/css" />
+    <link href="css/baseVer2.css" rel="stylesheet" type="text/css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
       rel="stylesheet"
     />
-    <script src="/js/base.js"></script>
+
     <!-- jQuery連結要在前面 -->
     <script src="/jquery/jquery-3.6.4.min.js"></script>
     <!-- Data Table連結 -->
@@ -43,114 +43,125 @@
       href="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"
     />
 
+    <link rel="stylesheet" href="/css/orderList.css" />
 
-    <!--  css  -->
-    <link href="/css/baseVer2.css" rel="stylesheet" type="text/css" />
-    <link href="/css/member/OrderList.css" rel="stylesheet" type="text/css" />
     <script src="jquery/jquery.dataTables.js"></script>
     <script src="jquery/jquery.dataTables.min.js"></script>
 
+    <!-- css -->
+    <link href="/css/baseVer2.css" rel="stylesheet" type="text/css" />
+    <link href="/member/OrderList.html" rel="stylesheet" type="text/css" />
 
-    <title>懸賞啼雀-訂單明細</title>
+    <title>order list</title>
   </head>
   <body class="TeacherWanted">
     <!-- 手機板導引列(粗糙) -->
-    <div id="mySidebar">
-      <img src="img/base/logo.png" alt="" />
-      <a href="#" class="">首頁</a>
-      <a href="#" class="">課程</a>
-      <a href="#" class="">活動</a>
-      <a href="#" class="">許願池</a>
-      <a href="#" class="">論壇</a>
-      <a href="#" class="">商城</a>
-    </div>
-    <header class="navBar">
-      <ul class="containerHearder flexWrap flexVerticalCenter">
-        <li>
-          <img
-            src="img/base/menu.png"
-            id="phoneMenu"
-            class="mobileHave"
-            style="height: 30px; margin: 10px"
-            alt=""
-          />
-        </li>
+    <header class="TeacherWanted">
+      <div id="mySidebar">
+        <img src="../img/base/logo.png" alt="" />
+        <a href="#" class="">首頁</a>
+        <a href="#" class="">課程</a>
+        <a href="#" class="">活動</a>
+        <a href="#" class="">許願池</a>
+        <a href="#" class="">論壇</a>
+        <a href="#" class="">商城</a>
+      </div>
+      <div class="navBar">
+        <ul class="containerHearder flexWrap flexVerticalCenter">
+          <li>
+            <img
+              src="../img/base/menu.png"
+              id="phoneMenu"
+              class="mobileHave"
+              style="height: 30px; margin: 10px"
+              alt=""
+            />
+          </li>
 
-        <li
-          class="flexWrap flexAllCenter"
-          style="font-size: 50px; color: #a4c964; margin: 10px 0px"
-        >
-          <img
-            src="img/base/logo.png"
-            style="height: 50px; margin: 0px 5px"
-            alt=""
-          />
-          <p>懸賞啼雀</p>
-        </li>
-        <li
-          class="flexWrap"
-          style="
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: end;
-          "
-        >
-          <!-- 電腦版導引列 -->
-          <div
-            id="navLink"
-            class="flexWrap flexAllCenter pcHave"
-            style="flex-grow: 1"
-          >
-            <a class="flexAllCenter" href="">首頁</a>
-            <a class="flexAllCenter" href="">課程</a>
-            <a class="flexAllCenter" href="">活動</a>
-            <a class="flexAllCenter" href="">許願池</a>
-            <a class="flexAllCenter" href="">論壇</a>
-            <a class="flexAllCenter" href="">商城</a>
-          </div>
-          <div
+          <li
             class="flexWrap flexAllCenter"
-            style="position: relative; top: 2px"
+            style="font-size: 50px; color: #a4c964; margin: 10px 0px"
           >
-            <div class="miniMobile">
-              <form id="navSearch" action="">
-                <select>
-                  <option>課程</option>
-                  <option>活動</option>
-                  <option>商城</option>
-                  <option>許願</option>
-                </select>
-                <input type="text" />
-                <img src="img/base/search.svg" alt="" />
-              </form>
-            </div>
             <img
-              src="img//base/mailForNavbar.svg"
+              src="../img/base/logo.png"
               class="miniMobile"
-              style="
-                height: 30px;
-                margin: 3px 5px;
-                cursor: pointer;
-                position: relative;
-                bottom: 1px;
-              "
+              style="height: 50px; margin: 0px 5px"
               alt=""
             />
-            <img
-              src="img/base/shoppingCart.svg"
-              class="miniMobile"
-              style="height: 30px; margin: 3px 5px; cursor: pointer"
-              alt=""
-            />
-
-            <a class="btnCss flexAllCenter" style="color: white" href=""
-              >註冊</a
+            <p>懸賞啼雀</p>
+          </li>
+          <li
+            class="flexWrap"
+            style="
+              flex-grow: 1;
+              display: flex;
+              align-items: center;
+              justify-content: end;
+            "
+          >
+            <!-- 電腦版導引列 -->
+            <div
+              id="navLink"
+              class="flexWrap flexAllCenter pcHave"
+              style="flex-grow: 1"
             >
-          </div>
-        </li>
-      </ul>
+              <a class="flexAllCenter" href="">首頁</a>
+              <a class="flexAllCenter" href="">課程</a>
+              <a class="flexAllCenter" href="">活動</a>
+              <a class="flexAllCenter" href="">許願池</a>
+              <a class="flexAllCenter" href="">論壇</a>
+              <a class="flexAllCenter" href="">商城</a>
+            </div>
+            <div
+              class="flexWrap flexAllCenter"
+              style="position: relative; top: 2px"
+            >
+              <div class="miniMobile">
+                <form id="navSearch" action="">
+                  <select>
+                    <option>課程</option>
+                    <option>活動</option>
+                    <option>商城</option>
+                    <option>許願</option>
+                  </select>
+                  <input type="text" />
+                  <img src="../img/base/search.svg" alt="" />
+                </form>
+              </div>
+              <img
+                src="../img//base/mailForNavbar.svg"
+                class="miniMobile"
+                style="
+                  height: 30px;
+                  margin: 3px 5px;
+                  cursor: pointer;
+                  position: relative;
+                  bottom: 1px;
+                "
+                alt=""
+              />
+              <img
+                src="../img/base/shoppingCart.svg"
+                class="miniMobile"
+                style="height: 30px; margin: 3px 5px; cursor: pointer"
+                alt=""
+              />
+              <img
+                src="../img/base/bell.svg"
+                class="miniMobile"
+                style="height: 30px; margin: 3px 5px; cursor: pointer"
+                alt=""
+              />
+
+              <a class="btnCss flexAllCenter" style="color: white" href=""
+                >登入</a
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
     </header>
+
     <main>
       <!-- 畫面區，功能寫在main裡面 -->
 
@@ -546,6 +557,7 @@
         </div>
       </div>
     </footer>
+
     <!--  axios -->
     <script src="/axios/axios.js"></script>
     <!--  vue   -->
@@ -555,6 +567,5 @@
     <script src="/js/member/OrderList.js"></script>
     <script src="/js/member/jquery.dataTables.js"></script>
     <script src="/js/member/jquery.dataTables.min.js"></script>
-
   </body>
 </html>

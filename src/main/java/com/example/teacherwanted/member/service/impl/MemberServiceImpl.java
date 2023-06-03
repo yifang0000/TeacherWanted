@@ -25,8 +25,8 @@ public class MemberServiceImpl implements MemberService {
     public String update(Member member) {
 //        Member memberCreateTime = memberDao.selectById(member.getMemId());
 //        Member.setCreateTime(memberCreateTime.getCreateTime());
-//        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//        member.setUpdateTime(timestamp);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        member.setCreateTime(timestamp);
         try {
             memberDao.update(member);
             return "更新成功";

@@ -34,9 +34,9 @@ public class MemberController {
 
 
 //      會員資料編輯
-    @PutMapping("/memberDetailEdit")
+    @PutMapping("/memberDetail")
     public String updateMemberDetail(@RequestBody Member member,
-                               @SessionAttribute("MemberSession") Integer memId) {
+                               @SessionAttribute("MemberId") Integer memId) {
     member.setMemId(memId);
     return memberService.update(member);
 
