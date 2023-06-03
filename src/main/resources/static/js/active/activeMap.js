@@ -1,6 +1,8 @@
 var map; // 将 map 变量声明在更广泛的作用域
 var marker = [];
 var customIcon;
+var nowCustomIcon;
+var nowMarker;
 
 // Vue 區域 開始
 const app = Vue.createApp({
@@ -135,6 +137,11 @@ window.addEventListener("load", () => {
     iconSize: [30, 45], // 圖片尺寸
     tooltipAnchor: [0, -20],
   });
+  nowCustomIcon = L.icon({
+    iconUrl: "../../img/active/nowLocation.png",
+    iconSize: [45, 45], // 圖片尺寸
+    tooltipAnchor: [0, -20],
+  });
   // 地圖小icon 結束
 
   // 地圖創建相關 開始
@@ -148,6 +155,10 @@ window.addEventListener("load", () => {
     alert(e.message);
   }
   map.on("locationerror", onLocationError);
+
+  nowMarker = L.marker([0, 0], {
+    icon: nowCustomIcon,
+  }).addTo(map);
 
   map.locate({ setView: true, maxZoom: 16 });
   // 地圖創建相關 結束
@@ -179,6 +190,7 @@ function onPlaceChanged() {
     new CustomEvent("placeChanged", { detail: { lat, lng } })
   );
 
+  nowMarker.setLatLng([lat, lng]);
   map.flyTo(
     [place.geometry.location.lat(), place.geometry.location.lng()],
     15,

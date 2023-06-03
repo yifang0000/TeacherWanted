@@ -138,7 +138,9 @@ function updateWebSocketUrl(chatRoomId) {
     } else {
       var pLable = document.createElement("p"); // is a node
       pLable.innerHTML = message;
-      document.querySelector("#chatMessageBlock").appendChild(pLable);
+      var chatMessageBlock = document.querySelector("#chatMessageBlock");
+      chatMessageBlock.appendChild(pLable);
+      chatMessageBlock.scrollTop = chatMessageBlock.scrollHeight;
     }
 
     // console.log("收到訊息: " + message);

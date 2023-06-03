@@ -195,7 +195,7 @@ public class ActiveController {
         return activeList;
     }
 
-    //    創建活動
+    //    創建活動 圖片方法base64
     @PostMapping("/activeBackAdd")
     public String insertActiveBack(@RequestBody Active active,
                                    @SessionAttribute("TeacherSession") Integer teaId) {
@@ -203,6 +203,70 @@ public class ActiveController {
         return activeService.insert(active);
     }
 
+    //    創建活動 圖片方法檔案夾路徑
+//    要同時送檔案和參數
+//    @PostMapping("/activeBackAdd")
+//    public String insertActiveBack(@ModelAttribute Active active,
+//                                   @SessionAttribute(value = "TeacherSession", required = false) Integer teaId,
+//                                   @RequestPart("file") MultipartFile file) {
+//        System.out.println(active);
+//        active.setTeaId(teaId);
+//
+//        String folderPath = "src/main/resources/static/img/active/" + teaId + "/"; // 指定存儲圖片的相對路徑
+//        System.out.println(teaId);
+//
+//        // 檢查資料夾是否存在，不存在則創建
+//        File folder = new File(folderPath);
+//        if (!folder.exists()) {
+//            folder.mkdirs();
+//        }
+//
+//        // 生成唯一的圖片檔名
+//        String originalFilename = file.getOriginalFilename();
+//        String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+//        String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
+//        String filePath = folderPath + uniqueFileName;
+//
+//        try {
+//            // 將檔案保存到指定路徑
+//            byte[] bytes = file.getBytes();
+//            Path path = Paths.get(filePath);
+//            Files.write(path, bytes);
+//            System.out.println("檔案已成功上傳，保存路徑為：" + filePath + "，檔名為：" + uniqueFileName);
+//
+//            // 返回回應，包括圖片的路徑和檔名，用於存入資料庫
+////            return "檔案已成功上傳，保存路徑為：" + filePath + "，檔名為：" + uniqueFileName;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            // 返回錯誤回應（這只是一個示例）
+//            System.out.println("檔案上傳失敗");
+////            return "檔案上傳失敗";
+//        }
+//        String imgURL = "../img/active/" + teaId + "/" + uniqueFileName;
+//        System.out.println(imgURL);
+//        String relativelyImgUrl = folderPath + uniqueFileName;
+//        File findImg = null;
+//
+//        try {
+//            // create new file
+//            findImg = new File(relativelyImgUrl);
+//
+//            System.out.println("有無檔案索引?" + findImg.isFile());
+//
+//
+//        } catch (Exception e) {
+//            // if any error occurs
+//            e.printStackTrace();
+//        }
+//
+//        active.setActivityPhotoUrl(imgURL);
+//
+//
+//        return activeService.insert(active);
+//    }
+
+
+    //   修改活動 原本資料帶回原本活動
     @GetMapping("/activeBackEdit")
     public Active selectByIdActiveBack(@RequestParam Integer activityId) {
         //  System.out.println(activityId);
@@ -210,12 +274,22 @@ public class ActiveController {
         return activeEdit;
     }
 
+
+    //    修改活動 圖片方法base64
     @PutMapping("/activeBackEdit")
     public String updateActiveBack(@RequestBody Active active,
                                    @SessionAttribute("TeacherSession") Integer teaId) {
         active.setTeaId(teaId);
         return activeService.update(active);
     }
+    //    修改活動 圖片方法檔案夾路徑
+//    @PutMapping("/activeBackEdit")
+//    public String updateActiveBack(@ModelAttribute Active active,
+//                                   @SessionAttribute(value = "TeacherSession", required = false) Integer teaId,
+//                                   @RequestPart("file") MultipartFile file) {
+//        active.setTeaId(teaId);
+//        return activeService.update(active);
+//    }
 
     @PutMapping("/activeBackStatusEdit")
     public String updateActiveBackStatus(@RequestBody Active active) {
@@ -236,58 +310,11 @@ public class ActiveController {
 
     //    以下是測試用
 
-    //    會員登入狀態
-
-    @Autowired
-    private MemberDaoActive memberDaoActive;
-
-    @PostMapping("/loginTest")
-    public String easyLoginTest(@RequestBody MemberActive memberActive, HttpServletResponse response) {
-        MemberActive memberActive1 = memberDaoActive.selectById(memberActive.getMemId());
-
-
-        byte[] encryptedMessageBytes = new byte[0];
-        try {
-            String secretMessage = memberActive1.getMemPassword();
-            System.out.println("Origin Message: " + secretMessage);
-
-            /*** Set Key ***/
-            KeyGenerator generator = KeyGenerator.getInstance("AES");
-            generator.init(256);
-            Key key = generator.generateKey();
-
-            /*** do Encrypt ***/
-            Cipher encryptCipher = Cipher.getInstance("AES");
-            encryptCipher.init(Cipher.ENCRYPT_MODE, key);
-            byte[] secretMessageBytes = secretMessage.getBytes(StandardCharsets.UTF_8);
-            encryptedMessageBytes = encryptCipher.doFinal(secretMessageBytes);
-            System.out.println("AES Encrypt: " + encryptedMessageBytes);
-
-            /*** do Decrypt ***/
-            Cipher decryptCipher = Cipher.getInstance("AES");
-            decryptCipher.init(Cipher.DECRYPT_MODE, key);
-            byte[] decryptedMessageBytes = decryptCipher.doFinal(encryptedMessageBytes);
-            String decryptedMessage = new String(decryptedMessageBytes, StandardCharsets.UTF_8);
-            System.out.println("AES Decrypt: " + decryptedMessage);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String PasswordBase64 = Base64.getEncoder().encodeToString(encryptedMessageBytes);
-        Cookie cookie = new Cookie("TeacherWantedPassword", PasswordBase64);
-
-        // 設置過期時間，若無設置時間，其生命週期將持續到Session 過期為止
-        cookie.setMaxAge(365 * 7 * 24 * 60 * 60);
-        response.addCookie(cookie);
-
-//        session.setAttribute("MemberId", memberId);
-        return "會員登入成功";
-    }
 
     @PostMapping("/activeLogin")
     public String easyLogin(@RequestBody Integer memberId, HttpSession session) {
         session.setAttribute("MemberId", memberId);
-        System.out.println("會員登入成功，id="+memberId);
+        System.out.println("會員登入成功，id=" + memberId);
         return "會員登入成功";
     }
 
