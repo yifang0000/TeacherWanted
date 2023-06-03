@@ -1,15 +1,16 @@
 
+
 $(document).ready(function(){
     $("#collapse").on("click",function(){
         $("#sidebar").toggleClass("active")
     })
-
-    console.log(admin);
     $('#adminAccount').val(admin.adminAccount);
     $('#adminPassword').val(admin.adminPassword);
     $('#adminName').val(admin.adminName);
     $('#adminEmail').val(admin.adminEmail);
     $('#adminPhone').val(admin.adminPhone);
+    
+    // console.log(admin);
 
     $('#btnsubmit').click(function(event) {
       // console.log("1111");

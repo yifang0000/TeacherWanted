@@ -44,7 +44,7 @@ public class TeacherController {
     //    修改
     @PutMapping("/teachers/{adminId}")
     public ResponseEntity<?> updateByAnnId(@RequestBody Teacher teacher) {
-        System.out.println(teacher);
+//        System.out.println(teacher);
         teacherService.updateByAdminId(teacher);
 //        Coupon updatecoupon = couponService.selectBycouponId(coupon.getCouponId());
         return ResponseEntity.status(HttpStatus.OK).build();

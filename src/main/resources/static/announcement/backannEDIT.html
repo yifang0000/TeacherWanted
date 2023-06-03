@@ -77,160 +77,129 @@
           <!-- ====================主要區========================== -->
           <div class="card card-info m-3">
             <div class="card-header">
-              <div class="card-title">編輯優惠券</div>
+              <div class="card-title">編輯公告</div>
             </div>
 
             <form class="needs-validation" novalidate>
               <div class="card-body">
-                <!-- <div class="form-group row mb-2">
-                  <label for="couponId" class="col-sm-2 col-form-label"
+                <div class="form-group row mb-2" hidden>
+                  <label for="annId" class="col-sm-2 col-form-label"
                     >編號</label
                   >
                   <div class="col-sm-4">
                     <input
                       type="text"
                       class="form-control-plaintext"
-                      id="couponId"
+                      id="annId"
                       value="這是編號"
                       style="width: 250px"
                       readonly
                     />
                   </div>
-                </div> -->
-
-                <!-- <div class="form-group row mb-2">
-                  <label for="couponArea" class="col-sm-2 col-form-label"
-                    >範圍</label
+                </div>
+                <div class="form-group row mb-2">
+                  <label for="annCategory" class="col-sm-2 col-form-label"
+                    >分類</label
                   >
-                  <div class="col-sm-4">
+                  <div class="col-sm-10">
                     <select
-                      class="form-select"
-                      id="couponArea"
+                      class="form-select needvalue"
+                      id="annCategory"
                       style="width: 250px"
                       required
                     >
                       <option value="">請選擇</option>
-                      <option value="shop">課程</option>
-                      <option value="course">商城</option>
+                      <option value="優惠券">優惠券</option>
+                      <option value="綜合">綜合</option>
                     </select>
-                    <div class="invalid-feedback">請選擇適用範圍</div>
-                  </div>
-                </div> -->
-                <div class="form-group row mb-2">
-                  <label for="couponCode" class="col-sm-2 col-form-label"
-                    >代碼</label
-                  >
-                  <div class="col-sm-3">
-                    <div class="input-group">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="couponCode"
-                        pattern="[A-Za-z0-9]{1,12}"
-                        maxlength="12"
-                        required
-                      />
-                      <button
-                        type="button"
-                        class="btn btn-secondary couponCodebtn"
-                      >
-                        隨機產生
-                      </button>
-                      <div class="invalid-feedback">
-                        請在12字以內，只能包含英文及數字。
-                      </div>
-                    </div>
                   </div>
                 </div>
-
                 <div class="form-group row mb-2">
-                  <label for="couponDetail" class="col-sm-2 col-form-label"
+                  <label for="annTitle" class="col-sm-2 col-form-label"
+                    >標題</label
+                  >
+                  <div class="col-sm-4">
+                    <input
+                      type="textarea"
+                      class="form-control needvalue"
+                      id="annTitle"
+                      style="width: 250px"
+                    />
+                  </div>
+                </div>
+                <div class="form-group row mb-2">
+                  <label for="annContent" class="col-sm-2 col-form-label"
                     >內容</label
                   >
                   <div class="col">
                     <textarea
-                      class="form-control needvalue"
-                      id="couponDetail"
+                      class="form-control"
+                      id="annContent"
                       style="width: 400px"
                     ></textarea>
                   </div>
                 </div>
-                <div class="form-group row mb-2">
-                  <label for="activateTime" class="col-sm-2 col-form-label"
-                    >開始時間</label
+                <!-- <div class="row mb-2">
+                  <label for="annDate" class="col-sm-2 col-form-label"
+                    >發布時間</label
                   >
-                  <div class="col-sm-3">
+                  <div class="col-sm-4">
                     <input
                       type="datetime-local"
-                      class="form-control"
-                      id="activateTime"
+                      class="form-control needvalue"
+                      id="annDate"
+                      style="width: 250px"
                       required
                     />
-                  </div>
-                </div>
-                <div class="form-group row mb-2">
-                  <label for="expirationDate" class="col-sm-2 col-form-label"
-                    >結束時間</label
-                  >
-                  <div class="col-sm-3">
-                    <input
-                      type="datetime-local"
-                      class="form-control"
-                      id="expirationDate"
-                      required
-                    />
-                  </div>
-                  <!-- <button
-                    type="button"
-                    id="btnoff"
-                    class="btn btn-danger col-sm-2"
-                  >
-                    設定為現在
-                  </button> -->
-                </div>
-                <div class="form-group row mb-2">
-                  <label for="discount" class="col-sm-2 col-form-label"
-                    >折扣</label
-                  >
-                  <div class="col-sm-3">
-                    <div class="input-group">
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="discount"
-                        min="0"
-                        max="100"
-                        required
-                      />
-                      <div class="input-group-append">
-                        <span class="input-group-text">元</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- <div class="form-group row mb-2">
-                  <label for="couponStatus" class="col-sm-2 col-form-label"
-                    >狀態</label
-                  >
-                  <div class="col-sm-3">
-                    <select class="form-select" id="couponStatus" required>
-                      <option value="">請選擇</option>
-                      <option value="0">不可使用</option>
-                      <option value="1">可以使用</option>
-                    </select>
-                    <div class="invalid-feedback">請選擇適用範圍</div>
                   </div>
                 </div> -->
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  onclick="history.go(-1)"
-                >
-                  取消變更
-                </button>
-
-                <button type="submit" id="btnsubmit" class="btn btn-success">
-                  確認變更
+                <div class="row mb-2">
+                  <div class="col-sm-2 col-form-label">上架方式</div>
+                  <label class="option-label col-sm-2 col-form-label">
+                    <input
+                      type="radio"
+                      name="schedule"
+                      value="immediate"
+                      onclick="toggleScheduledTime(false)"
+                    />
+                    現在
+                  </label>
+                  <label class="option-label col-sm-2 col-form-label">
+                    <input
+                      type="radio"
+                      name="schedule"
+                      value="scheduled"
+                      onclick="toggleScheduledTime(true)"
+                    />
+                    排定時間
+                  </label>
+                  <!-- <label class="option-label col-sm-2 col-form-label">
+                    <input
+                      type="radio"
+                      name="schedule"
+                      value="undecided"
+                      onclick="toggleScheduledTime(false)"
+                    />
+                    未定時間
+                  </label> -->
+                </div>
+                <div id="scheduled_time" class="hidden row mb-2" hidden>
+                  <label class="col-sm-2 col-form-label" for="annDate"
+                    >選擇排定上架時間</label
+                  >
+                  <div class="col-sm-4">
+                    <input
+                      type="datetime-local"
+                      class="form-control"
+                      id="annDate"
+                      name="annDate"
+                      style="width: 250px"
+                    />
+                  </div>
+                </div>
+                <button type="button" class="btn btn-secondary">取消</button>
+                <button type="submit" class="btn btn-success" id="btnsubmit">
+                  確認
                 </button>
               </div>
             </form>
@@ -249,7 +218,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <!-- backindex的JS連結 -->
-    <script src="../js/check.js"></script>
     <!-- <script src="../js/check.js"></script> -->
     <script src="../js/coupon/backannEDIT.js"></script>
     <!-- Bootstrap 連結2 -->

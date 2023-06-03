@@ -6,14 +6,12 @@ $(document).ready(function(){
         $("#sidebar").toggleClass("active")
         
     })
+
     const file = document.querySelector("#p_file");
     const img = document.querySelector("#eximg");
     file.addEventListener("change", () => {
         img.src = URL.createObjectURL(file.files[0]);
     });
-    img.addEventListener("change", () => {
-      img.src = URL.createObjectURL(file.files[0]);
-  });
     
       
         // ===============銀行代碼
@@ -61,6 +59,8 @@ $(document).ready(function(){
             var teaPhoto = data.teaPhoto;
             if (teaPhoto !== null) {
               $("#eximg").attr("src", "data:image/png;base64," + teaPhoto);
+          }else{
+            $("#eximg").attr("src","../img/logobgg.png")
           }
         
           },
@@ -69,11 +69,12 @@ $(document).ready(function(){
           }
         });
         
+        console.log(file.files[0])
 
         $('#btnsubmit').click(function(event) {
           // console.log("1111");
           event.preventDefault();
-          
+          console.log(file.files[0])        
     
                // 檢查每個 input 元素的值
                var allInputsFilled = true;
@@ -118,52 +119,75 @@ $(document).ready(function(){
 
             // ========圖片處理================ //
             
-            const fr = new FileReader();
-            // 當 FileReader 讀取完成時觸發事件
-              fr.addEventListener("load", e => {
-                var formDataEdit = {
-                  adminId: admin.adminId,
-                  teaProfile: $('#teaProfile').val(),
-                  teaPhoto: btoa(e.target.result),
-                  teaLocation: $('#teaLocation').val(),
-                  teachingSubject1: $('#teachingSubject1').val(),
-                  bankCode: $('#bankCode').val(),
-                  bankAccount: $('#bankAccount').val(),
-                  teaName: $('#teaName').val(),
-              };
-              console.log(formDataEdit)
-                // // 發送 POST 請求到 "/test/t1"
-                // fetch("/test/t1", {
-                //     method: "POST",
-                //     headers: {
-                //         "Content-Type": "application/json"
-                //     },
-                //     body: JSON.stringify({
-                //         name: name.value,                          // 傳送名字資料
-                //         avatar: btoa(e.target.result)               // 將讀取結果編碼為 base64 字串並傳送
-                //     })
-                // });
-            });
-            // 以二進位字串讀取選擇的檔案
-            fr.readAsBinaryString(file.files[0]);
+            if(file.files[0]===undefined){
+              var formDataEdit = {
+                adminId: admin.adminId,
+                teaProfile: $('#teaProfile').val(),
+                // teaPhoto: btoa(e.target.result),
+                teaLocation: $('#teaLocation').val(),
+                teachingSubject1: $('#teachingSubject1').val(),
+                bankCode: $('#bankCode').val(),
+                bankAccount: $('#bankAccount').val(),
+                teaName: $('#teaName').val(),
+            };
+                            // 發送 POST 請求到 "/test/t1"
+                            fetch("http://localhost:8080/teachers/"+admin.adminId, {
+                              method: "PUT",
+                              headers: {
+                                  "Content-Type": "application/json"
+                              },
+                              body: JSON.stringify(formDataEdit)
+                          })
+                          .then(response => {
+                              if (response.ok) {
+                                  alert("成功");
+                              } else {
+                                  alert("失敗");
+                              }
+                          })
+                          .catch(error => {
+                              alert("请求失败: " + error);
+                          });
+                          
+            }else{
+              const fr = new FileReader();
+              // 當 FileReader 讀取完成時觸發事件
+                fr.addEventListener("load", e => {
+                  var formDataEdit = {
+                    adminId: admin.adminId,
+                    teaProfile: $('#teaProfile').val(),
+                    teaPhoto: btoa(e.target.result),
+                    teaLocation: $('#teaLocation').val(),
+                    teachingSubject1: $('#teachingSubject1').val(),
+                    bankCode: $('#bankCode').val(),
+                    bankAccount: $('#bankAccount').val(),
+                    teaName: $('#teaName').val(),
+                };
+                console.log(formDataEdit)
+                            // 發送 POST 請求到 "/test/t1"
+                            fetch("http://localhost:8080/teachers/"+admin.adminId, {
+                              method: "PUT",
+                              headers: {
+                                  "Content-Type": "application/json"
+                              },
+                              body: JSON.stringify(formDataEdit)
+                          })
+                          .then(response => {
+                              if (response.ok) {
+                                  alert("成功");
+                              } else {
+                                  alert("失敗");
+                              }
+                          })
+                          .catch(error => {
+                              alert("请求失败: " + error);
+                          });
+              });
+              // 以二進位字串讀取選擇的檔案
+              fr.readAsBinaryString(file.files[0]);
+            }
 
             
-
-    
-          // console.log(formData)
-          // $.ajax({
-          //   type: 'POST',
-          //   url: '/teachers/'+admin.adminId,
-          //   data: JSON.stringify(formDataEdit),
-          //   contentType: 'application/json',
-          //   success: function(response) {
-          //     alert('新增成功！');
-    
-          //   },
-          //   error: function(xhr, textStatus, errorThrown) {
-          //   }
-          // });
-    
     
     })
 
@@ -171,18 +195,6 @@ $(document).ready(function(){
 })
 
 // =====================使textarea裡的文字可以換行
-
-$('#btntest').click(function() {
-  var textareaValue = $('#teaProfile').val();
-console.log(textareaValue);
-var htmlValue = textareaValue.replace(/\n/g, '<br>');
-$('#output').html(htmlValue);
-var gsonObject = {
-  teaProfile: htmlValue
-};
-var gsonString = JSON.stringify(gsonObject);
-console.log(gsonString);
-});
 
 
 

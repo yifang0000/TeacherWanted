@@ -313,3 +313,9 @@ ulElement.innerHTML = '';
     });
   }
   
+
+
+  //回到首頁的方法
+  function goToIndexPage() {
+    window.location.href = "../administrator/backIndex.html";
+  }

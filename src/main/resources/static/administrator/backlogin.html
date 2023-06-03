@@ -98,6 +98,19 @@
       crossorigin="anonymous"
     ></script>
     <script>
+      $("#adminAccount").keydown(function (e) {
+        if (event.keyCode === 13) {
+          // 检测到 Enter 键被按下
+          event.preventDefault(); // 阻止默认的表单提交行为
+          document.getElementById("adminPassword").focus(); // 将焦点设置到密码输入框
+        }
+      });
+
+      $("#adminPassword").keydown(function (event) {
+        if (event.which === 13) {
+          $("#btnsubmit").click();
+        }
+      });
       $("#btnsubmit").click(function (event) {
         // console.log("1111");
         event.preventDefault();
