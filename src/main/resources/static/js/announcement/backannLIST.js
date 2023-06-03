@@ -20,6 +20,13 @@ $(document).ready(function(){
                 now = yearnow + '/' + monthnow + '/' + daynow + ' ' + hoursnow + ':' + minutesnow + ':' + secondsnow;
          
         $("#annTable").DataTable({
+          headerCallback: function(thead, data, start, end, display) {
+            // 設定表頭的背景顏色
+            $(thead).find('th').css('background-color', '#F8F9FA');
+          },
+          stripe: false,
+          stripeClasses: ["#ffffff", "#f6f6f6"],
+          order:[[4,"desc"]],
           // "serverSide": false, 
           ajax: {
             url: "/announcements",
@@ -39,12 +46,13 @@ $(document).ready(function(){
               }
             }, },
             { data: "annTitle",
+            width: "200px",
             render: function(data, type, row) {
               if (type === 'display' || type === 'filter') {
                 // 將"<br>"標籤替換為空格
                 var formattedData0 = data.replace(/<br>/g, ' ');
-                if (formattedData0.length > 8) {
-                  formattedData0 = formattedData0.substring(0, 8) + '...';
+                if (formattedData0.length > 15) {
+                  formattedData0 = formattedData0.substring(0, 15) + '...';
                 }
                 return formattedData0;
               }
@@ -62,7 +70,8 @@ $(document).ready(function(){
               }
               return data;
             } },
-            { data: "annDate" },
+            { data: "annDate" ,
+            width: "170px"},
             // 如果資料為0則顯示"停權"、1則顯示"正常"
             {
               data: "annStatus",

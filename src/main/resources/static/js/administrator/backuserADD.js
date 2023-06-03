@@ -56,7 +56,7 @@ $(document).ready(function(){
         adminEmail:$('#adminEmail').val(),
         adminPhone:$('#adminPhone').val(),
         permissionId:2,
-        admin_status:1,
+        adminStatus:1,
         createdDate:nowdate,
         lastUpdatedDate:nowdate
         // adminPassword:randomCode

@@ -1,3 +1,5 @@
+
+
 function sidebar_open() {
   // document.getElementById("mySidebar").style.display = "block";
   $("#mySidebar").animate(
@@ -31,22 +33,32 @@ $(function () {
 });
 
 
-$(document).ready(function () {
-  $('#announcementTable').DataTable({
+
+
+// ===========================================================================//
+// 在需要重新整理的地方呼叫以下程式碼
+// table.ajax.reload();
+
+var annCategory;
+
+function InitOverviewDataTable() {
+
+  oOverviewTable = $('#announcementTable').DataTable({
     headerCallback: function(thead, data, start, end, display) {
       // 設定表頭的背景顏色
       $(thead).find('th').css('background-color', '#F8F9FA');
     },
     stripe: false,
     stripeClasses: ["#ffffff", "#f6f6f6"],
-    order:[[2,"desc"]],
+    order:[[3,"desc"]],
     ajax: {
       url: "/announcements",
+      method: "GET",
+      data: { annCategory: annCategory , front:true},
       dataSrc: "",
     },
     columns: [
       { data: "annId" },
-      // { data: "adminId" },
       { data: "annCategory",
       render: function (data, type, row) {
         if (data == 1) {
@@ -62,70 +74,54 @@ $(document).ready(function () {
         if (type === 'display' || type === 'filter') {
           // 將"<br>"標籤替換為空格
           var formattedData0 = data.replace(/<br>/g, ' ');
-          if (formattedData0.length > 8) {
-            formattedData0 = formattedData0.substring(0, 8) + '...';
+          if (formattedData0.length > 20) {
+            formattedData0 = formattedData0.substring(0, 20) + '...';
           }
-          return formattedData0;
+          var link =`<a href="annCont.html?annId=${row.annId}">${formattedData0}</a>`
+  
+          return link;
+  
         }
         return data;
       } },
-      { data: "annContent",
+      { data: "annDate",
       render: function(data, type, row) {
         if (type === 'display' || type === 'filter') {
-          // 將"<br>"標籤替換為空格
-          var formattedData0 = data.replace(/<br>/g, ' ');
-          if (formattedData0.length > 10) {
-            formattedData0 = formattedData0.substring(0, 10) + '...';
-          }
-          return formattedData0;
+          // 將日期轉換為 JavaScript 的 Date 物件
+          var date = new Date(data);
+          // 取得年、月、日的數值
+          var year = date.getFullYear();
+          var month = date.getMonth() + 1;
+          var day = date.getDate();
+          // 格式化為 "YYYY/MM/DD" 的字串
+          var formattedDate = year + '/' + month.toString().padStart(2, '0') + '/' + day.toString().padStart(2, '0');
+          // 回傳格式化後的日期
+          return formattedDate;
         }
         return data;
-      } },
-      { data: "annDate" },
-      // 如果資料為0則顯示"停權"、1則顯示"正常"
-      {
-        data: "annStatus",
-        render: function (data, type, row) {
-          if (data == 1 && row.annDate > now) {
-            return "排程中";
-          } else if (data == 1) {
-            return "上架中";
-          } else {
-            return "下架中";
-          }
-        },
-      },
-      {
-        data: null,
-        render: function (data, type, row) {
-          var editUrl =
-            'backannEDIT.html?annId=' + row.annId;
-            // console.log(this.data)
-          return (
-            '<a class="btn btn-outline-success btn-sm p-0 mr-2"  id="editbtn" href="' +
-            editUrl +
-            '">修改<i class="fa-solid fa-pen"></i></a><a href="#" class="btn btn-outline-danger btn-sm p-0 mr-2" id="offbtn" data-bs-toggle="modal" onclick="sendId('+row.annId+')" data-bs-target="#staticBackdrop">刪除<i class="fa-solid fa-xmark"></i></a>'
-          );
-        },
-      },
+      }
+    }
+  
     ],
+    
     columnDefs: [
-      {
-        targets: [1, 2, 3, 4, 5],
-        className: "align-middle",
-      },
-      {
-        targets: [6],
-        orderable: false,
-        "searchable": false
-      },
       // {
-      //   "targets": [1, 2], // 隱藏第2和第3欄
-      //   "visible": false,
+      //   targets: [1, 2, 3, 4, 5],
+      //   className: "align-middle",
+      // },
+      // {
+      //   targets: [6],
+      //   orderable: false,
       //   "searchable": false
       // },
+      {
+        "targets": [0], // 隱藏第1欄
+        "visible": false,
+        "searchable": false
+      },
+      { "type": "date", "targets": 3 }
     ],
-language: {
+  language: {
   "lengthMenu": "顯示 _MENU_ 筆資料",
   "sProcessing": "處理中...",
   "sZeroRecords": "没有匹配结果",
@@ -144,14 +140,55 @@ language: {
       "sNext": "下一頁",
       "sLast": "末頁"
   },
-  "order": [[0, "desc"]],
   "oAria": {
       "sSortAscending": ": 以升序排列此列",
       "sSortDescending": ": 以降序排列此列"
   }
+  }
+  
+  
+  
+  });
 }
 
+function changeAnnCategory(annCategory){
+  var buttons = document.getElementsByClassName("btn");
+  
 
 
+  if(annCategory===undefined){
+  var table = $('#announcementTable').DataTable();
+  table.clear().draw();
+  var url = '/announcements';
+  table.ajax.url(url).load();
+  buttons[0].classList.replace("btnCss2", "btnCss3");
+  buttons[1].classList.replace("btnCss3", "btnCss2");
+  buttons[2].classList.replace("btnCss3", "btnCss2");
+  return;
+}else{
+  for (var i = 0; i < buttons.length; i++) {
+    var button = buttons[i];
+    
+    if (i === annCategory) {
+      button.classList.remove("btnCss2");
+      button.classList.add("btnCss3");
+    } else {
+      
+      button.classList.remove("btnCss3");
+      button.classList.add("btnCss2");
+    }
+  }
+  var table = $('#announcementTable').DataTable();
+  table.clear().draw();
+  var url = '/announcements?annCategory=' + annCategory;
+  table.ajax.url(url).load();
+}
+}
+
+$(document).ready(function () {
+
+  InitOverviewDataTable();
+
 });
-});
+
+

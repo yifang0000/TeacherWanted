@@ -531,6 +531,21 @@ main.TeacherWanted {
   color: #3c6a36;
 }
 
+#containerann .btnCss3 {
+  background-color: #a4c964;
+  color:#f8f9fa;
+  border-radius: 30px;
+  line-height: 1.15;
+  font-size: 16px;
+  padding: 10px 0px;  
+  font-weight:bold;
+}
+
+#containerann .btnCss3:hover {
+  background-color: #f8f9fa;
+  color: #a4c964;
+}
+
 
 #containerann .page-item.active .page-link{
   background-color: #3c6a36 ;

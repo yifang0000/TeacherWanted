@@ -102,7 +102,25 @@ $(document).ready(function(){
               
                 return formattedDateTime;
               }
-
+              function forDate(inputId) {
+                // 取得 input 元素
+                var inputElement = document.getElementById(inputId);
+              
+                // 取得 input 元素的值
+                var dateTimeValue = inputElement.value;
+              
+                // 建立 Date 物件，並解析日期時間值
+                var date = new Date(dateTimeValue);
+              
+                // 取得年、月、日、時、分、秒
+                var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                var day = ('0' + date.getDate()).slice(-2);
+              
+                // 格式化日期時間字串
+                var formattedDateTime = month + '/' + day;
+              
+                return formattedDateTime;
+              }
               //  =====是否有勾選============//
               const toannADDCheckbox = document.getElementById('toannADD');
               const toEmailCheckbox = document.getElementById('toEmail');
@@ -112,7 +130,7 @@ $(document).ready(function(){
                   annTest=`優惠代碼：${$('#couponCode').val()}<br />有效期間：${forDateTime('activateTime')}~${forDateTime('expirationDate')}<br />折扣金額：${$('#discount').val()}<br />${htmlValue}`
                   var formDataAnn = {
                     adminId:admin.adminId,
-                    annTitle:"優惠券新增！",
+                    annTitle:`${forDate('activateTime')}~${forDate('expirationDate')}優惠券`,
                   annCategory:1,
                   annContent:annTest,
                   annDate:now,

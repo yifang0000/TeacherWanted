@@ -78,7 +78,19 @@ $(document).ready(function(){
 
             for (var i = 0; i < scheduleOptions.length; i++) {
             if (scheduleOptions[0].checked) {
-                annDate = now;
+              var date = new Date();
+
+              // 取得年、月、日、時、分、秒
+              var year = date.getFullYear();
+              var month = ('0' + (date.getMonth() + 1)).slice(-2);
+              var day = ('0' + date.getDate()).slice(-2);
+              var hours = ('0' + date.getHours()).slice(-2);
+              var minutes = ('0' + date.getMinutes()).slice(-2);
+              var seconds = ('0' + date.getSeconds()).slice(-2);
+
+              // 格式化日期時間字串
+              var annDate = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+
                 annStatus=1;
             } else if (scheduleOptions[1].checked) {
                 // 取得 input 元素

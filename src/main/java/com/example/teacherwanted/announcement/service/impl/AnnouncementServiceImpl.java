@@ -44,7 +44,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 //    }
 
     @Override
-    public List<Announcement> findAll(String annCategory) {
-        return announcementDao.findAll(annCategory);
+    public List<Announcement> findAll(String annCategory,boolean front) {
+        return announcementDao.findAll(annCategory,front);
     }
 }

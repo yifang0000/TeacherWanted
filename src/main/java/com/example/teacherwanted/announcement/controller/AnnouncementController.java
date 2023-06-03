@@ -24,8 +24,9 @@ public class AnnouncementController {
 
     //    查詢全部：[restful設計]無論查詢列表有無資料，都需要回傳200給前端
     @GetMapping("/announcements")
-    public ResponseEntity<List<Announcement>> findAll(@RequestParam(required = false) String annCategory) {
-        List<Announcement> all = announcementService.findAll(annCategory);
+    public ResponseEntity<List<Announcement>> findAll(@RequestParam(required = false) String annCategory,
+                                                      @RequestParam(required = false) boolean front) {
+        List<Announcement> all = announcementService.findAll(annCategory,front);
         return ResponseEntity.status(HttpStatus.OK).body(all);
     }
     //    查詢單個：[restful設計]：若該資料查詢不到，須回傳404給前端

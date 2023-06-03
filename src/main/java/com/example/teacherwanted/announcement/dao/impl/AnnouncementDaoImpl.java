@@ -49,10 +49,13 @@ public class AnnouncementDaoImpl implements AnnouncementDao {
 //    }
 
     @Override
-    public List<Announcement> findAll(String annCategory) {
+    public List<Announcement> findAll(String annCategory, boolean front) {
          String sql = "SELECT * FROM Announcement WHERE 1=1";
         if(annCategory != null){
             sql = sql + " AND ann_category = :annCategory";
+        }
+        if(front){
+            sql = sql + " AND ann_date < NOW()";
         }
         Query nativeQuery = entityManager.createNativeQuery(sql, Announcement.class);
         if(annCategory != null){

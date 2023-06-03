@@ -9,6 +9,6 @@ public interface AnnouncementService {
     public int deleteByAnnId(Integer annId);
     public int updateByAnnId(Announcement announcement);
     public Announcement selectByAnnId(Integer annId);
-    public List<Announcement> findAll(String annCategory);
+    public List<Announcement> findAll(String annCategory,boolean front);
 //    public List<Announcement> findCategory(String category);
 }

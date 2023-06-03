@@ -230,13 +230,23 @@ font-size: 30px;
   margin-right: 5%;
 }
 
-
-
+/* .dataTables_paginate{
+    color:#3c6a36
+  }
+  
+  .dataTables_paginate th,td{
+    color:#3c6a36 !important
+  }
+  .dataTables_paginate .page-link{
+    background-color: #3c6a36 !important;
+    border-color: white !important;
+    }
+   */
 /* ===================表單=============== */
 
 .card-header{
     font-size: 26px;
-    background-color: #465952 !important;
+    background-color: #3c6a36 !important;
     color: #FFFFFF !important;
     vertical-align: middle !important;
   }
