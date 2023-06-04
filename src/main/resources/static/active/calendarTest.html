@@ -20,25 +20,25 @@
     <!-- bootstrap相關 -->
 
     <link href="../css/baseVer2.css" rel="stylesheet" type="text/css" />
-    <link
-      href="../css/active/activeIndex.css"
-      rel="stylesheet"
-      type="text/css"
-    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
       rel="stylesheet"
     />
-    <!-- 網路上的函式庫 -->
     <script src="../jquery/jquery-3.6.4.min.js"></script>
-    <script src="../vue/vue-3.3.4.js"></script>
+    <!-- calendar插件 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css"
+    />
+    <link href="../css/calendarTest.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="../axios/axios.js"></script>
 
-    <!-- 自己的js -->
     <script src="../js/base.js"></script>
-    <script src="../js/active/activeIndex.js"></script>
+    <script src="../js/calendarTest.js"></script>
 
     <title>Document</title>
   </head>
@@ -105,16 +105,16 @@
               style="position: relative; top: 2px"
             >
               <div class="miniMobile">
-                <div id="navSearch" action="">
-                  <select id="serchType">
-                    <option value="課程">課程</option>
-                    <option value="活動">活動</option>
-                    <option value="商城">商城</option>
-                    <option value="許願">許願</option>
+                <form id="navSearch" action="">
+                  <select>
+                    <option>課程</option>
+                    <option>活動</option>
+                    <option>商城</option>
+                    <option>許願</option>
                   </select>
-                  <input id="searchText" type="text" />
-                  <img id="searchIcon" src="../img/base/search.svg" alt="" />
-                </div>
+                  <input type="text" />
+                  <img src="../img/base/search.svg" alt="" />
+                </form>
               </div>
               <img
                 src="../img//base/mailForNavbar.svg"
@@ -153,70 +153,32 @@
     <main class="TeacherWanted">
       <!-- ！！！寫在這裡！！！
       如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
-      <div id="app">
-        <div class="containerActiveIndex">
-          <!-- 上方活動列表和活動地圖 開始 -->
-          <section class="activeIndexBlock flexWrap">
-            <div class="activeIndexName flexVerticalCenter">
-              <h1>活動列表</h1>
-            </div>
-            <div class="activeIndexIcon flexVerticalCenter">
-              <select
-                name=""
-                id="activityIndexType"
-                v-model="activityIndexType"
-                @change="searchByType"
-              >
-                <option value=""></option>
-                <option value="戶外運動">戶外運動</option>
-                <option value="全民教育">全民教育</option>
-                <option value="休閒娛樂">休閒娛樂</option>
-              </select>
-              <a class="flexAllCenter" @click="clearSearch">清除搜索條件</a>
-              <a href="/active/activeMap.html" class="flexAllCenter"
-                >活動地圖</a
-              >
-            </div>
-          </section>
-          <!-- 上方活動列表和活動地圖 結束 -->
-          <section class="activeIndexList flexWrap">
-            <!-- 活動列表區塊 開始 -->
-            <div
-              v-for="activityIndex in activityIndexList"
-              :key="activityIndex.id"
-              class="activeIndexOneBlock"
-            >
-              <div
-                @click="navigateToPage(activityIndex.activityId)"
-                class="activeIndexOne"
-              >
-                <div class="activeIndexOneImgBlock">
-                  <img
-                    :src="'data:image/'+activityIndex.activityPhotoType+';base64,'+activityIndex.activityPhoto"
-                  />
-                </div>
+      <section class="flexWrap">
+        <div id="calendar"></div>
 
-                <div class="activeIndexOneIntroduceBlock">
-                  <h5>
-                    <strong>
-                      {{convertDateTimeEasy(activityIndex.activityStartTime)}} -
-                      {{convertDateTimeEasy(activityIndex.activityEndTime)}}
-                    </strong>
-                  </h5>
-                  <span class="activeIndexOneIntroduceType"
-                    >{{activityIndex.activityType}}</span
-                  >
+        <div style="width: 50%">
+          <label for="favStart">Select your StartTime:</label>
+          <input type="datetime-local" id="favStart" name="favStart" />
+          <br />
+          <label for="favEnd">Select your EndTime:</label>
+          <input type="datetime-local" id="favEnd" name="favEnd" />
+          <br />
+          <label for="favtitle">Select your Title:</label>
+          <input type="text" id="favtitle" name="favtitle" />
+          <br />
+          <label for="favtext">Select your Text:</label>
+          <textarea name="favtext" id="favtext" cols="30" rows="10"></textarea>
+          <br />
+          <label for="favcolor">Select your Color:</label>
+          <input type="color" id="favcolor" name="favcolor" value="#ff0000" />
+          <br />
 
-                  <h2>{{activityIndex.activityName}}</h2>
-                  <h6>活動票價:{{activityIndex.activityPrice}}NT</h6>
-                  <h6>活動地點:{{activityIndex.activityLocation}}</h6>
-                </div>
-              </div>
-            </div>
-            <!-- 活動列表區塊 結束 -->
-          </section>
+          <div id="submitCalender">新增行事曆活動</div>
         </div>
-      </div>
+      </section>
+      <!-- 燈箱部分開始 -->
+      <div class="lightbox"></div>
+      <!-- 燈箱部分結束 -->
     </main>
 
     <footer

@@ -86,4 +86,8 @@ public class Active {
 
     @Column(name = "activity_photo_type")
     private String activityPhotoType;
+
+    @Column(name = "activity_photo_url")
+    private String activityPhotoUrl;
+
 }
