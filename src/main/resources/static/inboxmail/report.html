@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- bootstrap相關 -->
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+          crossorigin="anonymous"
+  />
+  <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+          crossorigin="anonymous"
+  ></script>
+  <!-- bootstrap相關 -->
+  <link href="../css/baseVer2.css" rel="stylesheet" type="text/css" />
+  <link href="../css/active/active.css" rel="stylesheet" type="text/css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet"
+  />
+  <link
+          rel="shortcut icon"
+          type="image/x-icon"
+          href="docs/images/favicon.ico"
+  />
+
+  <link
+          rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+          crossorigin=""
+  />
+  <script
+          src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+          integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+          crossorigin=""
+  ></script>
+  <!-- jquery套件 -->
+  <script src="../jquery/jquery-3.6.4.min.js"></script>
+  <!-- axios套件 -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+  <script src="../axios/axios.js"></script>
+  <!-- vue3套件 -->
+  <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+  <script src="../vue/vue-3.3.4.js"></script>
+  <!-- js匯入 -->
+  <script src="../js/base.js"></script>
+  <script src="../js/active/active.js"></script>
+
+  <title>Document</title>
+</head>
+
+<body class="TeacherWanted">
+<!-- 手機板導引列(粗糙) -->
+<header class="TeacherWanted">
+  <div id="mySidebar">
+    <img src="img/base/logo.png" alt="" />
+    <a href="#" class="">首頁</a>
+    <a href="#" class="">課程</a>
+    <a href="#" class="">活動</a>
+    <a href="#" class="">許願池</a>
+    <a href="#" class="">論壇</a>
+    <a href="#" class="">商城</a>
+  </div>
+  <div class="navBar">
+    <ul class="containerHearder flexWrap flexVerticalCenter">
+      <li>
+        <img src="img/base/menu.png" id="phoneMenu" class="mobileHave" style="height: 30px; margin: 10px" alt="" />
+      </li>
+
+      <li class="flexWrap flexAllCenter" style="font-size: 50px; color: #a4c964; margin: 10px 0px">
+        <img src="img/base/logo.png" class="miniMobile" style="height: 50px; margin: 0px 5px" alt="" />
+        <p>懸賞啼雀</p>
+      </li>
+      <li class="flexWrap" style="
+              flex-grow: 1;
+              display: flex;
+              align-items: center;
+              justify-content: end;
+            ">
+        <!-- 電腦版導引列 -->
+        <div id="navLink" class="flexWrap flexAllCenter pcHave" style="flex-grow: 1">
+          <a class="flexAllCenter" href="">首頁</a>
+          <a class="flexAllCenter" href="">課程</a>
+          <a class="flexAllCenter" href="">活動</a>
+          <a class="flexAllCenter" href="">許願池</a>
+          <a class="flexAllCenter" href="">論壇</a>
+          <a class="flexAllCenter" href="">商城</a>
+        </div>
+        <div class="flexWrap flexAllCenter" style="position: relative; top: 2px">
+          <div class="miniMobile">
+            <form id="navSearch" action="">
+              <select>
+                <option>課程</option>
+                <option>活動</option>
+                <option>商城</option>
+                <option>許願</option>
+              </select>
+              <input type="text" />
+              <img src="img/base/search.svg" alt="" />
+            </form>
+          </div>
+          <img src="img//base/mailForNavbar.svg" class="miniMobile" style="
+                  height: 30px;
+                  margin: 3px 5px;
+                  cursor: pointer;
+                  position: relative;
+                  bottom: 1px;
+                " alt="" />
+          <img src="img/base/shoppingCart.svg" class="miniMobile"
+               style="height: 30px; margin: 3px 5px; cursor: pointer" alt="" />
+          <img src="img/base/bell.svg" class="miniMobile" style="height: 30px; margin: 3px 5px; cursor: pointer"
+               alt="" />
+
+          <a class="btnCss flexAllCenter" style="color: white" href="">登入</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<main class="TeacherWanted">
+  <div class="container">
+    <div class="row">
+      <!-- ==============================側邊欄=============================================== -->
+
+      <div class="col-md-2 mx-lg-5">
+        <div class="col-md-12 mb-4" id="nq"><a href="#">常見問題</a></div>
+        <div class="col-md-12 mb-4" id="ac"><a href="#">課程相關</a></div>
+        <div class="col-md-12 mb-4" id="ao"><a href="#">訂單相關</a></div>
+        <div class="col-md-12 mb-4" id="oq"><a href="#">其他問題</a></div>
+        <div class="col-md-12 mb-4" id="oh"><a href="#">線上客服</a></div>
+        <div class="col-md-12 mb-4" id="rp"><a href="#">通報/舉報</a></div>
+      </div>
+      <!-- ==================================表單區=============================================== -->
+      <div class="col-md-8">
+        <!-- 頁面標題 -->
+        <h1 class="mb-5">通報/舉報</h1>
+        <form>
+          <!-- 欄位:身分(固定)
+          <div class="mb-3 row">
+              <label for="staticIdentity" class="col-sm-2 col-form-label">*身分:</label>
+              <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="staticIdentity" value="學生" style="width: 200px;">
+              </div>
+          </div> -->
+          <!-- 欄位:姓名(固定) -->
+          <div class="mb-3 row">
+            <label for="staticName" class="col-sm-2 col-form-label">姓名:</label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="staticName" value="王小美" style="width: 200px;">
+            </div>
+          </div>
+          <!-- 欄位:電話(固定) -->
+          <div class="mb-3 row">
+            <label for="staticPhone" class="col-sm-2 col-form-label">電話:</label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="staticPhone" value="0900-111222" style="width: 200px;">
+            </div>
+          </div>
+          <!-- 欄位:信箱(固定) -->
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">電子信箱:</label>
+            <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="xiaomei@gmail.com" style="width: 200px;">
+            </div>
+          </div>
+          <!-- 欄位:問題類別 -->
+          <div class="row">
+            <label for="validationDefault04" class="form-label col-sm-2">*問題類別:</label>
+            <select class="form-select text-secondary" id="validationDefault04" required style="width: 200px;">
+              <option selected disabled value="">請選擇</option>
+              <option value="1">課程</option>
+              <option value="2">訂單</option>
+              <option value="3">網站</option>
+              <option value="4">論壇</option>
+            </select>
+          </div>
+          <!-- 欄位:內容 -->
+          <div class=" mb-3  mt-3">
+            <label for="content" class="form-label col-sm-2">*內容:</label>
+            <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="content" required
+                                  style="height: 200px; resize: none"></textarea>
+              <label for="floatingTextarea2">輸入內容...</label>
+            </div>
+          </div>
+        </form>
+        <div class="row justify-content-end">
+          <!-- 離開 -->
+          <!-- Button trigger modal -->
+          <button id="leave" type="button" class="btn btn-primary col-md-1 mx-lg-3" data-bs-toggle="modal"data-bs-target="#exampleModal">離開</button>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">確定離開?</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    取消
+                  </button>
+                  <button type="submit" class="btn btn-primary leaveSure">
+                    確定
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 送出 -->
+          <!-- Button trigger modal -->
+          <button id="sentOut" type="button" class="btn btn-primary col-md-1 mx-lg-3" data-bs-toggle="modal"data-bs-target="#exampleModa2">送出</button>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModa2" tabindex="-1" aria-labelledby="exampleModalLabe2"aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabe2">確定送出?</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    取消
+                  </button>
+                  <button type="submit" class="btn btn-primary sentOutSure">
+                    確定
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="TeacherWanted" style="background-color: #3c6a36; color: white">
+  <div class="containerFooter flexAllCenter" style="box-sizing: border-box; padding-top: 50px">
+    <div class="flexWrap">
+      <ul class="col_33">
+        <li class="flexAllCenter" style="color: #a4c964; font-size: 40px">
+          懸賞啼雀
+        </li>
+        <li class="flexAllCenter" style="margin: 10px 30px; font-weight: normal">
+          Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
+          dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
+          elitr stet diam duo eos rebum ipsum diam ipsum elitr.
+        </li>
+        <li id="imgIcon" class="flexVerticalCenter" style="margin: 20px 30px">
+          <img src="img/base/facebook.svg" class="imgIntroduce" alt="" />
+          <img src="img/base/twitter.svg" class="imgIntroduce" alt="" />
+          <img src="img/base/instagram.svg" class="imgIntroduce" alt="" />
+        </li>
+      </ul>
+      <ul class="col_33 flexHorizontalCenter footerMobile">
+        <div style="width: 70%">
+          <li class="flexAllCenter" style="color: #a4c964; font-size: 30px; height: 65px">
+            Get In Touch
+          </li>
+          <div class="" style="height: 250px; font-weight: 400">
+            <li class="flexWrap" style="margin-top: 10px">
+              <img src="img/base/map-marker.svg" style="height: 24px; padding-right: 10px; margin-top: 6px" alt="" />
+              <div>
+                <h3 style="font-size: 1.3rem">地址</h3>
+                <h5 style="font-size: 1rem">123</h5>
+              </div>
+            </li>
+
+            <li class="flexWrap" style="margin-top: 10px">
+              <img src="img/base/mail.svg" style="height: 24px; padding-right: 10px; margin-top: 6px" alt="" />
+              <div>
+                <h3 style="font-size: 1.3rem">信箱</h3>
+                <h5 style="font-size: 1rem">a1234567890@gmail.com</h5>
+              </div>
+            </li>
+
+            <li class="flexWrap" style="margin-top: 10px">
+              <img src="img/base/phone.svg" style="height: 24px; padding-right: 10px; margin-top: 6px" alt="" />
+              <div>
+                <h3 style="font-size: 1.3rem">連絡電話</h3>
+                <h5 style="font-size: 1rem">0900123456</h5>
+              </div>
+            </li>
+          </div>
+        </div>
+      </ul>
+      <ul class="col_33 flexHorizontalCenter footerMobile">
+        <div style="width: 40%">
+          <li class="flexAllCenter" style="color: #a4c964; font-size: 30px; height: 65px">
+            網站地圖
+          </li>
+          <div class="webMap">
+            <li style="margin-top: 5px">
+              <a class="webMapLink" href="">>首頁</a>
+            </li>
+            <li style="margin-top: 5px">
+              <a class="webMapLink" href="">>課程</a>
+            </li>
+            <li style="margin-top: 5px">
+              <a class="webMapLink" href="">>活動</a>
+            </li>
+            <li style="margin-top: 5px">
+              <a class="webMapLink" href="">>許願池</a>
+            </li>
+            <li style="margin-top: 5px">
+              <a class="webMapLink" href="">>論壇</a>
+            </li>
+            <li style="margin-top: 5px">
+              <a class="webMapLink" href="">>商城</a>
+            </li>
+          </div>
+        </div>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  $(function(){
+    // 放棄的確定 跳轉至 某某頁面(href路徑在換掉)
+    $(".leaveSure").on("click",function(){
+      window.location.href ="index.html"
+    })
+    // 送出的確定 跳轉至 某某頁面(href路徑在換掉)
+    $(".sentOutSure").on("click",function(){
+      window.location.href ="edit.html"
+    })
+
+
+
+
+  })
+
+
+</script>
+
+</body>
+
+</html>
