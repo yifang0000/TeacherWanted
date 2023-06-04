@@ -34,8 +34,9 @@ public class AdministratorController {
     //    新增使用者
     @PostMapping("/administrators/insert")
     public ResponseEntity<?> insert(@RequestBody Administrator administrator,@SessionAttribute("adminSession") Administrator administrator1) {
-        administratorService.insert(administrator);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        int adminId = administratorService.insert(administrator);
+        System.out.println(adminId);
+        return ResponseEntity.status(HttpStatus.OK).body(adminId);
     }
 
     //    查詢單個：[restful設計]：若該資料查詢不到，須回傳404給前端
@@ -58,6 +59,8 @@ public class AdministratorController {
         administratorService.updateByAdminId(administrator);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+
 
     //    刪除
     @DeleteMapping("/administrators/{adminId}")
@@ -83,5 +86,21 @@ public class AdministratorController {
         return ResponseEntity.status(HttpStatus.OK).body(administrator1);
     }
 //    登出
+    @GetMapping("/administrators/logout")
+    public ResponseEntity<String> logout(HttpSession session){
+        String message;
+        if(session.getAttribute("adminSession")!=null){
+            Administrator admin = (Administrator) session.getAttribute("adminSession");
+            message =  admin.getAdminName()+"登出ㄌ";
+            log.info(message);
+            session.removeAttribute("adminSession");
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        }else{
+            message = "沒有session";
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        }
+
+    }
+
 
 }
