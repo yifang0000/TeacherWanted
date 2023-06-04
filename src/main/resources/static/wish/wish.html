@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>許願池</title>
 
   <!-- bootstrap相關 -->
   <link
@@ -20,7 +19,6 @@
   <!-- bootstrap相關 -->
 
   <link href="../css/baseVer2.css" rel="stylesheet" type="text/css" />
-  <link href="../css/active/activeMap.css" rel="stylesheet" type="text/css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -28,30 +26,45 @@
           rel="stylesheet"
   />
   <script src="../jquery/jquery-3.6.4.min.js"></script>
-  <script src="../vue/vue-3.3.4.js"></script>
-  <script src="../axios/axios.js"></script>
   <script src="../js/base.js"></script>
-  <script src="../js/active/activeMap.js"></script>
-
-  <!-- leaftjs -->
-  <!-- <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  />
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script> -->
-  <link href="../css/active/leaflet.css" rel="stylesheet" type="text/css" />
-
-  <script src="../utils/active/leaflet.js"></script>
-
-  <title>Document</title>
+  <script src="../js/dropdown.js"></script>
 </head>
-<body class="TeacherWanted">
+<style>
+
+  .container {
+    width: 1800px;
+    background-color: rgb(238, 245, 212);
+  }
+  .dropdown-toggle {
+    position: relative;
+  }
+
+  .dropdown-toggle .arrow {
+    display: inline-block;
+    margin-left: 5px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid black;
+  }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    padding: 10px;
+  }
+
+  .dropdown.open .dropdown-menu {
+    display: block;
+  }
+
+</style>
+<body>
+
 <!-- 手機板導引列(粗糙) -->
 <header class="TeacherWanted">
   <div id="mySidebar">
@@ -102,12 +115,12 @@
                 class="flexWrap flexAllCenter pcHave"
                 style="flex-grow: 1"
         >
-          <a class="flexAllCenter" href="">首頁</a>
-          <a class="flexAllCenter" href="">課程</a>
-          <a class="flexAllCenter" href="">活動</a>
-          <a class="flexAllCenter" href="">許願池</a>
-          <a class="flexAllCenter" href="">論壇</a>
-          <a class="flexAllCenter" href="">商城</a>
+          <a class="flexAllCenter" href=""><b>首頁</b></a>
+          <a class="flexAllCenter" href=""><b>課程</b></a>
+          <a class="flexAllCenter" href=""><b>活動</b></a>
+          <a class="flexAllCenter" href=""><b>許願池</b></a>
+          <a class="flexAllCenter" href=""><b>論壇</b></a>
+          <a class="flexAllCenter" href=""><b>商城</b></a>
         </div>
         <div
                 class="flexWrap flexAllCenter"
@@ -150,67 +163,164 @@
                   alt=""
           />
 
-          <a class="btnCss flexAllCenter" style="color: white" href=""
-          >登入</a
-          >
+          <li>
+            <a id="loginButton" href="/login" class="nav-link" style="display: flex; justify-content: center;">登入</a>
+          </li>
+          <li>
+            <a id="logoutButton" href="/logout" class="nav-link" style="display: flex; justify-content: center;">登出</a>
+          </li>
         </div>
       </li>
     </ul>
   </div>
 </header>
 
-<main class="TeacherWanted">
-  <!-- ！！！寫在這裡！！！
-  如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-  <div class="flexWrap activeMap">
-    <!-- 地圖旁邊資訊欄 開始 -->
-    <section class="scrollableSection">
-      <!-- 搜尋框 開始 -->
-      <div class="searchBox flexHorizontalCenter">
-        <input id="address-input" type="text" placeholder="輸入地址" />
+
+<!--  <div>-->
+<!--  <a class="h3 d-block ml-auto" style="margin-right: 20px;" th:href="@{/wish/new}">新增許願</a>-->
+<!--</div>-->
+  <div class="container">
+    <div class="row" style="margin-bottom: 60px">
+      <br>
+      <br>
+      <div class="col-3"></div>
+      <div class="col-3" style="display: flex; align-items: center;color: #3c6a36;">
+        <h2 style="font-weight: bold;" >今晚~我想學點...</h2>
       </div>
-      <!-- 搜尋框 結束 -->
-      <!-- 地點 開始 -->
-      <div id="app">
-        <div
-                class="activeMapOne flexWrap"
-                v-for="activityMap in activityMapList"
-                :key="activityMap.id"
-        >
-          <div class="activeMapOneImgBlock">
-            <img
-                    :src="'data:image/'+activityMap.activityPhotoType+';base64,'+activityMap.activityPhoto"
-            />
-          </div>
-          <div class="activeMapOneIntroduce">
-            <h4>{{activityMap.activityName}}</h4>
-            <div class="activeMapOneBtn">
-              <div
-                      @click="activityMapMore(activityMap.activityId)"
-                      class="more flexAllCenter"
-              >
-                <p>詳情</p>
-              </div>
-              <div
-                      @click="activityMapLocation(activityMap.activityLat,activityMap.activityLng)"
-                      class="location flexAllCenter"
-              >
-                <p>位置</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="col-3" style="display: flex; flex-direction: column; align-items: flex-end; margin-top: 20px;">
+        <img src="../img/wish/angel.png" width="200px" />
       </div>
-      <!-- 地點 結束 -->
-    </section>
-    <!-- 地圖旁邊資訊欄 結束 -->
-    <!-- 地圖本身 開始 -->
-    <section style="width: 80%"><div id="map"></div></section>
-    <!-- 地圖本身 結束 -->
+
+      <div class="col-3"></div>
+      <div class="col-4" style="margin-left: 50px;font-size:20px;display: flex;font-weight: bold; align-items:end;color: #ba8b00;">
+        <p >
+          這座許願池有個古老的傳說...
+          <br>
+          只要在此許下心願，
+          <br>
+          小天使就會替你找到適合的老師!!
+        </p>
+      </div>
+      <div
+              class="col-4"
+              style="display: flex; justify-content: center; margin-bottom: 15px"
+      >
+        <img src="../img/wish/wish.png" alt="" width="250px" />
+      </div>
+
+
+
+      <div class="col-4" >
+        <a id="postwish"
+           th:href="@{/wish/new}"
+           style="
+      font-size: 20px;
+      text-align: center;
+      color: rgb(1, 47, 5);
+      font-weight: bold;
+      background-color: #a4c964;
+      margin-left: 1100px;
+      text-decoration: none;
+      width: 150px;
+      border-radius: 5px;
+      line-height: 55px;
+      height: 56px;
+      position: absolute;
+      margin-bottom: 50px;
+    ">
+          張貼許願</a>
+      </div>
+
+    </div>
+    <br>
   </div>
-</main>
 
+<div th:if="${message != null}" class="popup">
+  <script th:inline="javascript">
+    alert([[${message}]]);
+  </script>
+</div>
+
+<div>
+  <table class="table table-stripe table-hover" style="width: 1400px; margin: 0 auto;">
+
+    <thead >
+        <tr class="success"
+            style="
+            text-align: center;
+              font-weight: bold;
+              font-size: 20px;
+              background-color: green;
+              color: white;
+            ">
+          <th>許願帳號</th>
+          <th>許願科目</th>
+          <th>上課地點</th>
+          <th>學生人數</th>
+          <th>上課時段</th>
+          <th>時薪</th>
+          <th>課程需求</th>
+          <th>聯絡信箱</th>
+
+          <th></th>
+        </tr>
+      </thead>
+      <tbody style="vertical-align: middle;
+            text-align: center;">
+      <th:block th:each="wish : ${listWish}">
+       <tr>
+         <td th:text="${wish.memAccount}"></td>
+         <td>[[${wish.wishSubject}]]</td>
+         <td>[[${wish.wishLocation}]]</td>
+         <td>[[${wish.wishStudents}]]</td>
+         <td>[[${wish.wishPeriod}]]</td>
+         <td>[[${wish.wishSalary}]]</td>
+         <td>[[${wish.wishContent}]]</td>
+         <td>[[${wish.wishEmail}]]</td>
+
+         <td>
+           <nav>
+             <ul>
+               <li class="dropdown" style="color: #1c7430; font-weight: bold;text-decoration: none;">
+             <a href="#" class="dropdown-toggle" style="text-decoration: none;">詳情 </a>
+             <ul class="dropdown-menu">
+               <li><a href="#"style="text-decoration: none;">站內信應徵</a></li>
+               <li><a style="text-decoration: none;"th:href="@{'/wish/edit/' + ${wish.wishId}}">發文者編輯</a></li>
+               <li><a style="text-decoration: none;"th:href="@{'/wish/delete/' + ${wish.wishId}}">發文者刪除</a></li>
+             </ul>
+             </li>
+             </ul>
+           </nav>
+<!--           <a class="btn btn-success m-2" th:href="@{'/wish/edit/' + ${wish.wishId}}" style="font-size: 16px;margin-right: 10px; ">編輯</a>-->
+<!--           <a class="btn btn-secondary m-2" th:href="@{'/wish/delete/' + ${wish.wishId}}" style="font-size: 16px;"  >刪除</a>-->
+
+
+
+         </td>
+       </tr>
+      </th:block>
+
+
+      </tbody>
+    </table>
+
+
+  </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <footer
         class="TeacherWanted"
         style="background-color: #3c6a36; color: white"
@@ -233,17 +343,13 @@
           elitr stet diam duo eos rebum ipsum diam ipsum elitr.
         </li>
         <li
-                id="../imgIcon"
+                id="imgIcon"
                 class="flexVerticalCenter"
                 style="margin: 20px 30px"
         >
           <img src="../img/base/facebook.svg" class="imgIntroduce" alt="" />
           <img src="../img/base/twitter.svg" class="imgIntroduce" alt="" />
-          <img
-                  src="../img/base/instagram.svg"
-                  class="imgIntroduce"
-                  alt=""
-          />
+          <img src="../img/base/instagram.svg" class="imgIntroduce" alt="" />
         </li>
       </ul>
       <ul class="col_33 flexHorizontalCenter footerMobile">
@@ -326,12 +432,7 @@
     </div>
   </div>
 </footer>
-</body>
 
-<!-- 地圖連結 -->
-<script
-        src="https://maps.googleapis.com/maps/api/js?callback=initAutocomplete&libraries=places&key=AIzaSyB441MwqLRSXsrgHti3UTkvIhoRTitofAw&libraries=places"
-        async
-        defer
-></script>
+</script>
+</body>
 </html>
