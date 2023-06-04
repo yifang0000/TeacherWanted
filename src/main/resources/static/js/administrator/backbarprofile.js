@@ -117,8 +117,8 @@ $(document).ready(function(){
             // ===============修改老師=====//
 
 
-            // ========圖片處理================ //
-            
+            // ========上傳圖片處理================ //
+            // if(沒有上傳圖片){}，做不同的ajex
             if(file.files[0]===undefined){
               var formDataEdit = {
                 adminId: admin.adminId,
