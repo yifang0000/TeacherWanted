@@ -1,8 +1,5 @@
 
 $(document).ready(function(){
-  console.log(admin) 
-  console.log(teacherDateAjex)
-  console.log(teacherIdSession)
     $("#collapse").on("click",function(){
         $("#sidebar").toggleClass("active")
     })

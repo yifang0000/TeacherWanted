@@ -112,7 +112,7 @@ $(document).ready(function(){
               data: JSON.stringify(formDataTeacher),
               contentType: 'application/json',
                 success: function(response) {
-                  alert('老師新增成功！');
+                  // alert('老師新增成功！');
                 },
                 error: function(xhr, textStatus, errorThrown) {
 

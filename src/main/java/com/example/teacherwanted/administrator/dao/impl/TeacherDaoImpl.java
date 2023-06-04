@@ -141,7 +141,7 @@ public class TeacherDaoImpl implements TeacherDao {
                 .setParameter("adminId", adminId)
                 .getResultList();
         if (resultList.size() > 0) {
-            System.out.println(resultList.get(0));
+//            System.out.println(resultList.get(0));
             return resultList.get(0);
         } else {
             return null;

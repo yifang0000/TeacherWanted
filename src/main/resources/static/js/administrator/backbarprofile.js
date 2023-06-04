@@ -144,6 +144,7 @@ $(document).ready(function(){
                           .then(response => {
                               if (response.ok) {
                                   alert("成功");
+                                  location.reload()
                               } else {
                                   alert("失敗");
                               }
@@ -178,6 +179,7 @@ $(document).ready(function(){
                           .then(response => {
                               if (response.ok) {
                                   alert("成功");
+                                  location.reload()
                               } else {
                                   alert("失敗");
                               }
