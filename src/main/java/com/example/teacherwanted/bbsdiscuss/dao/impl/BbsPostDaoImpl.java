@@ -32,7 +32,7 @@ public class BbsPostDaoImpl implements BbsPostDao {
 
 
 
-    //   依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or po.html
+    //   依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or bsdiscusspo.html
     @Override
     public List<ActiveOrderDetail> selectActiveOrderDetailByMemberId(Integer memId) {
         TypedQuery<ActiveOrderDetail> query = entityManager.createQuery(
@@ -161,7 +161,8 @@ public class BbsPostDaoImpl implements BbsPostDao {
     public List<BbsPost> getBbsPostsByKblg(String bbsCategoryName) {
         String sql = "SELECT bbs_post_id, mem_id, bbs_category_name, bbs_tag_name, post_title, post_content," +
                 " create_time, update_time, post_views, post_likes, post_dislikes, post_status " +
-                "FROM BBS_POST WHERE bbs_category_name = :bbsCategoryName";
+                "FROM BBS_POST WHERE bbs_category_name = :bbsCategoryName AND post_status = 1 " +
+                "                ORDER BY update_time desc ";
         Map<String, Object> map = new HashMap<>();
         map.put("bbsCategoryName", bbsCategoryName);
 
@@ -178,7 +179,9 @@ public class BbsPostDaoImpl implements BbsPostDao {
     public List<BbsPost> getBbsPosts() {
         String sql = "SELECT bbs_post_id, mem_id, bbs_category_name, bbs_tag_name, post_title, post_content," +
                 " create_time, update_time, post_views, post_likes, post_dislikes, post_status " +
-                " FROM BBS_POST ";
+                " FROM BBS_POST " +
+                " WHERE post_status = 1 " +
+                " ORDER BY update_time DESC";
         Map<String, Object> map = new HashMap<>();
 
         List<BbsPost> bbsPostList = namedParameterJdbcTemplate.query(sql, map, new BbsPostRowMapper());

@@ -498,7 +498,7 @@
                   let reaction_status = data2.reaction_status;
                   let memAccount = data2.memAccount;
                   let memName = data2.memName;
-                  //  ========== 依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or po.html==============
+                  //  ========== 依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or bsdiscusspo.html==============
                   $.ajax({
                     url: "/bbsdiscussGet/memberInfo",
                     type: "GET",
@@ -1068,7 +1068,7 @@
         });
         //==========================跳轉到發文紀錄====================================================
         $(".bbs_btn_view").on("click", function () {
-          window.location.href = "po.html";
+          window.location.href = "bsdiscusspo.html";
         });
         //==========================跳轉到發表文章====================================================
         $(".bbs_btn_edit").on("click", function () {
