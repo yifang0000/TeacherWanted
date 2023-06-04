@@ -88,7 +88,7 @@ public class ActiveServiceImpl implements ActiveService {
     @Override
     @Transactional
     public String update(Active active) {
-        System.out.println("TEST");
+//        System.out.println("TEST");
         Active activeCreateTime = activeDao.selectById(active.getActivityId());
 //        System.out.println("CreateTime:"+activeCreateTime.getCreateTime());
         active.setCreateTime(activeCreateTime.getCreateTime());
