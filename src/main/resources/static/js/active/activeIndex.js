@@ -1,3 +1,6 @@
+const urlParams = new URLSearchParams(window.location.search);
+const searchText = urlParams.get("searchText");
+
 const app = Vue.createApp({
   data() {
     return {
@@ -5,9 +8,9 @@ const app = Vue.createApp({
     };
   },
   mounted() {
-    axiosGetActive()
+    axiosGetActive(searchText)
       .then((data) => {
-        console.log("mounted:" + data);
+        // console.log("mounted:" + data);
         this.activityIndexList = data;
       })
       .catch((error) => {
@@ -41,6 +44,23 @@ const app = Vue.createApp({
       // 其他相關的頁面導航操作
     },
     // 推薦課程 時間轉換 簡單格式 Vue方法裡 結束
+    // 標籤查詢 Vue方法裡 開始
+    searchByType() {
+      axiosGetActive(searchText, this.activityIndexType)
+        .then((data) => {
+          // console.log("mounted:" + data);
+          this.activityIndexList = data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    // 標籤查詢 Vue方法裡 結束
+    // 清除搜索 Vue方法裡 開始
+    clearSearch() {
+      window.location.href = "/active/activeIndex.html";
+    },
+    // 清除搜索 Vue方法裡 結束
   },
 });
 
@@ -49,9 +69,14 @@ window.addEventListener("load", () => {
 });
 
 // 取得所有活動
-function axiosGetActive() {
+function axiosGetActive(searchText, searchType) {
   return axios
-    .get("/activeIndex")
+    .get("/activeIndex", {
+      params: {
+        searchKeyword: searchText,
+        activityType: searchType,
+      },
+    })
     .then((response) => {
       //   console.log(response.data);
       return response.data;

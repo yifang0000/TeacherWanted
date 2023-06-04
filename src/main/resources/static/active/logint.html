@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- axios套件 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+    <script src="../axios/axios.js"></script>
+    <!-- vue3套件 -->
+    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+    <script src="../vue/vue-3.3.4.js"></script>
+  </head>
+  <body>
+    <script>
+      // 讀取cookie
+
+      function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(";");
+        for (var i = 0; i < ca.length; i++) {
+          var c = ca[i].trim();
+          if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+      }
+
+      // console.log(getCookie("TeacherWantedPassword"));
+      // var testCookie = Uint8Array.from(
+      //   atob(getCookie("TeacherWantedPassword")),
+      //   (c) => c.charCodeAt(0)
+      // );
+
+      // console.log(testCookie);
+      // console.log(getCookie(TeacherWantedPassword));
+
+      axios
+        .post("/loginTest?testCookie=" + getCookie("TeacherWantedPassword"), {
+          memId: 2,
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+        });
+    </script>
+  </body>
+</html>

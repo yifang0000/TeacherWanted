@@ -1,13 +1,16 @@
 package com.example.teacherwanted.active.controller;
 
+import com.example.teacherwanted.active.dao.MemberDaoActive;
 import com.example.teacherwanted.active.model.Active;
 import com.example.teacherwanted.active.model.ActiveFavorite;
 import com.example.teacherwanted.active.model.ActiveOrderDetail;
-import com.example.teacherwanted.active.model.Member;
+import com.example.teacherwanted.active.model.MemberActive;
 import com.example.teacherwanted.active.service.ActiveFavoriteService;
 import com.example.teacherwanted.active.service.ActiveOrderDetailService;
 import com.example.teacherwanted.active.service.ActiveService;
-import com.example.teacherwanted.active.service.MemberService;
+import com.example.teacherwanted.active.service.MemberServiceActive;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,11 +19,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Key;
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,7 +45,7 @@ public class ActiveController {
 
     //    前臺操作 開始
     @Autowired
-    private MemberService memberService;
+    private MemberServiceActive memberService;
 
     //    拿到活動相關訂單
     @GetMapping("/activeOrderList")
@@ -53,7 +61,7 @@ public class ActiveController {
         if (memId == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無登入狀態");
         } else {
-            Member memberInfo = activeOrderDetailService.selectMemBerOrderInfo(memId);
+            MemberActive memberInfo = activeOrderDetailService.selectMemBerOrderInfo(memId);
             return ResponseEntity.ok(memberInfo);
 
         }
@@ -65,7 +73,7 @@ public class ActiveController {
     public ResponseEntity<?> selectActiveOrderDetailByMemberId(
             @RequestParam Integer activityId,
             @SessionAttribute(value = "MemberId", required = false) Integer memId) {
-        System.out.println(activityId);
+//        System.out.println(activityId);
         if (memId == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無登入狀態");
         } else {
@@ -166,7 +174,7 @@ public class ActiveController {
     //    推薦活動
     @GetMapping("/activeRecommend")
     public List<Active> recommendActivities(@RequestParam(required = false) String activityType) {
-        System.out.println(activityType);
+//        System.out.println(activityType);
 
 
         return activeService.recommendActivities(activityType);
@@ -181,13 +189,13 @@ public class ActiveController {
     public List<Active> selectAllActiveBack(@RequestParam(required = false) String searchKeyword,
                                             @RequestParam(required = false) String activityType,
                                             @SessionAttribute(value = "TeacherSession") Integer teaId) {
-        System.out.println(teaId);
+//        System.out.println(teaId);
 
         List<Active> activeList = activeService.selectBackAll(searchKeyword, activityType, teaId);
         return activeList;
     }
 
-    //    創建活動
+    //    創建活動 圖片方法base64
     @PostMapping("/activeBackAdd")
     public String insertActiveBack(@RequestBody Active active,
                                    @SessionAttribute("TeacherSession") Integer teaId) {
@@ -195,6 +203,70 @@ public class ActiveController {
         return activeService.insert(active);
     }
 
+    //    創建活動 圖片方法檔案夾路徑
+//    要同時送檔案和參數
+//    @PostMapping("/activeBackAdd")
+//    public String insertActiveBack(@ModelAttribute Active active,
+//                                   @SessionAttribute(value = "TeacherSession", required = false) Integer teaId,
+//                                   @RequestPart("file") MultipartFile file) {
+//        System.out.println(active);
+//        active.setTeaId(teaId);
+//
+//        String folderPath = "src/main/resources/static/img/active/" + teaId + "/"; // 指定存儲圖片的相對路徑
+//        System.out.println(teaId);
+//
+//        // 檢查資料夾是否存在，不存在則創建
+//        File folder = new File(folderPath);
+//        if (!folder.exists()) {
+//            folder.mkdirs();
+//        }
+//
+//        // 生成唯一的圖片檔名
+//        String originalFilename = file.getOriginalFilename();
+//        String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+//        String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
+//        String filePath = folderPath + uniqueFileName;
+//
+//        try {
+//            // 將檔案保存到指定路徑
+//            byte[] bytes = file.getBytes();
+//            Path path = Paths.get(filePath);
+//            Files.write(path, bytes);
+//            System.out.println("檔案已成功上傳，保存路徑為：" + filePath + "，檔名為：" + uniqueFileName);
+//
+//            // 返回回應，包括圖片的路徑和檔名，用於存入資料庫
+////            return "檔案已成功上傳，保存路徑為：" + filePath + "，檔名為：" + uniqueFileName;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            // 返回錯誤回應（這只是一個示例）
+//            System.out.println("檔案上傳失敗");
+////            return "檔案上傳失敗";
+//        }
+//        String imgURL = "../img/active/" + teaId + "/" + uniqueFileName;
+//        System.out.println(imgURL);
+//        String relativelyImgUrl = folderPath + uniqueFileName;
+//        File findImg = null;
+//
+//        try {
+//            // create new file
+//            findImg = new File(relativelyImgUrl);
+//
+//            System.out.println("有無檔案索引?" + findImg.isFile());
+//
+//
+//        } catch (Exception e) {
+//            // if any error occurs
+//            e.printStackTrace();
+//        }
+//
+//        active.setActivityPhotoUrl(imgURL);
+//
+//
+//        return activeService.insert(active);
+//    }
+
+
+    //   修改活動 原本資料帶回原本活動
     @GetMapping("/activeBackEdit")
     public Active selectByIdActiveBack(@RequestParam Integer activityId) {
         //  System.out.println(activityId);
@@ -202,18 +274,28 @@ public class ActiveController {
         return activeEdit;
     }
 
+
+    //    修改活動 圖片方法base64
     @PutMapping("/activeBackEdit")
     public String updateActiveBack(@RequestBody Active active,
                                    @SessionAttribute("TeacherSession") Integer teaId) {
         active.setTeaId(teaId);
         return activeService.update(active);
     }
+    //    修改活動 圖片方法檔案夾路徑
+//    @PutMapping("/activeBackEdit")
+//    public String updateActiveBack(@ModelAttribute Active active,
+//                                   @SessionAttribute(value = "TeacherSession", required = false) Integer teaId,
+//                                   @RequestPart("file") MultipartFile file) {
+//        active.setTeaId(teaId);
+//        return activeService.update(active);
+//    }
 
     @PutMapping("/activeBackStatusEdit")
     public String updateActiveBackStatus(@RequestBody Active active) {
 //        return activeService.update(active);
-        System.out.println("activeBackStatusEdit:" + active.getActivityId());
-        System.out.println("activeBackStatusEdit:" + active.getActivityStatus());
+//        System.out.println("activeBackStatusEdit:" + active.getActivityId());
+//        System.out.println("activeBackStatusEdit:" + active.getActivityStatus());
 
         return activeService.updateStatus(active, active.getActivityStatus());
 
@@ -228,11 +310,11 @@ public class ActiveController {
 
     //    以下是測試用
 
-    //    會員登入狀態
 
     @PostMapping("/activeLogin")
     public String easyLogin(@RequestBody Integer memberId, HttpSession session) {
         session.setAttribute("MemberId", memberId);
+        System.out.println("會員登入成功，id=" + memberId);
         return "會員登入成功";
     }
 
