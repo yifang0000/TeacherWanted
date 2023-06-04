@@ -18,22 +18,22 @@
   ></script>
   <!-- bootstrap相關 -->
 
-  <link href="css/baseVer2.css" rel="stylesheet" type="text/css" />
+  <link href="../css/baseVer2.css" rel="stylesheet" type="text/css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet"
   />
-  <script src="jquery/jquery-3.6.4.min.js"></script>
-  <script src="js/base.js"></script>
-  <script src="js/dropdown.js"></script>
+  <script src="../jquery/jquery-3.6.4.min.js"></script>
+  <script src="../js/base.js"></script>
+  <script src="../js/dropdown.js"></script>
 </head>
 <style>
 
   .container {
+    width: 1800px;
     background-color: rgb(238, 245, 212);
-    width: 100%;
   }
   .dropdown-toggle {
     position: relative;
@@ -68,7 +68,7 @@
 <!-- 手機板導引列(粗糙) -->
 <header class="TeacherWanted">
   <div id="mySidebar">
-    <img src="img/base/logo.png" alt="" />
+    <img src="../img/base/logo.png" alt="" />
     <a href="#" class="">首頁</a>
     <a href="#" class="">課程</a>
     <a href="#" class="">活動</a>
@@ -80,7 +80,7 @@
     <ul class="containerHearder flexWrap flexVerticalCenter">
       <li>
         <img
-                src="img/base/menu.png"
+                src="../img/base/menu.png"
                 id="phoneMenu"
                 class="mobileHave"
                 style="height: 30px; margin: 10px"
@@ -93,7 +93,7 @@
               style="font-size: 50px; color: #a4c964; margin: 10px 0px"
       >
         <img
-                src="img/base/logo.png"
+                src="../img/base/logo.png"
                 class="miniMobile"
                 style="height: 50px; margin: 0px 5px"
                 alt=""
@@ -135,11 +135,11 @@
                 <option>許願</option>
               </select>
               <input type="text" />
-              <img src="img/base/search.svg" alt="" />
+              <img src="../img/base/search.svg" alt="" />
             </form>
           </div>
           <img
-                  src="img//base/mailForNavbar.svg"
+                  src="../img//base/mailForNavbar.svg"
                   class="miniMobile"
                   style="
                   height: 30px;
@@ -151,13 +151,13 @@
                   alt=""
           />
           <img
-                  src="img/base/shoppingCart.svg"
+                  src="../img/base/shoppingCart.svg"
                   class="miniMobile"
                   style="height: 30px; margin: 3px 5px; cursor: pointer"
                   alt=""
           />
           <img
-                  src="img/base/bell.svg"
+                  src="../img/base/bell.svg"
                   class="miniMobile"
                   style="height: 30px; margin: 3px 5px; cursor: pointer"
                   alt=""
@@ -195,7 +195,7 @@
         <h2 style="font-weight: bold;" >今晚~我想學點...</h2>
       </div>
       <div class="col-3" style="display: flex; flex-direction: column; align-items: flex-end; margin-top: 20px;">
-        <img src="img/angel.png" width="200px" />
+        <img src="../img/wish/angel.png" width="200px" />
       </div>
 
       <div class="col-3"></div>
@@ -212,27 +212,21 @@
               class="col-4"
               style="display: flex; justify-content: center; margin-bottom: 15px"
       >
-        <img src="img/wish.png" alt="" width="250px" />
+        <img src="../img/wish/wish.png" alt="" width="250px" />
       </div>
 
-      <div th:if="${message != null}" class="popup">
-        <script th:inline="javascript">
-          alert([[${message}]]);
-        </script>
-      </div>
+
 
       <div class="col-4" >
         <a id="postwish"
-                th:href="@{/wish/new}"
-                style="
-
-
+           th:href="@{/wish/new}"
+           style="
       font-size: 20px;
       text-align: center;
       color: rgb(1, 47, 5);
       font-weight: bold;
       background-color: #a4c964;
-      margin-left: 65%;
+      margin-left: 1100px;
       text-decoration: none;
       width: 150px;
       border-radius: 5px;
@@ -240,17 +234,22 @@
       height: 56px;
       position: absolute;
       margin-bottom: 50px;
-    "
-        >張貼許願</a>
+    ">
+          張貼許願</a>
       </div>
 
     </div>
-  <br>
+    <br>
   </div>
 
+<div th:if="${message != null}" class="popup">
+  <script th:inline="javascript">
+    alert([[${message}]]);
+  </script>
+</div>
 
-  <div>
-    <table class="table table-stripe table-hover" style="width: 80%; margin: 0 auto;">
+<div>
+  <table class="table table-stripe table-hover" style="width: 1400px; margin: 0 auto;">
 
     <thead >
         <tr class="success"
@@ -348,9 +347,9 @@
                 class="flexVerticalCenter"
                 style="margin: 20px 30px"
         >
-          <img src="img/base/facebook.svg" class="imgIntroduce" alt="" />
-          <img src="img/base/twitter.svg" class="imgIntroduce" alt="" />
-          <img src="img/base/instagram.svg" class="imgIntroduce" alt="" />
+          <img src="../img/base/facebook.svg" class="imgIntroduce" alt="" />
+          <img src="../img/base/twitter.svg" class="imgIntroduce" alt="" />
+          <img src="../img/base/instagram.svg" class="imgIntroduce" alt="" />
         </li>
       </ul>
       <ul class="col_33 flexHorizontalCenter footerMobile">
@@ -364,7 +363,7 @@
           <div class="" style="height: 250px; font-weight: 400">
             <li class="flexWrap" style="margin-top: 10px">
               <img
-                      src="img/base/map-marker.svg"
+                      src="../img/base/map-marker.svg"
                       style="height: 24px; padding-right: 10px; margin-top: 6px"
                       alt=""
               />
@@ -376,7 +375,7 @@
 
             <li class="flexWrap" style="margin-top: 10px">
               <img
-                      src="img/base/mail.svg"
+                      src="../img/base/mail.svg"
                       style="height: 24px; padding-right: 10px; margin-top: 6px"
                       alt=""
               />
@@ -388,7 +387,7 @@
 
             <li class="flexWrap" style="margin-top: 10px">
               <img
-                      src="img/base/phone.svg"
+                      src="../img/base/phone.svg"
                       style="height: 24px; padding-right: 10px; margin-top: 6px"
                       alt=""
               />
