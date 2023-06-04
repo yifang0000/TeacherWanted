@@ -174,6 +174,7 @@ $(document).ready(function(){
             success: function(response) {
               // history.go(-1);
               alert('新增優惠券成功！');
+              location.href = 'backcouponList.html'; 
             },
             error: function(jqXHR, textStatus, errorThrown) {
               alert('新增優惠券失敗：代碼已重複');

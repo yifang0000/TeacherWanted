@@ -4,10 +4,7 @@ $(document).ready(function() {
     $("#sidebar").toggleClass("active")
 })
 
-var role = (admin.permissionId === 1) ? `<span style="color:red;">管理員</span>` : "老師";
-$("#nameid").append(admin.adminName);
-$("#role").append(role);
-
-
+// var role = (admin.permissionId === 1) ? `<span style="color:red;">管理員</span>` : "老師";
+// $("#nameid").append(admin.adminName);
+// $("#role").append(role);
   });
-  

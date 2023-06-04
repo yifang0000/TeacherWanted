@@ -74,7 +74,7 @@ $(document).ready(function(){
           if(formData.permissionId==2){
             insertTea(newAdminId)
           }
-
+          location.href = 'backuserList.html'; 
         },
         error: function(xhr, textStatus, errorThrown) {
        if (xhr.status === 502) {

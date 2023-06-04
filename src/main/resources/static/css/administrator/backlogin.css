@@ -79,16 +79,19 @@ form{
 	width: 70%;
 	border-radius: 30px;
 	font-weight: 600;
-	background-color: #f8f9fa !important;
-	color: #3c6a36  !important;
+	background-color: #3c6a36 !important;
+	color:#f8f9fa !important;
 
 	/* border: 1px solid #3c6a36; */
 	margin-top: 1.5em;
 	margin-bottom: 1em;
 }
-.btn:hover, .btn:focus{
-	background-color: #3c6a36 !important;
-	color:#f8f9fa !important;
+/* , .btn:focus */
+.btn:hover{
+
+
+	background-color: #f8f9fa !important;
+	color: #3c6a36  !important;
 }
 
 /* #containerann .btnCss2 {

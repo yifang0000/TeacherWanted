@@ -165,7 +165,7 @@ $(document).ready(function(){
               contentType: 'application/json',
               success: function(response) {
                 alert('修改公告成功！');
-                location.reload();
+                location.href = 'backannList.html'; 
               },
               error: function(jqXHR, textStatus, errorThrown) {
                 alert('修改公告失敗');

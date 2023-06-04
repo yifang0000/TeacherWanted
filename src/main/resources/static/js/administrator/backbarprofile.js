@@ -131,7 +131,7 @@ $(document).ready(function(){
                 teaName: $('#teaName').val(),
             };
                             // 發送 POST 請求到 "/test/t1"
-                            fetch("http://localhost:8080/teachers/"+admin.adminId, {
+                            fetch("/teachers/"+admin.adminId, {
                               method: "PUT",
                               headers: {
                                   "Content-Type": "application/json"

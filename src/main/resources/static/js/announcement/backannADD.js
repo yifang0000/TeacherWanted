@@ -139,6 +139,7 @@ $(document).ready(function(){
               success: function(response) {
                 // history.go(-1);
                 alert('新增公告成功！');
+                location.href = 'backannList.html'; 
               },
               error: function(jqXHR, textStatus, errorThrown) {
                 alert('新增公告失敗');

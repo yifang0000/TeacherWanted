@@ -42,7 +42,7 @@ ulElement.innerHTML = '';
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <span class="barname"> ${admin.adminName}${role}</span>
+                <span class="barname">${admin.adminName} ${role}</span>
                 <img
                   id="barPhoto"
                   src="../img/logobgg.png"
@@ -263,7 +263,10 @@ ulElement.innerHTML = '';
 
             getTeaPhoto()
         }
-   
+        var role0 = (admin.permissionId === 1) ? `<span style="color:red;">管理員</span>` : "老師";
+        $("#nameid").append(admin.adminName);
+        $("#role").html(role0);
+        console.log(role0)
         // var name=admin.adminName+" "+role;
         // $(".barname").text(name);
       },
