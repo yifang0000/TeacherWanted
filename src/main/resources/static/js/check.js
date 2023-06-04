@@ -136,6 +136,7 @@ ulElement.innerHTML = '';
                 <li><a href="../coupon/backcouponADD.html">新增優惠券</a></li>
               </ul>
             </li>
+            <hr class="m-2" style="width: 50%">
             <li>
               <a href="#sublist2" data-bs-toggle="collapse"
                 >課程管理<i class="fa-solid fa-graduation-cap"></i
@@ -177,7 +178,11 @@ ulElement.innerHTML = '';
                 <li><a href="#">新增商品</a></li>
               </ul>
             </li>
-            <li>
+                        <li>
+              <a href="#">站內信管理 <i class="fa-solid fa-envelope"></i></a>
+            </li>
+
+                        <li>
               <a href="#sublist5" data-bs-toggle="collapse"
                 >訂單管理<i class="fa-solid fa-cart-shopping"></i
               ></a>
@@ -191,6 +196,7 @@ ulElement.innerHTML = '';
                 <li><a href="#">商城訂單</a></li>
               </ul>
             </li>
+                        <hr class="m-2" style="width: 50%">
              <li>
               <a href="backmemberLIST.html"
                 >會員管理<i class="fa-solid fa-user"></i
@@ -201,9 +207,6 @@ ulElement.innerHTML = '';
             </li>
             <li>
               <a href="#">論壇管理<i class="fa-solid fa-comments"></i></a>
-            </li>
-            <li>
-              <a href="#">站內信管理 <i class="fa-solid fa-envelope"></i></a>
             </li>
             <li>
               <a href="#">客服信管理<i class="fa-solid fa-paper-plane"></i></a>
