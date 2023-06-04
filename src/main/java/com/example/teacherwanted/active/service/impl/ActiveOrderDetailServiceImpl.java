@@ -2,10 +2,10 @@ package com.example.teacherwanted.active.service.impl;
 
 import com.example.teacherwanted.active.dao.ActiveDao;
 import com.example.teacherwanted.active.dao.ActiveOrderDetailDao;
-import com.example.teacherwanted.active.dao.MemberDao;
+import com.example.teacherwanted.active.dao.MemberDaoActive;
 import com.example.teacherwanted.active.model.Active;
 import com.example.teacherwanted.active.model.ActiveOrderDetail;
-import com.example.teacherwanted.active.model.Member;
+import com.example.teacherwanted.active.model.MemberActive;
 import com.example.teacherwanted.active.service.ActiveOrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,14 +25,14 @@ public class ActiveOrderDetailServiceImpl implements ActiveOrderDetailService {
     private ActiveOrderDetailDao activeOrderDetailDao;
 
     @Autowired
-    private MemberDao memberDao;
+    private MemberDaoActive memberDao;
 
     //    進行是否有購買過訂單判斷
     @Override
     public boolean queryActiveOrderHistory(Integer activityId, Integer memId) {
         List<ActiveOrderDetail> activeOrderDetail = activeOrderDetailDao.selectActiveOrderDetailByMemberId(memId);
         if (activeOrderDetail.size() == 0) {
-            return false;
+            return true;
         } else {
             for (int i = 0; i < activeOrderDetail.size(); i++) {
                 if (Objects.equals(activeOrderDetail.get(i).getActivityId(), activityId)) {
@@ -45,11 +45,16 @@ public class ActiveOrderDetailServiceImpl implements ActiveOrderDetailService {
 
     }
 
+    @Override
+    public List<ActiveOrderDetail> findByActiveId(Integer id) {
+        return activeOrderDetailDao.findByActiveId(id);
+    }
+
     //    查找訂單使用者簡易資訊
     @Override
-    public Member selectMemBerOrderInfo(Integer id) {
-        Member member = memberDao.selectById(id);
-        Member memberInfo = new Member();
+    public MemberActive selectMemBerOrderInfo(Integer id) {
+        MemberActive member = memberDao.selectById(id);
+        MemberActive memberInfo = new MemberActive();
         memberInfo.setMemId(id);
         memberInfo.setMemName(member.getMemName());
         memberInfo.setMemEmail(member.getMemEmail());

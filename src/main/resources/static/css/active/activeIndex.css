@@ -29,11 +29,25 @@
   border-radius: 4px;
   color: white;
   cursor: pointer;
+  margin-left: 15px;
 }
 
 .activeIndexIcon a:hover {
   background-color: #3c6a36;
 }
+
+#activityIndexType {
+  /* width: 95%; */
+  height: 30px;
+  border-radius: 4px;
+  border-style: none;
+  font-size: 20px;
+}
+
+#activityIndexType {
+  outline: none;
+}
+
 .activeIndexOneBlock {
   width: 50%;
   height: 230px;

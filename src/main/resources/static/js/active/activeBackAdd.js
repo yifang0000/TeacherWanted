@@ -79,6 +79,7 @@ function removeBase64Prefix(base64String) {
   return base64Image;
 }
 
+// 地圖相關1 開始
 function initAutocomplete() {
   autocomplete = new google.maps.places.Autocomplete(
     document.getElementById("address-input"),

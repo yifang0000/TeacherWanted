@@ -16,6 +16,21 @@ public class ActiveOrderDetailDaoImpl implements ActiveOrderDetailDao {
     private EntityManager entityManager;
 
     @Override
+    public List<ActiveOrderDetail> findByActiveId(Integer activityId) {
+        TypedQuery<ActiveOrderDetail> query;
+        if (activityId != null) {
+            query = entityManager.createQuery(
+                    "SELECT aod FROM ActiveOrderDetail aod WHERE aod.activityId = :activityId",
+                    ActiveOrderDetail.class);
+            query.setParameter("activityId", activityId);
+        } else {
+            query = entityManager.createQuery("SELECT aod FROM ActiveOrderDetail aod", ActiveOrderDetail.class);
+        }
+
+        return query.getResultList();
+    }
+
+    @Override
     public int insert(ActiveOrderDetail activeOrderDetail) {
         entityManager.persist(activeOrderDetail);
         return 0;
@@ -46,10 +61,7 @@ public class ActiveOrderDetailDaoImpl implements ActiveOrderDetailDao {
 
     }
 
-    @Override
-    public List<ActiveOrderDetail> selectAllByKeyWorldAndType(String key, String type) {
-        return null;
-    }
+
 
     public List<ActiveOrderDetail> selectActiveOrderDetailByMemberId(Integer memId) {
         TypedQuery<ActiveOrderDetail> query = entityManager.createQuery(
