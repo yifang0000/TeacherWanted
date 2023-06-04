@@ -125,15 +125,15 @@ ulElement.innerHTML = '';
             </li>
             <li>
               <a href="#sublist7" data-bs-toggle="collapse"
-                >優惠碼管理<i class="fa-solid fa-gift"></i
+                >優惠券管理<i class="fa-solid fa-gift"></i
               ></a>
               <ul
                 id="sublist7"
                 class="list-unstyled collapse"
                 data-bs-parent="#accordion"
               >
-                <li><a href="../coupon/backcouponLIST.html">優惠碼列表</a></li>
-                <li><a href="../coupon/backcouponADD.html">新增優惠碼</a></li>
+                <li><a href="../coupon/backcouponLIST.html">優惠券列表</a></li>
+                <li><a href="../coupon/backcouponADD.html">新增優惠券</a></li>
               </ul>
             </li>
             <li>
