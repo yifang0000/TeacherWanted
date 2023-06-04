@@ -333,6 +333,7 @@
           </div>
         </div>
       </div>
+      <button class="sent">發送</button>
     </main>
 
     <footer
@@ -744,7 +745,6 @@
                                       let modalId =
                                         "exampleModal" + modalCounter;
                                       modalCounter++;
-
                                       let bbs_msg_content_trim = $(
                                         ".bbs_msg_content"
                                       )
@@ -753,54 +753,54 @@
                                       console.log(bbs_msg_content_trim);
                                       if (bbs_msg_content_trim != "") {
                                         let bbs_msg_content_html = `
-                                  <li>
-                                    <div class="card-body comment">
-                                      <div class="row">
-                                        <div class="col-md-1">
-                                          <img src=${updateTime} class="img-fluid rounded-start" alt="頭像" />
-                                        </div>
-                                        <div class="col-md-6">
-                                          <h5 id="bbs_title_test" class="card-title">${sessionName}</h5>
-                                          <h6 id="bbs_title_test2" class="card-subtitle mb-2 text-muted bbs_pare">
-                                            ${bbs_msg_content_trim}
-                                          </h6>
-                                          <input type="text" class="task_name_update -none" placeholder="編輯留言…" value="${bbs_msg_content_trim}">
-                                        </div>
-                                        <div class="col-md-3 mt-2">
-                                          <h6 class="card-subtitle mb-2 text-muted">
-                                            ${updateTime} 回覆
-                                          </h6>
-                                        </div>
-                                        <div class="col-md-1 mt-2">
-                                          <img id="bbs_pen_img" class="w-25" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" />
-                                        </div>
-                                        <div class="col-md-1 mt-2">
-                                          <img id="bbs_xmark_img" data-bs-toggle="modal" data-bs-target="#${modalId}" class="w-25" src="../img/bbsdiscuss/xmark-solid.svg" alt="刪除" />
-                                          <!-- Modal -->
-                                          <div class="modal fade" id="${modalId}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                              aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                  <h5 class="modal-title" id="exampleModalLabel">是否刪除留言?</h5>
-                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-footer">
-                                                  <button type="button" class="btn btn-secondary btn_bbs_cancel1" data-bs-dismiss="modal">
-                                                    取消
-                                                  </button>
-                                                  <button type="submit" class="btn btn-success btn_bbs_sure2">
-                                                    確定
-                                                  </button>
+                                      <li>
+                                        <div class="card-body comment">
+                                          <div class="row">
+                                            <div class="col-md-1">
+                                              <img src=${updateTime} class="img-fluid rounded-start" alt="頭像" />
+                                            </div>
+                                            <div class="col-md-6">
+                                              <h5 id="bbs_title_test" class="card-title">${sessionName}</h5>
+                                              <h6 id="bbs_title_test2" class="card-subtitle mb-2 text-muted bbs_pare">
+                                                ${bbs_msg_content_trim}
+                                              </h6>
+                                              <input type="text" class="task_name_update -none" placeholder="編輯留言…" value="${bbs_msg_content_trim}">
+                                            </div>
+                                            <div class="col-md-3 mt-2">
+                                              <h6 class="card-subtitle mb-2 text-muted">
+                                                ${updateTime} 回覆
+                                              </h6>
+                                            </div>
+                                            <div class="col-md-1 mt-2">
+                                              <img id="bbs_pen_img" class="w-25" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" />
+                                            </div>
+                                            <div class="col-md-1 mt-2">
+                                              <img id="bbs_xmark_img" data-bs-toggle="modal" data-bs-target="#${modalId}" class="w-25" src="../img/bbsdiscuss/xmark-solid.svg" alt="刪除" />
+                                              <!-- Modal -->
+                                              <div class="modal fade" id="${modalId}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                  aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title" id="exampleModalLabel">是否刪除留言?</h5>
+                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn btn-secondary btn_bbs_cancel1" data-bs-dismiss="modal">
+                                                        取消
+                                                      </button>
+                                                      <button type="submit" class="btn btn-success btn_bbs_sure2">
+                                                        確定
+                                                      </button>
+                                                    </div>
+                                                  </div>
                                                 </div>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
-                                      </div>
-                                    </div>
-                                  </li>
-                                  `;
+                                      </li>
+                                      `;
                                         $("ul.bbs_comment_list").append(
                                           bbs_msg_content_html
                                         );
@@ -1171,6 +1171,37 @@
         }
       );
 
+      //========================================新增留言============================================
+      $(".sent").on("click", function () {
+        console.log("有新增留言的觸發嗎");
+        let json_data_comm = {
+          commentContent: "測試一下有新增留言功能有成功嗎?",
+          postId: 4,
+        };
+        // 獲取 <p> 標籤裡 postId的值
+        var textContent = $("p").text();
+        console.log(textContent);
+
+        $.ajax({
+          url: "/bbsdiscussGet/post", // 資料請求的網址
+          type: "POST", // GET | POST | PUT | DELETE | PATCH
+          data: JSON.stringify(json_data_comm),
+          dataType: "json",
+          contentType: "application/json",
+          beforeSend: function () {},
+          success: function (data) {
+            console.log(data);
+          },
+          error: function (xhr) {
+            console.log("error");
+            console.log(xhr);
+          },
+          complete: function (xhr) {
+            // window.location.href = "index.html";
+          },
+        });
+      });
+      //======================================新增留言==========================================
       // $(".bbs_send_msg_test").on("click", function () {
       //   console.log("aaa");
       //   $.ajax({

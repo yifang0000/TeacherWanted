@@ -1,10 +1,7 @@
 package com.example.teacherwanted.bbsdiscuss.controller;
 
 import com.example.teacherwanted.active.model.MemberActive;
-import com.example.teacherwanted.bbsdiscuss.dto.BbsPostRequest;
-import com.example.teacherwanted.bbsdiscuss.dto.FavoriterArticleRequest;
-import com.example.teacherwanted.bbsdiscuss.dto.PostReactionRequest;
-import com.example.teacherwanted.bbsdiscuss.dto.Response;
+import com.example.teacherwanted.bbsdiscuss.dto.*;
 import com.example.teacherwanted.bbsdiscuss.model.BbsComment;
 import com.example.teacherwanted.bbsdiscuss.model.BbsPost;
 import com.example.teacherwanted.bbsdiscuss.model.FavoriteArticle;
@@ -16,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -112,7 +110,11 @@ public class BbsPostController {
         if (bbsCommentList != null) {
             return ResponseEntity.status(HttpStatus.OK).body(bbsCommentList);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            BbsComment bbsComment = new BbsComment();
+            List<BbsComment> list = new ArrayList<>();
+            list.add(bbsComment);
+            return ResponseEntity.status(HttpStatus.OK).body(list);
         }
     }
     //  根據留言id取得，大頭貼
@@ -200,6 +202,23 @@ public class BbsPostController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(bbsPost);
     }
+    // 新增留言
+    @PostMapping("/bbsdiscussGet/newcomm")
+    public ResponseEntity<?> createBbsComm(@RequestBody @Valid BbsCommentRequest bbsCommentRequest,
+                                           @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+        System.out.println("新增留言有嗎?");
+        System.out.println(bbsCommentRequest);
+        System.out.println(memId);
+        bbsCommentRequest.setMemId(memId);
+
+        Integer bbsCommentId = bbsPostService.createBbsComm(bbsCommentRequest);
+        BbsComment bbsComment = bbsPostService.getBbsCommById(bbsCommentId);
+        if (memId == null) {
+            // 如果未獲取到會員ID，返回相應錯誤
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(bbsComment);
+    }
     // 新增我的收藏
     @PostMapping("/bbsdiscussGet/favStstatus")
     public ResponseEntity<?> createBbsPostFavArt(@RequestBody @Valid FavoriterArticleRequest favoriterArticleRequest,
@@ -218,7 +237,13 @@ public class BbsPostController {
         if(favoriteArticleId == null){
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }else {
+//          取的該篇文有幾個人 收藏
             int favArtNum = bbsPostService.getBbsPostFavArtById(favoriterArticleRequest);
+
+//          更新收藏數
+            bbsPostService.updateBbsPostFav(favoriterArticleRequest.getBbsPostId(),favArtNum);
+
+//            updateBbsPostReaction(int postId , int postFav)
 
             return ResponseEntity.status(HttpStatus.CREATED).body(favArtNum);
         }
@@ -228,6 +253,8 @@ public class BbsPostController {
     public ResponseEntity<?> createBbsPostFavArt(@RequestBody @Valid PostReactionRequest postReactionRequest,
                                                  @SessionAttribute(value = "MemberId", required = false) Integer memId) {
 
+        System.out.println(postReactionRequest);
+        System.out.println(memId);
         if (memId == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -240,7 +267,13 @@ public class BbsPostController {
         if(postReactionId == null){
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }else {
-            int reactionNum = bbsPostService.getPostReactionById(postReactionRequest);
+//          取的該篇文有幾個人 按讚  status 取得 按讚數字 (1有按讚; 2倒讚)
+            int reactionNum = bbsPostService.getBbsPostReactionById(postReactionRequest);
+
+//          更新案讚數 1有按讚; 3倒讚    0沒按讚 2沒按倒讚
+//            bbsPostService.updateBbsPostReaction(postReactionRequest.getBbsPostId(),reactionNum);
+
+//            updateBbsPostReaction(int postId , int postFav)
 
             return ResponseEntity.status(HttpStatus.CREATED).body(reactionNum);
         }

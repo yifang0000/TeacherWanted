@@ -1,10 +1,6 @@
 package com.example.teacherwanted.bbsdiscuss.dto;
 
-import com.example.teacherwanted.bbsdiscuss.constant.BbsCategory;
-import com.example.teacherwanted.bbsdiscuss.constant.BbsTagCategory;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.Value;
 
 public class BbsPostRequest {
 

@@ -3,6 +3,7 @@ package com.example.teacherwanted.bbsdiscuss.service.impl;
 import com.example.teacherwanted.active.dao.MemberDaoActive;
 import com.example.teacherwanted.active.model.MemberActive;
 import com.example.teacherwanted.bbsdiscuss.dao.BbsPostDao;
+import com.example.teacherwanted.bbsdiscuss.dto.BbsCommentRequest;
 import com.example.teacherwanted.bbsdiscuss.dto.BbsPostRequest;
 import com.example.teacherwanted.bbsdiscuss.dto.FavoriterArticleRequest;
 import com.example.teacherwanted.bbsdiscuss.dto.PostReactionRequest;
@@ -81,6 +82,12 @@ public class BbsPostServiceImpl implements BbsPostService {
     public BbsPost getBbsPostById(Integer bbsPostId) {
         return bbsPostDao.getBbsPostById(bbsPostId);
     }
+
+    @Override
+    public BbsComment getBbsCommById(Integer bbsCommentId) {
+        return bbsPostDao.getBbsCommById(bbsCommentId);
+    }
+
     //  根據留言id取得，大頭貼
     @Override
     public MemberActive getBbsCommInfoById(Integer bbsCommentId) {
@@ -124,6 +131,12 @@ public class BbsPostServiceImpl implements BbsPostService {
     public Integer createBbsPost(BbsPostRequest bbsPostRequest) {
         return bbsPostDao.createBbsPost(bbsPostRequest);
     }
+    // 新增留言
+    @Override
+    public Integer createBbsComm(BbsCommentRequest bbsCommentRequest) {
+        return bbsPostDao.createBbsComm(bbsCommentRequest);
+    }
+
     //新增收藏資料
     @Override
     public int createBbsPostFavArt(FavoriterArticleRequest favoriterArticleRequest) {
@@ -139,11 +152,27 @@ public class BbsPostServiceImpl implements BbsPostService {
     //新增讚/倒讚資料
     @Override
     public int createPostReaction(PostReactionRequest postReactionRequest) {
-        return 0;
+        return bbsPostDao.createBbsPostReaction(postReactionRequest);
     }
+
+    @Override
+    public int getBbsPostReactionById(PostReactionRequest postReactionRequest) {
+        return bbsPostDao.getReactionCountById(postReactionRequest);
+    }
+
     //依據文章id 跟 status 取得 按讚數字 (0沒按讚; 1有按讚; 2倒讚)
     @Override
     public int getPostReactionById(PostReactionRequest postReactionRequest) {
         return 0;
+    }
+
+    @Override
+    public int updateBbsPostFav(int postId, int postFav) {
+        return  bbsPostDao.updateBbsPostFav(postId,postFav);
+    }
+
+    @Override
+    public int updateBbsPostReaction(PostReactionRequest postReactionRequest,int reactionNum) {
+        return  bbsPostDao.updateBbsPostReaction(postReactionRequest,reactionNum);
     }
 }
