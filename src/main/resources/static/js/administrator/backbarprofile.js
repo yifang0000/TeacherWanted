@@ -76,6 +76,9 @@ $(document).ready(function(){
           event.preventDefault();
           console.log(file.files[0])        
     
+
+          
+
                // 檢查每個 input 元素的值
                var allInputsFilled = true;
                $(".needvalue").each(function() {
@@ -165,7 +168,7 @@ $(document).ready(function(){
                 };
                 console.log(formDataEdit)
                             // 發送 POST 請求到 "/test/t1"
-                            fetch("http://localhost:8080/teachers/"+admin.adminId, {
+                            fetch("/teachers/"+admin.adminId, {
                               method: "PUT",
                               headers: {
                                   "Content-Type": "application/json"

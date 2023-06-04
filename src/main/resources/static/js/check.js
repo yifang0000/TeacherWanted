@@ -1,7 +1,7 @@
 
 var admin="";
-var teacherDateAjex=""
-    Checklogin()
+var teacherDateAjex="";
+Checklogin()
   function Checklogin() {
     var ulElement = document.querySelector('.list-unstyled');
 ulElement.innerHTML = '';
@@ -136,7 +136,20 @@ ulElement.innerHTML = '';
                 <li><a href="../coupon/backcouponADD.html">新增優惠券</a></li>
               </ul>
             </li>
-            <hr class="m-2" style="width: 50%">
+                                   <li>
+              <a href="#sublist5" data-bs-toggle="collapse"
+                >訂單管理<i class="fa-solid fa-cart-shopping"></i
+              ></a>
+              <ul
+                id="sublist5"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="../administrator/backCourseOrder.html">課程訂單</a></li>
+                <li><a href="../administrator/backActiveOrder.html">活動訂單</a></li>
+                <li><a href="../administrator/backShopOrder.html">商城訂單</a></li>
+              </ul>
+            </li>
             <li>
               <a href="#sublist2" data-bs-toggle="collapse"
                 >課程管理<i class="fa-solid fa-graduation-cap"></i
@@ -146,9 +159,8 @@ ulElement.innerHTML = '';
                 class="list-unstyled collapse"
                 data-bs-parent="#accordion"
               >
-                <li><a href="#">課程列表</a></li>
-                <li><a href="#">上傳課程</a></li>
-                <li><a href="#">審核課程</a></li>
+                <li><a href="../courseteacher/BackCourses.html">課程列表</a></li>
+                <li><a href="../courseteacher/AddCourses.html">上傳課程</a></li>
               </ul>
             </li>
             <li>
@@ -160,9 +172,8 @@ ulElement.innerHTML = '';
                 class="list-unstyled collapse"
                 data-bs-parent="#accordion"
               >
-                <li><a href="#">活動列表</a></li>
-                <li><a href="#">上傳活動</a></li>
-                <li><a href="#">審核活動</a></li>
+                <li><a href="../active/activeBack.html">活動列表</a></li>
+                <li><a href="../active/activeBackAdd.html">上傳活動</a></li>
               </ul>
             </li>
             <li>
@@ -174,43 +185,29 @@ ulElement.innerHTML = '';
                 class="list-unstyled collapse"
                 data-bs-parent="#accordion"
               >
-                <li><a href="#">商品列表</a></li>
-                <li><a href="#">新增商品</a></li>
+                <li><a href="../baseVer3/commodityLIST.html">商品列表</a></li>
+                <li><a href="../baseVer3/backuserLIST.html">新增商品</a></li>
               </ul>
             </li>
                         <li>
               <a href="#">站內信管理 <i class="fa-solid fa-envelope"></i></a>
             </li>
 
-                        <li>
-              <a href="#sublist5" data-bs-toggle="collapse"
-                >訂單管理<i class="fa-solid fa-cart-shopping"></i
-              ></a>
-              <ul
-                id="sublist5"
-                class="list-unstyled collapse"
-                data-bs-parent="#accordion"
-              >
-                <li><a href="#">課程訂單</a></li>
-                <li><a href="#">活動訂單</a></li>
-                <li><a href="#">商城訂單</a></li>
-              </ul>
-            </li>
                         <hr class="m-2" style="width: 50%">
-             <li>
-              <a href="backmemberLIST.html"
-                >會員管理<i class="fa-solid fa-user"></i
-              ></a>
-            </li>
-            <li>
-              <a href="#">許願管理<i class="fa-solid fa-face-smile"></i></a>
-            </li>
-            <li>
-              <a href="#">論壇管理<i class="fa-solid fa-comments"></i></a>
-            </li>
-            <li>
-              <a href="#">客服信管理<i class="fa-solid fa-paper-plane"></i></a>
-            </li>
+<!--             <li>-->
+<!--              <a href="backmemberLIST.html"-->
+<!--                >會員管理<i class="fa-solid fa-user"></i-->
+<!--              ></a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a href="#">許願管理<i class="fa-solid fa-face-smile"></i></a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a href="#">論壇管理<i class="fa-solid fa-comments"></i></a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a href="#">客服信管理<i class="fa-solid fa-paper-plane"></i></a>-->
+<!--            </li>-->
           `;
           $(".list-unstyled").append(newSubMenu);
         }else{
@@ -226,8 +223,8 @@ ulElement.innerHTML = '';
                 class="list-unstyled collapse"
                 data-bs-parent="#accordion"
               >
-                <li><a href="#">課程列表</a></li>
-                <li><a href="#">上傳課程</a></li>
+                <li><a href="../courseteacher/BackCourses.html">課程列表</a></li>
+                <li><a href="../courseteacher/AddCourses.html">上傳課程</a></li>
               </ul>
             </li>
             <li>
@@ -239,21 +236,8 @@ ulElement.innerHTML = '';
                 class="list-unstyled collapse"
                 data-bs-parent="#accordion"
               >
-                <li><a href="#">活動列表</a></li>
-                <li><a href="#">上傳活動</a></li>
-              </ul>
-            </li>
-                        <li>
-              <a href="#sublist4" data-bs-toggle="collapse"
-                >商城管理<i class="fa-sharp fa-solid fa-shop"></i
-              ></a>
-              <ul
-                id="sublist4"
-                class="list-unstyled collapse"
-                data-bs-parent="#accordion"
-              >
-                <li><a href="#">商品列表</a></li>
-                <li><a href="#">新增商品</a></li>
+                <li><a href="../active/activeBack.html">活動列表</a></li>
+                <li><a href="../active/activeBackAdd.html">上傳活動</a></li>
               </ul>
             </li>
             <li>
@@ -269,9 +253,6 @@ ulElement.innerHTML = '';
         var role0 = (admin.permissionId === 1) ? `<span style="color:red;">管理員</span>` : "老師";
         $("#nameid").append(admin.adminName);
         $("#role").html(role0);
-        console.log(role0)
-        // var name=admin.adminName+" "+role;
-        // $(".barname").text(name);
       },
       error:function (){
         alert("沒登入");
