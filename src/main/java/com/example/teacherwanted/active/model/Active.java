@@ -90,4 +90,7 @@ public class Active {
     @Column(name = "activity_photo_url")
     private String activityPhotoUrl;
 
+    @Column(name = "active_chatroom_announcement")
+    private String activeChatroomAnnouncement;
+
 }

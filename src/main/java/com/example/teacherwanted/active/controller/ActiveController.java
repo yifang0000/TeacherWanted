@@ -73,7 +73,7 @@ public class ActiveController {
     public ResponseEntity<?> selectActiveOrderDetailByMemberId(
             @RequestParam Integer activityId,
             @SessionAttribute(value = "MemberId", required = false) Integer memId) {
-        System.out.println(activityId);
+//        System.out.println(activityId);
         if (memId == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無登入狀態");
         } else {
@@ -174,7 +174,7 @@ public class ActiveController {
     //    推薦活動
     @GetMapping("/activeRecommend")
     public List<Active> recommendActivities(@RequestParam(required = false) String activityType) {
-        System.out.println(activityType);
+//        System.out.println(activityType);
 
 
         return activeService.recommendActivities(activityType);
@@ -189,7 +189,7 @@ public class ActiveController {
     public List<Active> selectAllActiveBack(@RequestParam(required = false) String searchKeyword,
                                             @RequestParam(required = false) String activityType,
                                             @SessionAttribute(value = "TeacherSession") Integer teaId) {
-        System.out.println(teaId);
+//        System.out.println(teaId);
 
         List<Active> activeList = activeService.selectBackAll(searchKeyword, activityType, teaId);
         return activeList;
@@ -294,8 +294,8 @@ public class ActiveController {
     @PutMapping("/activeBackStatusEdit")
     public String updateActiveBackStatus(@RequestBody Active active) {
 //        return activeService.update(active);
-        System.out.println("activeBackStatusEdit:" + active.getActivityId());
-        System.out.println("activeBackStatusEdit:" + active.getActivityStatus());
+//        System.out.println("activeBackStatusEdit:" + active.getActivityId());
+//        System.out.println("activeBackStatusEdit:" + active.getActivityStatus());
 
         return activeService.updateStatus(active, active.getActivityStatus());
 
