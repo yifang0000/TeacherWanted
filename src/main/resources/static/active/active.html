@@ -216,10 +216,7 @@
                   <!-- 時間 結束 -->
 
                   <!-- 地點 開始 -->
-                  <li
-                    class="flexWrap flexVerticalCenter"
-                    style="margin-top: 10px"
-                  >
+                  <li class="flexWrap flexVerticalCenter">
                     <!-- 地點icon -->
                     <img
                       src="../img/active/map-marker.svg"
@@ -233,6 +230,21 @@
 
                   <!-- 空白區塊 -->
                   <li style="height: 80px"></li>
+
+                  <!-- 報名截止時間 開始 -->
+                  <li
+                    class="flexWrap flexVerticalCenter"
+                    style="margin-top: 10px"
+                  >
+                    <img
+                      src="../img/active/stopTime.png"
+                      style="height: 25px; margin-right: 10px"
+                      alt=""
+                    />
+                    <h4>報名截止時間:{{activityDueTime}}</h4>
+                  </li>
+                  <!-- 報名截止時間 結束 -->
+
                   <!-- 最下面資訊 開始 -->
                   <li
                     class="flexWrap flexVerticalCenter"
@@ -323,7 +335,7 @@
                           <p style="font-size: 1rem">
                             {{convertToFormattedDate(activeRecommend.activityStartTime)}}
                           </p>
-                          <p style="font-size: 1rem">
+                          <p style="font-size: 1rem; width: 100%">
                             -
                             {{convertToFormattedDate(activeRecommend.activityEndTime)}}
                           </p>
