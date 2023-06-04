@@ -100,9 +100,7 @@ var data;
     methods: {
       getMemberDetail() {
         axios.post(this.url,{                            //promise 等後端回應
-        //   headers: {
-        //     'Content-Type': 'application/x-www-form-urlencoded'
-        // },
+        
          
           memAccount: this.memAccount,
           memPassword: this.memPassword,
