@@ -19,12 +19,13 @@ public class TeacherDaoImpl implements TeacherDao {
     private EntityManager entityManager;
     @Override
     public int insert(Teacher teacher) {
-        final String sql = "INSERT INTO TEACHER (admin_id,create_time, update_time, tea_name) "
-                + "VALUES (:adminId, :createTime, :updateTime, :teaName)";
+        final String sql = "INSERT INTO TEACHER (tea_id,admin_id,create_time, update_time, tea_name) "
+                + "VALUES (:teaId, :adminId, :createTime, :updateTime, :teaName)";
 
 
         Query query = entityManager.createNativeQuery(sql)
                 .setParameter("adminId", teacher.getAdminId())
+                .setParameter("teaId", teacher.getAdminId())
                 .setParameter("teaName", teacher.getTeaName())
                 .setParameter("createTime", new Date())
                 .setParameter("updateTime", new Date());
