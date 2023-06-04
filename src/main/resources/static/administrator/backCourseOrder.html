@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 加上 viewport 的設定 -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>懸賞啼雀後台</title>
+    <!-- backindex的css連結 -->
+    <link rel="stylesheet" href="../css/back.css" />
+
+    <!-- Bootstrap 連結1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <!-- 表格的 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
+    />
+    <!-- Data Table連結 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"
+    />
+    <script
+      defer
+      src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"
+    />
+    <script src="../js/member/jquery.dataTables.js"></script>
+    <script src="../js/member/jquery.dataTables.min.js"></script>
+    <!--  -->
+  </head>
+  <body>
+    <!-- 設定字體 -->
+    <!-- 可從這邊調整https://fonts.google.com/share?selection.family=DotGothic16%7CNoto%20Sans%20TC:wght@100;300;400;500;700;900 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <div class="container-all">
+      <!-- 左邊(側邊欄) -->
+      <!-- accordion與下方的data-bs-parent="#accordion一個sublist打開時讓其他關閉 -->
+
+      <div class="container-left" id="accordion">
+        <nav id="sidebar">
+          <!-- 展開/縮起按鈕 -->
+          <div class="div1">
+            <!-- list列表,加入list-unstyled可去除列表的點點 -->
+
+            <div class="divtitle">懸賞啼雀</div>
+          </div>
+          <hr />
+          <ul class="list-unstyled">
+            <li>
+              <!-- 收和展開href="#sublist" data-bs-toggle="collapse"  -->
+              <a href="#sublist1" data-bs-toggle="collapse"
+                >使用者管理 <i class="fa-solid fa-gears"></i
+              ></a>
+              <!-- 子連結 -->
+              <ul
+                id="sublist1"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li>
+                  <a href="../administrator/backuserLIST.html">使用者列表</a>
+                </li>
+                <li>
+                  <a href="../administrator/backuserADD.html">新增使用者</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="backmemberLIST.html"
+                >會員管理<i class="fa-solid fa-user"></i
+              ></a>
+            </li>
+            <li>
+              <a href="#sublist2" data-bs-toggle="collapse"
+                >課程管理<i class="fa-solid fa-graduation-cap"></i
+              ></a>
+              <ul
+                id="sublist2"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">課程列表</a></li>
+                <li><a href="#">上傳課程</a></li>
+                <li><a href="#">審核課程</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sublist3" data-bs-toggle="collapse"
+                >活動管理<i class="fa-solid fa-calendar-days"></i
+              ></a>
+              <ul
+                id="sublist3"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">活動列表</a></li>
+                <li><a href="#">上傳活動</a></li>
+                <li><a href="#">審核活動</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sublist4" data-bs-toggle="collapse"
+                >商城管理<i class="fa-sharp fa-solid fa-shop"></i
+              ></a>
+              <ul
+                id="sublist4"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">商品列表</a></li>
+                <li><a href="#">新增商品</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sublist5" data-bs-toggle="collapse"
+                >訂單管理<i class="fa-solid fa-cart-shopping"></i
+              ></a>
+              <ul
+                id="sublist5"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+              <li><a href="../administrator/backCourseOrder.html">課程訂單</a></li>
+              <li><a href="../administrator/backActiveOrder.html">活動訂單</a></li>
+              <li><a href="../administrator/backShopOrder.html">商城訂單</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">許願管理<i class="fa-solid fa-face-smile"></i></a>
+            </li>
+            <li>
+              <a href="#">論壇管理<i class="fa-solid fa-comments"></i></a>
+            </li>
+            <li>
+              <a href="#sublist6" data-bs-toggle="collapse" id="dropdown6"
+                >公告管理<i class="fa-solid fa-bell"></i
+              ></a>
+              <ul
+                id="sublist6"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="../announcement/backannLIST.html">公告列表</a></li>
+                <li><a href="../announcement/backannADD.html">新增公告</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sublist7" data-bs-toggle="collapse"
+                >優惠碼管理<i class="fa-solid fa-gift"></i
+              ></a>
+              <ul
+                id="sublist7"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="../coupon/backcouponLIST.html">優惠碼列表</a></li>
+                <li><a href="../coupon/backcouponADD.html">新增優惠碼</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">站內信管理 <i class="fa-solid fa-envelope"></i></a>
+            </li>
+            <li>
+              <a href="#">客服信管理<i class="fa-solid fa-paper-plane"></i></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- 右邊： -->
+      <div class="container-right">
+        <!-- 右邊的導航欄 -->
+        <header class="p-2 mb-2 mr-0 border-bottom">
+          <div class="container m-0 pr-0">
+            <div
+              class="d-flex nowrap align-items-center justify-content-center justify-content-lg-start"
+            >
+              <div>
+                <button
+                  type="button"
+                  id="collapse"
+                  class="collapse-btn text-start"
+                >
+                  <i class="fa-solid fa-bars"></i>
+                </button>
+              </div>
+              <div class="bartitle">
+                <span> </span>
+              </div>
+              <div class="dropdown text-end ms-auto mb-lg-0 me-lg-0 p-0 m-0">
+                <a
+                  href="#"
+                  class="d-block link-dark text-decoration-none dropdown-toggle"
+                  id="dropdownUser1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <span class="barname"> 三重金城武 老師</span>
+                  <img
+                    src="../img/logobgg.png"
+                    alt="mdo"
+                    width="32"
+                    height="32"
+                    class="rounded-circle"
+                  />
+                </a>
+                <ul
+                  class="dropdown-menu text-small dropdown-menu-end"
+                  aria-labelledby="dropdownUser1"
+                >
+                  <li>
+                    <a
+                      class="dropdown-item text-center"
+                      href="../administrator/backbarsetting.html"
+                      >帳號設定</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-center"
+                      href="../administrator/backbarprofile.html"
+                      >個人檔案</a
+                    >
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a
+                      class="dropdown-item text-center"
+                      href="../administrator/backlogin.html"
+                      >登出</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="main">
+          <!--主體文字1  -->
+          <!-- <section id="section1">
+            <div class="pb-1 bg-body-tertiary rounded-3">
+              <div class="container-fluid">
+                <p>使用者管理</p>
+              </div>
+            </div>
+          </section> -->
+          <!-- ====================主要區========================== -->
+          
+            <div
+                    class="container"
+                    id="order_title"
+                    style="font-size: 15px"
+                  >
+                    <table
+                      id="courseOrderTable"
+                      class="display"
+                      style="font-size: 15px"
+                    >
+                      <thead class="head" style="">
+                        <tr>
+                          <!-- 欄位標題 -->
+
+                          <th>活動訂單編號</th>
+                          <th>活動編號</th>
+                          <th>會員姓名</th>
+                          <th>活動時間</th>
+                          <th>會員信箱</th>
+                          <th>會員姓名</th>
+                          <th>會員電話</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <!-- 資料內容 -->
+                      <tbody>
+                        <tr>
+                          <td id="groupOrderDetailId"></td>
+                          <td id="activity"></td>
+                          <td id="memId"></td>
+                          <td id="registerTime"></td>
+                          <td id="memEmail"></td>
+                          <td id="memName"></td>
+                          <td id="memPhone"></td>
+                          <td>
+                            <button
+                              id="delet-btn"
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModal"
+                            >
+                              刪除
+                            </button>
+                            <button
+                              id="rate-btn"
+                              data-bs-toggle="modal"
+                              data-bs-target="#exampleModal1"
+                            >
+                              評價
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+            <!------------彈窗----start-------- -->
+
+<!-- 模态框 -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">更新訊息</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- 在这里添加更新表单或其他内容 -->
+        <form>
+          <div class="mb-3">
+            <label for="clinicServiceId" class="form-label">產品編號</label>
+            <input type="text" class="form-control" id="clinicServiceId" readonly>
+          </div>
+          <div class="mb-3">
+            <label for="clinicServiceName" class="form-label">服務項目</label>
+            <input type="text" class="form-control" id="clinicServiceName">
+          </div>
+          <div class="mb-3">
+            <label for="servicePrice" class="form-label">價格</label>
+            <input type="text" class="form-control" id="servicePrice">
+          </div>
+          <div class="mb-3">
+            <label for="serviceDiscountPrice" class="form-label">優惠價</label>
+            <input type="text" class="form-control" id="serviceDiscountPrice">
+          </div>
+          <div class="mb-3">
+            <label for="serviceItem1" class="form-label">細項一</label>
+            <input type="text" class="form-control" id="serviceItem1">
+          </div>
+          <div class="mb-3">
+            <label for="serviceItem2" class="form-label">細項二</label>
+            <input type="text" class="form-control" id="serviceItem2">
+          </div>
+          <div class="mb-3">
+            <label for="serviceItem3" class="form-label">細項三</label>
+            <input type="text" class="form-control" id="serviceItem3">
+          </div>
+          <div class="mb-3">
+            <label for="serviceItem4" class="form-label">細項四</label>
+            <input type="text" class="form-control" id="serviceItem4">
+          </div>
+         <div>
+         
+         </div>
+         
+          
+          <!-- 添加其他需要更新的字段 -->
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="updateBtn">更新</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!------------彈窗----end-------- -->
+          </div>
+          <!-- ===================================================== -->
+        </div>
+      </div>
+    </div>
+
+    <!-- FontAwesome 連結 -->
+    <script
+      src="https://kit.fontawesome.com/664595efd5.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- JQuery連結 -->
+    <script src="../jquery/jquery-3.6.4.min.js"></script>
+
+    <!-- backindex的JS連結 -->
+    <script src="../js/administrator/backbarprofile.js"></script>
+    <!-- Bootstrap 連結2 -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- table連結 -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <!-- js引入 -->
+    <script src="../js/administrator/backorder.js"></script>
+  </body>
+</html>

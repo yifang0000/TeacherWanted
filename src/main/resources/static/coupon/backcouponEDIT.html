@@ -180,71 +180,7 @@
       <!-- 右邊： -->
       <div class="container-right">
         <!-- 右邊的導航欄 -->
-        <header class="p-2 mb-2 mr-0 border-bottom">
-          <div class="container m-0 pr-0">
-            <div
-              class="d-flex nowrap align-items-center justify-content-center justify-content-lg-start"
-            >
-              <div>
-                <button
-                  type="button"
-                  id="collapse"
-                  class="collapse-btn text-start"
-                >
-                  <i class="fa-solid fa-bars"></i>
-                </button>
-              </div>
-              <div class="bartitle">
-                <span> </span>
-              </div>
-              <div class="dropdown text-end ms-auto mb-lg-0 me-lg-0 p-0 m-0">
-                <a
-                  href="#"
-                  class="d-block link-dark text-decoration-none dropdown-toggle"
-                  id="dropdownUser1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span class="barname"></span>
-                  <img
-                    src="../img/logobgg.png"
-                    alt="mdo"
-                    width="32"
-                    height="32"
-                    class="rounded-circle"
-                  />
-                </a>
-                <ul
-                  class="dropdown-menu text-small dropdown-menu-end"
-                  aria-labelledby="dropdownUser1"
-                >
-                  <li>
-                    <a
-                      class="dropdown-item text-center"
-                      href="../administrator/backbarsetting.html"
-                      >帳號設定</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="dropdown-item text-center"
-                      href="../administrator/backbarprofile.html"
-                      >個人檔案</a
-                    >
-                  </li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li>
-                    <a
-                      class="dropdown-item text-center"
-                      href="../administrator/backlogin.html"
-                      >登出</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </header>
+        <!-- =========這邊用check.js放入=============== -->
         <div class="main">
           <!--主體文字1  -->
           <!-- <section id="section1">
@@ -401,13 +337,13 @@
                     <div class="invalid-feedback">請選擇適用範圍</div>
                   </div>
                 </div> -->
-                <button
+                <a
                   type="button"
                   class="btn btn-secondary"
-                  onclick="history.go(-1)"
+                  href="backcouponLIST.html"
                 >
                   取消變更
-                </button>
+                </a>
 
                 <button type="submit" id="btnsubmit" class="btn btn-success">
                   確認變更
@@ -428,7 +364,8 @@
     <!-- JQuery連結 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <!-- backindex的JS連結 --><script src="../js/check.js"></script>
+    <!-- backindex的JS連結 -->
+    <script src="../js/check.js"></script>
     <!-- <script src="../js/check.js"></script> -->
     <script src="../js/coupon/backcouponEDIT.js"></script>
     <!-- Bootstrap 連結2 -->

@@ -1,9 +1,11 @@
 package com.example.teacherwanted.announcement.dao.impl;
 
+import com.example.teacherwanted.administrator.model.Administrator;
 import com.example.teacherwanted.announcement.dao.AnnouncementDao;
 import com.example.teacherwanted.announcement.model.Announcement;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,7 +18,7 @@ public class AnnouncementDaoImpl implements AnnouncementDao {
     @Override
     public int insert(Announcement announcement) {
         entityManager.persist(announcement);
-        return 1;
+        return announcement.getAdminId();
     }
 
     @Override
@@ -37,11 +39,28 @@ public class AnnouncementDaoImpl implements AnnouncementDao {
         return entityManager.find(Announcement.class, annId);
     }
 
+
+//    @Override
+//    public List<Announcement> findAll() {
+//        final String hql = "FROM Announcement";
+//        return entityManager
+//                .createQuery(hql, Announcement.class)
+//                .getResultList();
+//    }
+
     @Override
-    public List<Announcement> findAll() {
-        final String hql = "FROM Announcement";
-        return entityManager
-                .createQuery(hql, Announcement.class)
-                .getResultList();
+    public List<Announcement> findAll(String annCategory, boolean front) {
+         String sql = "SELECT * FROM Announcement WHERE 1=1";
+        if(annCategory != null){
+            sql = sql + " AND ann_category = :annCategory";
+        }
+        if(front){
+            sql = sql + " AND ann_date < NOW()";
+        }
+        Query nativeQuery = entityManager.createNativeQuery(sql, Announcement.class);
+        if(annCategory != null){
+            nativeQuery.setParameter("annCategory", annCategory);
+        }
+        return nativeQuery.getResultList();
     }
 }

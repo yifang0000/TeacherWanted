@@ -107,8 +107,15 @@
     display: flex;  
   }
 
-  /* 表格 */
-  
+  /* 課程, 活動, 商城訂單表格置中 */
+  div.allOrderTable {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin: 0 auto; /* 將左右 margin 設為 auto 以使元素置中 */
+    text-align: center; /* 水平置中 */
+  }
+
+
 
 :root {
   --dt-row-selected: 164, 201, 100;

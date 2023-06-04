@@ -70,29 +70,13 @@ $(document).ready(function(){
                   'backcouponEDIT.html?couponId=' + row.couponId;
                   // console.log(this.data)
                 return (
-                  '<a class="btn btn-outline-danger btn-sm p-0 mr-2"  id="editbtn" href="' +
+                  '<a class="btn btn-outline-success btn-sm p-0 mr-2"  id="editbtn" href="' +
                   editUrl +
-                  '">修改</a><a href="#" class="btn btn-outline-success btn-sm p-0" id="offbtn" data-bs-toggle="modal" onclick="sendId('+row.couponId+')" data-bs-target="#staticBackdrop">刪除</a>'
+                  '">修改<i class="fa-solid fa-pen"></i></a><a href="#" class="btn btn-outline-danger btn-sm p-0 mr-2" id="offbtn" data-bs-toggle="modal" onclick="sendId('+row.couponId+')" data-bs-target="#staticBackdrop">刪除<i class="fa-solid fa-xmark"></i></a>'
                 );
               },
             },
           ],
-          // columnDefs: [
-          //   // {
-          //   //   targets: [1, 2, 3, 4, 5],
-          //   //   className: "align-middle",
-          //   // },
-          //   // {
-          //   //   targets: [7],
-          //   //   orderable: false,
-          //   //   "searchable": false
-          //   // },
-          //   // {
-          //   //   "targets": [1, 2], // 隱藏第2和第3欄
-          //   //   "visible": false,
-          //   //   "searchable": false
-          //   // },
-          // ],
           
               // 表格翻譯
           language: {
@@ -121,21 +105,6 @@ $(document).ready(function(){
             }
         },
         });
-  //TODO:加一個按鈕用時間區分上下架
-
-
-  // // 篩選出現在時間以後的資料
-  // var table = $('#myTable').DataTable();
-  // var now = new Date();
-  // table.rows().every(function() {
-  //   var activateTime = this.data().activateTime;
-  //   if (activateTime) {
-  //     activateTime = new Date(activateTime);
-  //     if (activateTime <= now) {
-  //       this.remove(); // 移除不符合條件的資料
-  //     }
-  //   }
-  // });
 
 
         

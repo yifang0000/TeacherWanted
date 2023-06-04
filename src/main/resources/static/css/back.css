@@ -216,26 +216,37 @@ font-size: 30px;
 
 
   /* 表格：垂直對齊該行文字的置中位置。 */
-  #adminTable td {
+  table td {
     vertical-align: middle;
   }
 
+  
   /* 表格：按鈕並排、調整大小 */
   table #editbtn,
-  table #showbtn {
+  table #offbtn {
   display: inline-block;
   width: 40%;
   height: 100%;
   margin-right: 5%;
 }
 
-
-
+/* .dataTables_paginate{
+    color:#3c6a36
+  }
+  
+  .dataTables_paginate th,td{
+    color:#3c6a36 !important
+  }
+  .dataTables_paginate .page-link{
+    background-color: #3c6a36 !important;
+    border-color: white !important;
+    }
+   */
 /* ===================表單=============== */
 
 .card-header{
     font-size: 26px;
-    background-color: #465952 !important;
+    background-color: #3c6a36 !important;
     color: #FFFFFF !important;
     vertical-align: middle !important;
   }
@@ -284,6 +295,22 @@ input[type=number]::-webkit-inner-spin-button {
     pointer-events: none;
     box-sizing: border-box;   
 } */
+
+
+/* 公告的排定時間 */
+.option-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .option-label {
+    margin-right: 10px;
+  }
+
+/* .hidden {
+    display: none;
+  } */
 
   /* ===============上傳圖片============ */
   #eximg{

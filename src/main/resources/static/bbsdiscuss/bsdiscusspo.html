@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- bootstrap相關 -->
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+          crossorigin="anonymous"
+  />
+  <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+          crossorigin="anonymous"
+  ></script>
+  <!-- bootstrap相關 -->
+  <link href="../css/baseVer2.css" rel="stylesheet" type="text/css" />
+  <link href="../css/active/active.css" rel="stylesheet" type="text/css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet"
+  />
+  <link
+          rel="shortcut icon"
+          type="image/x-icon"
+          href="docs/images/favicon.ico"
+  />
+
+  <link
+          rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+          crossorigin=""
+  />
+  <script
+          src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+          integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+          crossorigin=""
+  ></script>
+  <!-- jquery套件 -->
+  <script src="../jquery/jquery-3.6.4.min.js"></script>
+  <!-- axios套件 -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+  <script src="../axios/axios.js"></script>
+  <!-- vue3套件 -->
+  <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+  <script src="../vue/vue-3.3.4.js"></script>
+  <!-- js匯入 -->
+  <script src="../js/base.js"></script>
+  <script src="../js/active/active.js"></script>
+
+  <title>Document</title>
+</head>
+
+<body class="TeacherWanted">
+<!-- 手機板導引列(粗糙) -->
+<header class="TeacherWanted">
+  <div id="mySidebar">
+    <img src="../img/base/logo.png" alt="" />
+    <a href="#" class="">首頁</a>
+    <a href="#" class="">課程</a>
+    <a href="#" class="">活動</a>
+    <a href="#" class="">許願池</a>
+    <a href="#" class="">論壇</a>
+    <a href="#" class="">商城</a>
+  </div>
+  <div class="navBar">
+    <ul class="containerHearder flexWrap flexVerticalCenter">
+      <li>
+        <img
+                src="../img/base/menu.png"
+                id="phoneMenu"
+                class="mobileHave"
+                style="height: 30px; margin: 10px"
+                alt=""
+        />
+      </li>
+
+      <li
+              class="flexWrap flexAllCenter"
+              style="font-size: 50px; color: #a4c964; margin: 10px 0px"
+      >
+        <img
+                src="../img/base/logo.png"
+                class="miniMobile"
+                style="height: 50px; margin: 0px 5px"
+                alt=""
+        />
+        <p>懸賞啼雀</p>
+      </li>
+      <li
+              class="flexWrap"
+              style="
+              flex-grow: 1;
+              display: flex;
+              align-items: center;
+              justify-content: end;
+            "
+      >
+        <!-- 電腦版導引列 -->
+        <div
+                id="navLink"
+                class="flexWrap flexAllCenter pcHave"
+                style="flex-grow: 1"
+        >
+          <a class="flexAllCenter" href="">首頁</a>
+          <a class="flexAllCenter" href="">課程</a>
+          <a class="flexAllCenter" href="">活動</a>
+          <a class="flexAllCenter" href="">許願池</a>
+          <a class="flexAllCenter" href="">論壇</a>
+          <a class="flexAllCenter" href="">商城</a>
+        </div>
+        <div
+                class="flexWrap flexAllCenter"
+                style="position: relative; top: 2px"
+        >
+          <div class="miniMobile">
+            <form id="navSearch" action="">
+              <select>
+                <option>課程</option>
+                <option>活動</option>
+                <option>商城</option>
+                <option>許願</option>
+              </select>
+              <input type="text" />
+              <img src="../img/base/search.svg" alt="" />
+            </form>
+          </div>
+          <img
+                  src="../img//base/mailForNavbar.svg"
+                  class="miniMobile"
+                  style="
+                  height: 30px;
+                  margin: 3px 5px;
+                  cursor: pointer;
+                  position: relative;
+                  bottom: 1px;
+                "
+                  alt=""
+          />
+          <img
+                  src="../img/base/shoppingCart.svg"
+                  class="miniMobile"
+                  style="height: 30px; margin: 3px 5px; cursor: pointer"
+                  alt=""
+          />
+          <img
+                  src="../img/base/bell.svg"
+                  class="miniMobile"
+                  style="height: 30px; margin: 3px 5px; cursor: pointer"
+                  alt=""
+          />
+
+          <a class="btnCss flexAllCenter" style="color: white" href=""
+          >登入</a
+          >
+        </div>
+      </li>
+    </ul>
+  </div>
+</header>
+<main class="TeacherWanted">
+  <!-- ！！！寫在這裡！！！
+    如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
+  <div class="container-fluid">
+    <!-- 發表文章/我的收藏/搜尋 -->
+    <div>
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <div class="col-1">
+            <button
+                    type="button"
+                    class="btn btn-outline-success bbs_btn_edit"
+            >
+              發表文章
+            </button>
+          </div>
+          <div class="col">
+            <button
+                    type="button"
+                    class="btn btn-outline-success bbs_btn_favorite"
+            >
+              我的收藏
+            </button>
+          </div>
+          <form class="d-flex">
+            <input
+                    class="form-control me-2"
+                    type="search"
+                    placeholder="查詢文章請輸入..."
+                    aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </nav>
+    </div>
+    <div class="row">
+      <!-- 側邊欄 -->
+      <div class="col-md-2 mt-3">
+        <div class="list-group" id="list-tab" role="tablist">
+          <a
+                  class="list-group-item list-group-item-action active bbs_kb_lg"
+                  data-bs-toggle="list"
+                  href="#list-home"
+                  role="tab"
+                  aria-controls="list-home"
+          >語言討論版</a
+          >
+          <a
+                  class="list-group-item list-group-item-action bbs_kb_pg"
+                  data-bs-toggle="list"
+                  href="#list-profile"
+                  role="tab"
+                  aria-controls="list-profile"
+          >程式討論版</a
+          >
+          <a
+                  class="list-group-item list-group-item-action bbs_kb_lf"
+                  data-bs-toggle="list"
+                  href="#list-messages"
+                  role="tab"
+                  aria-controls="list-messages"
+          >生活討論版</a
+          >
+          <a
+                  class="list-group-item list-group-item-action bbs_kb_gm"
+                  data-bs-toggle="list"
+                  href="#list-settings"
+                  role="tab"
+                  aria-controls="list-settings"
+          >電競討論版</a
+          >
+        </div>
+      </div>
+      <div class="col-md-9 mt-3">
+        <!-- 發文細項 -->
+        <div class="container">
+          <h1>發文紀錄</h1>
+          <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">論壇</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                發文紀錄
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <div class="container">
+          <ul class="row row-cols-1 row-cols-md-3 g-4 bbs_po_list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer
+        class="TeacherWanted"
+        style="background-color: #3c6a36; color: white"
+>
+  <div
+          class="containerFooter flexAllCenter"
+          style="box-sizing: border-box; padding-top: 50px"
+  >
+    <div class="flexWrap">
+      <ul class="col_33">
+        <li class="flexAllCenter" style="color: #a4c964; font-size: 40px">
+          懸賞啼雀
+        </li>
+        <li
+                class="flexAllCenter"
+                style="margin: 10px 30px; font-weight: normal"
+        >
+          Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
+          dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
+          elitr stet diam duo eos rebum ipsum diam ipsum elitr.
+        </li>
+        <li
+                id="imgIcon"
+                class="flexVerticalCenter"
+                style="margin: 20px 30px"
+        >
+          <img src="../img/base/facebook.svg" class="imgIntroduce" alt="" />
+          <img src="../img/base/twitter.svg" class="imgIntroduce" alt="" />
+          <img
+                  src="../img/base/instagram.svg"
+                  class="imgIntroduce"
+                  alt=""
+          />
+        </li>
+      </ul>
+      <ul class="col_33 flexHorizontalCenter footerMobile">
+        <div style="width: 70%">
+          <li
+                  class="flexAllCenter"
+                  style="color: #a4c964; font-size: 30px; height: 65px"
+          >
+            Get In Touch
+          </li>
+          <div class="" style="height: 250px; font-weight: 400">
+            <li class="flexWrap" style="margin-top: 10px">
+              <img
+                      src="../img/base/map-marker.svg"
+                      style="height: 24px; padding-right: 10px; margin-top: 6px"
+                      alt=""
+              />
+              <div>
+                <h3 style="font-size: 1.3rem">地址</h3>
+                <h5 style="font-size: 1rem">123</h5>
+              </div>
+            </li>
+
+            <li class="flexWrap" style="margin-top: 10px">
+              <img
+                      src="../img/base/mail.svg"
+                      style="height: 24px; padding-right: 10px; margin-top: 6px"
+                      alt=""
+              />
+              <div>
+                <h3 style="font-size: 1.3rem">信箱</h3>
+                <h5 style="font-size: 1rem">a1234567890@gmail.com</h5>
+              </div>
+            </li>
+
+            <li class="flexWrap" style="margin-top: 10px">
+              <img
+                      src="../img/base/phone.svg"
+                      style="height: 24px; padding-right: 10px; margin-top: 6px"
+                      alt=""
+              />
+              <div>
+                <h3 style="font-size: 1.3rem">連絡電話</h3>
+                <h5 style="font-size: 1rem">0900123456</h5>
+              </div>
+            </li>
+          </div>
+        </div>
+      </ul>
+      <ul class="col_33 flexHorizontalCenter footerMobile">
+        <div style="width: 40%">
+          <li
+                  class="flexAllCenter"
+                  style="color: #a4c964; font-size: 30px; height: 65px"
+          >
+            網站地圖
+          </li>
+          <div class="webMap">
+            <li style="margin-top: 5px">
+              <a class="webMapLink" href="">>首頁</a>
+            </li>
+            <li style="margin-top: 5px">
+              <a class="webMapLink" href="">>課程</a>
+            </li>
+            <li style="margin-top: 5px">
+              <a class="webMapLink" href="">>活動</a>
+            </li>
+            <li style="margin-top: 5px">
+              <a class="webMapLink" href="">>許願池</a>
+            </li>
+            <li style="margin-top: 5px">
+              <a class="webMapLink" href="">>論壇</a>
+            </li>
+            <li style="margin-top: 5px">
+              <a class="webMapLink" href="">>商城</a>
+            </li>
+          </div>
+        </div>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  $(function () {
+    // =========================================================================================================
+
+    $.ajax({
+      url: "/bbsdiscussGet/mypost", // 資料請求的網址
+      type: "GET", // GET | POST | PUT | DELETE | PATCH
+      data: {},
+      //processData: false,
+      dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+      success: function (data) {
+        // request 成功取得回應後執行
+        // console.log(data);
+        // 使用迴圈遍歷資料陣列
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+          // 獲取每個資料項目的相關屬性值
+          let bbsPostId = data[i].bbsPostId;
+          let postTitle = data[i].postTitle;
+          let postContent = data[i].postContent;
+          // let bbsPostIdUrl = "http://localhost:8080/bbsdiscuss/" + data[i].bbsPostId;
+          let bbsPostIdUrl = `post.html?bbsPostId=${bbsPostId}`;
+          console.log(bbsPostIdUrl);
+          let bbs_po_html = `
+                <li class="col-sm-4" style="list-style: none">
+                  <div class="card" style="width: 18rem">
+                    <div class="card-body">
+                      <h5 class="card-title d-block text-truncate" style="max-width: 300px">
+                        ${postTitle}
+                      </h5>
+                      <p class="card-text d-block text-truncate" style="max-width: 300px">
+                        ${postContent}
+                      </p>
+                      <a href="${bbsPostIdUrl}" class="btn btn-primary stretched-link">檢視文章</a>
+                    </div>
+                  </div>
+                </li>
+                `;
+          $("ul.bbs_po_list").append(bbs_po_html);
+          //跳轉到發表文章
+          $(".bbs_btn_edit").on("click", function () {
+            window.location.href = "edit.html";
+          });
+          //跳轉到我的收藏
+          $(".bbs_btn_favorite").on("click", function () {
+            window.location.href = "heart.html";
+          });
+        }
+      },
+    });
+  });
+
+  // ==============================================================================
+</script>
+</body>
+</html>

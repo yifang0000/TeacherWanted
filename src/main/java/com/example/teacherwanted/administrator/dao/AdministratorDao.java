@@ -18,6 +18,4 @@ public interface AdministratorDao {
     public Administrator selectByAdminId(Integer adminId);
     public Administrator selectByAccount(String adminAccount);
 
-//    登出
-
 }

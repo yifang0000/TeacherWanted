@@ -27,7 +27,7 @@ public class BbsPostController {
 
 
 
-    //   依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or po.html
+    //   依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or bsdiscusspo.html
     @GetMapping("/bbsdiscussGet/memberInfo")
     public ResponseEntity<?> selectByMemId(
             @SessionAttribute(value = "MemberId", required = false) Integer memId) {
