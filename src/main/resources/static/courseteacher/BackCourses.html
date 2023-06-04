@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 加上 viewport 的設定 -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>懸賞啼雀後台</title>
+    <!-- backindex的css連結 -->
+    <link rel="stylesheet" href="../css/course/backindex.css" />
+
+    <link rel="stylesheet" href="../css/course/courseBack.css" />
+
+    <!-- Bootstrap 連結1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <!-- 表格的 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
+    />
+    <!-- JQuery連結 -->
+    <script src="../jquery/jquery-3.6.4.min.js"></script>
+
+    <!-- vue與axios -->
+    <script src="../js/courseJS/vue.js"></script>
+    <script src="../js/courseJS/axios.min.js"></script>
+    <!-- vue與axios -->
+    <style>
+      .pagination .page-link {
+        color: #3c6a36;
+      }
+
+      /* 修改箭头的颜色 */
+      .pagination .page-link span {
+        color: #3c6a36;
+      }
+      .page-link.active {
+        color: white;
+        background-color: #3c6a36;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 設定字體 -->
+    <!-- 可從這邊調整https://fonts.google.com/share?selection.family=DotGothic16%7CNoto%20Sans%20TC:wght@100;300;400;500;700;900 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <div class="container-all">
+      <!-- 左邊(側邊欄) -->
+      <!-- accordion與下方的data-bs-parent="#accordion一個sublist打開時讓其他關閉 -->
+      <div class="container-left" id="accordion">
+        <nav id="sidebar">
+          <!-- 展開/縮起按鈕 -->
+          <div class="div1">
+            <!-- list列表,加入list-unstyled可去除列表的點點 -->
+
+            <div class="divtitle">後台管理</div>
+          </div>
+          <hr />
+          <ul class="list-unstyled">
+            <li>
+              <!-- 收和展開href="#sublist" data-bs-toggle="collapse" id="dropdown" -->
+              <a href="#sublist1" data-bs-toggle="collapse" id="dropdown"
+                >使用者管理 <i class="fa-solid fa-gears"></i
+              ></a>
+              <!-- 子連結 -->
+              <ul
+                id="sublist1"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">使用者列表</a></li>
+                <li><a href="#">新增使用者</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">會員管理<i class="fa-solid fa-user"></i></a>
+            </li>
+            <li>
+              <a href="#sublist2" data-bs-toggle="collapse" id="dropdown"
+                >課程管理<i class="fa-solid fa-graduation-cap"></i
+              ></a>
+              <ul
+                id="sublist2"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">課程列表</a></li>
+                <li><a href="#">上傳課程</a></li>
+                <li><a href="#">審核課程</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sublist3" data-bs-toggle="collapse" id="dropdown"
+                >活動管理<i class="fa-solid fa-calendar-days"></i
+              ></a>
+              <ul
+                id="sublist3"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">活動列表</a></li>
+                <li><a href="#">上傳活動</a></li>
+                <li><a href="#">審核活動</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sublist4" data-bs-toggle="collapse" id="dropdown"
+                >商城管理<i class="fa-sharp fa-solid fa-shop"></i
+              ></a>
+              <ul
+                id="sublist4"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">商品列表</a></li>
+                <li><a href="#">新增商品</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sublist5" data-bs-toggle="collapse" id="dropdown"
+                >訂單管理<i class="fa-solid fa-cart-shopping"></i
+              ></a>
+              <ul
+                id="sublist5"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">課程訂單</a></li>
+                <li><a href="#">活動訂單</a></li>
+                <li><a href="#">商城訂單</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">許願管理<i class="fa-solid fa-face-smile"></i></a>
+            </li>
+            <li>
+              <a href="#">論壇管理<i class="fa-solid fa-comments"></i></a>
+            </li>
+            <li>
+              <a href="#sublist6" data-bs-toggle="collapse" id="dropdown"
+                >公告管理<i class="fa-solid fa-bell"></i
+              ></a>
+              <ul
+                id="sublist6"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">公告列表</a></li>
+                <li><a href="#">新增公告</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#sublist7" data-bs-toggle="collapse" id="dropdown"
+                >優惠碼管理<i class="fa-solid fa-gift"></i
+              ></a>
+              <ul
+                id="sublist7"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="#">優惠碼列表</a></li>
+                <li><a href="#">新增優惠碼</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">站內信管理 <i class="fa-solid fa-envelope"></i></a>
+            </li>
+            <li>
+              <a href="#">客服信管理<i class="fa-solid fa-paper-plane"></i></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- 右邊： -->
+      <div class="container-right">
+        <!-- 右邊的導航欄 -->
+        <header class="p-2 mb-2 border-bottom">
+          <div class="container m-0">
+            <div
+              class="d-flex nowrap align-items-center justify-content-center justify-content-lg-start"
+            >
+              <div>
+                <button
+                  type="button"
+                  id="collapse"
+                  class="collapse-btn text-start"
+                >
+                  <i class="fa-solid fa-bars"></i>
+                </button>
+              </div>
+              <div class="bartitle">
+                <span>懸賞啼雀</span>
+              </div>
+              <div class="dropdown text-end ms-auto mb-lg-0 me-lg-0 p-0 m-0">
+                <a
+                  href="#"
+                  class="d-block link-dark text-decoration-none dropdown-toggle"
+                  id="dropdownUser1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <span class="barname"> 歡迎登入 三重金城武 老師</span>
+                  <img
+                    src="https://github.com/mdo.png"
+                    alt="mdo"
+                    width="32"
+                    height="32"
+                    class="rounded-circle"
+                  />
+                </a>
+                <ul
+                  class="dropdown-menu text-small dropdown-menu-end"
+                  aria-labelledby="dropdownUser1"
+                >
+                  <li><a class="dropdown-item" href="#">設定</a></li>
+                  <li><a class="dropdown-item" href="#">預覽</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">登出</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div id="main" class="main">
+          <!--主體文字1  -->
+          <section id="section1">
+            <div class="pb-1 bg-body-tertiary rounded-3">
+              <div class="container-fluid">
+                <p>課程管理</p>
+              </div>
+            </div>
+          </section>
+          <!-- ====================主要區========================== -->
+          <div class="containerActive">
+            <section class="backstageBar">
+              <p>搜尋</p>
+            </section>
+            <section class="activeSearch flexWrap">
+              <div class="col_50">
+                <p>搜尋類型</p>
+                <select
+                  name=""
+                  id="courseCategoryId"
+                  v-model="courseCategoryId"
+                >
+                  <option value="1">語言</option>
+                  <option value="2">生活</option>
+                  <option value="3">程式語言</option>
+                  <option value="4">電競</option>
+                </select>
+              </div>
+              <div class="col_50">
+                <p>輸入欄位</p>
+                <input
+                  type="text"
+                  id="searchKey"
+                  v-model="keyword"
+                  @keyup.enter="handleSearch(1, $event)"
+                />
+              </div>
+              <div class="searchRemake">
+                <a class="searchBtn" @click="handleSearch(1, $event)">搜尋</a>
+                <a class="searchBtn" @click="resetform">清空</a>
+                <a class="searchBtn" @click="resetFields">重整</a>
+              </div>
+            </section>
+            <!-- <section class="backstageBar">
+              <p>搜尋</p>
+            </section> -->
+            <section>
+              <div class="tableOutside">
+                <table class="activeBackTable">
+                  <thead>
+                    <tr>
+                      <td>編號</td>
+                      <td>類型</td>
+                      <td>課程名稱</td>
+                      <td>購課人數</td>
+                      <td>狀態</td>
+                      <td>操作</td>
+                    </tr>
+                  </thead>
+                  <tbody id="activeTbody">
+                    <tr v-for="(course, i) in courses.courses" :key="i">
+                      <td class="activityId">{{course.courseId}}</td>
+                      <td>{{ getCategoryText(course.courseCategoryId) }}</td>
+                      <td class="activityName">{{course.courseName}}</td>
+                      <td class="currentNumber">{{course.boughtCount}}人</td>
+                      <td>
+                        <select
+                          v-model="course.courseStatus"
+                          @change="updateCourseStatus(course)"
+                        >
+                          <option :value="1">上架中</option>
+                          <option :value="0">已下架</option>
+                        </select>
+                      </td>
+                      <td class="tbodyBtn">
+                        <button
+                          type="button"
+                          class="btn btn-success"
+                          @click="toEditCourse(course)"
+                        >
+                          修改
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-danger"
+                          @click="deleteCourse(course)"
+                        >
+                          刪除
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- 分頁頁數 -->
+
+              <nav aria-label="Page navigation example">
+                <ul id="pagination-ul" class="pagination">
+                  <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="#"
+                      aria-label="Previous"
+                      @click="prevPage($event)"
+                    >
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item" v-for="page in totalPages" :key="page">
+                    <a
+                      class="page-link"
+                      href="#"
+                      @click="handleSearch(page, $event)"
+                      :class="{ active: isActivePage(page) }"
+                      >{{ page }}</a
+                    >
+                  </li>
+                  <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="#"
+                      aria-label="Next"
+                      @click="nextPage($event)"
+                    >
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </section>
+          </div>
+          <!-- ===================================================== -->
+        </div>
+      </div>
+    </div>
+    <!-- 燈箱部分開始 -->
+    <div class="lightbox"></div>
+    <!-- 燈箱部分結束 -->
+    <!-- FontAwesome 連結 -->
+    <script>
+      var teaId = 11;
+      const bus = new Vue();
+      new Vue({
+        el: "#main",
+        data() {
+          return {
+            courses: [],
+            courseCategoryId: null,
+            keyword: "",
+            page: 1,
+          };
+        },
+        computed: {
+          categoryOptions() {
+            // 將選項映射為整數
+            const optionsMap = {
+              1: 1,
+              2: 2,
+              3: 3,
+              4: 4,
+            };
+            // 返回选中选项的整数值
+            return optionsMap[this.courseCategoryId];
+          },
+          totalPages() {
+            if (this.courses && this.courses.total > 0) {
+              const totalCount = this.courses.total;
+              const pageSize = 5; // 每頁顯示的記錄數，根據需要進行修改
+              return Math.ceil(totalCount / pageSize);
+            } else {
+              return 0;
+            }
+          },
+        },
+        methods: {
+          toEditCourse(course) {
+            const courseId = course.courseId;
+            const targetUrl = `./EditCourse.html?courseId=${courseId}`;
+            window.location.href = targetUrl;
+          },
+          isActivePage(page) {
+            return page === this.page;
+          },
+          //上一頁
+          prevPage(event) {
+            //防止頁面返回至頂
+            event.preventDefault();
+            if (this.page > 1) {
+              this.handleSearch(this.page - 1, event);
+            }
+          },
+          //下一頁
+          nextPage(event) {
+            //防止頁面返回至頂
+            event.preventDefault();
+            if (this.page < this.totalPages) {
+              this.handleSearch(this.page + 1, event);
+            }
+          },
+          //查詢
+          handleSearch(page, event) {
+            //防止頁面返回至頂
+            event.preventDefault();
+            // 更新 this.page 的值
+            this.page = page;
+            const params = new URLSearchParams();
+            if (this.courseCategoryId !== null) {
+              params.append("courseCategoryId", this.courseCategoryId);
+            }
+            params.append("keyword", this.keyword);
+            params.append("page", this.page);
+
+            const url = `http://localhost:8080/TeacherCourses/${teaId}?${params.toString()}`;
+            console.log(url);
+            axios
+              .get(url)
+              .then((response) => {
+                // 更新 courses 數組
+                this.courses = response.data;
+                bus.$emit("search-results", response.data);
+                console.log(response.data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          },
+          resetform() {
+            this.courseCategoryId = null;
+            this.keyword = "";
+          },
+          resetFields() {
+            if (confirm("確認重整嗎？")) {
+              location.reload();
+            }
+          },
+          getCategoryText(courseCategoryId) {
+            const optionsMap = {
+              1: "語言",
+              2: "生活",
+              3: "程式語言",
+              4: "電競",
+            };
+            return optionsMap[courseCategoryId] || "未知類別";
+          },
+          updateCourseStatus(course) {
+            if (confirm("確認修改狀態嗎？")) {
+              const courseId = course.courseId;
+              const url = "http://localhost:8080/coursestatus/" + courseId;
+
+              axios
+                .put(url, {
+                  courseStatus: course.courseStatus,
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                })
+                .then((response) => {
+                  // 请求成功处理
+                  alert("課程狀態更新成功:", response.data);
+                })
+                .catch((error) => {
+                  // 请求失败处理
+                  alert("課程狀態更新失敗:", error);
+                });
+            }
+          },
+          deleteCourse(course) {
+            if (confirm("確定要刪除課程嗎？")) {
+              const courseId = course.courseId;
+              const chapterURL = "http://localhost:8080/chapters/" + courseId;
+              const url = "http://localhost:8080/courses/" + courseId;
+
+              axios
+                .delete(chapterURL)
+                .then((response) => {
+                  // 请求成功处理
+                  const deletedCount = response.data;
+                  console.log(deletedCount);
+                  alert("章節刪除成功！章節數量：" + deletedCount);
+                  return axios.delete(url); // 返回第二个请求的Promise对象
+                })
+                .then((secondResponse) => {
+                  console.log(secondResponse.data);
+                  // 第二个请求成功后的处理逻辑
+                  alert("課程刪除成功！");
+                  const index = this.courses.courses.findIndex(
+                    (c) => c.courseId === courseId
+                  );
+                  if (index !== -1) {
+                    this.courses.courses.splice(index, 1);
+                  }
+                })
+                .catch((error) => {
+                  // 请求失败处理
+                  alert("課程刪除失敗:", error);
+                  console.error(error);
+                });
+            }
+          },
+        },
+        mounted() {
+          axios
+            .get("http://localhost:8080/TeacherCourses/" + teaId)
+            .then((coursesResponse) => {
+              this.courses = coursesResponse.data;
+              console.log(this.courses);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        },
+      });
+    </script>
+    <script
+      src="https://kit.fontawesome.com/664595efd5.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- JQuery連結 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- backindex的JS連結 -->
+    <script src="../js/courseJS/backindex.js"></script>
+    <!-- Bootstrap 連結2 -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- table連結 -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+  </body>
+</html>

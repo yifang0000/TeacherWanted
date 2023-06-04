@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 加上 viewport 的設定 -->
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=yes"
+  />
+  <title>懸賞啼雀後台</title>
+  <!-- backindex的css連結 -->
+  <link rel="stylesheet" href="../css/course/back.css" />
+
+  <link rel="stylesheet" href="../css/course/courseBackEdit.css" />
+
+  <!-- Bootstrap 連結1 -->
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+          crossorigin="anonymous"
+  />
+  <!-- 表格的 -->
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
+  />
+  <link
+          rel="stylesheet"
+          href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
+  />
+  <!-- JQuery連結 -->
+  <script src="../jquery/jquery-3.6.4.min.js"></script>
+
+  <!-- vue與axios -->
+  <script src="../js/courseJS/vue.js"></script>
+  <script src="../js/courseJS/axios.min.js"></script>
+  <!-- vue與axios -->
+  <!-- 上稿器連結 -->
+  <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+</head>
+<body>
+<!-- 設定字體 -->
+<!-- 可從這邊調整https://fonts.google.com/share?selection.family=DotGothic16%7CNoto%20Sans%20TC:wght@100;300;400;500;700;900 -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+        href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet"
+/>
+
+<div class="container-all">
+  <!-- 左邊(側邊欄) -->
+  <!-- accordion與下方的data-bs-parent="#accordion一個sublist打開時讓其他關閉 -->
+  <div class="container-left" id="accordion">
+    <nav id="sidebar">
+      <!-- 展開/縮起按鈕 -->
+      <div class="div1">
+        <!-- list列表,加入list-unstyled可去除列表的點點 -->
+
+        <div class="divtitle">後台管理</div>
+      </div>
+      <hr />
+      <ul class="list-unstyled">
+        <li>
+          <!-- 收和展開href="#sublist" data-bs-toggle="collapse" id="dropdown" -->
+          <a href="#sublist1" data-bs-toggle="collapse" id="dropdown"
+          >使用者管理 <i class="fa-solid fa-gears"></i
+          ></a>
+          <!-- 子連結 -->
+          <ul
+                  id="sublist1"
+                  class="list-unstyled collapse"
+                  data-bs-parent="#accordion"
+          >
+            <li><a href="#">使用者列表</a></li>
+            <li><a href="#">新增使用者</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">會員管理<i class="fa-solid fa-user"></i></a>
+        </li>
+        <li>
+          <a href="#sublist2" data-bs-toggle="collapse" id="dropdown"
+          >課程管理<i class="fa-solid fa-graduation-cap"></i
+          ></a>
+          <ul
+                  id="sublist2"
+                  class="list-unstyled collapse"
+                  data-bs-parent="#accordion"
+          >
+            <li><a href="#">課程列表</a></li>
+            <li><a href="#">上傳課程</a></li>
+            <li><a href="#">審核課程</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#sublist3" data-bs-toggle="collapse" id="dropdown"
+          >活動管理<i class="fa-solid fa-calendar-days"></i
+          ></a>
+          <ul
+                  id="sublist3"
+                  class="list-unstyled collapse"
+                  data-bs-parent="#accordion"
+          >
+            <li><a href="#">活動列表</a></li>
+            <li><a href="#">上傳活動</a></li>
+            <li><a href="#">審核活動</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#sublist4" data-bs-toggle="collapse" id="dropdown"
+          >商城管理<i class="fa-sharp fa-solid fa-shop"></i
+          ></a>
+          <ul
+                  id="sublist4"
+                  class="list-unstyled collapse"
+                  data-bs-parent="#accordion"
+          >
+            <li><a href="#">商品列表</a></li>
+            <li><a href="#">新增商品</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#sublist5" data-bs-toggle="collapse" id="dropdown"
+          >訂單管理<i class="fa-solid fa-cart-shopping"></i
+          ></a>
+          <ul
+                  id="sublist5"
+                  class="list-unstyled collapse"
+                  data-bs-parent="#accordion"
+          >
+            <li><a href="#">課程訂單</a></li>
+            <li><a href="#">活動訂單</a></li>
+            <li><a href="#">商城訂單</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">許願管理<i class="fa-solid fa-face-smile"></i></a>
+        </li>
+        <li>
+          <a href="#">論壇管理<i class="fa-solid fa-comments"></i></a>
+        </li>
+        <li>
+          <a href="#sublist6" data-bs-toggle="collapse" id="dropdown"
+          >公告管理<i class="fa-solid fa-bell"></i
+          ></a>
+          <ul
+                  id="sublist6"
+                  class="list-unstyled collapse"
+                  data-bs-parent="#accordion"
+          >
+            <li><a href="#">公告列表</a></li>
+            <li><a href="#">新增公告</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#sublist7" data-bs-toggle="collapse" id="dropdown"
+          >優惠碼管理<i class="fa-solid fa-gift"></i
+          ></a>
+          <ul
+                  id="sublist7"
+                  class="list-unstyled collapse"
+                  data-bs-parent="#accordion"
+          >
+            <li><a href="#">優惠碼列表</a></li>
+            <li><a href="#">新增優惠碼</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">站內信管理 <i class="fa-solid fa-envelope"></i></a>
+        </li>
+        <li>
+          <a href="#">客服信管理<i class="fa-solid fa-paper-plane"></i></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- 右邊： -->
+  <div class="container-right">
+    <!-- 右邊的導航欄 -->
+    <header class="p-2 mb-2 border-bottom">
+      <div class="container m-0">
+        <div
+                class="d-flex nowrap align-items-center justify-content-center justify-content-lg-start"
+        >
+          <div>
+            <button
+                    type="button"
+                    id="collapse"
+                    class="collapse-btn text-start"
+            >
+              <i class="fa-solid fa-bars"></i>
+            </button>
+          </div>
+          <div class="bartitle">
+            <span>懸賞啼雀</span>
+          </div>
+          <div class="dropdown text-end ms-auto mb-lg-0 me-lg-0 p-0 m-0">
+            <a
+                    href="#"
+                    class="d-block link-dark text-decoration-none dropdown-toggle"
+                    id="dropdownUser1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+            >
+              <span class="barname"> 歡迎登入 三重金城武 老師</span>
+              <img
+                      src="https://github.com/mdo.png"
+                      alt="mdo"
+                      width="32"
+                      height="32"
+                      class="rounded-circle"
+              />
+            </a>
+            <ul
+                    class="dropdown-menu text-small dropdown-menu-end"
+                    aria-labelledby="dropdownUser1"
+            >
+              <li><a class="dropdown-item" href="#">設定</a></li>
+              <li><a class="dropdown-item" href="#">預覽</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">登出</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div id="main" class="main">
+      <!--主體文字1  -->
+
+      <!-- ====================主要區========================== -->
+      <div class="containerActiveEdit">
+        <div class="activeBackEditBk">
+          <div class="flexVerticalCenter activeBackTitle">
+            <p style="font-size: 2rem">上傳課程</p>
+          </div>
+          <div class="containerActiveEdit" style="padding: 20px 10px">
+            <!-- 表單 開始 -->
+            <div class="flexWrap oneArea">
+              <!-- 左半部分 開始 -->
+              <div class="col_50 left_col">
+                <!-- 課程名稱 類型 開始 -->
+                <section class="oneActiveEdit">
+                  <div>
+                    <h6>課程名稱</h6>
+                  </div>
+                  <div class="flexVerticalCenter">
+                    <input
+                            id="courseName"
+                            type="text"
+                            v-model="courseName"
+                    />
+                  </div>
+                  <div><h6>類型</h6></div>
+                  <div class="flexVerticalCenter">
+                    <select
+                            name=""
+                            id="courseCategoryId"
+                            v-model="courseCategoryId"
+                    >
+                      <option value="1">語言</option>
+                      <option value="2">生活</option>
+                      <option value="3">程式語言</option>
+                      <option value="4">電競</option>
+                    </select>
+                  </div>
+                </section>
+                <!-- 課程名稱 類型 結束 -->
+
+                <!-- 課程時數 觀看期限 課程價格 開始-->
+                <div class="flexWrap flexSpaceBetween">
+                  <!-- 課程時數 開始 -->
+                  <section class="oneActiveEdit col_33">
+                    <div><h6>課程時數(小時)</h6></div>
+                    <div class="flexVerticalCenter">
+                      <input
+                              id="courseLength"
+                              type="text"
+                              v-model="courseLength"
+                      />
+                    </div>
+                  </section>
+                  <!-- 課程時數 結束 -->
+                  <!-- 觀看期限 開始 -->
+                  <section class="oneActiveEdit col_33">
+                    <div><h6>觀看期限(月)</h6></div>
+                    <div class="flexVerticalCenter">
+                      <input
+                              id="coolingOffPeriod"
+                              type="text"
+                              v-model="coolingOffPeriod"
+                      />
+                    </div>
+                  </section>
+                  <!-- 觀看期限 結束 -->
+                  <!-- 課程價格 開始 -->
+                  <section class="oneActiveEdit col_33">
+                    <div><h6>課程價格(台幣)</h6></div>
+                    <div class="flexVerticalCenter">
+                      <input
+                              id="coursePrice"
+                              type="text"
+                              v-model="coursePrice"
+                      />
+                    </div>
+                  </section>
+                  <!-- 課程價格 結束 -->
+                </div>
+                <!-- 課程時數 觀看期限 課程價格 結束-->
+                <!-- 課程介紹 開始 -->
+                <section class="oneActiveEdit lastArea">
+                  <div><h6>課程介紹</h6></div>
+                  <div class="editor">
+                        <textarea
+                                name="content"
+                                id="editor1"
+                                v-model="courseDetail"
+                        ></textarea>
+                  </div>
+                </section>
+                <!-- 課程介紹 結束 -->
+                <!-- 課前準備 開始 -->
+                <section class="oneActiveEdit lastArea">
+                  <div><h6>課前準備</h6></div>
+                  <div class="editor">
+                        <textarea
+                                name="content"
+                                id="editor2"
+                                v-model="coursePre"
+                        ></textarea>
+                  </div>
+                </section>
+                <!-- 課前準備 結束 -->
+              </div>
+              <!-- 左半部分 結束 -->
+
+              <!-- 右半部分 開始 -->
+              <div class="col_50">
+                <!-- 課程圖片 開始 -->
+                <section class="oneActiveEdit">
+                  <div><h6>課程圖片</h6></div>
+                  <div class="flexVerticalCenter">
+                    <input
+                            type="file"
+                            class="upload"
+                            accept="image/*"
+                            multiple
+                            @change="handleImageUpload('.upload', 'coursePhotos', $event)"
+                    />
+                  </div>
+                  <div
+                          class="preview"
+                          data-preview="preview1"
+                          style="height: 220px"
+                  ></div>
+                  <div
+                          class="preview"
+                          data-preview="preview2"
+                          style="height: 220px"
+                  ></div>
+                  <div
+                          class="preview"
+                          data-preview="preview3"
+                          style="height: 220px"
+                  ></div>
+                </section>
+                <!-- 課程圖片 結束 -->
+                <!-- 上傳影片類型 開始 -->
+                <div class="ip2">
+                  上傳類型：
+                  <input
+                          type="radio"
+                          name="uploadType"
+                          v-model="selectedUploadType"
+                          value="youtube"
+                  />YouTube連結
+                  <input
+                          type="radio"
+                          name="uploadType"
+                          v-model="selectedUploadType"
+                          value="local"
+                          checked
+                  />本機檔案
+                </div>
+                <!-- 上傳影片類型 結束 -->
+              </div>
+              <!-- 右半部分 結束 -->
+              <!-- 上傳章節開始 -->
+              <table class="table">
+                <thead>
+                <tr class="table_title">
+                  <th scope="col">章節名稱</th>
+                  <th scope="col">影片網址</th>
+                  <th scope="col">影片資訊</th>
+                </tr>
+                </thead>
+                <tbody>
+                <template v-for="(chapter, index) in chapters">
+                  <tr>
+                    <!-- 章節名稱 開始 -->
+                    <td class="upload_com">
+                      <br />
+                      <h6>第{{ index + 1 }}章名稱</h6>
+                      <input
+                              type="text"
+                              style="width: 300px; margin-bottom: 5px"
+                              v-model="chapter.chapterTitle"
+                      />
+                    </td>
+                    <!-- 章節名稱 結束 -->
+                    <!-- 影片網址 開始 -->
+                    <td class="upload_com">
+                      <br />
+                      <div>
+                        <h6 style="margin-bottom: 5px">影片網址</h6>
+                      </div>
+                      <div class="flexVerticalCenter"style="display: flex;flex-direction: column;align-items: flex-start;">
+                        <input
+                                type="text"
+                                style="width: 300px; margin-top: 3px"
+                                v-model="chapter.ytURL"
+                                v-if="selectedUploadType === 'youtube'"
+                                @input="checkUrl(chapter.ytURL, index)"
+                        />
+                        <input
+                                type="text"
+                                style="width: 300px; margin-top: 3px; background-color: lightgray"
+                                v-model="chapter.ytURL"
+                                v-if="selectedUploadType === 'local'"
+                                @input="checkUrl(chapter.ytURL, index)"
+                        disabled/>
+                        <div v-if="chapter.isUrlValid === true">
+                          <p style="color: green;font-size: 10px">格式正確</p>
+                        </div>
+                        <div v-else-if="chapter.isUrlValid === false">
+                          <p style="color: red;font-size: 10px">格式不正確</p>
+                        </div>
+                      </div>
+                    </td>
+                    <!-- 影片網址 結束 -->
+                    <!-- 上傳影片開始 -->
+                    <td class="upload_com">
+                      <br />
+                        <div><h6>上傳影片</h6></div>
+                        <div class="flexVerticalCenter">
+                          <input
+                                  type="file"
+                                  style="width: 300px"
+                                  accept="video/*"
+                                  @change="handleVideoUpload($event, index)"
+                                  :key="index"
+                                  v-if="selectedUploadType === 'local'"
+                          />
+                          <input
+                                  type="file"
+                                  style="width: 300px"
+                                  accept="video/*"
+                                  @change="handleVideoUpload($event, index)"
+                                  :key="index"
+                                  v-if="selectedUploadType === 'youtube'"
+                          disabled/>
+                        </div>
+                    </td>
+                    <!-- 上傳影片結束 -->
+                  </tr>
+                </template>
+                </tbody>
+              </table>
+              <!-- 上傳章節結束 -->
+              <!-- 表單 結束 -->
+              <div class="flexAllCenter submitActiveAdd">
+                <p
+                        class="flexAllCenter"
+                        id="submitActiveAddBtn"
+                        @click="addChapter"
+                >
+                  +
+                </p>
+                <p
+                        class="flexAllCenter"
+                        id="submitActiveAddBtn"
+                        @click="removeChapter"
+                >
+                  -
+                </p>
+                <p
+                        class="flexAllCenter"
+                        id="submitActiveAddBtn"
+                        @click="resetFields"
+                >
+                  清空
+                </p>
+                <p
+                        class="flexAllCenter"
+                        id="submitActiveAddBtn"
+                        @click="createCourse"
+                >
+                  送出
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================================================== -->
+    </div>
+  </div>
+</div>
+<!-- FontAwesome 連結 -->
+<script
+        src="https://kit.fontawesome.com/664595efd5.js"
+        crossorigin="anonymous"
+></script>
+<!-- JQuery連結 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<!-- backindex的JS連結 -->
+<script src="../js/courseJS/backindex.js"></script>
+<!-- Bootstrap 連結2 -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"
+></script>
+
+<!-- table連結 -->
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+  var teaId = 11;
+  new Vue({
+    el: "#main",
+    data() {
+      return {
+        selectedUploadType: "youtube",
+        courseName: this.courseName,
+        courseCategoryId: this.courseCategoryId,
+        courseDetail: "",
+        coursePre: "",
+        coursePrice: this.coursePrice,
+        courseLength: this.courseLength,
+        coolingOffPeriod: this.coolingOffPeriod,
+        coursePhotos: {
+          coursePhoto1: null,
+          coursePhoto2: null,
+          coursePhoto3: null,
+        },
+        chapterOrder: "",
+        chapterTitle: "",
+        index: 0,
+        chapters: [], // Array to store dynamic chapters
+        chapterPhoto: null,
+        chapterFile: null,
+        chapter: {
+          ytURL:"",
+          chapterLink: "",
+        },
+        isUrlValid: null,
+      };
+    },
+    computed: {
+      categoryOptions() {
+        // 将选项值映射为整数值
+        const optionsMap = {
+          1: 1,
+          2: 2,
+          3: 3,
+          4: 4,
+        };
+        // 返回选中选项的整数值
+        return optionsMap[this.courseCategoryId];
+      },
+    },
+    mounted() {
+      ClassicEditor.create(document.querySelector("#editor1"))
+              .then((newEditor) => {
+                this.editor1 = newEditor;
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+
+      ClassicEditor.create(document.querySelector("#editor2"))
+              .then((newEditor) => {
+                this.editor2 = newEditor;
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+
+      // 调用handleImageUpload方法
+      this.$nextTick(() => {
+        this.handleImageUpload(".upload", ".preview", "coursePhoto");
+      });
+    },
+
+    methods: {
+      checkUrl(url, index) {
+        const pattern = /^https:\/\/www\.youtube\.com\/watch\?v=.+$/;
+        this.chapters[index].isUrlValid = pattern;
+
+        if (pattern.test(url)) {
+          this.chapters[index].isUrlValid = true;
+          // 执行其他操作
+          const startIndex = url.indexOf("?v=") + 3; // 获取"?v="后的索引
+          const endIndex = url.indexOf("&"); // 获取"&list"的索引
+          if (startIndex !== -1) {
+            if (endIndex !== -1) {
+              chapterLink = url.substring(startIndex, endIndex);
+            } else {
+              chapterLink = url.substring(startIndex);
+            }
+            this.chapters[index].chapterLink = chapterLink;
+            console.log('提取的字符串:', chapterLink);
+            console.log(this.chapters[index].chapterLink);
+            // 执行其他操作
+          } else {
+            this.chapters[index].chapterLink = '';
+            console.log('无法提取字符串');
+            // 执行其他操作
+          }
+        } else {
+          this.chapters[index].isUrlValid = false;
+          // 执行其他操作
+        }
+      },
+      addChapter() {
+        this.chapters.push({ chapterTitle: "", chapterVideo: null });
+      },
+      removeChapter() {
+        this.chapters.pop();
+      },
+      resetFields() {
+        if (confirm("確認清空嗎？")) {
+          location.reload();
+        }
+      },
+      createCourse() {
+        if (confirm("確認新增課程嗎？")) {
+          const data = {
+            courseName: this.courseName,
+            courseCategoryId: this.courseCategoryId,
+            courseDetail: this.editor1.getData(),
+            coursePre: this.editor2.getData(),
+            coursePrice: this.coursePrice,
+            courseLength: this.courseLength,
+            teaId: teaId,
+            courseStatus: 0,
+            coolingOffPeriod: this.coolingOffPeriod,
+            coursePhoto1: this.coursePhotos.coursePhoto1,
+            coursePhoto2: this.coursePhotos.coursePhoto2,
+            coursePhoto3: this.coursePhotos.coursePhoto3,
+          };
+          console.log(data);
+
+          axios
+                  .post("http://localhost:8080/courses", data)
+                  .then((response) => {
+                    const courseId = response.data.courseId; // 获取courseId
+                    console.log(response.data);
+
+                    // 创建一个FormData对象;
+                    const formData = new FormData();
+                    formData.append("courseId", courseId); // 将courseId作为URL参数
+                    this.chapters.forEach((chapter, index) => {
+                      // 添加章節相關資訊到 FormData
+                      formData.append("chapterOrder", index + 1);
+                      formData.append("chapterTitle", chapter.chapterTitle);
+
+                      // 判断 selectedUploadType 的值，若為 "local" 則不傳入 chapterLink
+                      if (this.selectedUploadType === "youtube") {
+                        formData.append("chapterLink", chapter.chapterLink);
+                      }
+                      // 檢查章節文件是否存在，存在則添加到 FormData
+                      if (this.selectedUploadType === "local" && chapter.chapterFile) {
+                        formData.append(
+                                "chapterFile",
+                                chapter.chapterFile,
+                                chapter.chapterFile.name
+                        );
+                      }
+                    });
+                    console.log(formData);
+                    return axios.post(
+                            "http://localhost:8080/chapters",
+                            formData,
+                            {
+                              headers: {
+                                "Content-Type": "multipart/form-data",
+                              },
+                            }
+                    );
+                  })
+                  .then((secondResponse) => {
+                    console.log(secondResponse.data);
+                    // 第二个请求成功后的处理逻辑
+                    alert("課程新增成功！");
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                    // 请求失败后的处理逻辑
+                    alert("新增失敗，請重試！！");
+                  });
+        }
+      },
+      handleImageUpload(uploadSelector, previewSelector, coursePhotos) {
+        $(document).on("change", uploadSelector, (event) => {
+          const files = event.target.files;
+          if (files.length > 3) {
+            // 超过最大数量，进行相应的处理，例如提示错误消息
+            alert("最多只能選擇3張圖片唷!!");
+            // 清空已选择的文件
+            $(uploadSelector).val("");
+            // 清空预览区域中的内容
+            $(previewSelector).empty();
+            return;
+          }
+
+          const previews = Array.from($(previewSelector));
+          const previewIds = previews.map((preview) =>
+                  $(preview).data("preview")
+          );
+
+          // Reset previews
+          previews.forEach((preview) => {
+            $(preview).empty();
+          });
+
+          // Display selected images in previews
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+              const base64Image = e.target.result;
+              // 切割出前缀部分
+              const imageData = base64Image.split(";base64,")[1];
+              // 保存切割后的图片数据到相应的数据属性
+              this.coursePhotos[`coursePhoto${i + 1}`] = imageData;
+
+              const previewId = previewIds[i];
+              const previewElement = $(
+                      `${previewSelector}[data-preview="${previewId}"]`
+              );
+
+              const img = $("<img>")
+                      .attr("src", base64Image)
+                      .on("load", () => {
+                        const maxWidth = previewElement.width();
+                        const maxHeight = previewElement.height();
+                        const width = img.width();
+                        const height = img.height();
+                        const scaleFactor = Math.min(
+                                maxWidth / width,
+                                maxHeight / height
+                        );
+
+                        img.css({
+                          width: width * scaleFactor + "px",
+                          height: height * scaleFactor + "px",
+                        });
+                      });
+
+              previewElement.append(img);
+            };
+
+            reader.readAsDataURL(file);
+          }
+        });
+      },
+      handleChapterImageUpload(
+              uploadSelector,
+              previewSelector,
+              chapterPhoto,
+              event,
+              index
+      ) {
+        $(document).on("change", uploadSelector, (event) => {
+          const file = event.target.files[0];
+          const previewId = $(event.target).data("preview");
+          const previewElement = $(
+                  `${previewSelector}[data-preview="${previewId}"]`
+          );
+
+          if (file && previewElement) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              this.chapters[index].chapterPhoto = file; // 存储文件对象而不是Base64数据
+              console.log(this.chapters[index].chapterPhoto);
+
+              const img = $("<img>");
+              img.attr("src", e.target.result);
+              img.on("load", () => {
+                const width = img.width();
+                const height = img.height();
+                const maxWidth = previewElement.width();
+                const maxHeight = previewElement.height();
+
+                const scaleFactor = Math.min(
+                        maxWidth / width,
+                        maxHeight / height
+                );
+
+                img.css({
+                  width: width * scaleFactor + "px",
+                  height: height * scaleFactor + "px",
+                });
+              });
+
+              previewElement.empty().append(img);
+            };
+
+            reader.readAsDataURL(file);
+          }
+        });
+      },
+      handleVideoUpload(event, index) {
+        const file = event.target.files[0];
+        this.chapters[index].chapterFile = file;
+        console.log(this.chapters[index].chapterFile);
+      },
+    },
+  });
+  // 上傳圖片相關 結束
+</script>
+</body>
+</html>
