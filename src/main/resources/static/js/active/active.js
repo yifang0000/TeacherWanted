@@ -171,10 +171,10 @@ function axiosGetActive() {
 
     .catch((error) => {
       console.error(error.response.data);
-      if (error.response.data == "查無此活動") {
-        alert("查無此活動");
-        window.location.href = "/active/activeIndex.html";
-      }
+      // if (error.response.data == "查無此活動") {
+      alert("查無此活動");
+      window.location.href = "/active/activeIndex.html";
+      // }
     });
 }
 // 取得所有活動 結束

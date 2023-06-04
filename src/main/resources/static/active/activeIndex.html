@@ -105,16 +105,16 @@
               style="position: relative; top: 2px"
             >
               <div class="miniMobile">
-                <form id="navSearch" action="">
-                  <select>
-                    <option>課程</option>
-                    <option>活動</option>
-                    <option>商城</option>
-                    <option>許願</option>
+                <div id="navSearch" action="">
+                  <select id="serchType">
+                    <option value="課程">課程</option>
+                    <option value="活動">活動</option>
+                    <option value="商城">商城</option>
+                    <option value="許願">許願</option>
                   </select>
-                  <input type="text" />
-                  <img src="../img/base/search.svg" alt="" />
-                </form>
+                  <input id="searchText" type="text" />
+                  <img id="searchIcon" src="../img/base/search.svg" alt="" />
+                </div>
               </div>
               <img
                 src="../img//base/mailForNavbar.svg"
@@ -161,7 +161,21 @@
               <h1>活動列表</h1>
             </div>
             <div class="activeIndexIcon flexVerticalCenter">
-              <a class="flexAllCenter">活動地圖</a>
+              <select
+                name=""
+                id="activityIndexType"
+                v-model="activityIndexType"
+                @change="searchByType"
+              >
+                <option value=""></option>
+                <option value="戶外運動">戶外運動</option>
+                <option value="全民教育">全民教育</option>
+                <option value="休閒娛樂">休閒娛樂</option>
+              </select>
+              <a class="flexAllCenter" @click="clearSearch">清除搜索條件</a>
+              <a href="/active/activeMap.html" class="flexAllCenter"
+                >活動地圖</a
+              >
             </div>
           </section>
           <!-- 上方活動列表和活動地圖 結束 -->
