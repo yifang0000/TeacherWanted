@@ -60,4 +60,9 @@ public class CourseChapterDaoImpl implements CourseChapterDao{
         int deletedCount = query.executeUpdate();
         return deletedCount;
     }
+
+    @Override
+    public void deleteChapterByOrderId(CourseChapterVo chapterVo) {
+        session.remove(chapterVo);
+    }
 }

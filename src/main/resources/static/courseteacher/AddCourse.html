@@ -713,11 +713,11 @@
         $(document).on("change", uploadSelector, (event) => {
           const files = event.target.files;
           if (files.length > 3) {
-            // 超过最大数量，进行相应的处理，例如提示错误消息
+            // 超過最大數量提示錯誤
             alert("最多只能選擇3張圖片唷!!");
-            // 清空已选择的文件
+            // 清空圖片
             $(uploadSelector).val("");
-            // 清空预览区域中的内容
+            // 清空預覽區域
             $(previewSelector).empty();
             return;
           }
@@ -741,7 +741,7 @@
               const base64Image = e.target.result;
               // 切割出前缀部分
               const imageData = base64Image.split(";base64,")[1];
-              // 保存切割后的图片数据到相应的数据属性
+              // 保存切割後的圖片資料
               this.coursePhotos[`coursePhoto${i + 1}`] = imageData;
 
               const previewId = previewIds[i];
