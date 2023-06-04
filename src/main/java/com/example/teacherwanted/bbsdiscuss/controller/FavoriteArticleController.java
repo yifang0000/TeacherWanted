@@ -21,7 +21,7 @@ public class FavoriteArticleController {
 //        return ResponseEntity.status(HttpStatus.OK).body(favoriteArticleList);
 //    }
 //
-//    我的收藏
+//    查詢我的收藏
     @GetMapping("/bbsdiscussGet/fav")
     public ResponseEntity<List<FavoriteArticle>> getBbsFavoriteBymemId(@SessionAttribute(value = "MemberId", required = false) Integer memId){
         System.out.println("test-我的收藏");

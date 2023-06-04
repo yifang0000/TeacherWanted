@@ -1,9 +1,14 @@
 package com.example.teacherwanted.bbsdiscuss.controller;
 
-import com.example.teacherwanted.active.model.Member;
+import com.example.teacherwanted.active.model.MemberActive;
 import com.example.teacherwanted.bbsdiscuss.dto.BbsPostRequest;
+import com.example.teacherwanted.bbsdiscuss.dto.FavoriterArticleRequest;
+import com.example.teacherwanted.bbsdiscuss.dto.PostReactionRequest;
 import com.example.teacherwanted.bbsdiscuss.dto.Response;
-import com.example.teacherwanted.bbsdiscuss.model.*;
+import com.example.teacherwanted.bbsdiscuss.model.BbsComment;
+import com.example.teacherwanted.bbsdiscuss.model.BbsPost;
+import com.example.teacherwanted.bbsdiscuss.model.FavoriteArticle;
+import com.example.teacherwanted.bbsdiscuss.model.PostReaction;
 import com.example.teacherwanted.bbsdiscuss.service.BbsPostService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +35,7 @@ public class BbsPostController {
         if (memId == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無登入狀態");
         } else {
-            Member memberInfo = bbsPostService.selectMemBerOrderInfo(memId);
+            MemberActive memberInfo = bbsPostService.selectMemBerOrderInfo(memId);
             return ResponseEntity.ok(memberInfo);
 
         }
@@ -46,7 +51,7 @@ public class BbsPostController {
         BbsPost bbsPost = bbsPostService.getBbsPostById(bbsPostId);
 
 //        根據文章id取得大頭貼，收藏狀態，按讚狀態
-        Member member = bbsPostService.getMemById(bbsPostId);
+        MemberActive member = bbsPostService.getMemById(bbsPostId);
         List<BbsComment> bbsCommentList = bbsPostService.getCommById(bbsPostId);
         FavoriteArticle favoriteArticle = bbsPostService.geFavById(bbsPostId);
         PostReaction postReaction = bbsPostService.getReactionById(bbsPostId);
@@ -112,11 +117,11 @@ public class BbsPostController {
     }
     //  根據留言id取得，大頭貼
     @GetMapping("/bbsdiscussGet/commInfo")
-    public ResponseEntity <Member> getBbsCommInfoById(@RequestParam(required = false) Integer bbsCommentId,
+    public ResponseEntity <MemberActive> getBbsCommInfoById(@RequestParam(required = false) Integer bbsCommentId,
                                                        @SessionAttribute(value = "MemberId", required = false) Integer memId) {
         System.out.println("test根據留言id取得，大頭貼");
 //        根據文章id取得大頭貼，
-        Member member = bbsPostService.getBbsCommInfoById(bbsCommentId);
+        MemberActive member = bbsPostService.getBbsCommInfoById(bbsCommentId);
 
         if (memId == null) {
             // 如果未獲取到會員ID，返回相應錯誤
@@ -178,26 +183,70 @@ public class BbsPostController {
     }
 
     // 新增文章
-    @PostMapping("/bbsdiscuss/post")
+    @PostMapping("/bbsdiscussGet/post")
     public ResponseEntity<?> createBbsPost(@RequestBody @Valid BbsPostRequest bbsPostRequest,
 
                                            @SessionAttribute(value = "MemberId", required = false) Integer memId) {
-        Integer bbsPostId = bbsPostService.createBbsPost(bbsPostRequest);
+
+        System.out.println(bbsPostRequest);
+        System.out.println(memId);
         bbsPostRequest.setMemId(memId);
+        Integer bbsPostId = bbsPostService.createBbsPost(bbsPostRequest);
         BbsPost bbsPost = bbsPostService.getBbsPostById(bbsPostId);
+
+        if (memId == null) {
+            // 如果未獲取到會員ID，返回相應錯誤
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(bbsPost);
     }
+    // 新增我的收藏
+    @PostMapping("/bbsdiscussGet/favStstatus")
+    public ResponseEntity<?> createBbsPostFavArt(@RequestBody @Valid FavoriterArticleRequest favoriterArticleRequest,
+                                           @SessionAttribute(value = "MemberId", required = false) Integer memId) {
 
-    @GetMapping("/bbsdiscuss/bbses")
-    public ResponseEntity<List<JoinAll>> getBbs(){
+        System.out.println(favoriterArticleRequest);
+        System.out.println(memId);
+        if (memId == null) {
+            // 如果未獲取到會員ID，返回相應錯誤
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        favoriterArticleRequest.setMemId(memId);
+        Integer favoriteArticleId = bbsPostService.createBbsPostFavArt(favoriterArticleRequest);
 
-        List<JoinAll> joinAllList = bbsPostService.getBbs();
 
-        if (joinAllList != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(joinAllList);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        if(favoriteArticleId == null){
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }else {
+            int favArtNum = bbsPostService.getBbsPostFavArtById(favoriterArticleRequest);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(favArtNum);
         }
     }
+    // 新增讚/倒讚
+    @PostMapping("/bbsdiscussGet/reactionstatus")
+    public ResponseEntity<?> createBbsPostFavArt(@RequestBody @Valid PostReactionRequest postReactionRequest,
+                                                 @SessionAttribute(value = "MemberId", required = false) Integer memId) {
 
+        if (memId == null) {
+            // 如果未獲取到會員ID，返回相應錯誤
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        System.out.println(postReactionRequest);
+        System.out.println(memId);
+        postReactionRequest.setMemId(memId);
+        Integer postReactionId = bbsPostService.createPostReaction(postReactionRequest);
+
+        if(postReactionId == null){
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }else {
+            int reactionNum = bbsPostService.getPostReactionById(postReactionRequest);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(reactionNum);
+        }
+
+
+
+
+    }
 }
