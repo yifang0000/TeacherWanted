@@ -27,6 +27,13 @@
     <!-- css   -->
     <link href="/css/member/MemberCenter.css" rel="stylesheet" type="text/css" />
     <link href="/css/baseVer2.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+    
+    <!-- 上傳小icon -->
+    <script
+      src="https://kit.fontawesome.com/664595efd5.js"
+      crossorigin="anonymous"
+    ></script>
 
     <title>懸賞啼雀-會員資料</title>
   </head>
@@ -34,7 +41,7 @@
     <!-- 手機板導引列(粗糙) -->
     <header class="TeacherWanted">
       <div id="mySidebar">
-        <img src="img/base/logo.png" alt="" />
+        <img src="../img/base/logo.png" alt="" />
         <a href="#" class="">首頁</a>
         <a href="#" class="">課程</a>
         <a href="#" class="">活動</a>
@@ -46,7 +53,7 @@
         <ul class="containerHearder flexWrap flexVerticalCenter">
           <li>
             <img
-              src="img/base/menu.png"
+              src="../img/base/menu.png"
               id="phoneMenu"
               class="mobileHave"
               style="height: 30px; margin: 10px"
@@ -59,7 +66,7 @@
             style="font-size: 50px; color: #a4c964; margin: 10px 0px"
           >
             <img
-              src="img/base/logo.png"
+              src="../img/base/logo.png"
               class="miniMobile"
               style="height: 50px; margin: 0px 5px"
               alt=""
@@ -93,19 +100,19 @@
               style="position: relative; top: 2px"
             >
               <div class="miniMobile">
-                <form id="navSearch" action="">
-                  <select>
-                    <option>課程</option>
-                    <option>活動</option>
-                    <option>商城</option>
-                    <option>許願</option>
+                <div id="navSearch" action="">
+                  <select id="serchType">
+                    <option value="課程">課程</option>
+                    <option value="活動">活動</option>
+                    <option value="商城">商城</option>
+                    <option value="許願">許願</option>
                   </select>
-                  <input type="text" />
-                  <img src="img/base/search.svg" alt="" />
-                </form>
+                  <input id="searchText" type="text" />
+                  <img id="searchIcon" src="../img/base/search.svg" alt="" />
+                </div>
               </div>
               <img
-                src="img//base/mailForNavbar.svg"
+                src="../img//base/mailForNavbar.svg"
                 class="miniMobile"
                 style="
                   height: 30px;
@@ -117,13 +124,13 @@
                 alt=""
               />
               <img
-                src="img/base/shoppingCart.svg"
+                src="../img/base/shoppingCart.svg"
                 class="miniMobile"
                 style="height: 30px; margin: 3px 5px; cursor: pointer"
                 alt=""
               />
               <img
-                src="img/base/bell.svg"
+                src="../img/base/bell.svg"
                 class="miniMobile"
                 style="height: 30px; margin: 3px 5px; cursor: pointer"
                 alt=""
@@ -178,7 +185,7 @@
                         <img
                           id="eximg"
                           class="rounded-circle"
-                          src="img/aside/logobgg.png"
+                          src="/img/member/aside/logobgg.png"
                           alt=""
                         />
                       </div>
@@ -235,15 +242,15 @@
                                 <div class="row g-2">
                                   <div class="col-md">
                                     <div class="form-floating">
-                                      <input type="text" class="form-control" id="floatingInputGrid" placeholder="" :disabled=" isDisabled" v-model="member.memId" > 
+                                      <input type="text" class="form-control" id="floatingInputGrid" placeholder="" disabled v-model="member.memId" > 
                                       <label for="floatingInputGrid">會員編號</label>
                                       
                                     </div>
                                   </div>
                                   <div class="col-md">
                                     <div class="form-floating">
-                                      <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memName">
-                                      <label for="floatingInputGrid">姓名</label>
+                                      <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.memAccount">
+                                      <label for="floatingInputGrid">帳號</label>
                                     </div>
                                   </div>
                                   </div>
@@ -252,8 +259,8 @@
                                   <div class="row g-2">
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memAccount">
-                                        <label for="floatingInputGrid">帳號</label>
+                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memName">
+                                        <label for="floatingInputGrid">姓名</label>
                                       </div>
                                     </div>
                                     <div class="col-md">
@@ -551,10 +558,8 @@
     <script src="/jquery/jquery-3.6.4.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-
+    
+    
     <!--  axios -->
     <script src="/axios/axios.js"></script>
     <!--  vue   -->
@@ -562,6 +567,10 @@
     <!--  js  -->
     <script src="/js/base.js"></script>
     <script src="/js/member/MemberDetail.js"></script>
+    <!-- fullcalendar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+
 
   </body>
 </html>

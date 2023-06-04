@@ -18,7 +18,7 @@ public class CouponDaoImpl implements CouponDao {
     @Override
     public int insert(Coupon coupon) {
         entityManager.persist(coupon);
-//        todo:觀察是否為新建的id
+//        新建的id
 //        System.out.println(coupon.getCouponId());
 
         return 1;
