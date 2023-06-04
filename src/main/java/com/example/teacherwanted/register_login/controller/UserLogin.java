@@ -1,9 +1,10 @@
 package com.example.teacherwanted.register_login.controller;
 
 
-import com.example.test.register_login.entity.User;
-import com.example.test.register_login.repo.UserRepo;
-import com.example.test.register_login.service.AES256Util;
+
+import com.example.teacherwanted.register_login.entity.User;
+import com.example.teacherwanted.register_login.repo.UserRepo;
+import com.example.teacherwanted.register_login.service.AES256Util;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

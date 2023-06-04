@@ -1,9 +1,9 @@
 package com.example.teacherwanted.register_login.controller;
 
-import com.example.test.register_login.UserNotFoundException;
-import com.example.test.register_login.entity.User;
-import com.example.test.register_login.repo.UserRepo;
-import com.example.test.register_login.service.UserService;
+
+import com.example.teacherwanted.register_login.UserNotFoundException;
+import com.example.teacherwanted.register_login.entity.User;
+import com.example.teacherwanted.register_login.service.UserService;
 import com.example.test.register_login.util.Utility;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
