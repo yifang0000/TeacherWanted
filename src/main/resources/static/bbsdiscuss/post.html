@@ -651,12 +651,10 @@
                             );
                             let modalCounter = 0;
                             // =====================================留言區請求查詢===================================
-                            for (let j = 0; j < data.length; j++) {
+                            for (let j = 0; j < data4.length; j++) {
                               console.log(data4 + "for迴圈裡面的data4");
-                              console.log(data4);
-                              console.log(data4[j].bbsCommentId + "??");
-                              let bbsCommentId =
-                                data4[j].bbsCommentId.toString();
+                              console.log(data4[j]["bbsCommentId"]);
+                              let bbsCommentId = data4[j]["bbsCommentId"];
                               let bbsPostIdcomm = data4[j].bbsPostId;
                               let commentContent = data4[j].commentContent;
                               let commentStatus = data4[j].commentStatus;
@@ -669,26 +667,30 @@
                               modalCounter++;
                               //=================//  根據留言id取得，大頭貼=====================================
                               $.ajax({
-                                url: "/bbsdiscussGet/CommInfo",
+                                url: "/bbsdiscussGet/commInfo",
                                 type: "GET",
-                                data: {},
+                                data: { bbsCommentId: bbsCommentId },
                                 dataType: "json",
                                 success: function (data5) {
                                   console.log(
                                     data5 + "data5 //  根據留言id取得，大頭貼"
                                   );
                                   console.log(data5);
-                                },
-                              });
-                              let bbs_msg_content_html_first = `
+                                  let memNamecomm5 = data5.memName;
+                                  let memPhotocomm5 =
+                                    "data:image/" +
+                                    "null" +
+                                    ";base64," +
+                                    data5.memPhoto;
+                                  let bbs_msg_content_html_first = `
                               <li>
                                 <div class="card-body comment">
                                   <div class="row">
                                     <div class="col-md-1">
-                                      <img src=${memIdcomm} class="img-fluid rounded-start" alt="頭像" />
+                                      <img src=${memPhotocomm5} class="img-fluid rounded-start" alt="頭像" />
                                     </div>
                                     <div class="col-md-6">
-                                      <h5 id="bbs_title_test" class="card-title">${memIdcomm}</h5>
+                                      <h5 id="bbs_title_test" class="card-title">${memNamecomm5}</h5>
                                       <h6 id="bbs_title_test2" class="card-subtitle mb-2 text-muted bbs_pare">
                                         ${commentContent}
                                       </h6>
@@ -729,27 +731,28 @@
                                 </div>
                               </li>
                               `;
-                              $("ul.bbs_comment_list").append(
-                                bbs_msg_content_html_first
-                              );
-                              //=====================================留言區按鈕送出留言========================================
-                              $("div.bbs_post_pen_group").on(
-                                "click",
-                                ".bbs_send_msg",
-                                function () {
-                                  let count = 0;
-                                  count++;
-                                  let modalId = "exampleModal" + modalCounter;
-                                  modalCounter++;
+                                  $("ul.bbs_comment_list").append(
+                                    bbs_msg_content_html_first
+                                  );
+                                  //=====================================留言區按鈕送出留言======================
+                                  $("div.bbs_post_pen_group").on(
+                                    "click",
+                                    ".bbs_send_msg",
+                                    function () {
+                                      let count = 0;
+                                      count++;
+                                      let modalId =
+                                        "exampleModal" + modalCounter;
+                                      modalCounter++;
 
-                                  let bbs_msg_content_trim = $(
-                                    ".bbs_msg_content"
-                                  )
-                                    .val()
-                                    .trim();
-                                  console.log(bbs_msg_content_trim);
-                                  if (bbs_msg_content_trim != "") {
-                                    let bbs_msg_content_html = `
+                                      let bbs_msg_content_trim = $(
+                                        ".bbs_msg_content"
+                                      )
+                                        .val()
+                                        .trim();
+                                      console.log(bbs_msg_content_trim);
+                                      if (bbs_msg_content_trim != "") {
+                                        let bbs_msg_content_html = `
                                   <li>
                                     <div class="card-body comment">
                                       <div class="row">
@@ -798,15 +801,16 @@
                                     </div>
                                   </li>
                                   `;
-                                    $("ul.bbs_comment_list").append(
-                                      bbs_msg_content_html
-                                    );
-                                    $(".bbs_msg_content").val("");
-                                  }
-                                }
-                              );
+                                        $("ul.bbs_comment_list").append(
+                                          bbs_msg_content_html
+                                        );
+                                        $(".bbs_msg_content").val("");
+                                      }
+                                    }
+                                  );
+                                },
+                              });
                             }
-
                             // =====================================下一位==================================
                           }
                         },
@@ -1121,30 +1125,51 @@
           }
         );
 
-        // ============================收藏====================================================================
-        $("div.bbs_post_up_down_heart_list").on(
-          "click",
-          "#bbs_heart_img",
-          function () {
-            let img_element = $(this);
-            let current_src = img_element.attr("src");
-            let solid_src = "img/bbsdiscuss/heart-solid.svg";
-            let regular_src = "img/bbsdiscuss/heart-regular.svg";
+        // // ============================收藏====================================================================
+        // $("div.bbs_post_up_down_heart_list").on(
+        //   "click",
+        //   "#bbs_heart_img",
+        //   function () {
+        //     let img_element = $(this);
+        //     let current_src = img_element.attr("src");
+        //     let solid_src = "img/bbsdiscuss/heart-solid.svg";
+        //     let regular_src = "img/bbsdiscuss/heart-regular.svg";
 
-            if (current_src === regular_src) {
-              img_element.attr("src", solid_src);
-              bbs_post_heart++; // 收藏的數量加1
-              console.log(bbs_post_heart);
-            } else if (current_src === solid_src) {
-              img_element.attr("src", regular_src);
-              bbs_post_heart--; // 收藏的數量减1
-              console.log(bbs_post_heart);
-            }
-            // 更新收藏的數量
-            img_element.siblings(".bbs_heart_count").text(bbs_post_heart);
-          }
-        );
+        //     if (current_src === regular_src) {
+        //       img_element.attr("src", solid_src);
+        //       bbs_post_heart++; // 收藏的數量加1
+        //       console.log(bbs_post_heart);
+        //     } else if (current_src === solid_src) {
+        //       img_element.attr("src", regular_src);
+        //       bbs_post_heart--; // 收藏的數量减1
+        //       console.log(bbs_post_heart);
+        //     }
+        //     // 更新收藏的數量
+        //     img_element.siblings(".bbs_heart_count").text(bbs_post_heart);
+        //   }
+        // );
       });
+
+      // let bbs_fav = {
+      //   bbsPostId: 1,
+      //   favStatus: 1,
+      // };
+      $("div.bbs_post_up_down_heart_list").on(
+        "click",
+        "#bbs_heart_img",
+        function () {
+          console.log("愛心~~~!!!");
+          $.ajax({
+            url: "/bbsdiscussGet/favStstatus",
+            type: "POST",
+            data: {},
+            dataType: "json",
+            success: function (data) {
+              console.log(data);
+            },
+          });
+        }
+      );
 
       // $(".bbs_send_msg_test").on("click", function () {
       //   console.log("aaa");

@@ -1,12 +1,5 @@
 package com.example.teacherwanted.bbsdiscuss.dto;
 
-import com.example.teacherwanted.active.model.Member;
-import com.example.teacherwanted.bbsdiscuss.model.BbsPost;
-import com.example.teacherwanted.bbsdiscuss.model.BbsTag;
-
-import java.sql.Timestamp;
-import java.util.List;
-
 public class Response {
     private String memAccount;
     private String memName;

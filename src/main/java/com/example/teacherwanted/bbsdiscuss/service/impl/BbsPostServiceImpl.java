@@ -1,10 +1,11 @@
 package com.example.teacherwanted.bbsdiscuss.service.impl;
 
-import com.example.teacherwanted.active.dao.MemberDao;
-import com.example.teacherwanted.active.model.Member;
+import com.example.teacherwanted.active.dao.MemberDaoActive;
+import com.example.teacherwanted.active.model.MemberActive;
 import com.example.teacherwanted.bbsdiscuss.dao.BbsPostDao;
 import com.example.teacherwanted.bbsdiscuss.dto.BbsPostRequest;
-import com.example.teacherwanted.bbsdiscuss.dto.Response;
+import com.example.teacherwanted.bbsdiscuss.dto.FavoriterArticleRequest;
+import com.example.teacherwanted.bbsdiscuss.dto.PostReactionRequest;
 import com.example.teacherwanted.bbsdiscuss.model.*;
 import com.example.teacherwanted.bbsdiscuss.service.BbsPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +18,15 @@ public class BbsPostServiceImpl implements BbsPostService {
     @Autowired
     private BbsPostDao bbsPostDao;
     @Autowired
-    private MemberDao memberDao;
+    private MemberDaoActive memberDaoActive;
 
 
 
     //查找會員資料-編輯文章用
     @Override
-    public Member selectMemBerOrderInfo(Integer id) {
-        Member member = memberDao.selectById(id);
-        Member memberInfo = new Member();
+    public MemberActive selectMemBerOrderInfo(Integer id) {
+        MemberActive member = memberDaoActive.selectById(id);
+        MemberActive memberInfo = new MemberActive();
         memberInfo.setMemId(id);
         memberInfo.setMemName(member.getMemName());
         memberInfo.setMemEmail(member.getMemEmail());
@@ -36,9 +37,9 @@ public class BbsPostServiceImpl implements BbsPostService {
     }
     //  根據文章id取得文章，大頭貼
     @Override
-    public Member getMemById(Integer bbsPostId) {
-        Member member = bbsPostDao.getMemById(bbsPostId);
-        Member memberInfo = new Member();
+    public MemberActive getMemById(Integer bbsPostId) {
+        MemberActive member = bbsPostDao.getMemById(bbsPostId);
+        MemberActive memberInfo = new MemberActive();
         memberInfo.setMemAccount(member.getMemAccount());
         memberInfo.setMemName(member.getMemName());
         memberInfo.setMemPhoto(member.getMemPhoto());
@@ -54,7 +55,12 @@ public class BbsPostServiceImpl implements BbsPostService {
     public FavoriteArticle geFavById(Integer bbsPostId) {
         FavoriteArticle favoriteArticle = bbsPostDao.geFavById(bbsPostId);
         FavoriteArticle favoriteArticleInfo = new FavoriteArticle();
-        favoriteArticleInfo.setFavStatus(favoriteArticle.getFavStatus());
+        if(favoriteArticle == null){
+            favoriteArticleInfo.setFavStatus(0);
+        }else{
+            favoriteArticleInfo.setFavStatus(favoriteArticle.getFavStatus());
+        }
+
         return favoriteArticleInfo;
     }
     //  根據文章id取得文章，按讚狀態
@@ -62,7 +68,11 @@ public class BbsPostServiceImpl implements BbsPostService {
     public PostReaction getReactionById(Integer bbsPostId) {
         PostReaction postReaction = bbsPostDao.getReactionById(bbsPostId);
         PostReaction postReactionInfo = new PostReaction();
-        postReactionInfo.setReactionStatus(postReaction.getReactionStatus());
+        if( (postReaction) == null){
+            postReactionInfo.setReactionStatus(0);
+        }else{
+            postReactionInfo.setReactionStatus(postReaction.getReactionStatus());
+        }
         return postReactionInfo;
     }
 
@@ -73,7 +83,7 @@ public class BbsPostServiceImpl implements BbsPostService {
     }
     //  根據留言id取得，大頭貼
     @Override
-    public Member getBbsCommInfoById(Integer bbsCommentId) {
+    public MemberActive getBbsCommInfoById(Integer bbsCommentId) {
         return bbsPostDao.getBbsCommInfoById(bbsCommentId);
     }
 
@@ -114,10 +124,26 @@ public class BbsPostServiceImpl implements BbsPostService {
     public Integer createBbsPost(BbsPostRequest bbsPostRequest) {
         return bbsPostDao.createBbsPost(bbsPostRequest);
     }
-
-
+    //新增收藏資料
     @Override
-    public List<JoinAll> getBbs() {
-        return bbsPostDao.getBbs();
+    public int createBbsPostFavArt(FavoriterArticleRequest favoriterArticleRequest) {
+        return bbsPostDao.createBbsPostFavArt(favoriterArticleRequest);
+
+    }
+    //依據文章id 跟 status ，取得 收藏數字 (0沒收藏; 1有收藏)
+    @Override
+    public int getBbsPostFavArtById(FavoriterArticleRequest favoriterArticleRequest) {
+//        favStatus  = 0 ,1   (0沒收藏; 1有收藏)
+        return bbsPostDao.getFavoriteCountById(favoriterArticleRequest);
+    }
+    //新增讚/倒讚資料
+    @Override
+    public int createPostReaction(PostReactionRequest postReactionRequest) {
+        return 0;
+    }
+    //依據文章id 跟 status 取得 按讚數字 (0沒按讚; 1有按讚; 2倒讚)
+    @Override
+    public int getPostReactionById(PostReactionRequest postReactionRequest) {
+        return 0;
     }
 }

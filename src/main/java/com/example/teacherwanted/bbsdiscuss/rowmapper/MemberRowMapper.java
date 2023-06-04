@@ -1,15 +1,15 @@
 package com.example.teacherwanted.bbsdiscuss.rowmapper;
 
-import com.example.teacherwanted.active.model.Member;
+import com.example.teacherwanted.active.model.MemberActive;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MemberRowMapper implements RowMapper<Member> {
+public class MemberRowMapper implements RowMapper<MemberActive> {
     @Override
-    public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
-       Member member = new Member();
+    public MemberActive mapRow(ResultSet rs, int rowNum) throws SQLException {
+       MemberActive member = new MemberActive();
        member.setMemId(rs.getInt("mem_id"));
        member.setMemAccount(rs.getString("mem_account"));
        member.setMemPassword(rs.getString("mem_password"));
