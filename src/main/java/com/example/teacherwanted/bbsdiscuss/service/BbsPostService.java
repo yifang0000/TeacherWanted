@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface BbsPostService {
 
-    //   依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or po.html
+    //   依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or bsdiscusspo.html
     MemberActive selectMemBerOrderInfo(Integer id);
     //  根據文章id取得，mem大頭貼
     MemberActive getMemById(Integer bbsPostId);
