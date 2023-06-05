@@ -69,6 +69,16 @@
             <version>4.2.3</version>
         </dependency>
         <!--        redis相關 結束-->
+        <!--        寄信用的-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <!--        thymeleaf相關-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
 
 
     </dependencies>

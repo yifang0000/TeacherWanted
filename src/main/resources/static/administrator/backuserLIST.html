@@ -55,84 +55,22 @@
             <div class="divtitle">懸賞啼雀</div>
           </div>
           <hr />
-          <ul class="list-unstyled"></ul>
+          <ul class="list-unstyled">
+            <!-- =========這邊用check.js放入=============== -->
+          </ul>
         </nav>
       </div>
 
       <!-- 右邊： -->
       <div class="container-right">
         <!-- 右邊的導航欄 -->
-        <header class="p-2 mb-2 mr-0 border-bottom">
-          <div class="container m-0 pr-0">
-            <div
-              class="d-flex nowrap align-items-center justify-content-center justify-content-lg-start"
-            >
-              <div>
-                <button
-                  type="button"
-                  id="collapse"
-                  class="collapse-btn text-start"
-                >
-                  <i class="fa-solid fa-bars"></i>
-                </button>
-              </div>
-              <div class="bartitle">
-                <span> </span>
-              </div>
-              <div class="dropdown text-end ms-auto mb-lg-0 me-lg-0 p-0 m-0">
-                <a
-                  href="#"
-                  class="d-block link-dark text-decoration-none dropdown-toggle"
-                  id="dropdownUser1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span class="barname"></span>
-                  <img
-                    src="../img/logobgg.png"
-                    alt="mdo"
-                    width="32"
-                    height="32"
-                    class="rounded-circle"
-                  />
-                </a>
-                <ul
-                  class="dropdown-menu text-small dropdown-menu-end"
-                  aria-labelledby="dropdownUser1"
-                >
-                  <li>
-                    <a
-                      class="dropdown-item text-center"
-                      href="../administrator/backbarsetting.html"
-                      >帳號設定</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      class="dropdown-item text-center"
-                      href="../administrator/backbarprofile.html"
-                      >個人檔案</a
-                    >
-                  </li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li>
-                    <a
-                      class="dropdown-item text-center"
-                      href="../administrator/backlogin.html"
-                      >登出</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </header>
+        <!-- =========這邊用check.js放入=============== -->
         <div class="main">
           <!--主體文字1  -->
           <section id="section1">
             <div class="pb-1 bg-body-tertiary rounded-3">
               <div class="container-fluid">
-                <p>使用者列表</p>
+                <p>老師列表</p>
               </div>
             </div>
           </section>
@@ -154,11 +92,57 @@
                     <th>手機</th>
                     <th>角色</th>
                     <th>狀態</th>
-                    <th>操作</th>
+                    <th style="width: 133px">操作</th>
                   </tr>
                 </thead>
                 <tbody></tbody>
               </table>
+            </div>
+          </div>
+          <!-- ===================================================== -->
+          <!-- =======================燈箱========================== -->
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">
+                    刪除使用者
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">請確認是否要刪除？</div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    取消
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-dismiss="false"
+                    onclick="sendRequestToServlet()"
+                  >
+                    確認
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
           <!-- ===================================================== -->

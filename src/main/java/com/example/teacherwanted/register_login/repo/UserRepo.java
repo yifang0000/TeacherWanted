@@ -1,0 +1,17 @@
+package com.example.teacherwanted.register_login.repo;
+
+
+import com.example.teacherwanted.register_login.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface UserRepo extends JpaRepository<User, Integer> { //繼承了JPA就可以使用JPA裡面的原生function，裡面存<實體,主鍵>
+    Optional<User> findByMemAccount(String memAccount);
+    public boolean existsByMemAccount(String memAccount);
+    public boolean existsByMemEmail(String memEmail);
+    public User findByMemEmail(String memEmail);
+    public User findByResetPasswordToken(String token);
+}

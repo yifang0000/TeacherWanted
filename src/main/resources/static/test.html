@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="test" id="name">
+<br>
+<input type="file" id="file">
+<br>
+<button id="button">upload</button>
+<br>
+<img>
+</body>
+<script>
+  const name = document.querySelector('#name');
+  const file = document.querySelector('#file');
+  const img = document.querySelector('img');
+  file.addEventListener('change',() => {
+    imgsrc = URL.createObjectURL(file.file[0]);
+  });
+
+  document.querySelector('button').addEventListener('click',() => {
+    alert('xxx');
+  });
+
+
+</script>
+</html>

@@ -1,65 +1,20 @@
 
+
+
 $(document).ready(function(){
     $("#collapse").on("click",function(){
         $("#sidebar").toggleClass("active")
-        // 讓圖示轉換成另一個圖示
-        // $(".fa-bars").toggleClass("fa-arrow-right")
-        // $(".fa-solid").toggleClass("fa-shake")  
         
     })
 
-
-
+    const file = document.querySelector("#p_file");
+    const img = document.querySelector("#eximg");
+    file.addEventListener("change", () => {
+        img.src = URL.createObjectURL(file.files[0]);
+    });
     
-        // =================================表單====================================//
-
-        // 表單圖片//
-        // var input = $('#image_uploads');
-        // var preview = $('.preview');
-
-        // input.css('opacity', '0');
-        // input.on('change', updateImageDisplay);
-
-        // function updateImageDisplay() {
-        //     preview.empty();
-
-        //     if(input.get(0).files.length === 0) {
-        //         var para = $('<p>').text('未選擇任何檔案');
-        //         para.css('line-height', '300px');
-        //         preview.append(para);
-        //     } 
-        //     else {
-        //         var para = $('<p>');
-        //         var image = $('<img>').attr('src', window.URL.createObjectURL(input.get(0).files[0]));
-        //         preview.append(image);
-        //         preview.append(para);
-        //         // input.css('opacity', '0');
-        //     }
-        // }
-
-        // ====================表單驗證===================//
-      // Example starter JavaScript for disabling form submissions if there are invalid fields
-      $(function() {
-        'use strict';
-        
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation');
-        
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-        .forEach(function (form) {
-        $(form).on('submit', function (event) {
-        if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-        }
-        
-            $(form).addClass('was-validated');
-          });
-        });
-        });
       
-        // 銀行代碼
+        // ===============銀行代碼
         fetch('.././json/bankCodes.json')
         .then(response => response.json())
         .then(data => {
@@ -84,217 +39,167 @@ $(document).ready(function(){
           };
         });
 
-        var bankAccountInput = document.getElementById('bankAccount');
 
-        bankAccountInput.addEventListener('blur', function() {
-          var bankAccountValue = bankAccountInput.value;
-          if (bankAccountValue.length < 14) {
-            bankAccountInput.value = '0'.repeat(14 - bankAccountValue.length) + bankAccountValue;
+        console.log(admin)
+        $.ajax({
+          type: 'GET',
+          url: '/teachers/'+admin.adminId,
+          contentType: 'application/json',
+          success: function(data) {
+            $('#teaLocation').val(data.teaLocation);
+            if(data.teaProfile!=null){
+
+              $('#teaProfile').val(data.teaProfile.replace(/<br>/g, '\n'));
+            }
+            $('#teachingSubject1').val(data.teachingSubject1);
+            $('#bankCode').val(data.bankCode);
+            $('#teaLocation').val(data.teaLocation);
+            $('#bankAccount').val(data.bankAccount);
+            $('#teaName').val(data.teaName);
+            var teaPhoto = data.teaPhoto;
+            if (teaPhoto !== null) {
+              $("#eximg").attr("src", "data:image/png;base64," + teaPhoto);
+          }else{
+            $("#eximg").attr("src","../img/logobgg.png")
+          }
+        
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.log("error")
           }
         });
+        
+        console.log(file.files[0])
 
-        // ====================表單送出===================//
-        $(document).ready(function () {
-          $("form.needs-validation").submit(function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-            if (this.checkValidity() === false) {
-              $(this).addClass("was-validated");
-            } else {
-              // 取得表單資料
-              var formData = {
-                username: $("#username").val(),
-                password: $("#password").val(),
-                name: $("#name").val(),
-                email: $("#email").val(),
-                phone: $("#phone").val(),
-                role: $("#role").val(),
-                image_uploads: $("#image_uploads").val(),
-              };
+        $('#btnsubmit').click(function(event) {
+          // console.log("1111");
+          event.preventDefault();
+          console.log(file.files[0])        
+    
 
-              console.log(formData);
-              alert('資料已送出');
-
-
-              // 使用 AJAX 發送 POST 請求
-              // $.ajax({
-              //   type: "POST",
-              //   url: "/api/users",
-              //   data: JSON.stringify(formData),
-              //   contentType: "application/json",
-              //   success: function () {
-              //     // 顯示彈窗
-              //     alert('資料已送出');
-              //   },
-              //   error: function () {
-              //     console.log(data);
-              //   },
-              // });
-
-
-            }
-          });
-        });
-
-
-
-
-        // =================================表格====================================//
-
-        $("#adminTable").DataTable({
-          // "serverSide": false, 
-
-          ajax: {
-            url: "http://localhost:8081/Project3/administrators",
-            dataSrc: "",
-          },
-          columns: [
-            { data: "adminId" },
-            { data: "adminAccount" },
-            { data: "adminPassword" },
-            { data: "adminName" },
-            { data: "adminEmail" },
-            { data: "adminPhone" },
-            // 如果資料為1顯示"管理員"、2則顯示"老師"
-            {
-              data: "permissionId",
-              render: function (data, type, row) {
-                if (data == 1) {
-                  return "管理員";
-                } else if (data == 2) {
-                  return "老師";
-                } else {
-                  return "";
-                }
-              },
-            },
-
-            // 如果資料為0則顯示"停權"、1則顯示"正常"
-            {
-              data: "adminStatus",
-              render: function (data, type, row) {
-                if (data == 0) {
-                  return "停權";
-                } else if (data == 1) {
-                  return "正常";
-                } else {
-                  return "";
-                }
-              },
-            },
-            {
-              data: null,
-              render: function (data, type, row) {
-                return (
-                  '<button id="editbtn" class="btn btn-outline-danger btn-sm p-0" data-id="' +
-                  row.adminId +
-                  '">修改</button><button id="showbtn" class="showbtn btn btn-outline-success btn-sm p-0" data-id="' +
-                  row.adminId +
-                  '">預覽</button>'
-                );
-              },
-            },
-
-            // 如果按下按鈕是跳轉至其他頁面 可改寫為：
-            // {
-            //   data: null,
-            //   render: function (data, type, row) {
-            //     var editUrl =
-            //       'edit-admin.php?id=' + row.adminId;
-            //     var deleteUrl =
-            //       'delete-admin.php?id=' + row.adminId;
-            //     return (
-            //       '<a class="btn btn-outline-success btn-sm p-0 mr-2" style="width: 50%; height: 100%; display: flex; align-items: center; justify-content: center;" href="' +
-            //       editUrl +
-            //       '">修改</a><a class="btn btn-outline-danger btn-sm p-0" style="width: 50%; height: 100%; display: flex; align-items: center; justify-content: center;" href="' +
-            //       deleteUrl +
-            //       '">刪除</a>'
-            //     );
-            //   },
-            // },
-          ],
-          columnDefs: [
-            {
-              targets: [1, 2, 3, 4, 5, 6, 7],
-              className: "align-middle",
-            },
-            {
-              targets: [8],
-              orderable: false,
-              "searchable": false
-            },
-            {
-              "targets": [1, 2], // 隱藏第2和第3欄
-              "visible": false,
-              "searchable": false
-            },
-          ],
           
-              // 表格翻譯
-          language: {
-            "lengthMenu": "顯示 _MENU_ 筆資料",
-            "sProcessing": "處理中...",
-            "sZeroRecords": "没有匹配结果",
-            "sInfo": "_START_ 至 _END_ / 共 _TOTAL_ 筆",
-            "sInfoEmpty": "目前共有 0 筆紀錄",
-            "sInfoFiltered": " ",
-            "sInfoPostFix": "",
-            "sSearch": "搜尋:",
-            "sUrl": "",
-            "sEmptyTable": "尚未有資料紀錄存在",
-            "sLoadingRecords": "載入資料中...",
-            "sInfoThousands": ",",
-            "oPaginate": {
-                "sFirst": "首頁",
-                "sPrevious": "上一頁",
-                "sNext": "下一頁",
-                "sLast": "末頁"
-            },
-            "order": [[0, "desc"]],
-            "oAria": {
-                "sSortAscending": ": 以升序排列此列",
-                "sSortDescending": ": 以降序排列此列"
+
+               // 檢查每個 input 元素的值
+               var allInputsFilled = true;
+               $(".needvalue").each(function() {
+                 if ($(this).val() === "") {
+                   allInputsFilled = false;
+                   console.log("有空值")
+                   return false;  // 結束迴圈
+                 }
+               });
+     
+               // 如果所有 input 元素都有值，執行送出資料的動作
+               if (allInputsFilled) {
+               } else {
+                 // 如果有任何一個 input 元素沒有值，提示使用者填寫完整
+                 alert("請填寫完整資料！");
+                 return;
+               }
+     
+          // =====隨機產生密碼===============
+            var randomCode = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            for (var i = 0; i < 8; i++) {
+              randomCode += characters.charAt(Math.floor(Math.random() * characters.length));
             }
-        },
-        });
+                    // 建立 Date 物件
+                    var date = new Date();
+    
+                    // 取得年、月、日、時、分、秒
+                    var year = date.getFullYear();
+                    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+                    var day = ('0' + date.getDate()).slice(-2);
+                    var hours = ('0' + date.getHours()).slice(-2);
+                    var minutes = ('0' + date.getMinutes()).slice(-2);
+                    var seconds = ('0' + date.getSeconds()).slice(-2);
+    
+                    // 格式化日期時間字串
+                    var nowdate = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+    
+            // ===============修改老師=====//
 
 
-        //         // 綁定 click 事件
-        // $("#adminTable tbody").on("click", "button", function () {
-        //   // 取得所在列的資料
-        //   var data = $("#adminTable").DataTable().row($(this).parents("tr")).data();
-        //   console.log(data);
-        //   // 在這裡加入對該列資料的修改功能
-        // });
+            // ========上傳圖片處理================ //
+            // if(沒有上傳圖片){}，做不同的ajex
+            if(file.files[0]===undefined){
+              var formDataEdit = {
+                adminId: admin.adminId,
+                teaProfile: $('#teaProfile').val(),
+                // teaPhoto: btoa(e.target.result),
+                teaLocation: $('#teaLocation').val(),
+                teachingSubject1: $('#teachingSubject1').val(),
+                bankCode: $('#bankCode').val(),
+                bankAccount: $('#bankAccount').val(),
+                teaName: $('#teaName').val(),
+            };
+                            // 發送 POST 請求到 "/test/t1"
+                            fetch("/teachers/"+admin.adminId, {
+                              method: "PUT",
+                              headers: {
+                                  "Content-Type": "application/json"
+                              },
+                              body: JSON.stringify(formDataEdit)
+                          })
+                          .then(response => {
+                              if (response.ok) {
+                                  alert("成功");
+                                  location.reload()
+                              } else {
+                                  alert("失敗");
+                              }
+                          })
+                          .catch(error => {
+                              alert("请求失败: " + error);
+                          });
+                          
+            }else{
+              const fr = new FileReader();
+              // 當 FileReader 讀取完成時觸發事件
+                fr.addEventListener("load", e => {
+                  var formDataEdit = {
+                    adminId: admin.adminId,
+                    teaProfile: $('#teaProfile').val(),
+                    teaPhoto: btoa(e.target.result),
+                    teaLocation: $('#teaLocation').val(),
+                    teachingSubject1: $('#teachingSubject1').val(),
+                    bankCode: $('#bankCode').val(),
+                    bankAccount: $('#bankAccount').val(),
+                    teaName: $('#teaName').val(),
+                };
+                console.log(formDataEdit)
+                            // 發送 POST 請求到 "/test/t1"
+                            fetch("/teachers/"+admin.adminId, {
+                              method: "PUT",
+                              headers: {
+                                  "Content-Type": "application/json"
+                              },
+                              body: JSON.stringify(formDataEdit)
+                          })
+                          .then(response => {
+                              if (response.ok) {
+                                  alert("成功");
+                                  location.reload()
+                              } else {
+                                  alert("失敗");
+                              }
+                          })
+                          .catch(error => {
+                              alert("请求失败: " + error);
+                          });
+              });
+              // 以二進位字串讀取選擇的檔案
+              fr.readAsBinaryString(file.files[0]);
+            }
 
-        // ================表格內的按鈕綁定點擊事件========================= //
-        $("#adminTable").on("click", "#editbtn", function () {
-            // 取得所在列的id
-          var adminId = $(this).data("id");
-          // 在這裡加入對該列資料的修改功能
-          console.log(adminId);
-        });
+            
+    
+    })
 
-        $("#adminTable").on("click", "#showbtn", function () {
-            // 取得所在列的id
-          var adminId = $(this).data("id");
-          // 在這裡加入對該列資料的預覽功能
-          console.log(adminId);
-        });
+
 })
-
-
 
 // =====================使textarea裡的文字可以換行
 
-$('#btntest').click(function() {
-  var textareaValue = $('#teaProfile').val();
-console.log(textareaValue);
-var htmlValue = textareaValue.replace(/\n/g, '<br>');
-$('#output').html(htmlValue);
-var gsonObject = {
-  teaProfile: htmlValue
-};
-var gsonString = JSON.stringify(gsonObject);
-console.log(gsonString);
-});
+
+

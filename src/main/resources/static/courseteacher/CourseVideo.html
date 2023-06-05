@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- bootstrap相關 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+    <!-- bootstrap相關 -->
+    <!-- vue與axios -->
+    <script src="../js/courseJS/vue.js"></script>
+    <script src="../js/courseJS/axios.min.js"></script>
+    <!-- vue與axios -->
+    <link href="../css/course/baseVer2.css" rel="stylesheet" type="text/css" />
+    <link href="../css/course/course.css" rel="stylesheet" type="text/css" />
+    <link href="../css/course/lesson.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="../jquery/jquery-3.6.4.min.js"></script>
+    <script src="../js/courseJS/base.js"></script>
+    <script src="../js/courseJS/page.js"></script>
+
+    <title>Document</title>
+    <style>
+      #the_video {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body class="TeacherWanted">
+    <!-- 手機板導引列(粗糙) -->
+    <header class="TeacherWanted">
+      <div id="mySidebar">
+        <img src="../img/base/logo.png" alt="" />
+        <a href="#" class="">首頁</a>
+        <a href="#" class="">課程</a>
+        <a href="#" class="">活動</a>
+        <a href="#" class="">許願池</a>
+        <a href="#" class="">論壇</a>
+        <a href="#" class="">商城</a>
+      </div>
+      <div class="navBar">
+        <ul class="containerHearder flexWrap flexVerticalCenter">
+          <li>
+            <img
+              src="../img/base/menu.png"
+              id="phoneMenu"
+              class="mobileHave"
+              style="height: 30px; margin: 10px"
+              alt=""
+            />
+          </li>
+
+          <li
+            class="flexWrap flexAllCenter"
+            style="font-size: 50px; color: #a4c964; margin: 10px 0px"
+          >
+            <img
+              src="../img/base/logo.png"
+              class="miniMobile"
+              style="height: 50px; margin: 0px 5px"
+              alt=""
+            />
+            <p>懸賞啼雀</p>
+          </li>
+          <li
+            class="flexWrap"
+            style="
+              flex-grow: 1;
+              display: flex;
+              align-items: center;
+              justify-content: end;
+            "
+          >
+            <!-- 電腦版導引列 -->
+            <div
+              id="navLink"
+              class="flexWrap flexAllCenter pcHave"
+              style="flex-grow: 1"
+            >
+              <a class="flexAllCenter" href="">首頁</a>
+              <a class="flexAllCenter" href="">課程</a>
+              <a class="flexAllCenter" href="">活動</a>
+              <a class="flexAllCenter" href="">許願池</a>
+              <a class="flexAllCenter" href="">論壇</a>
+              <a class="flexAllCenter" href="">商城</a>
+            </div>
+            <div
+              class="flexWrap flexAllCenter"
+              style="position: relative; top: 2px"
+            >
+              <div id="searchHead" class="miniMobile">
+                <form id="navSearch" ref="navSearch"
+                      @submit.prevent="handleSearch">
+                  <select>
+                    <option>課程</option>
+                    <option>活動</option>
+                    <option>商城</option>
+                    <option>許願</option>
+                  </select>
+                  <input type="text" v-model="keyword"/>
+                  <img src="../img/base/search.svg"
+                       id="searchButton"
+                       @click="handleSearch"/>
+                </form>
+              </div>
+              <img
+                src="../img//base/mailForNavbar.svg"
+                class="miniMobile"
+                style="
+                  height: 30px;
+                  margin: 3px 5px;
+                  cursor: pointer;
+                  position: relative;
+                  bottom: 1px;
+                "
+                alt=""
+              />
+              <img
+                src="../img/base/shoppingCart.svg"
+                class="miniMobile"
+                style="height: 30px; margin: 3px 5px; cursor: pointer"
+                alt=""
+              />
+              <img
+                src="../img/base/bell.svg"
+                class="miniMobile"
+                style="height: 30px; margin: 3px 5px; cursor: pointer"
+                alt=""
+              />
+
+              <a class="btnCss flexAllCenter" style="color: white" href=""
+                >登入</a
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <main id="app" class="TeacherWanted">
+      <!-- ！！！寫在這裡！！！
+      如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
+      <!-- 畫面區 -->
+      <section>
+        <div class="lessionBackgroundPic">
+          <div class="containerLession">
+            <div
+              class="forFlex"
+              style="
+                box-shadow: 0 4px 8px 0 rgba(81, 81, 81, 0.2),
+                  0 6px 20px 0 rgba(0, 0, 0, 0.19);
+              "
+              v-if="courseWithPhotoUrl"
+            >
+              <!-- 課程影片 -->
+              <div
+                class="col_55"
+                style="display: flex"
+                v-for="(chapter, index) in chapters"
+                v-show="index === selectedChapterIndex"
+              >
+                <!-- <video
+                  :src="playVideo(chapter)"
+                  controls
+                  id="the_video"
+                ></video> -->
+                <iframe
+                  :src="getChapterYoutubeUrl(chapter)"
+                  width="100%"
+                  height="100%"
+                  frameborder="0"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <!-- 課程簡介 -->
+              <div
+                class="col_45 forAllCenterFlex"
+                style="background-color: black"
+              >
+                <ul>
+                  <!-- 章節與名稱 -->
+                  <li
+                    style="
+                      font-size: 30px;
+                      text-align: left;
+                      color: white;
+                      cursor: pointer;
+                    "
+                    v-for="(chapter, index) in chapters"
+                    @click="selectChapter(index)"
+                    :class="{ selected: index === selectedChapterIndex, hovered: isChapterHovered(index) }"
+                    @mouseover="hoverChapter(index)"
+                    @mouseleave="hoverChapter(-1)"
+                  >
+                    第{{chapter.chapterOrder}}章 {{chapter.chapterTitle}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col_55" v-else="courseWithPhotoUrl">尚無圖片</div>
+            <!-- 課程簡介結束 -->
+          </div>
+        </div>
+      </section>
+      <!-- 分隔線 -->
+      <div class="split"></div>
+      <!-- 課程介紹那欄 -->
+      <section id="pageLinkAll" style="background-color: rgb(242, 252, 241)">
+        <ul
+          class="forHorizontalCenterFlex"
+          style="max-width: 1065px; margin: 0 auto"
+        >
+          <!-- 課程介紹 -->
+          <li
+            id="pageLinkBackground1"
+            class="MobileNone col_25 forAllCenterFlex pageTouching"
+          >
+            <img
+              src="../img/lession/left-arrow.png"
+              class="PcNone left-arrow"
+              style="height: 30%"
+            />
+            <h2 id="pageLink1" class="pageLinkText forAllCenterFlex">
+              課程介紹
+            </h2>
+            <img
+              src="../img/lession/right-arrow.png"
+              class="PcNone right-arrow"
+              style="height: 30%"
+            />
+          </li>
+          <!-- 老師介紹 -->
+          <li
+            id="pageLinkBackground2"
+            class="MobileNone col_25 forAllCenterFlex pageTouching"
+          >
+            <img
+              src="../img/lession/left-arrow.png"
+              class="PcNone left-arrow"
+              style="height: 30%"
+            />
+            <h2 id="pageLink2" class="pageLinkText forAllCenterFlex">
+              老師介紹
+            </h2>
+            <img
+              src="../img/lession/right-arrow.png"
+              class="PcNone right-arrow"
+              style="height: 30%"
+            />
+          </li>
+          <!-- 課程評價 -->
+          <li
+            id="pageLinkBackground3"
+            class="MobileNone col_25 forAllCenterFlex pageTouching"
+          >
+            <img
+              src="../img/lession/left-arrow.png"
+              class="PcNone left-arrow"
+              style="height: 30%"
+            />
+            <h2 id="pageLink3" class="pageLinkText forAllCenterFlex">
+              課程評價
+            </h2>
+            <img
+              src="../img/lession/right-arrow.png"
+              class="PcNone right-arrow"
+              style="height: 30%"
+            />
+          </li>
+          <!-- 問題討論 -->
+          <li
+            id="pageLinkBackground4"
+            class="MobileNone col_25 forAllCenterFlex pageTouching"
+          >
+            <img
+              src="../img/lession/left-arrow.png"
+              class="PcNone left-arrow"
+              style="height: 30%"
+            />
+            <h2 id="pageLink4" class="pageLinkText forAllCenterFlex">
+              問題討論
+            </h2>
+            <img
+              src="../img/lession/right-arrow.png"
+              class="PcNone right-arrow"
+              style="height: 30%"
+            />
+          </li>
+        </ul>
+      </section>
+      <!-- 課程介紹那欄結束 -->
+      <!-- 分頁1 課程介紹 -->
+      <section id="page1" class="containerLession" v-if="courseWithPhotoUrl">
+        <h1>課程資訊</h1>
+        <h1>&nbsp;</h1>
+        <h3>●課程時數：{{courseWithPhotoUrl.courseLength}}小時</h3>
+        <h3>●觀看期限：{{courseWithPhotoUrl.coolingOffPeriod}} 個月。</h3>
+        <h3>●同學人數：{{courseWithPhotoUrl.boughtCount}}人</h3>
+        <h3>●章節單元數：</h3>
+        <h1>&nbsp;</h1>
+
+        <h1>課程簡介</h1>
+        <h1>&nbsp;</h1>
+        <h3 v-html="courseWithPhotoUrl.courseDetail"></h3>
+        <h1>&nbsp;</h1>
+
+        <h1>課程目標</h1>
+        <h1>&nbsp;</h1>
+        <h3>◆瞭解 Java SE 平台的應用和相關的開發環境。</h3>
+        <h3>◆掌握 Java 程式語言的基本概念、語法結構和開發技術。</h3>
+        <h3>◆熟悉面向對象程式設計的基本概念和設計模式。</h3>
+        <h3>◆學習如何開發出簡單的應用程式。</h3>
+        <h3>◆增強解決問題和調試程式的能力。</h3>
+        <h1>&nbsp;</h1>
+
+        <h1>上課前需要先準備</h1>
+        <h1>&nbsp;</h1>
+        <h3>
+          為了讓學員在課堂上能夠更好地理解和學習，建議學員在開始課程前先熟悉以下內容：
+          Java SE 平台的基本概念和開發環境的使用方法；
+          基本的程式設計概念，例如流程控制、變數類型、陣列等；
+          熟悉面向對象程式設計的基本概念。
+        </h3>
+        <h1>&nbsp;</h1>
+
+
+      </section>
+      <section class="" v-else="teacherWithPhotoUrl">尚無圖片</section>
+      <!-- 分頁1 課程介紹結束 -->
+
+      <!-- 分頁2 老師介紹開始 -->
+      <section id="page2" class="containerLession">
+        <div class="bulletinBoard borderShadow">
+          <div class="introduceTeacher" v-if="teacherWithPhotoUrl">
+            <h1>老師介紹</h1>
+            <h1>&nbsp;</h1>
+            <div class="forFlex">
+              <!-- 老師頭貼那區 -->
+              <div class="forHorizontalCenterFlex col_40">
+                <ul class="forHorizontalCenterFlex teacherPhoto">
+                  <li class="forHorizontalCenterFlex">
+                    <img :src="teacherWithPhotoUrl.teacherPhotoUrl" alt="" />
+                  </li>
+                  <li class="forHorizontalCenterFlex" style="padding-top: 5%">
+                    <h3>{{teacher.teaName}}</h3>
+                  </li>
+                  <li class="forHorizontalCenterFlex" style="padding-top: 5%">
+                    <h3>資深工程師</h3>
+                  </li>
+                  <li class="forHorizontalCenterFlex" style="padding-top: 5%">
+                    <h2
+                            class="btn"
+                            style="
+                      width: 50%;
+                      display: flex;
+                      align-self: center;
+                      justify-content: center;
+                    "
+                            @click="teaInfoClick(course)"
+                    >
+                      更多課程
+                    </h2>
+                  </li>
+                </ul>
+              </div>
+              <!-- 老師頭貼那區結束 -->
+
+              <!-- 老師簡介 -->
+              <div class="col_60">
+                <h1>&nbsp;</h1>
+                <h3>JAVA 語言課程將由具有豐富實踐經驗的專業講師擔任。</h3>
+                <h3>他熟悉 Java SE 平台的開發技術和相關工具，</h3>
+                <h3>能夠向學員講解清晰易懂的課程內容，</h3>
+                <h3>解答學員的問題，並提供實用的開發技巧。</h3>
+                <h3>他們還擁有豐富的實踐經驗，能夠引導學員掌握開發技能，</h3>
+                <h3>並在學習過程中給予指導和建議。</h3>
+                <h3>JAVA 語言課程將由具有豐富實踐經驗的專業講師擔任。</h3>
+                <h3>他熟悉 Java SE 平台的開發技術和相關工具，</h3>
+                <h3>能夠向學員講解清晰易懂的課程內容，</h3>
+                <h3>解答學員的問題，並提供實用的開發技巧。</h3>
+                <h3>他們還擁有豐富的實踐經驗，能夠引導學員掌握開發技能，</h3>
+                <h3>並在學習過程中給予指導和建議。</h3>
+              </div>
+              <!-- 老師簡介結束 -->
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- 分頁2 老師介紹結束 -->
+
+      <!-- 分頁3 課程評價 -->
+      <section
+        id="page3"
+        class="containerLession"
+        style="background-color: rgb(252, 248, 232)"
+      >
+        <!-- 平均星級以及評價 -->
+        <div class="forFlex" style="background-color: rgb(252, 248, 232); display: flex; align-content: center">
+          <h1 style="font-size: 40px; color: #3fb652; margin-bottom: 10px">3.7</h1>
+          <ul style="margin:10px 2% 0 2%">
+            <li style="height: 25px">
+              <img src="../img/lession/starFull.png" style="height: 100%" />
+              <img src="../img/lession/starFull.png" style="height: 100%" />
+              <img src="../img/lession/starFull.png" style="height: 100%" />
+              <img src="../img/lession/starHalf.png" style="height: 100%" />
+              <img src="../img/lession/starNull.png" style="height: 100%" />
+            </li>
+          </ul>
+          <h4 style="margin:10px 2% 0 0">256則評論</h4>
+          <!-- 填寫評價 -->
+          <div style="margin:10px 2% 0 2%;"><button type="button" class="btn btn-success">填寫評價</button></div>
+<!--          <div style="margin:10px 2% 0 2%;"><button type="button" class="btn btn-success">修改評價</button></div>-->
+          <!-- 填寫評價結束 -->
+        </div>
+        <!-- 平均星級以及評價結束 -->
+        <!-- 分隔線 -->
+        <div class="split"></div>
+        <!-- 評論 -->
+        <div class="forFlex" style="padding: 1%; box-sizing: border-box">
+          <div class="forHorizontalCenterFlex" style="width: 20%">
+            <div class="member_name">
+              <img src="../img/lession/student2.png" />
+              <span><span>壞喵喵</span><br />評論:</span>
+            </div>
+          </div>
+          <div style="width: 80%">
+            <ul>
+              <!-- 星級以及時間 -->
+              <li class="forVerticalCenterFlex" style="height: 20px">
+                <img src="../img/lession/starFull.png" style="height: 100%" />
+                <img src="../img/lession/starHalf.png" style="height: 100%" />
+                <img src="../img/lession/starNull.png" style="height: 100%" />
+                <img src="../img/lession/starNull.png" style="height: 100%" />
+                <img src="../img/lession/starNull.png" style="height: 100%" />
+                <h1>&nbsp;&nbsp;&nbsp;</h1>
+                <h3>2023/4/8</h3>
+              </li>
+              <!-- 星級以及時間結束 -->
+              <!-- 評論文字內容 -->
+              <li style="padding-top: 1%">
+                <h3>Bad :(((</h3>
+              </li>
+              <!-- 評論文字內容結束 -->
+            </ul>
+          </div>
+        </div>
+        <hr />
+        <!-- 評論結束 -->
+        <!-- 評論 -->
+        <div class="forFlex" style="padding: 1%; box-sizing: border-box">
+          <div class="forHorizontalCenterFlex" style="width: 20%">
+            <div class="member_name">
+              <img src="../img/lession/student1.png" />
+              <span><span>喵喵</span><br />評論:</span>
+            </div>
+          </div>
+          <div style="width: 80%">
+            <ul>
+              <!-- 星級以及時間 -->
+              <li class="forVerticalCenterFlex" style="height: 20px">
+                <img src="../img/lession/starFull.png" style="height: 100%" />
+                <img src="../img/lession/starFull.png" style="height: 100%" />
+                <img src="../img/lession/starFull.png" style="height: 100%" />
+                <img src="../img/lession/starFull.png" style="height: 100%" />
+                <img src="../img/lession/starFull.png" style="height: 100%" />
+                <h1>&nbsp;&nbsp;&nbsp;</h1>
+                <h3>2023/4/7</h3>
+              </li>
+              <!-- 星級以及時間結束 -->
+              <!-- 評論文字內容 -->
+              <li style="padding-top: 1%">
+                <h3>優質好老師</h3>
+              </li>
+              <!-- 評論文字內容結束 -->
+            </ul>
+          </div>
+        </div>
+        <hr />
+        <div class="more">
+          <h5>顯示更多...</h5>
+        </div>
+        <!-- 評論結束 -->
+      </section>
+      <!-- 分頁3 課程評價結束 -->
+
+      <!-- 分頁4 問題討論 -->
+      <section
+        id="page4"
+        class="containerLession"
+        style="background-color: rgb(252, 248, 232)"
+      >
+        <!-- 問題查詢 -->
+        <div class="forFlex" style="background-color: rgb(252, 248, 232)">
+          <ul style="margin-left: 2%">
+            <li style="height: 25px">
+              <div class="">
+                <form id="navSearch" action="">
+                  <input
+                    type="text"
+                    style="background-color: white; font-size: 10px"
+                    placeholder="發問前可以先找找類似問題唷"
+                  />
+                  <img src="../img/base/search.svg" alt="" />
+                </form>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- 問題查詢結束 -->
+        <!-- 填寫問題 -->
+        <div class="question">
+          <div
+            class="forHorizontalCenterFlex"
+            style="
+              width: 20%;
+              justify-content: center;
+              padding: 20px 20px 20px 20px;
+            "
+          >
+            <div class="member_name">
+              <img src="../img/lession/student1.png" />
+              <span>喵喵</span>
+            </div>
+          </div>
+          <div style="width: 80%">
+            <h3>我要發問:</h3>
+            <textarea
+              type="text"
+              id="input-box"
+              class="feedback"
+              name="input-box"
+              rows="5"
+              cols="50"
+            ></textarea>
+
+            <ul>
+              <!-- 按鈕 -->
+              <li class="comment" style="height: 20px">
+                <div class="submit">
+                  <button class="btn">清空</button>
+                  <button class="btn">送出</button>
+                </div>
+              </li>
+              <!-- 按鈕結束 -->
+            </ul>
+          </div>
+        </div>
+        <!-- 填寫問題結束 -->
+        <!-- 分隔線 -->
+        <div class="split"></div>
+        <!-- 問題 -->
+        <div class="forFlex" style="padding: 1%; box-sizing: border-box">
+          <!-- 發問者 -->
+          <div class="forHorizontalCenterFlex" style="width: 20%">
+            <div class="member_name">
+              <img src="../img/lession/student2.png" /><br />
+              <span><span>壞喵喵</span><br />發問:</span>
+            </div>
+          </div>
+          <!-- 發問者結束 -->
+          <div style="width: 80%">
+            <ul>
+              <!-- 時間 -->
+              <li class="forVerticalCenterFlex" style="height: 20px">
+                <h3>2023/4/8</h3>
+              </li>
+              <!-- 時間結束 -->
+              <!-- 問題內容 -->
+              <li style="padding-top: 1%">
+                <h3>人類，罐頭ㄋ</h3>
+              </li>
+              <!-- 問題內容結束 -->
+              <!-- 回覆區塊 -->
+              <div class="replybox">
+                <!-- 留言 -->
+                <div
+                  class="forFlex"
+                  style="padding: 1%; box-sizing: border-box"
+                >
+                  <!-- 回覆者 -->
+                  <div class="forHorizontalCenterFlex" style="width: 20%">
+                    <div class="member_name">
+                      <img src="../img/lession/teacher.png" /><br />
+                      <span><span>三重金城武</span><br />回覆:</span>
+                    </div>
+                  </div>
+                  <!-- 回覆者結束 -->
+                  <div style="width: 80%">
+                    <ul>
+                      <!-- 時間 -->
+                      <li class="forVerticalCenterFlex" style="height: 20px">
+                        <h3>2023/4/8</h3>
+                      </li>
+                      <!-- 時間結束 -->
+                      <!-- 回覆內容 -->
+                      <li style="padding-top: 1%">
+                        <h3>不管你在哪，永遠都有你的罐頭。</h3>
+                      </li>
+                      <!-- 回覆內容結束 -->
+                    </ul>
+                  </div>
+                </div>
+                <hr />
+                <!-- 留言結束 -->
+
+                <!-- 留言 -->
+                <div
+                  class="forFlex"
+                  style="padding: 1%; box-sizing: border-box"
+                >
+                  <div class="forHorizontalCenterFlex" style="width: 20%">
+                    <div class="member_name">
+                      <img src="../img/base/TeacherPhoto.png" /><br />
+                      <span><span>教師喵喵</span><br />回覆:</span>
+                    </div>
+                  </div>
+                  <div style="width: 80%">
+                    <ul>
+                      <!-- 時間 -->
+                      <li class="forVerticalCenterFlex" style="height: 20px">
+                        <h3>2023/4/7</h3>
+                      </li>
+                      <!-- 時間結束 -->
+                      <!-- 回覆內容 -->
+                      <li style="padding-top: 1%">
+                        <h3>
+                          public class Meow { <br />
+                          public static void main(String[] args) { <br />
+                          int kun = 100; int times = kun / 10; <br />
+                          //每次喵一次10元，一個罐頭100元，計算要喵幾次 <br />
+                          System.out.println("我要喵 " + times + " 次！");
+                          <br />
+                          } }
+                        </h3>
+                      </li>
+                      <!-- 回覆內容結束 -->
+                    </ul>
+                  </div>
+                </div>
+                <hr />
+                <!-- 留言結束 -->
+                <div class="more">
+                  <h5>顯示更多...</h5>
+                </div>
+                <div class="reply">
+                  <img src="../img/base/reply.png" />
+                  <h5>回覆</h5>
+                </div>
+              </div>
+              <!-- 回覆區塊結束 -->
+            </ul>
+          </div>
+        </div>
+        <hr />
+        <!-- 問題結束 -->
+
+        <!-- 問題 -->
+        <div class="forFlex" style="padding: 1%; box-sizing: border-box">
+          <!-- 發問者 -->
+          <div class="forHorizontalCenterFlex" style="width: 20%">
+            <div class="member_name">
+              <img src="../img/lession/dog.png" /><br />
+              <span><span>汪汪</span><br />發問:</span>
+            </div>
+          </div>
+          <!-- 發問者結束 -->
+          <div style="width: 80%">
+            <ul>
+              <!-- 時間 -->
+              <li class="forVerticalCenterFlex" style="height: 20px">
+                <h3>2023/4/7</h3>
+              </li>
+              <!-- 時間結束 -->
+              <!-- 問題內容 -->
+              <li style="padding-top: 1%">
+                <h3>汪汪汪汪汪汪（有汪汪老師嗎？）</h3>
+              </li>
+              <!-- 回覆區塊 -->
+              <div class="replybox">
+                <div
+                  class="forFlex"
+                  style="padding: 1%; box-sizing: border-box"
+                >
+                  <!-- 回覆者 -->
+                  <div class="forHorizontalCenterFlex" style="width: 20%">
+                    <div class="member_name">
+                      <img src="../img/lession/student2.png" /><br />
+                      <span><span>壞喵喵</span><br />回覆:</span>
+                    </div>
+                  </div>
+                  <!-- 回覆者結束 -->
+                  <div style="width: 80%">
+                    <ul>
+                      <!-- 時間 -->
+                      <li class="forVerticalCenterFlex" style="height: 20px">
+                        <h3>2023/4/8</h3>
+                      </li>
+                      <!-- 時間結束 -->
+                      <!-- 回覆內容 -->
+                      <li style="padding-top: 1%">
+                        <h3>Bad :(((</h3>
+                      </li>
+                      <!-- 回覆內容結束 -->
+                    </ul>
+                  </div>
+                </div>
+                <hr />
+                <!-- 回覆區塊結束 -->
+                <!-- 回覆區塊 -->
+                <div
+                  class="forFlex"
+                  style="padding: 1%; box-sizing: border-box"
+                >
+                  <!-- 回覆者 -->
+                  <div class="forHorizontalCenterFlex" style="width: 20%">
+                    <div class="member_name">
+                      <img src="../img/lession/student1.png" /><br />
+                      <span><span>喵喵</span><br />回覆:</span>
+                    </div>
+                  </div>
+                  <!-- 回覆者結束 -->
+                  <div style="width: 80%">
+                    <ul>
+                      <!-- 時間 -->
+                      <li class="forVerticalCenterFlex" style="height: 20px">
+                        <h3>2023/4/7</h3>
+                      </li>
+                      <!-- 時間結束 -->
+                      <!-- 回覆內容 -->
+                      <li style="padding-top: 1%">
+                        <h3>喵（沒有。）</h3>
+                      </li>
+                      <!-- 回覆內容結束 -->
+                    </ul>
+                  </div>
+                </div>
+                <hr />
+                <!-- 回覆區塊結束 -->
+                <!-- 回覆區塊 -->
+                <div
+                  class="forFlex"
+                  style="padding: 1%; box-sizing: border-box"
+                >
+                  <!-- 回覆者 -->
+                  <div class="forHorizontalCenterFlex" style="width: 20%">
+                    <div class="member_name">
+                      <img src="../img/lession/dog.png" /><br />
+                      <span><span>汪汪</span><br />回覆:</span>
+                    </div>
+                  </div>
+                  <!-- 回覆者結束 -->
+                  <div style="width: 80%">
+                    <ul>
+                      <!-- 時間 -->
+                      <li class="forVerticalCenterFlex" style="height: 20px">
+                        <h3>2023/4/7</h3>
+                      </li>
+                      <!-- 時間結束 -->
+                      <!-- 回覆內容 -->
+                      <li style="padding-top: 1%">
+                        <h3>汪（哭阿。）</h3>
+                      </li>
+                      <!-- 回覆內容結束 -->
+                    </ul>
+                  </div>
+                </div>
+                <hr />
+                <!-- 回覆區塊結束 -->
+                <div class="more">
+                  <h5>顯示更多...</h5>
+                </div>
+                <div class="reply">
+                  <img src="../img/base/reply.png" />
+                  <h5>回覆</h5>
+                </div>
+              </div>
+              <!-- 問題內容結束 -->
+            </ul>
+          </div>
+        </div>
+        <hr />
+        <!-- 問題結束 -->
+        <div class="more">
+          <h5>顯示更多...</h5>
+        </div>
+      </section>
+      <!-- 分頁4 問題討論結束 -->
+      <!-- 精選課程 -->
+      <div class="ver2">
+        <div id="app">
+          <div class="container">
+            <div>精選課程<span class="more">更多課程></span></div>
+            <ul class="item_list">
+              <li
+                v-for="(course, i) in coursesWithPhotoUrl"
+                :key="i"
+                @click="handleClick(course)"
+              >
+                <div class="img_block">
+                  <img :src="course.coursesPhotoUrl" alt="" />
+                </div>
+                <div class="col">{{ course.courseName }}</div>
+                <div class="col" style="color: #3fb652">
+                  NT{{ course.coursePrice }}
+                </div>
+                <div class="col">{{ getTeacherName(course.teaId) }}</div>
+                <div class="col">
+                  {{ course.boughtCount }}人<span class="more"
+                    >{{ course.courseLength }}小時</span
+                  >
+                </div>
+                <div class="col">
+                  <span class="star" data-star="1"
+                    ><i class="fas fa-star"></i
+                  ></span>
+                  <span class="star" data-star="2"
+                    ><i class="fas fa-star"></i
+                  ></span>
+                  <span class="star" data-star="3"
+                    ><i class="fas fa-star"></i
+                  ></span>
+                  <span class="star" data-star="4"
+                    ><i class="fas fa-star"></i
+                  ></span>
+                  <span class="star" data-star="5"
+                    ><i class="fas fa-star"></i
+                  ></span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 畫面區 -->
+    </main>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const courseId = urlParams.get("courseId");
+      const courseDetailMixin = {
+        methods: {
+          teaInfoClick(course) {
+            const teaId = course.teaId;
+            const targetUrl = `./TeacherInfoVue.html?teaId=${teaId}`;
+            window.location.href = targetUrl;
+          },
+          handleClick(course) {
+            const courseId = course.courseId;
+            const targetUrl = `./CourseDetailVue.html?courseId=${courseId}`;
+            window.location.href = targetUrl;
+          },
+          getTeacherName(teaId) {
+            const teacher = this.teachers.find(
+              (teacher) => teacher.teaId === teaId
+            );
+            return teacher ? teacher.teaName : "";
+          },
+        },
+      };
+      new Vue({
+        el: "#app",
+        data() {
+          return {
+            courses: [],
+            course: null,
+            teacher: null,
+            teachers: [],
+            chapters: [],
+            youtubeUrl: null,
+            videoURL: "", // 影片資料
+            chapterVideoURLs: {}, // 新增章節影片 URL 的物件
+            selectedChapterIndex: 0, // 添加新属性并初始化为 1
+            hoveredChapterIndex: -1, // 添加新属性并初始化为 -1
+          };
+        },
+        computed: {
+          courseWithPhotoUrl() {
+            if (this.course) {
+              return {
+                ...this.course,
+                coursePhotoUrl: `data:image/png;base64,${this.course.coursePhoto1}`,
+              };
+            }
+            return null;
+          },
+          teacherWithPhotoUrl() {
+            if (this.teacher) {
+              return {
+                ...this.teacher,
+                teacherPhotoUrl: `data:image/png;base64,${this.teacher.teaPhoto}`,
+              };
+            }
+            return null;
+          },
+          coursesWithPhotoUrl() {
+            return this.courses.map((course) => ({
+              ...course,
+              coursesPhotoUrl: `data:image/png;base64,${course.coursePhoto1}`,
+            }));
+          },
+        },
+        methods: {
+          getChapterYoutubeUrl(chapter) {
+            if (chapter && chapter.chapterLink) {
+              return `https://www.youtube.com/embed/${chapter.chapterLink}`;
+            }
+            return "";
+          },
+          selectChapter(index) {
+            this.selectedChapterIndex = index;
+          },
+          hoverChapter(index) {
+            this.hoveredChapterIndex = index;
+          },
+          // 判断章节是否被鼠标悬停
+          isChapterHovered(index) {
+            return index === this.hoveredChapterIndex;
+          },
+          playVideo(chapter) {
+            if (chapter && chapter.chapterFile) {
+              const binaryData = atob(chapter.chapterFile);
+              const arrayBuffer = new ArrayBuffer(binaryData.length);
+              const uint8Array = new Uint8Array(arrayBuffer);
+
+              for (let i = 0; i < binaryData.length; i++) {
+                uint8Array[i] = binaryData.charCodeAt(i);
+              }
+
+              const blob = new Blob([uint8Array], { type: "video/mp4" });
+              const videoURL = URL.createObjectURL(blob);
+
+              console.log(videoURL);
+              return videoURL; // 回傳影片 URL
+            }
+            return ""; // 如果沒有影片資料，回傳空字串
+          },
+        },
+        mixins: [courseDetailMixin],
+
+        mounted() {
+          axios
+            .get("http://localhost:8080/course/" + courseId)
+            .then((courseResponse) => {
+              this.course = courseResponse.data;
+              console.log(this.course);
+              return axios.get(
+                "http://localhost:8080/teachers/" + this.course.teaId
+              );
+            })
+            .then((teacherResponse) => {
+              this.teacher = teacherResponse.data;
+              console.log(this.teacher);
+              return axios.get("http://localhost:8080/courses");
+            })
+            .then((coursesResponse) => {
+              this.courses = coursesResponse.data;
+              console.log(this.courses);
+              return axios.get("http://localhost:8080/teachers");
+            })
+            .then((teachersResponse) => {
+              this.teachers = teachersResponse.data;
+              console.log(this.teachers);
+              return axios.get("http://localhost:8080/chapters/" + courseId);
+              // 儲存數據
+            })
+            .then((chapterResponse) => {
+              this.chapters = chapterResponse.data;
+              console.log(this.chapters);
+              this.getChapterYoutubeUrl();
+              // this.playVideo(this.chapters[0]);
+              this.chapters.forEach((chapter, index) => {
+                console.log(chapter.videoUrl);
+
+                this.playVideo(chapter);
+              });
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        },
+      });
+      new Vue({
+        el: "#searchHead",
+        data() {
+          return {
+            keyword: "",
+            category: "課程",
+          };
+        },
+        methods: {
+          handleSearch() {
+            const params = new URLSearchParams();
+            params.append("keyword", this.keyword);
+            params.append("category", this.category);
+
+            const url = `http://localhost:8080/courses/${this.keyword}`;
+            const urlResult = `./CourseSearchRsVue.html?${params.toString()}`;
+            window.location.href = urlResult;
+
+            axios
+                    .get(url)
+                    .then((response) => {
+                      // 更新 courses 數組
+                      bus.$emit("search-results", response.data);
+                      console.log(this.courses);
+                    })
+                    .catch((error) => {
+                      console.error(error);
+                    });
+          },
+        },
+      });
+    </script>
+    <footer
+      class="TeacherWanted"
+      style="background-color: #3c6a36; color: white"
+    >
+      <div
+        class="containerFooter flexAllCenter"
+        style="box-sizing: border-box; padding-top: 50px"
+      >
+        <div class="flexWrap">
+          <ul class="col_33">
+            <li class="flexAllCenter" style="color: #a4c964; font-size: 40px">
+              懸賞啼雀
+            </li>
+            <li
+              class="flexAllCenter"
+              style="margin: 10px 30px; font-weight: normal"
+            >
+              Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
+              dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
+              elitr stet diam duo eos rebum ipsum diam ipsum elitr.
+            </li>
+            <li
+              id="imgIcon"
+              class="flexVerticalCenter"
+              style="margin: 20px 30px"
+            >
+              <img src="../img/base/facebook.svg" class="imgIntroduce" alt="" />
+              <img src="../img/base/twitter.svg" class="imgIntroduce" alt="" />
+              <img src="../img/base/instagram.svg" class="imgIntroduce" alt="" />
+            </li>
+          </ul>
+          <ul class="col_33 flexHorizontalCenter footerMobile">
+            <div style="width: 70%">
+              <li
+                class="flexAllCenter"
+                style="color: #a4c964; font-size: 30px; height: 65px"
+              >
+                Get In Touch
+              </li>
+              <div class="" style="height: 250px; font-weight: 400">
+                <li class="flexWrap" style="margin-top: 10px">
+                  <img
+                    src="../img/base/map-marker.svg"
+                    style="height: 24px; padding-right: 10px; margin-top: 6px"
+                    alt=""
+                  />
+                  <div>
+                    <h3 style="font-size: 1.3rem">地址</h3>
+                    <h5 style="font-size: 1rem">123</h5>
+                  </div>
+                </li>
+
+                <li class="flexWrap" style="margin-top: 10px">
+                  <img
+                    src="../img/base/mail.svg"
+                    style="height: 24px; padding-right: 10px; margin-top: 6px"
+                    alt=""
+                  />
+                  <div>
+                    <h3 style="font-size: 1.3rem">信箱</h3>
+                    <h5 style="font-size: 1rem">a1234567890@gmail.com</h5>
+                  </div>
+                </li>
+
+                <li class="flexWrap" style="margin-top: 10px">
+                  <img
+                    src="../img/base/phone.svg"
+                    style="height: 24px; padding-right: 10px; margin-top: 6px"
+                    alt=""
+                  />
+                  <div>
+                    <h3 style="font-size: 1.3rem">連絡電話</h3>
+                    <h5 style="font-size: 1rem">0900123456</h5>
+                  </div>
+                </li>
+              </div>
+            </div>
+          </ul>
+          <ul class="col_33 flexHorizontalCenter footerMobile">
+            <div style="width: 40%">
+              <li
+                class="flexAllCenter"
+                style="color: #a4c964; font-size: 30px; height: 65px"
+              >
+                網站地圖
+              </li>
+              <div class="webMap">
+                <li style="margin-top: 5px">
+                  <a class="webMapLink" href="">>首頁</a>
+                </li>
+                <li style="margin-top: 5px">
+                  <a class="webMapLink" href="">>課程</a>
+                </li>
+                <li style="margin-top: 5px">
+                  <a class="webMapLink" href="">>活動</a>
+                </li>
+                <li style="margin-top: 5px">
+                  <a class="webMapLink" href="">>許願池</a>
+                </li>
+                <li style="margin-top: 5px">
+                  <a class="webMapLink" href="">>論壇</a>
+                </li>
+                <li style="margin-top: 5px">
+                  <a class="webMapLink" href="">>商城</a>
+                </li>
+              </div>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

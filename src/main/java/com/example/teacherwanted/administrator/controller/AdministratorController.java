@@ -2,8 +2,6 @@ package com.example.teacherwanted.administrator.controller;
 
 import com.example.teacherwanted.administrator.model.Administrator;
 import com.example.teacherwanted.administrator.service.AdministratorService;
-import com.example.teacherwanted.administrator.service.impl.AdministratorServiceImpl;
-import com.example.teacherwanted.coupon.model.Coupon;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class AdministratorController {
@@ -22,6 +18,8 @@ public class AdministratorController {
     @Autowired
     private AdministratorService administratorService;
 
+//    @Autowired
+//    private TeacherService teacherService;
 
     //    查詢全部：[restful設計]無論查詢列表有無資料，都需要回傳200給前端
 //    @SessionAttribute("adminSession") Administrator administrator1
@@ -34,8 +32,9 @@ public class AdministratorController {
     //    新增使用者
     @PostMapping("/administrators/insert")
     public ResponseEntity<?> insert(@RequestBody Administrator administrator,@SessionAttribute("adminSession") Administrator administrator1) {
-        administratorService.insert(administrator);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        int adminId = administratorService.insert(administrator);
+        System.out.println(adminId);
+        return ResponseEntity.status(HttpStatus.OK).body(adminId);
     }
 
     //    查詢單個：[restful設計]：若該資料查詢不到，須回傳404給前端
@@ -54,10 +53,12 @@ public class AdministratorController {
     //    修改
     @PutMapping("/administrators/{adminId}")
     public ResponseEntity<?> updateByAdminId(@RequestBody Administrator administrator) {
-        System.out.println(administrator);
+//        System.out.println(administrator);
         administratorService.updateByAdminId(administrator);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+
 
     //    刪除
     @DeleteMapping("/administrators/{adminId}")
@@ -72,6 +73,8 @@ public class AdministratorController {
                                                HttpSession session){
         Administrator administrator1 = administratorService.login(administrator);
         session.setAttribute("adminSession", administrator1);
+//        Teacher teacher = teacherService.selectByAdminId(administrator1.getAdminId());
+//        session.setAttribute("teacherSession",teacher);
         log.info(administrator1.getAdminName() + "登入ㄌ");
         return ResponseEntity.status(HttpStatus.OK).body(administrator1);
     }
@@ -83,5 +86,21 @@ public class AdministratorController {
         return ResponseEntity.status(HttpStatus.OK).body(administrator1);
     }
 //    登出
+    @GetMapping("/administrators/logout")
+    public ResponseEntity<String> logout(HttpSession session){
+        String message;
+        if(session.getAttribute("adminSession")!=null){
+            Administrator admin = (Administrator) session.getAttribute("adminSession");
+            message =  admin.getAdminName()+"登出ㄌ";
+            log.info(message);
+            session.removeAttribute("adminSession");
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        }else{
+            message = "沒有session";
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        }
+
+    }
+
 
 }

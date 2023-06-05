@@ -162,6 +162,7 @@ $(document).ready(function(){
             contentType: 'application/json',
             success: function(response) {
               alert('成功');
+              location.href = 'backcouponList.html'; 
             },
             error: function(jqXHR, textStatus, errorThrown) {
               alert('失敗' );
