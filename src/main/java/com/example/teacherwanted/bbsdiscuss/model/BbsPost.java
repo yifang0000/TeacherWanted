@@ -32,6 +32,8 @@ public class BbsPost {
 
     private Integer postStatus;  //文章狀態
 
+    private Integer postFav;  //收藏人數
+
     public Integer getBbsPostId() {
         return bbsPostId;
     }
@@ -126,5 +128,13 @@ public class BbsPost {
 
     public void setPostStatus(Integer postStatus) {
         this.postStatus = postStatus;
+    }
+
+    public Integer getPostFav() {
+        return postFav;
+    }
+
+    public void setPostFav(Integer postFav) {
+        this.postFav = postFav;
     }
 }
