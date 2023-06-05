@@ -26,7 +26,7 @@ public class Wish {
 
     @Column(name = "wish_location")
     private String wishLocation;
-    @Column(name = "wish_students")
+    @Column(name = "wish_student")
     private String wishStudents;
     @Column(name = "wish_period")
     private String wishPeriod;
