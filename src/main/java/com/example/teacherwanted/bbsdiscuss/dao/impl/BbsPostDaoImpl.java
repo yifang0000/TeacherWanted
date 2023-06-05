@@ -40,7 +40,37 @@ public class BbsPostDaoImpl implements BbsPostDao {
         return query.getResultList();
 
     }
-//依文章id取得會員資料  -回傳 Member物件 - post.html的發文者
+    //根據 memid 取得  按讚數據
+    @Override
+    public List<FavoriteArticle> geFavByMemId(Integer memId) {
+        String sql = "SELECT favorite_article_id, bbs_post_id, mem_id, create_time, fav_status " +
+                " FROM FAVORITE_ARTICLE WHERE mem_id = :memId AND fav_status = 1 " ;
+        Map<String, Object> map = new HashMap<>();
+        map.put("memId", memId);
+        List<FavoriteArticle> favoriteArticleList = namedParameterJdbcTemplate.query(sql, map, new FavClickRowMapper());
+        if(favoriteArticleList.size() > 0){
+            return favoriteArticleList;
+        }else {
+            return null;
+        }
+    }
+
+    //根據 memid 取得 按讚數據
+    @Override
+    public List<PostReaction> getRectionByMemId(Integer memId) {
+        String sql = "SELECT post_reaction_id, bbs_post_id, mem_id, reaction_status " +
+                " FROM POST_REACTION WHERE mem_id = :memId AND reaction_status = 1 " ;
+        Map<String, Object> map = new HashMap<>();
+        map.put("memId", memId);
+        List<PostReaction> postReactionList = namedParameterJdbcTemplate.query(sql, map, new PostReactionRowMapper());
+        if(postReactionList.size() > 0){
+            return postReactionList;
+        }else {
+            return null;
+        }
+    }
+
+    //依文章id取得會員資料  -回傳 Member物件 - post.html的發文者
     @Override
     public MemberActive getMemById(Integer bbsPostId) {
         String sql = "SELECT m.mem_id, m.mem_account, m.mem_password, m.mem_name, m.mem_phone, m.mem_nickname, m.mem_birthday, " +

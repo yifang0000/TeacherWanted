@@ -22,6 +22,15 @@ public class BbsPostController {
     @Autowired
     private BbsPostService bbsPostService;
 
+    //把session傳到前端
+    @GetMapping("/bbsdiscussGet/session")
+    public Integer sessionToFront(@SessionAttribute(value = "MemberId", required = false) Integer memId){
+        if (memId == null) {
+            return 0;
+        } else {
+            return memId;
+        }
+    }
 
 
 
@@ -38,6 +47,28 @@ public class BbsPostController {
 
         }
 
+    }
+    //根據 memId 取得 收藏數據 及 按讚數據
+    @GetMapping("/bbsdiscussGet/favandreaction")
+    public ResponseEntity <ResponseFandR> getFavAndReactionByMemId(@SessionAttribute(value = "MemberId", required = false) Integer memId) {
+        System.out.println("test//根據 memid 取得 收藏數據 及 按讚數據");
+
+        List<FavoriteArticle> favoriteArticleList = bbsPostService.geFavByMemId(memId);
+        List<PostReaction> postReactionList = bbsPostService.getRectionByMemId(memId);
+        ResponseFandR responseFandR = new ResponseFandR();
+        responseFandR.setFavoriteArticleList(favoriteArticleList);
+        responseFandR.setPostReactionList(postReactionList);
+
+        if (memId == null) {
+            // 如果未獲取到會員ID，返回相應錯誤
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        if (responseFandR != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(responseFandR);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     //  根據文章id取得文章，大頭貼，tag，文章分類，收藏狀態，按讚狀態
@@ -370,19 +401,4 @@ public class BbsPostController {
         bbsPostService.updateBbsCommStatus(bbsCommUpdateStatus.getBbsCommentId(), bbsCommUpdateStatus);
         return ResponseEntity.status(HttpStatus.OK).body("留言刪除成功");
     }
-//    //修改收藏狀態為 0 (隱藏)  , 原本預設 1 (有收藏)
-//    @PutMapping("/bbsdiscussGet/bbsfavstatus")
-//    public ResponseEntity<?> updateFavStatus(@RequestBody @Valid BbsFavStatus bbsFavStatus,
-//                                             @SessionAttribute(value = "MemberId", required = false) Integer memId) {
-//        if (memId == null) {
-//            // 如果未獲取到會員ID，返回相應錯誤
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//        System.out.println(memId);
-//        System.out.println(bbsFavStatus.getFavoriteArticleId());
-//        //修改收藏狀態為 0 (隱藏)
-//        //更新收藏 id 為 favoriteArticleId ,她要修改的參數物件 bbsFavStatus
-//        bbsPostService.updateFavStatus(bbsFavStatus.getFavoriteArticleId(), bbsFavStatus);
-//        return ResponseEntity.status(HttpStatus.OK).body("取消收藏成功");
-//    }
 }
