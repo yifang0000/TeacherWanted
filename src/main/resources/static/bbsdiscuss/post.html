@@ -691,7 +691,7 @@
                                       <img src=${memPhotocomm5} class="img-fluid rounded-start" alt="頭像" />
                                     </div>
                                     <div class="col-md-6">
-                                      <h5 id="bbs_title_test" class="card-title">${memNamecomm5}<p style="color: white;">${bbsCommentId}</p></h5>
+                                      <h5 id="bbs_title_test" class="card-title">${memNamecomm5}<p id="bbsCommentId" style="color: white;">${bbsCommentId}</p></h5>
                                       <h6 id="bbs_title_test2" class="card-subtitle mb-2 text-muted bbs_pare">
                                         ${commentContent}
                                       </h6>
@@ -1031,6 +1031,14 @@
           });
         });
         // ==========================================刪除留言==========================================================
+        let bbsCommentId = $("#bbsCommentId").text();
+        console.log(
+          "有bbsCommentId嗎??????????????????????????????????????bbsCommentId"
+        );
+        console.log(bbsCommentId);
+        console.log(
+          "有bbsCommentId嗎??????????????????????????????????????bbsCommentId"
+        );
         $(".bbs_comment_list").on("click", "#bbs_xmark_img", function () {
           //按確定後刪除留言
           $(".bbs_comment_list").on("click", ".btn_bbs_sure2", function () {
@@ -1038,9 +1046,8 @@
             $(this).closest("li").fadeOut(1000);
             // 淡出效果完成後關閉燈箱效果
             $(this).closest(".modal").modal("hide");
-            const urlParams = new URLSearchParams(window.location.search);
-            const bbsPostId = urlParams.get("bbsPostId");
-            console.log(bbsPostId);
+            // 使用jQuery的text()方法
+
             let json_data_comm_status = {
               bbsCommentId: 6,
               commentStatus: 0,
