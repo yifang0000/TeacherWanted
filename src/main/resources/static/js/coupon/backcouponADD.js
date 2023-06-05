@@ -1,5 +1,7 @@
 
 $(document).ready(function(){
+  var test=sessionStorage.getItem('adminStorage');
+console.log(test)
     $("#collapse").on("click",function(){
         $("#sidebar").toggleClass("active")
       })
@@ -127,7 +129,7 @@ $(document).ready(function(){
             
                 if (toannADDCheckbox.checked) {
                   
-                  annTest=`優惠代碼：${$('#couponCode').val()}<br />有效期間：${forDateTime('activateTime')}~${forDateTime('expirationDate')}<br />折扣金額：${$('#discount').val()}<br />${htmlValue}`
+                  annTest=`優惠代碼：${$('#couponCode').val()}<br>有效期間：${forDateTime('activateTime')}~${forDateTime('expirationDate')}<br>折扣金額：${$('#discount').val()}<br>${htmlValue}`
                   var formDataAnn = {
                     adminId:admin.adminId,
                     annTitle:`${forDate('activateTime')}~${forDate('expirationDate')}優惠券`,
@@ -152,10 +154,28 @@ $(document).ready(function(){
                   }
                 });
                
-                } else if (toEmailCheckbox.checked) {
-                  checkedBox=`/2`;
                 }
-
+                if(toEmailCheckbox.checked){
+                  var mailbody={
+                    recipient:`javatha10127@gmail.com`,
+                    msgBody:`優惠代碼：${$('#couponCode').val()}\n有效期間：${forDateTime('activateTime')}~${forDateTime('expirationDate')}\n折扣金額：${$('#discount').val()}\n${htmlValue}`,
+                    subject:"懸賞啼雀｜限時優惠券！"
+                }
+                console.log(mailbody)
+                $.ajax({
+                  type: 'POST',
+                  url: '/sendMail',
+                  data: JSON.stringify(mailbody),
+                  contentType: 'application/json',
+                    success: function(response) {
+                      alert('寄信成功！');
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+    
+                        alert("發生錯誤");
+                    }
+                });
+                }
 
                  // =====================ajax======//
                  var formData = {

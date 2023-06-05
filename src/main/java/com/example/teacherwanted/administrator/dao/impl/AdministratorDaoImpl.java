@@ -48,7 +48,7 @@ public class AdministratorDaoImpl implements AdministratorDao {
 //                .setParameter("lastUpdatedDate", new Date());
 //        return query.executeUpdate();
                  entityManager.persist(administrator);
-        System.out.println(administrator.getAdminId());
+//        System.out.println(administrator.getAdminId());
         Integer NewadminId = administrator.getAdminId();
         return NewadminId;
     }
@@ -134,7 +134,7 @@ public class AdministratorDaoImpl implements AdministratorDao {
 
     @Override
     public Administrator selectByAccount(String adminAccount) {
-        final String sql = "SELECT * FROM ADMINISTRATOR WHERE admin_account = :adminAccount";
+        String sql = "SELECT * FROM ADMINISTRATOR WHERE admin_account = :adminAccount";
         List<Administrator> resultList = entityManager.createNativeQuery(sql, Administrator.class)
                 .setParameter("adminAccount", adminAccount)
                 .getResultList();

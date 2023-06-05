@@ -28,6 +28,7 @@
   />
   <script src="../jquery/jquery-3.6.4.min.js"></script>
   <script src="../js/base.js"></script>
+  <script src="../js/auth.js"></script>
 
   <style media="screen">
     *,
@@ -64,8 +65,8 @@
       text-align: center;
     }
 
-    #password,#confirmpw
-    {
+    #email
+     {
       display: block;
       height: 50px;
       width: 100%;
@@ -76,11 +77,11 @@
       font-size: 20px;
       font-weight: 300;
     }
-    #password,#confirmpw {
+    #validText {
       display: block;
       height: 50px;
       width: 50%;
-      background-color: #88f4ba;
+      background-color: rgba(255, 255, 255, 0.363);
       border-radius: 3px;
       padding: 0 10px;
       margin-top: 8px;
@@ -89,10 +90,10 @@
     }
 
     ::placeholder {
-      color: #b6b6b6;
+      color: #e5e5e5;
     }
 
-    #mail,#password,#confirmpw {
+    #mail {
       margin-top: 20px;
       width: 100%;
       background-color: #ffffff;
@@ -124,7 +125,7 @@
 
 
   </style>
-  <title>Document</title>
+  <title>忘記密碼</title>
 </head>
 <body class="TeacherWanted">
 <!-- 手機板導引列(粗糙) -->
@@ -213,7 +214,7 @@
                   alt=""
           />
           <img
-                  src="/img/base/shoppingCart.svg"
+                  src="../img/base/shoppingCart.svg"
                   class="miniMobile"
                   style="height: 30px; margin: 3px 5px; cursor: pointer"
                   alt=""
@@ -245,29 +246,15 @@
 
 <main class="TeacherWanted">
 
-  <form action="/reset_password" th:object="${user}" method="post" id="myform">
-    <h3>重新設定密碼</h3>
+  <form action="/forgotpassword" th:object="${user}" method="post" id="myform">
+    <h3>忘記密碼</h3>
     <br />
-    <input type="hidden" name="token" th:value="${token}">
-    <input type="password" placeholder="輸入新密碼" th:field="*{memPassword}" name="password" id="password" />
-    <br />
-    <input type="password" placeholder="再次輸入新密碼"  name="confirmpw" id="confirmpw" />
+    <!--        <input type="text" placeholder="請輸入帳號" th:field="*{memAccount}" name="memAccount" id="memAccount" />-->
+    <!--        <br />-->
+    <input type="text" placeholder="請輸入信箱" th:field="*{memEmail}" name="email" id="email" />
     <br />
 
-    <button type="submit" id="mail" value="Send">送出</button>
-
-    <script >
-      $(function () {
-        $("#myform").on("submit", function (e) {
-          if ( $("#password").val() !== $("#confirmpw").val() ) {
-            e.preventDefault();
-            alert("再次確認密碼與設定密碼不一致");
-            return
-          }
-        });
-      });
-
-    </script>
+    <button type="submit" id="mail" value="Send">寄送重設密碼信</button>
 
   </form>
 
@@ -338,7 +325,7 @@
 
             <li class="flexWrap" style="margin-top: 10px">
               <img
-                      src="/img/base/mail.svg"
+                      src="../img/base/mail.svg"
                       style="height: 24px; padding-right: 10px; margin-top: 6px"
                       alt=""
               />

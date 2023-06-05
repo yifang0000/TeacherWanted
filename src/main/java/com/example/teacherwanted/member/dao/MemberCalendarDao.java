@@ -1,7 +1,7 @@
-package com.example.teacherwanted.active.dao;
+package com.example.teacherwanted.member.dao;
 
-import com.example.teacherwanted.active.model.MemberCalendar;
 import com.example.teacherwanted.core.dao.CoreDao;
+import com.example.teacherwanted.member.model.MemberCalendar;
 
 import java.util.List;
 
