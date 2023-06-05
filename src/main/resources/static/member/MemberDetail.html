@@ -35,6 +35,9 @@
       crossorigin="anonymous"
     ></script>
 
+    <!--   Jquery   -->
+    <script src="/jquery/jquery-3.6.4.min.js"></script>
+
     <title>懸賞啼雀-會員資料</title>
   </head>
   <body class="TeacherWanted">
@@ -161,11 +164,41 @@
                 <div>
                   <form id="navSearch" action="">
                     <select style="width: 125px; margin-left: 80px" name="formal" onchange="javascript:handleSelect(this)">
-                      <option value="MemberCenter">我的課程</option>
-                      <option value="MemberDetail">會員資料</option>
-                      <option value="MySubscribe">訂閱與收藏</option>
-                      <option value="OrderList">訂單管理</option>
-                      <option>站內信</option>
+                      <option value="MemberCenter">
+                        <a
+                          class="flexAllCenter"
+                          href="/member/MemberCenter.html"
+                        ></a>
+                        我的課程
+                      </option>
+                      <option value="MemberDetail">
+                        <a
+                          class="flexAllCenter"
+                          href="/member/MemberDetail.html"
+                        ></a>
+                        會員資料
+                      </option>
+                      <option value="MySubscribe">
+                        <a
+                          class="flexAllCenter"
+                          href="/member/MySubscribe.html"
+                        ></a>
+                        訂閱與收藏
+                      </option>
+                      <option value="orderList">
+                        <a
+                          class="flexAllCenter"
+                          href="/member/OrderList.html"
+                        ></a>
+                        訂單管理
+                      </option>
+                      <option value="inboxmail">
+                        <a
+                          class="flexAllCenter"
+                          href="/inboxmail/inbox.html"
+                        ></a>
+                        站內信
+                      </option>
                     </select>
                   </form>
                 </div>

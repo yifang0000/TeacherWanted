@@ -76,6 +76,9 @@ $(document).ready(function(){
           event.preventDefault();
           console.log(file.files[0])        
     
+
+          
+
                // 檢查每個 input 元素的值
                var allInputsFilled = true;
                $(".needvalue").each(function() {
@@ -117,8 +120,8 @@ $(document).ready(function(){
             // ===============修改老師=====//
 
 
-            // ========圖片處理================ //
-            
+            // ========上傳圖片處理================ //
+            // if(沒有上傳圖片){}，做不同的ajex
             if(file.files[0]===undefined){
               var formDataEdit = {
                 adminId: admin.adminId,
@@ -141,6 +144,7 @@ $(document).ready(function(){
                           .then(response => {
                               if (response.ok) {
                                   alert("成功");
+                                  location.reload()
                               } else {
                                   alert("失敗");
                               }
@@ -165,7 +169,7 @@ $(document).ready(function(){
                 };
                 console.log(formDataEdit)
                             // 發送 POST 請求到 "/test/t1"
-                            fetch("http://localhost:8080/teachers/"+admin.adminId, {
+                            fetch("/teachers/"+admin.adminId, {
                               method: "PUT",
                               headers: {
                                   "Content-Type": "application/json"
@@ -175,6 +179,7 @@ $(document).ready(function(){
                           .then(response => {
                               if (response.ok) {
                                   alert("成功");
+                                  location.reload()
                               } else {
                                   alert("失敗");
                               }

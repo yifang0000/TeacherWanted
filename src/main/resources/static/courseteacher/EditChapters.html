@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- 加上 viewport 的設定 -->
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>懸賞啼雀後台</title>
+    <!-- backindex的css連結 -->
+    <link rel="stylesheet" href="../css/course/back.css"/>
+
+
+    <link rel="stylesheet" href="../css/course/courseBackEdit.css"/>
+
+    <!-- Bootstrap 連結1 -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+            crossorigin="anonymous"
+    />
+    <!-- 表格的 -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
+    />
+    <!-- JQuery連結 -->
+    <script src="../jquery/jquery-3.6.4.min.js"></script>
+
+    <!-- vue與axios -->
+    <script src="../js/courseJS/vue.js"></script>
+    <script src="../js/courseJS/axios.min.js"></script>
+    <!-- vue與axios -->
+    <!-- 上稿器連結 -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
+</head>
+<body>
+<!-- 設定字體 -->
+<!-- 可從這邊調整https://fonts.google.com/share?selection.family=DotGothic16%7CNoto%20Sans%20TC:wght@100;300;400;500;700;900 -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link
+        href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet"
+/>
+
+<div class="container-all">
+    <!-- 左邊(側邊欄) -->
+    <!-- accordion與下方的data-bs-parent="#accordion一個sublist打開時讓其他關閉 -->
+    <div class="container-left" id="accordion">
+        <nav id="sidebar">
+            <!-- 展開/縮起按鈕 -->
+            <div class="div1">
+                <!-- list列表,加入list-unstyled可去除列表的點點 -->
+
+                <div class="divtitle">後台管理</div>
+            </div>
+            <hr/>
+            <ul class="list-unstyled">
+                <li>
+                    <!-- 收和展開href="#sublist" data-bs-toggle="collapse" id="dropdown" -->
+                    <a href="#sublist1" data-bs-toggle="collapse" id="dropdown"
+                    >使用者管理 <i class="fa-solid fa-gears"></i
+                    ></a>
+                    <!-- 子連結 -->
+                    <ul
+                            id="sublist1"
+                            class="list-unstyled collapse"
+                            data-bs-parent="#accordion"
+                    >
+                        <li><a href="#">使用者列表</a></li>
+                        <li><a href="#">新增使用者</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">會員管理<i class="fa-solid fa-user"></i></a>
+                </li>
+                <li>
+                    <a href="#sublist2" data-bs-toggle="collapse" id="dropdown"
+                    >課程管理<i class="fa-solid fa-graduation-cap"></i
+                    ></a>
+                    <ul
+                            id="sublist2"
+                            class="list-unstyled collapse"
+                            data-bs-parent="#accordion"
+                    >
+                        <li><a href="#">課程列表</a></li>
+                        <li><a href="#">上傳課程</a></li>
+                        <li><a href="#">審核課程</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#sublist3" data-bs-toggle="collapse" id="dropdown"
+                    >活動管理<i class="fa-solid fa-calendar-days"></i
+                    ></a>
+                    <ul
+                            id="sublist3"
+                            class="list-unstyled collapse"
+                            data-bs-parent="#accordion"
+                    >
+                        <li><a href="#">活動列表</a></li>
+                        <li><a href="#">上傳活動</a></li>
+                        <li><a href="#">審核活動</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#sublist4" data-bs-toggle="collapse" id="dropdown"
+                    >商城管理<i class="fa-sharp fa-solid fa-shop"></i
+                    ></a>
+                    <ul
+                            id="sublist4"
+                            class="list-unstyled collapse"
+                            data-bs-parent="#accordion"
+                    >
+                        <li><a href="#">商品列表</a></li>
+                        <li><a href="#">新增商品</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#sublist5" data-bs-toggle="collapse" id="dropdown"
+                    >訂單管理<i class="fa-solid fa-cart-shopping"></i
+                    ></a>
+                    <ul
+                            id="sublist5"
+                            class="list-unstyled collapse"
+                            data-bs-parent="#accordion"
+                    >
+                        <li><a href="#">課程訂單</a></li>
+                        <li><a href="#">活動訂單</a></li>
+                        <li><a href="#">商城訂單</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">許願管理<i class="fa-solid fa-face-smile"></i></a>
+                </li>
+                <li>
+                    <a href="#">論壇管理<i class="fa-solid fa-comments"></i></a>
+                </li>
+                <li>
+                    <a href="#sublist6" data-bs-toggle="collapse" id="dropdown"
+                    >公告管理<i class="fa-solid fa-bell"></i
+                    ></a>
+                    <ul
+                            id="sublist6"
+                            class="list-unstyled collapse"
+                            data-bs-parent="#accordion"
+                    >
+                        <li><a href="#">公告列表</a></li>
+                        <li><a href="#">新增公告</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#sublist7" data-bs-toggle="collapse" id="dropdown"
+                    >優惠碼管理<i class="fa-solid fa-gift"></i
+                    ></a>
+                    <ul
+                            id="sublist7"
+                            class="list-unstyled collapse"
+                            data-bs-parent="#accordion"
+                    >
+                        <li><a href="#">優惠碼列表</a></li>
+                        <li><a href="#">新增優惠碼</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">站內信管理 <i class="fa-solid fa-envelope"></i></a>
+                </li>
+                <li>
+                    <a href="#">客服信管理<i class="fa-solid fa-paper-plane"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- 右邊： -->
+    <div class="container-right">
+        <!-- 右邊的導航欄 -->
+        <header class="p-2 mb-2 border-bottom">
+            <div class="container m-0">
+                <div
+                        class="d-flex nowrap align-items-center justify-content-center justify-content-lg-start"
+                >
+                    <div>
+                        <button
+                                type="button"
+                                id="collapse"
+                                class="collapse-btn text-start"
+                        >
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                    </div>
+                    <div class="bartitle">
+                        <span>懸賞啼雀</span>
+                    </div>
+                    <div class="dropdown text-end ms-auto mb-lg-0 me-lg-0 p-0 m-0">
+                        <a
+                                href="#"
+                                class="d-block link-dark text-decoration-none dropdown-toggle"
+                                id="dropdownUser1"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                        >
+                            <span class="barname"> 歡迎登入 三重金城武 老師</span>
+                            <img
+                                    src="https://github.com/mdo.png"
+                                    alt="mdo"
+                                    width="32"
+                                    height="32"
+                                    class="rounded-circle"
+                            />
+                        </a>
+                        <ul
+                                class="dropdown-menu text-small dropdown-menu-end"
+                                aria-labelledby="dropdownUser1"
+                        >
+                            <li><a class="dropdown-item" href="#">設定</a></li>
+                            <li><a class="dropdown-item" href="#">預覽</a></li>
+                            <li>
+                                <hr class="dropdown-divider"/>
+                            </li>
+                            <li><a class="dropdown-item" href="#">登出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div id="main" class="main">
+            <!--主體文字1  -->
+
+            <!-- ====================主要區========================== -->
+            <div class="containerActiveEdit">
+                <div class="activeBackEditBk">
+                    <div class="flexVerticalCenter activeBackTitle">
+                        <p style="font-size: 2rem">編輯章節</p>
+                    </div>
+                    <div class="containerActiveEdit" style="padding: 20px 10px">
+                        <!-- 表單 開始 -->
+                        <div class="flexWrap oneArea">
+                            <h6>請勾選欲修改的章節</h6>
+                            <!-- 上傳影片類型 開始 -->
+                            <div class="ip2">
+                                上傳類型：
+                                <input
+                                        type="radio"
+                                        name="uploadType"
+                                        v-model="selectedUploadType"
+                                        value="youtube"
+                                />YouTube連結
+                                <input
+                                        type="radio"
+                                        name="uploadType"
+                                        v-model="selectedUploadType"
+                                        value="local"
+                                        checked
+                                />本機檔案
+                            </div>
+                            <!-- 上傳影片類型 結束 -->
+                            <!-- 上傳章節開始 -->
+                            <table class="table">
+                                <thead>
+                                <tr class="table_title">
+                                    <th scope="col"></th>
+                                    <th scope="col">章節名稱</th>
+                                    <th scope="col">影片網址</th>
+                                    <th scope="col">影片資訊</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <template v-for="(chapter, index) in chapters">
+                                    <tr>
+                                        <td class="upload_com">
+                                            <br/>
+                                            <br/>
+                                            <input
+                                                    type="checkbox"
+                                                    style="margin-bottom: 5px"
+                                                    v-model="chapter.isSelected"
+                                                    @click="toggleChapterSelection(index)"
+                                            />
+                                        </td>
+                                        <td class="upload_com">
+                                            <br/>
+                                            <h6>第{{index + 1}}章名稱</h6>
+                                            <input
+                                                    type="text"
+                                                    style="width: 300px; margin-bottom: 5px"
+                                                    v-model="chapter.chapterTitle"
+                                            />
+                                        </td>
+                                        <!-- 章節名稱 結束 -->
+                                        <!-- 影片網址 開始 -->
+                                        <td class="upload_com">
+                                            <br/>
+                                            <div>
+                                                <h6 style="margin-bottom: 5px">影片網址</h6>
+                                            </div>
+                                            <div class="flexVerticalCenter"
+                                                 style="display: flex;flex-direction: column;align-items: flex-start;">
+                                                <input
+                                                        type="text"
+                                                        style="width: 300px; margin-top: 3px"
+                                                        v-model="chapter.chapterLink"
+                                                        v-if="selectedUploadType === 'youtube'"
+                                                        @input="checkUrl(chapter.chapterLink, index)"
+                                                />
+                                                <input
+                                                        type="text"
+                                                        style="width: 300px; margin-top: 3px; background-color: lightgray"
+                                                        v-model="chapter.chapterLink"
+                                                        v-if="selectedUploadType === 'local'"
+                                                        @input="checkUrl(chapter.chapterLink, index)"
+                                                        disabled/>
+                                                <div v-if="chapter.isUrlValid === true">
+                                                    <p style="color: green;font-size: 10px">格式正確</p>
+                                                </div>
+                                                <div v-else-if="chapter.isUrlValid === false">
+                                                    <p style="color: red;font-size: 10px">格式不正確</p>
+                                                </div>
+                                                <div v-else-if="isUrlValid === null && chapter.chapterLink">
+                                                    <p style="color: green;font-size: 10px">原影片網址ID</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <!-- 影片網址 結束 -->
+                                        <!-- 上傳影片開始 -->
+                                        <td class="upload_com">
+                                            <br/>
+                                            <div><h6>上傳影片</h6></div>
+                                            <div class="flexVerticalCenter">
+                                                <input
+                                                        type="file"
+                                                        style="width: 300px"
+                                                        accept="video/*"
+                                                        @change="handleVideoUpload($event, index)"
+                                                        :key="index"
+                                                        v-if="selectedUploadType === 'local'"
+                                                />
+                                                <input
+                                                        type="file"
+                                                        style="width: 300px"
+                                                        accept="video/*"
+                                                        @change="handleVideoUpload($event, index)"
+                                                        :key="index"
+                                                        v-if="selectedUploadType === 'youtube'"
+                                                        disabled/>
+                                            </div>
+                                            <div v-if="chapter.chapterFile">
+                                                <p style="color: green;font-size: 10px">原檔名:{{ chapter.fileName
+                                                    }}</p>
+                                            </div>
+                                        </td>
+                                        <!-- 上傳影片結束 -->
+                                    </tr>
+                                </template>
+                                </tbody>
+                            </table>
+                            <!-- 上傳章節結束 -->
+                            <!-- 表單 結束 -->
+                            <div class="flexAllCenter submitActiveAdd">
+                                <p
+                                        class="flexAllCenter"
+                                        id="submitActiveAddBtn"
+                                        @click="addChapter"
+                                >
+                                    +
+                                </p>
+                                <p
+                                        class="flexAllCenter"
+                                        id="submitActiveAddBtn"
+                                        @click="removeChapter"
+                                >
+                                    -
+                                </p>
+                                <p
+                                        class="flexAllCenter"
+                                        id="submitActiveAddBtn"
+                                        @click="goBack"
+                                >
+                                    取消
+                                </p>
+                                <p
+                                        class="flexAllCenter"
+                                        id="submitActiveAddBtn"
+                                        @click="updateChapter"
+                                >
+                                    送出
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================================================== -->
+        </div>
+    </div>
+</div>
+<!-- FontAwesome 連結 -->
+<script
+        src="https://kit.fontawesome.com/664595efd5.js"
+        crossorigin="anonymous"
+></script>
+<!-- JQuery連結 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<!-- backindex的JS連結 -->
+<script src="../js/courseJS/backindex.js"></script>
+<!-- Bootstrap 連結2 -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"
+></script>
+
+<!-- table連結 -->
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseId = urlParams.get("courseId");
+    new Vue({
+        el: "#main",
+        data() {
+            return {
+                course: {}, // 假設course是您的查詢結果對象
+                selectedUploadType: "youtube",
+                courseName: this.courseName,
+                courseCategoryId: this.courseCategoryId,
+                courseDetail: "",
+                coursePre: "",
+                coursePrice: this.coursePrice,
+                courseLength: this.courseLength,
+                coolingOffPeriod: this.coolingOffPeriod,
+                coursePhotos: {
+                    coursePhoto1: null,
+                    coursePhoto2: null,
+                    coursePhoto3: null,
+                },
+                chapterOrder: "",
+                index: 0,
+                chapters: [], // Array to store dynamic chapters
+                selectedIndexes: [],  // 儲存選擇的index
+                chapterPhoto: null,
+                chapterFile: null,
+                //回傳資訊
+                coursePhotoUrl1: null,
+                coursePhotoUrl2: null,
+                coursePhotoUrl3: null,
+                chapterTitle: this.chapterTitle,
+                chapterPhotoUrls: [],
+                chapter: {
+                    ytURL: "",
+                    chapterLink: "",
+                },
+                isUrlValid: null,
+            };
+        },
+        computed: {
+            categoryOptions() {
+                // 将选项值映射为整数值
+                const optionsMap = {
+                    1: 1,
+                    2: 2,
+                    3: 3,
+                    4: 4,
+                };
+                // 返回选中选项的整数值
+                return optionsMap[this.courseCategoryId];
+            },
+            selectedChapters() {
+                return this.chapters.filter(chapter => chapter.isSelected);
+            },
+        },
+        mounted() {
+            //依courseId查詢課程
+            axios
+                .get("http://localhost:8080/course/" + courseId)
+                .then((courseResponse) => {
+                    this.course = courseResponse.data;
+                    console.log(this.course);
+                    this.courseName = this.course.courseName;
+                    this.courseCategoryId = this.course.courseCategoryId;
+                    this.courseDetail = this.course.courseDetail || ""; // 转换为默认值;
+                    this.coursePre = this.course.coursePre || ""; // 转换为默认值;
+                    this.coursePrice = this.course.coursePrice;
+                    this.courseLength = this.course.courseLength;
+                    this.coolingOffPeriod = this.course.coolingOffPeriod;
+                    this.coursePhotoUrl1 = `data:image/png;base64,${this.course.coursePhoto1}`;
+                    this.coursePhotoUrl2 = `data:image/png;base64,${this.course.coursePhoto2}`;
+                    this.coursePhotoUrl3 = `data:image/png;base64,${this.course.coursePhoto3}`;
+
+                    axios
+                        .get("http://localhost:8080/chapters/" + courseId)
+                        .then((chapterResponse) => {
+                            // 第二个请求成功的处理逻辑
+                            this.chapters = chapterResponse.data;
+                            console.log(this.chapters);
+                            this.chapterTitle = this.chapters[0].chapterTitle;
+                            this.index = this.chapters.length - 1; // 依照查询笔数设定下方显示笔数
+                            // Clear the chapterPhotoUrls array before adding new values
+                            this.chapterPhotoUrls = [];
+                            // Iterate through each chapter and add the corresponding image URL to the array
+                            this.chapters.forEach((chapter) => {
+                                const chapterPhotoUrl = `data:image/png;base64,${chapter.chapterPhoto}`;
+                                this.chapterPhotoUrls.push(chapterPhotoUrl);
+                                chapter.ytURL = `https://www.youtube.com/watch?v=${chapter.chapterLink}`;
+                            });
+                        })
+                        .catch((error) => {
+                            // 第二个请求失败的处理逻辑
+                            console.error(error);
+                        });
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+
+            // 調用handleImageUpload方法
+            this.$nextTick(() => {
+                this.handleImageUpload(".upload", ".preview", "coursePhoto");
+            });
+        },
+
+        methods: {
+            toggleChapterSelection(index) {
+                if (this.selectedIndexes.includes(index)) {
+                    // 如果索引已经存在，说明取消勾选，将其从数组中移除
+                    const indexToRemove = this.selectedIndexes.indexOf(index);
+                    this.selectedIndexes.splice(indexToRemove, 1);
+                    console.log(this.selectedIndexes);
+                } else {
+                    // 索引不存在，说明勾选，将其添加到数组中
+                    this.selectedIndexes.push(index);
+                    console.log(this.selectedIndexes);
+                }
+            },
+            checkUrl(url, index) {
+                const pattern = /^https:\/\/www\.youtube\.com\/watch\?v=.+$/;
+                const isValid = pattern.test(url);
+
+                if (isValid) {
+                    const startIndex = url.indexOf("?v=") + 3; // 获取"?v="后的索引
+                    const endIndex = url.indexOf("&"); // 获取"&list"的索引
+                    if (startIndex !== -1) {
+                        let ytURL;
+                        if (endIndex !== -1) {
+                            ytURL = url.substring(startIndex, endIndex);
+                        } else {
+                            ytURL = url.substring(startIndex);
+                        }
+                        this.chapters[index].ytURL = ytURL;
+                        console.log('提取的字串:', ytURL);
+                        console.log(this.chapters[index].ytURL);
+                        // 执行其他操作
+                    } else {
+                        this.chapters[index].ytURL = '';
+                        console.log('無法提取字串');
+                        // 执行其他操作
+                    }
+                }
+                this.chapters[index].isUrlValid = isValid;
+            },
+            goBack() {
+                window.history.back(); // 返回上一页
+            },
+            addChapter() {
+                this.chapters.push({chapterTitle: "", chapterVideo: null});
+            },
+            removeChapter() {
+                this.chapters.pop();
+            },
+            resetFields() {
+                if (confirm("確認清空嗎？")) {
+                    location.reload();
+                }
+            },
+            createCourse() {
+                if (confirm("確認修改課程嗎？")) {
+                    const data = {
+                        courseName: this.courseName,
+                        courseCategoryId: this.courseCategoryId,
+                        courseDetail: this.editor1.getData(),
+                        coursePre: this.editor2.getData(),
+                        coursePrice: this.coursePrice,
+                        courseLength: this.courseLength,
+                        coolingOffPeriod: this.coolingOffPeriod,
+                        coursePhoto1: this.coursePhotos.coursePhoto1,
+                        coursePhoto2: this.coursePhotos.coursePhoto2,
+                        coursePhoto3: this.coursePhotos.coursePhoto3,
+                    };
+                    console.log(data);
+
+                    axios
+                        .post("http://localhost:8080/courses", data)
+                        .then((response) => {
+                            const courseId = response.data.courseId; // 获取courseId
+                            console.log(response.data);
+
+                            // 创建一个FormData对象;
+                            const formData = new FormData();
+                            formData.append("courseId", courseId); // 将courseId作为URL参数
+                            this.chapters.forEach((chapter, index) => {
+                                // 添加章節相關資訊到 FormData
+                                formData.append("chapterOrder", index + 1);
+                                formData.append("chapterTitle", chapter.chapterTitle);
+                                formData.append("chapterLink", chapter.chapterLink);
+
+                                // 檢查章節相片是否存在，存在則添加到 FormData
+                                if (chapter.chapterPhoto) {
+                                    formData.append(
+                                        "chapterPhoto",
+                                        chapter.chapterPhoto,
+                                        chapter.chapterPhoto.name
+                                    );
+                                }
+
+                                // 檢查章節文件是否存在，存在則添加到 FormData
+                                if (chapter.chapterFile) {
+                                    formData.append(
+                                        "chapterFile",
+                                        chapter.chapterFile,
+                                        chapter.chapterFile.name
+                                    );
+                                }
+                            });
+                            console.log(formData);
+                            return axios.post(
+                                "http://localhost:8080/chapters",
+                                formData,
+                                {
+                                    headers: {
+                                        "Content-Type": "multipart/form-data",
+                                    },
+                                }
+                            );
+                        })
+                        .then((secondResponse) => {
+                            console.log(secondResponse.data);
+                            // 第二个请求成功后的处理逻辑
+                            alert("課程修改成功！");
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                            // 请求失败后的处理逻辑
+                            alert("修改失敗，請重試！！");
+                        });
+                }
+            },
+            updateChapter() {
+                if (confirm("確認修改章節嗎？")) {
+                    if (this.selectedUploadType === "youtube") {
+                        const data = {
+                            chapters: []
+                        };
+
+                        this.chapters.forEach((chapter, index) => {
+                            if (this.selectedIndexes.includes(index)) {
+                                const chapterData = {
+                                    chapterOrder: index + 1,
+                                    chapterTitle: chapter.chapterTitle,
+                                    chapterLink: chapter.ytURL
+                                };
+
+                                data.chapters.push(chapterData);
+                            }
+                        });
+
+                        console.log(data);
+
+                        // 发送请求...
+                    }
+                    if (this.selectedUploadType === "local") {
+                        const data = {
+                            chapters: []
+                        };
+
+                        this.chapters.forEach((chapter, index) => {
+                            if (this.selectedIndexes.includes(index)) {
+                                const chapterData = {
+                                    chapterOrder: index + 1,
+                                    chapterTitle: chapter.chapterTitle,
+                                };
+
+                                data.chapters.push(chapterData);
+                            }
+                        });
+
+                        console.log(data);
+
+                        // 发送请求...
+
+                        if (this.chapter.chapterFile instanceof Blob) {
+                            // 创建一个FormData对象;
+                            const formData = new FormData();
+                            formData.append("courseId", courseId); // 将courseId作为URL参数
+                            this.chapters.forEach((chapter, index) => {
+                                if (this.selectedIndexes.includes(index)) {
+                                    // 添加章節相關資訊到 FormData
+                                    formData.append("chapterOrder", index + 1);
+                                    // 檢查章節文件是否存在，存在則添加到 FormData
+                                    formData.append(
+                                        "chapterFile",
+                                        chapter.chapterFile,
+                                        chapter.chapterFile.name
+                                    );
+                                }
+
+                            });
+                        }
+                    }
+                    // console.log(formData);
+                    // return axios.put(
+                    //     "http://localhost:8080/chapters",
+                    //     formData,
+                    //     {
+                    //         headers: {
+                    //             "Content-Type": "multipart/form-data",
+                    //         },
+                    //     }
+                    // )
+                    //     .then((response) => {
+                    //         console.log(response.data);
+                    //         alert("章節修改成功！");
+                    //     })
+                    //     .catch((error) => {
+                    //         console.error(error);
+                    //         alert("失敗請重試！！");
+                    //     });
+                }
+            },
+            //上傳圖片相關
+            handleImageUpload(uploadSelector, previewSelector, coursePhotos) {
+                $(document).on("change", uploadSelector, (event) => {
+                    const files = event.target.files;
+                    if (files.length > 3) {
+                        // 超过最大数量，进行相应的处理，例如提示错误消息
+                        alert("最多只能選擇3張圖片唷!!");
+                        // 清空已选择的文件
+                        $(uploadSelector).val("");
+                        // 清空预览区域中的内容
+                        $(previewSelector).empty();
+                        return;
+                    }
+
+                    const previews = Array.from($(previewSelector));
+                    const previewIds = previews.map((preview) =>
+                        $(preview).data("preview")
+                    );
+
+                    // Reset previews
+                    previews.forEach((preview) => {
+                        $(preview).empty();
+                    });
+
+                    // Display selected images in previews
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        const reader = new FileReader();
+
+                        reader.onload = (e) => {
+                            const base64Image = e.target.result;
+                            // 切割出前缀部分
+                            const imageData = base64Image.split(";base64,")[1];
+                            // 保存切割后的图片数据到相应的数据属性
+                            this.coursePhotos[`coursePhoto${i + 1}`] = imageData;
+
+                            const previewId = previewIds[i];
+                            const previewElement = $(
+                                    `${previewSelector}[data-preview="${previewId}"]`
+                            );
+
+                            const img = $("<img>")
+                                .attr("src", base64Image)
+                                .on("load", () => {
+                                    const maxWidth = previewElement.width();
+                                    const maxHeight = previewElement.height();
+                                    const width = img.width();
+                                    const height = img.height();
+                                    const scaleFactor = Math.min(
+                                        maxWidth / width,
+                                        maxHeight / height
+                                    );
+
+                                    img.css({
+                                        width: width * scaleFactor + "px",
+                                        height: height * scaleFactor + "px",
+                                    });
+                                });
+
+                            previewElement.append(img);
+                        };
+
+                        reader.readAsDataURL(file);
+                    }
+                });
+            },
+            handleChapterImageUpload(
+                uploadSelector,
+                previewSelector,
+                chapterPhoto,
+                event,
+                index
+            ) {
+                $(document).on("change", uploadSelector, (event) => {
+                    const file = event.target.files[0];
+                    const previewId = $(event.target).data("preview");
+                    const previewElement = $(
+                            `${previewSelector}[data-preview="${previewId}"]`
+                    );
+
+                    if (file && previewElement) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.chapters[index].chapterPhoto = file; // 存储文件对象而不是Base64数据
+                            console.log(this.chapters[index].chapterPhoto);
+
+                            const img = new Image();
+                            img.src = e.target.result;
+                            img.onload = () => {
+                                const width = img.width;
+                                const height = img.height;
+                                const maxWidth = previewElement.width();
+                                const maxHeight = previewElement.height();
+
+                                const scaleFactor = Math.min(
+                                    maxWidth / width,
+                                    maxHeight / height
+                                );
+
+                                this.chapterPhotoUrls.splice(index, 1, img.src); // 更新chapterPhotoUrls数组中对应索引的元素为新的图像URL
+                            };
+                        };
+
+                        reader.readAsDataURL(file);
+                    }
+                });
+            },
+            handleVideoUpload(event, index) {
+                const file = event.target.files[0];
+                this.chapters[index].chapterFile = file;
+                console.log(this.chapters[index].chapterFile);
+            },
+        },
+    });
+</script>
+</body>
+</html>

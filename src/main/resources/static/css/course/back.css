@@ -1,0 +1,412 @@
+/* 全部自行設定 */
+html{
+    font-family: 'Noto Sans TC', sans-serif;
+    --bs-success:#3c6a36 !important;
+    --p_file_picture-height:170px;
+    --p_file_picture-width:170px;
+    --p_file-height: calc(var(--p_file_picture-height) / 4.25);
+    --p_file-width: calc(var(--p_file_picture-width) /4.25);
+}
+
+.container-all{
+    /* 排版為左右邊 */
+    display: flex;
+/* 撐開到滿版 */
+    align-items: stretch;
+}
+
+/* 左邊的側邊欄設定：顏色、寬、高 */
+#sidebar{
+    width: 200px;
+    min-height: 100%;
+    background-color: #3c6a36;
+    color:white;
+    transition: 1s;
+}
+
+/* 收起來！當按下按鈕sidebar的class會加上active 得到這邊的效果 */
+#sidebar.active {
+    margin-left: -150px;
+    text-align:left;
+}
+#sidebar .barbtn,
+#sidebar .divtitle {
+  display: inline-block;
+  box-sizing: content-box;
+  /* vertical-align: bottom; */
+}
+/* 左邊的標題 */
+#sidebar .divtitle{
+    font-size: 30px;
+    margin: 9.38px;
+    text-align: center;
+    letter-spacing: 1px;
+    
+}
+#sidebar hr{
+    border-radius: 4px;
+    margin-top: 0;
+    width: 180px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+/* 收合的按鈕 */
+.container-right .collapse-btn{
+position: relative;
+left:0px;
+background-color: #F8F9FA;
+color:#3c6a36;
+border: none;
+font-size: 30px;
+/* padding: 3px; */
+}
+/* 
+.fa-shake{
+    --fa-animation-iteration-count: 1;
+} */
+
+/* 按鈕當滑鼠移過去時：背景顏色 */
+.container-left .collapse-btn:hover{
+    background-color:#A4C964;
+    transition: 0.4s;
+}
+
+/* icon */
+.container-left li .fa-solid {
+    text-align:center;
+    display: block;
+    position: absolute;
+    font-size: 20px;
+    top: 10px;
+    left: 150px;
+    width: 50px;
+    height: 50px;
+    /* float: right; */
+}
+
+/* 左側的文字 */
+#sidebar ul li a {
+    letter-spacing: 1px;
+    text-align:left;
+    padding: 5px 10px;
+    font-size: 20px;
+    display: block;
+    /* 不要底線 */
+    text-decoration: none;
+    color: white;
+    position: relative;
+
+    font-weight: 400;
+}
+
+#sidebar ul li a:hover {
+    color: #3c6a36;
+    background: #A4C964;
+}
+
+/* 下拉式選單裡面 */
+#sidebar ul ul li a{
+    background-color: #F8F9FA;
+    color: #3c6a36;
+
+}
+
+
+/* 響應式 */
+@media (max-width:600px) {
+    #sidebar {
+        width: 200px;
+        margin-left: -150px;
+    }
+    #sidebar.active {
+        margin-left: 0px;
+    }
+    /* 按鈕 */
+.container-left .collapse-btn{
+    position: relative;
+    top: 1%;
+    margin-left: -50px;
+    color:white;
+    border: none;
+    font-size: 30px;
+    padding: 5px;
+    transition: 1s;
+    }
+
+   #sidebar ul li a {
+    padding: 5px;
+    font-size: 16px;
+    display: block;
+    /* 不要底線 */
+    text-decoration: none;
+    color: white;
+    position: relative;
+    
+    font-weight: 600;
+     
+    }
+    .container-left li .fa-solid {
+        text-align:center;
+        display: block;
+        position: absolute;
+        font-size: 16px;
+        top: 10px;
+        left: 150px;
+        width: 50px;
+        height: 50px;
+        /* float: right; */
+    }
+
+    /* 隱藏歡迎登入.... */
+    .barname{
+        display: none;
+    }
+
+}
+
+
+/* ============================右邊開始線================================== */
+
+/* 右邊 */
+.container-right{
+    background-color:#F8F9FA;
+    width: 100%;
+    min-height: 700px;
+    border: 1px solid #aaaaaa;
+    /* margin: 20px 20px; */
+    
+}
+
+@media (max-width:600px) {
+    .container-right{
+
+        width: calc( 100% - 50px );
+    }
+}
+/* 右邊的導覽列 */
+
+@media (min-width: 100%){
+.container {
+    max-width: 100%
+}
+}
+.bartitle{
+    font-size: 26px;
+    color: #3c6a36;
+  }
+  @media (max-width:600px) {
+    .bartitle{
+        font-size: 16px;
+        color: #3c6a36;
+      }
+  }
+
+.d-flex{
+    margin: 0 auto;
+    width: 100%;
+    border: none; 
+    display: flex;
+    justify-content: flex-start;
+}
+   
+
+
+
+/* ============================================================== */
+/* 右邊的主體 */
+.main{
+    margin: 10px;
+  }
+
+/* 右邊的標題 */
+  #section1 p{
+    font-size: 26px;
+  }
+
+
+
+  /* 表格：垂直對齊該行文字的置中位置。 */
+  #adminTable td {
+    vertical-align: middle;
+  }
+
+  /* 表格：按鈕並排、調整大小 */
+  #adminTable #editbtn,
+  #adminTable #showbtn {
+  display: inline-block;
+  width: 40%;
+  height: 100%;
+  margin-right: 5%;
+}
+
+
+
+/* ===================表單=============== */
+
+.card-header{
+    font-size: 26px;
+    background-color: #465952 !important;
+    color: #FFFFFF !important;
+    vertical-align: middle !important;
+  }
+
+
+  .preview {
+    background:#888888;
+    width: 150px;
+    height:auto;
+    text-align:center;
+  }
+  .preview img{
+
+    width: 150px;
+
+    order:1;
+    vertical-align : middle;
+  }
+
+  #image_uploads{
+    object-fit: cover;
+    object-position: 25% 25%; 
+  }
+
+
+  .form-group .error {
+    color: red;
+  }
+
+
+  /* 表單number不要有上下 */
+  /* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+  /* ===============上傳圖片============ */
+  #eximg{
+    position: relative;
+    /* clip-path: circle(50%); */
+    height: var(--p_file_picture-height);
+    width: var(--p_file_picture-width);
+}
+
+.profile_picture{
+    position: relative;
+    height: var(--p_file_picture-height);
+    width: var(--p_file_picture-width);
+    /* border:3px solid red; */
+}
+.setfileinput{
+    position: absolute;
+    /* bottom: 0;
+    right: 0; */
+    bottom: calc(var(--p_file_picture-width) /6.5);
+right:  calc(var(--p_file_picture-width) /3.5);
+}
+#p_file{
+    position: absolute;
+    height: var(--p_file-height);
+    width: var(--p_file-width);
+    background-color: black;
+    z-index: 1;
+    opacity: 0;
+    clip-path: circle(50%);
+}
+
+#file_camera{
+    background-color:#3c6a36; 
+    color:white;
+    height: var(--p_file-height);
+    width: var(--p_file-width);
+    /* height: 100px;
+    width: 100px; */
+    position: absolute;
+top: 0;
+left: 0;
+clip-path: circle(50%);
+text-align:center;
+}
+
+
+/* icon大小 */
+#file_camera > i{
+    line-height: var(--p_file-height);
+    font-size:calc(var(--p_file-height) /1.8);
+}
+
+/* 商城-上傳商品區 */
+.container1{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /* border: 1px solid black; */
+    display: flex;
+    
+    align-items: center;
+}
+.c-left{
+    /* background-color: aqua; */
+    /* height: 300px; */
+    width: 250px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction:column;
+    justify-content: space-around;
+}
+.c-left div{
+    margin-bottom: 5px;
+}
+
+.container1 .c-right{
+    /* background-color: rgb(26, 202, 120);
+    border: 1px solid blue; */
+    height: 300px;
+    width: 300px;
+    flex-grow: 1;
+}
+.img-block{
+    /* border: 1px solid black; */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#img26{
+    width: 200px;
+    height: 200px;
+}
+.btn{
+    width: 100%;
+    display: inline-block;
+    justify-content: flex-start;
+    align-items:center;
+}
+
+
+#btnn1{
+    width: 116px;
+    height: 40px;
+    border-radius: 30px;
+    border: none;
+    color:#3C6A36;
+    font-weight:bold;
+ 
+    
+}
+
+.input1 .div .input{
+    display: flex;
+      flex-direction:column;
+    align-items: center;
+   
+}
+.c-lefe .input1 .ip2{
+    margin-bottom: 10px;
+    margin-left: 20px;
+    
+    
+}

@@ -113,7 +113,7 @@ public class ActiveController {
             if (activeFavoriteService.queryActiveFavoriteHistory(activityId, memId)) {
                 return "未收藏";
             } else {
-                return "以收藏過";
+                return "已收藏過";
             }
         }
 //        return "以收藏";

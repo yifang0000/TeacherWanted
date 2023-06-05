@@ -2,8 +2,6 @@ package com.example.teacherwanted.administrator.controller;
 
 import com.example.teacherwanted.administrator.model.Administrator;
 import com.example.teacherwanted.administrator.service.AdministratorService;
-import com.example.teacherwanted.administrator.service.impl.AdministratorServiceImpl;
-import com.example.teacherwanted.coupon.model.Coupon;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class AdministratorController {
@@ -22,6 +18,8 @@ public class AdministratorController {
     @Autowired
     private AdministratorService administratorService;
 
+//    @Autowired
+//    private TeacherService teacherService;
 
     //    查詢全部：[restful設計]無論查詢列表有無資料，都需要回傳200給前端
 //    @SessionAttribute("adminSession") Administrator administrator1
@@ -55,7 +53,7 @@ public class AdministratorController {
     //    修改
     @PutMapping("/administrators/{adminId}")
     public ResponseEntity<?> updateByAdminId(@RequestBody Administrator administrator) {
-        System.out.println(administrator);
+//        System.out.println(administrator);
         administratorService.updateByAdminId(administrator);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -75,6 +73,8 @@ public class AdministratorController {
                                                HttpSession session){
         Administrator administrator1 = administratorService.login(administrator);
         session.setAttribute("adminSession", administrator1);
+//        Teacher teacher = teacherService.selectByAdminId(administrator1.getAdminId());
+//        session.setAttribute("teacherSession",teacher);
         log.info(administrator1.getAdminName() + "登入ㄌ");
         return ResponseEntity.status(HttpStatus.OK).body(administrator1);
     }
