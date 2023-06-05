@@ -1,6 +1,11 @@
 
-var admin="";
-var teacherDateAjex="";
+
+// ============去驗證是否登入+把登入者資料放入前端session變數裡
+// ============使用範例：var test=sessionStorage.getItem('adminStorage');
+// ============可印出來：console.log(test)
+// ============可印老師ID(管理員沒有teaId)：console.log(test.teaId)
+
+
 Checklogin()
   function Checklogin() {
     var ulElement = document.querySelector('.list-unstyled');
@@ -11,8 +16,10 @@ ulElement.innerHTML = '';
       url: "/administrators/session",
       contentType: 'application/json',
       success:function(responseData) {
-        console.log(responseData);
         admin = responseData;
+        if(admin.permissionId === 2){
+        admin["teaId"] = admin.adminId;}
+        sessionStorage.setItem('adminStorage', JSON.stringify(admin));
         var role = (admin.permissionId === 1) ? "管理員" : "老師";
         var newSubMenu;
         var newBar;
@@ -245,7 +252,10 @@ ulElement.innerHTML = '';
             </li>
             `
             $(".list-unstyled").append(newSubMenu);
+        // 新增屬性
 
+
+        console.log(admin);
 
 
             getTeaPhoto()
@@ -261,10 +271,11 @@ ulElement.innerHTML = '';
       }
     });
   }
+  var test=sessionStorage.getItem('adminStorage');
+  console.log(test)
+  console.log(admin);
 
-
-
-
+// ===========取得每頁的老師照片======================
   function getTeaPhoto(){
     $.ajax({
       type: 'GET',
@@ -285,13 +296,13 @@ ulElement.innerHTML = '';
   }
 
 
-
+// ===========登出的方法===============
   function logout() {
-    console.log("想登出");
     $.ajax({
       url: "/administrators/logout", // 修正URL
       type: "GET",
       success: function(response) {
+        sessionStorage.removeItem('adminStorage');
         window.location.href = "../administrator/backlogin.html";
       },
       error: function(xhr, status, error) {
@@ -302,7 +313,7 @@ ulElement.innerHTML = '';
   
 
 
-  //回到首頁的方法
+  //===========回到首頁的方法===========
   function goToIndexPage() {
     window.location.href = "../administrator/backIndex.html";
   }

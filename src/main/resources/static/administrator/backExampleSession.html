@@ -1,9 +1,13 @@
-<!-- 此板搭配登入後的session -->
-<!-- 在自己的js檔中呼叫
-$(document).ready(function(){
-  console.log(admin) //查看當前登入的admin物件所有資料
-  console.log(admin.adminId) //adminId
-} 
+<!-- 
+1. 此板「64.72行」已刪除側邊欄+bar()，用check.js根據老師或管理員打入不同的側邊欄+bar
+
+2. 搭配登入後的session
+在此檔有引入check.js中已設定session
+故可以在自己的js檔中(請放在「108行」)呼叫session
+使用範例：
+var test=sessionStorage.getItem('adminStorage');
+console.log(test)        //可印出來：
+console.log(test.teaId)  //印老師ID(管理員沒有teaId)
 -->
 <!DOCTYPE html>
 <html lang="en">
