@@ -504,3 +504,38 @@ main.TeacherWanted {
 .webMap li a:hover {
   color: white;
 }
+
+#loginOrUser {
+  width: 150px;
+}
+
+.dropdown-menu {
+  min-width: 120px;
+  width: 120px;
+}
+.dropdown-menu {
+  outline: none;
+}
+.dropdown-item {
+  font-size: 1rem;
+}
+#userName {
+  font-weight: 700;
+  font-size: 1rem;
+}
+#userImg {
+  margin-right: 10px;
+  height: 35px;
+  background-color: white;
+  border-radius: 50px;
+}
+.btn:hover {
+  border: none;
+}
+.btn:focus {
+  box-shadow: none;
+}
+.btn {
+  transition: none;
+  border: none;
+}

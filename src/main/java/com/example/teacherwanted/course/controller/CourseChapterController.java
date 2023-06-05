@@ -142,48 +142,116 @@ public class CourseChapterController {
 //            return "檔案上傳失敗";
 //        }
 //    }
-    @PutMapping("/chapter_details/{courseId}")
-    public ResponseEntity<List<CourseChapterVo>> updateChapters(@PathVariable Integer courseId,
-                                                         @RequestBody @Valid List<CourseChapterVo> chapters) {
-        List<CourseChapterVo> existingChapters = courseChapterService.findByCourseId(courseId);
-        boolean foundMatch = false;
-        for (CourseChapterVo updatedChapter : chapters) {
-            Integer updatedChapterOrder = updatedChapter.getChapterOrder();
-            updatedChapter.setCourseId(courseId);
-            foundMatch = false; // 初始化标记为未找到匹配的章节
+//    @PutMapping("/chapter_details/{courseId}")
+//    public ResponseEntity<List<CourseChapterVo>> updateChapters(@PathVariable Integer courseId,
+//                                                                @RequestBody List<CourseChapterVo> chapters) {
+//        List<CourseChapterVo> existingChapters = courseChapterService.findByCourseId(courseId);
+//        boolean foundMatch;
+//        for (CourseChapterVo updatedChapter : chapters) {
+//            Integer updatedChapterOrder = updatedChapter.getChapterOrder();
+//            updatedChapter.setCourseId(courseId);
+//            foundMatch = false; // 初始化标记为未找到匹配的章节
+//
+//            if (existingChapters.size() != 0) {
+//                for (CourseChapterVo existingChapter : existingChapters) {
+//                    if (existingChapter.getChapterOrder().equals(updatedChapterOrder)) {
+//                        Integer chapterId = existingChapter.getChapterId(); // 获取章节的主键（PK）
+//
+//                        // 使用章节的主键进行更新操作
+//                        courseChapterService.updateChapter(chapterId, updatedChapter);
+//
+//                        foundMatch = true; // 找到匹配的章節後，設置 foundMatch 為 true
+//
+//                        break; // 找到匹配的章节后，可以选择中断内部循环
+//                    }
+//                }
+//            }
+//            if (!foundMatch) {
+//                // 在内部循环中未找到匹配的章节，执行另一个方法
+//                courseChapterService.createChapter(updatedChapter);
+//            }
+//        }
+//        return ResponseEntity.status(HttpStatus.OK).body(chapters);
+//    }
 
-            for (CourseChapterVo existingChapter : existingChapters) {
-                if (existingChapter.getChapterOrder().equals(updatedChapterOrder)) {
-                    Integer chapterId = existingChapter.getChapterId(); // 获取章节的主键（PK）
-
-                    // 使用章节的主键进行更新操作
-                    courseChapterService.updateChapter(chapterId, updatedChapter);
-
-                    break; // 找到匹配的章节后，可以选择中断内部循环
-                }
-            }
-            if (!foundMatch) {
-                // 在内部循环中未找到匹配的章节，执行另一个方法
-                courseChapterService.createChapter(updatedChapter);
-            }
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(chapters);
-    }
-
-    @PutMapping("/chapters/{courseId}")
+    @PutMapping("/chapter/{courseId}")
     public ResponseEntity<CourseChapterVo> updateChapter(@PathVariable Integer courseId,
                                                          @RequestBody @Valid CourseChapterVo chapterVo) {
         if (chapterVo == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } else {
+            List<CourseChapterVo> existingChapters = courseChapterService.findByCourseId(courseId);
+            for(CourseChapterVo existingChapter : existingChapters ){
+                if(existingChapter.getChapterOrder() == chapterVo.getChapterOrder()){
+                    if (chapterVo.getChapterLink() == null){
+                        chapterVo.setChapterLink(existingChapter.getChapterLink());
+                    }
+                    chapterVo.setChapterId(existingChapter.getChapterId());
+                    courseChapterService.updateChapter(courseId, chapterVo);
+                    break;
+                }
+            }
             courseChapterService.updateChapter(courseId, chapterVo);
             return ResponseEntity.status(HttpStatus.OK).body(chapterVo);
         }
+    }
+    @PutMapping(value = "/chapter", consumes = "multipart/form-data")
+    public ResponseEntity<?> updateChapterWithVideo(@RequestPart(value = "chapterFile", required = false) MultipartFile chapterFile,
+                                            @RequestParam("chapterOrder") String chapterOrder,
+                                            @RequestParam("chapterTitle") String chapterTitle,
+                                            @RequestParam("courseId") Integer courseId) {
+        List<CourseChapterVo> existingChapters = courseChapterService.findByCourseId(courseId);
+        CourseChapterVo chapterVo = new CourseChapterVo();
+        chapterVo.setChapterOrder(Integer.valueOf(chapterOrder));
+        chapterVo.setChapterTitle(chapterTitle);
+        chapterVo.setChapterStatus(1);
+        if (chapterFile != null && !chapterFile.isEmpty()) {
+            // 检查文件类型
+            String contentType = chapterFile.getContentType();
+            if (contentType == null || !contentType.startsWith("video/")) {
+                // 不支持的视频文件类型
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+            String fileName = chapterFile.getOriginalFilename();
+            // 将文件名保存到数据库或进行其他处理
+            chapterVo.setFileName(fileName);
+            try {
+                if (chapterFile != null) {
+                    chapterVo.setChapterFile(chapterFile.getBytes());
+                }
+            } catch (IOException e) {
+                // 处理文件读取错误
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+        for(CourseChapterVo existingChapter : existingChapters ){
+            if(existingChapter.getChapterOrder() == Integer.valueOf(chapterOrder)){
+                if (chapterFile == null && existingChapter.getChapterFile() != null){
+                    chapterVo.setChapterFile(existingChapter.getChapterFile());
+                    chapterVo.setFileName(existingChapter.getFileName());
+                }
+                chapterVo.setChapterId(existingChapter.getChapterId());
+                courseChapterService.updateChapter(courseId, chapterVo);
+                break;
+            }
+        }
+        courseChapterService.updateChapter(courseId,chapterVo);
+        return ResponseEntity.status(HttpStatus.OK).body(chapterVo);
     }
 
     @DeleteMapping("/chapters/{courseId}")
     public ResponseEntity<Object> deleteChaptersById(@PathVariable Integer courseId) {
         Integer deletedCount = courseChapterService.deleteChaptersById(courseId);
         return ResponseEntity.status(HttpStatus.OK).body(deletedCount);
+    }
+    @DeleteMapping("/chapter/{courseId}/{orderId}")
+    public ResponseEntity<Object> deleteChapterByOrderId(@PathVariable Integer courseId, @PathVariable Integer orderId) {
+        List<CourseChapterVo> existingChapters = courseChapterService.findByCourseId(courseId);
+        for(CourseChapterVo chapterVo : existingChapters ){
+            if(chapterVo.getChapterOrder() == orderId){
+                courseChapterService.deleteChapterByOrderId(chapterVo);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
