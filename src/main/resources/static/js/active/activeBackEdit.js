@@ -414,6 +414,7 @@ $(document).ready(function () {
         activityStartTime: $("#activeStartTime").val(),
         activityEndTime: $("#activeStopTime").val(),
         activityDueTime: $("#stopTime").val(),
+        remarks: "OK",
         activityStatus: activityStatus,
         // activityPhoto: $("#preview").children("img").attr("src"),
 
