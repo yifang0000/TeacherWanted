@@ -72,6 +72,41 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
+    public Map<String, Object> getAllCourses(int page, int pageSize, Integer courseCategoryId, String keyword) {
+        String hql = "FROM CourseVo WHERE 1 = 1";
+        if (courseCategoryId != null) {
+            hql += " AND courseCategoryId = :courseCategoryId";
+        }
+
+        if (keyword != null && !keyword.isEmpty()) {
+            hql += " AND courseName LIKE :keyword";
+        }
+
+        hql += " ORDER BY courseId DESC"; // 按照 courseId 降序排序
+
+        TypedQuery<CourseVo> query = session.createQuery(hql, CourseVo.class);
+
+        if (courseCategoryId != null) {
+            query.setParameter("courseCategoryId", courseCategoryId);
+        }
+
+        if (keyword != null && !keyword.isEmpty()) {
+            query.setParameter("keyword", "%" + keyword + "%");
+        }
+        int totalCount = query.getResultList().size();
+
+        int offset = (page - 1) * pageSize;
+        query.setFirstResult(offset);
+        query.setMaxResults(pageSize);
+        List<CourseVo> courseVoList = query.getResultList();
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("courses", courseVoList);
+        result.put("total", totalCount);
+        return result;
+    }
+
+    @Override
     public Map<String, Object> getCoursesByTeacher(Integer teaId, int page, int pageSize, Integer courseCategoryId, String keyword) {
         String hql = "FROM CourseVo WHERE teaId = :teaId";
         if (courseCategoryId != null) {

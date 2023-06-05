@@ -14,9 +14,20 @@ import java.util.List;
 public class CourseOrderServiceImpl implements CourseOrderService {
     @Autowired
     private CourseOrderDao courseOrderDao;
+
+    @Override
+    public List<CourseOrderVo> findAll() {
+        return courseOrderDao.findAll();
+    }
+
     @Override
     public CourseOrderVo getCourseOrderById(Integer id) {
         return courseOrderDao.getCourseOrderById(id);
+    }
+
+    @Override
+    public List<CourseOrderVo> getCourseOrdesByMemId(Integer memId) {
+        return courseOrderDao.getCourseOrdesByMemId(memId);
     }
 
     @Override

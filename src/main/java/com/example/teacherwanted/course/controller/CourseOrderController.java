@@ -24,6 +24,11 @@ public class CourseOrderController {
 
     @Autowired
     private MemberService memberService;
+    @GetMapping("/course_orders")
+    public ResponseEntity<List<CourseOrderVo>> findAll() {
+        List<CourseOrderVo> courseOrderList = courseOrderService.findAll();
+        return new ResponseEntity<>(courseOrderList, HttpStatus.OK);
+    }
     @GetMapping("/course_order/{id}")
     public ResponseEntity<CourseOrderVo> getCourseOrderById(@PathVariable Integer id) {
         CourseOrderVo courseOrder = courseOrderService.getCourseOrderById(id);
@@ -32,6 +37,11 @@ public class CourseOrderController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    @GetMapping("/course_orders/{memId}")
+    public ResponseEntity<List<CourseOrderVo>> getCourseOrdesByMemId(@PathVariable("memId") Integer memId) {
+        List<CourseOrderVo> courseOrders = courseOrderService.getCourseOrdesByMemId(memId);
+        return new ResponseEntity<>(courseOrders, HttpStatus.OK);
     }
 
     @PostMapping("/course_order")

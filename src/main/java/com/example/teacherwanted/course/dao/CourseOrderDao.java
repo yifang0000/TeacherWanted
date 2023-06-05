@@ -6,7 +6,9 @@ import com.example.teacherwanted.course.model.vo.CourseOrderVo;
 import java.util.List;
 
 public interface CourseOrderDao {
+    List<CourseOrderVo> findAll();
     CourseOrderVo getCourseOrderById(Integer id);
+    List<CourseOrderVo> getCourseOrdesByMemId(Integer memId);
 
     void createCourseOrder(CourseOrderVo courseOrder);
 

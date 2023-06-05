@@ -37,6 +37,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public Map<String, Object> getAllCourses(int page, int pageSize, Integer courseCategoryId, String keyword) {
+        return courseDao.getAllCourses( page, pageSize, courseCategoryId, keyword);
+    }
+
+    @Override
     public Map<String, Object> getCoursesByTeacher(Integer teaId, int page, int pageSize, Integer courseCategoryId, String keyword) {
         return courseDao.getCoursesByTeacher(teaId, page, pageSize, courseCategoryId, keyword);
     }

@@ -25,6 +25,11 @@ public class FavoriteCourseServiceImpl implements FavoriteCourseService {
     }
 
     @Override
+    public List<FavoriteCourseVo> getFavCoursesByMemId(Integer memId) {
+        return favoriteCourseDao. getFavCoursesByMemId(memId);
+    }
+
+    @Override
     public int checkFavCourse(Integer memId, Integer courseId) {
         return favoriteCourseDao.checkFavCourse(memId, courseId);
     }

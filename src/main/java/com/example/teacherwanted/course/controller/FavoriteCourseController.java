@@ -1,6 +1,7 @@
 package com.example.teacherwanted.course.controller;
 
 import com.example.teacherwanted.course.model.vo.FavoriteCourseVo;
+import com.example.teacherwanted.course.model.vo.FavoriteTeacherVo;
 import com.example.teacherwanted.course.service.FavoriteCourseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,15 @@ public class FavoriteCourseController {
         return new ResponseEntity<>(favoriteCourseList, HttpStatus.OK);
     }
 
-    @GetMapping("/favcourses/{id}")
+    @GetMapping("/favcourse/{id}")
     public ResponseEntity<FavoriteCourseVo> getFavCourseById(@PathVariable("id") Integer id) {
         FavoriteCourseVo favoriteCourse = favoriteCourseService.getFavCourseById(id);
         return new ResponseEntity<>(favoriteCourse, HttpStatus.OK);
+    }
+    @GetMapping("/favcourses/{memId}")
+    public ResponseEntity<List<FavoriteCourseVo>> getFavCoursesByMemId(@PathVariable("memId") Integer memId) {
+        List<FavoriteCourseVo> favoriteCourses = favoriteCourseService.getFavCoursesByMemId(memId);
+        return new ResponseEntity<>(favoriteCourses, HttpStatus.OK);
     }
 
     @GetMapping("/favcourses/{memId}/{courseId}")

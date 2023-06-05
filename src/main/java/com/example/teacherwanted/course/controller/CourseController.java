@@ -49,6 +49,23 @@ public class CourseController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    @GetMapping("/allcourses")
+    public ResponseEntity<Map<String, Object>> getAllCourses(
+            //分頁
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "5") int pageSize,
+            //查詢條件
+            @RequestParam (required = false) Integer courseCategoryId,
+            @RequestParam (required = false) String keyword){
+
+        Map<String, Object> result = courseService.getAllCourses(page, pageSize, courseCategoryId, keyword);
+
+        if(result != null){
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
     @GetMapping("/TeacherCourses/{teaId}")
     public ResponseEntity<Map<String, Object>> getCoursesByTeacher(
             @PathVariable Integer teaId,

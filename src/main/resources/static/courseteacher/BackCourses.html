@@ -382,8 +382,14 @@
     <!-- 燈箱部分結束 -->
     <!-- FontAwesome 連結 -->
     <script>
-      var teaId = 11;
       const bus = new Vue();
+      const adminData = JSON.parse(sessionStorage.getItem("adminStorage"));
+      if(adminData != null){
+        var teaId = adminData.teaId;
+      }
+      if(adminData == null){
+        var teaId = null;
+      }
       new Vue({
         el: "#main",
         data() {
@@ -392,6 +398,7 @@
             courseCategoryId: null,
             keyword: "",
             page: 1,
+            teaId: null,
           };
         },
         computed: {
@@ -454,8 +461,15 @@
             params.append("keyword", this.keyword);
             params.append("page", this.page);
 
-            const url = `http://localhost:8080/TeacherCourses/${teaId}?${params.toString()}`;
-            console.log(url);
+            let url;
+            if(teaId != null) {
+              url = `http://localhost:8080/TeacherCourses/${teaId}?${params.toString()}`;
+              console.log(url);
+            }
+            if(teaId == null) {
+              url = `http://localhost:8080/allcourses?${params.toString()}`;
+              console.log(url);
+            }
             axios
               .get(url)
               .then((response) => {
@@ -543,15 +557,30 @@
           },
         },
         mounted() {
-          axios
-            .get("http://localhost:8080/TeacherCourses/" + teaId)
-            .then((coursesResponse) => {
-              this.courses = coursesResponse.data;
-              console.log(this.courses);
-            })
-            .catch((error) => {
-              console.error(error);
-            });
+          if(teaId == null) {
+            axios
+                    .get("http://localhost:8080/allcourses")
+                    .then((coursesResponse) => {
+                      this.courses = coursesResponse.data;
+                      console.log(this.courses);
+                    })
+                    .catch((error) => {
+                      console.error(error);
+                    });
+          }
+          if(teaId != null) {
+            this.teaId = adminData.teaId;
+            console.log(this.teaId);
+            axios
+                    .get("http://localhost:8080/TeacherCourses/" + this.teaId)
+                    .then((coursesResponse) => {
+                      this.courses = coursesResponse.data;
+                      console.log(this.courses);
+                    })
+                    .catch((error) => {
+                      console.error(error);
+                    });
+          }
         },
       });
     </script>

@@ -25,6 +25,11 @@ public class FavoriteTeacherServiceImpl implements FavoriteTeacherService {
     }
 
     @Override
+    public List<FavoriteTeacherVo> getFavTeacherByMemId(Integer memId) {
+        return favoriteTeacherDao.getFavTeacherByMemId(memId);
+    }
+
+    @Override
     public void createFavTeacher(FavoriteTeacherVo favoriteTeacher) {
         favoriteTeacherDao.createFavTeacher(favoriteTeacher);
     }

@@ -4,6 +4,7 @@ import com.example.teacherwanted.course.dao.CourseOrderDao;
 import com.example.teacherwanted.course.model.vo.CourseCommentVo;
 import com.example.teacherwanted.course.model.vo.CourseOrderDetailVo;
 import com.example.teacherwanted.course.model.vo.CourseOrderVo;
+import com.example.teacherwanted.course.model.vo.FavoriteCourseVo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -14,9 +15,24 @@ import java.util.List;
 public class CourseOrderDaoImpl implements CourseOrderDao {
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    public List<CourseOrderVo> findAll() {
+        String hql = "FROM  CourseOrderVo ORDER BY orderId";
+        return (List<CourseOrderVo>) entityManager.createQuery(hql).getResultList();
+    }
+
     @Override
     public CourseOrderVo getCourseOrderById(Integer id) {
         return null;
+    }
+
+    @Override
+    public List<CourseOrderVo> getCourseOrdesByMemId(Integer memId) {
+        String hql = "FROM CourseOrderVo cr WHERE cr.memId = :memId";
+        TypedQuery<CourseOrderVo> query = entityManager.createQuery(hql, CourseOrderVo.class);
+        query.setParameter("memId", memId);
+        return query.getResultList();
     }
 
     @Override
