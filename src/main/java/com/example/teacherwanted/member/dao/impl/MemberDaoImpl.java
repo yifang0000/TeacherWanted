@@ -44,12 +44,9 @@ public class MemberDaoImpl implements MemberDao {
     @Override
     public List<Member> selectAll() {
         return null;
-    }
+    };
 
-//    @Override
-//    public List<Member> selectAllByKeyWorldAndType(String key, String type) {
-//        return null;
-//    }
+
 
 //    @Override
 //    public List<Member> selectAll() {

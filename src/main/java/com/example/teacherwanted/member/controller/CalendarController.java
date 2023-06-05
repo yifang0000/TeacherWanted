@@ -1,7 +1,7 @@
-package com.example.teacherwanted.active.controller;
+package com.example.teacherwanted.member.controller;
 
-import com.example.teacherwanted.active.model.MemberCalendar;
-import com.example.teacherwanted.active.service.MemberCalendarService;
+import com.example.teacherwanted.member.model.MemberCalendar;
+import com.example.teacherwanted.member.service.MemberCalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,6 +1,6 @@
-package com.example.teacherwanted.active.service;
+package com.example.teacherwanted.member.service;
 
-import com.example.teacherwanted.active.model.MemberCalendar;
+import com.example.teacherwanted.member.model.MemberCalendar;
 
 import java.util.List;
 
