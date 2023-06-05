@@ -1,7 +1,12 @@
 
-var admin="";
-var teacherDateAjex=""
-    Checklogin()
+
+// ============去驗證是否登入+把登入者資料放入前端session變數裡
+// ============使用範例：var test=sessionStorage.getItem('adminStorage');
+// ============可印出來：console.log(test)
+// ============可印老師ID(管理員沒有teaId)：console.log(test.teaId)
+
+
+Checklogin()
   function Checklogin() {
     var ulElement = document.querySelector('.list-unstyled');
 ulElement.innerHTML = '';
@@ -11,8 +16,10 @@ ulElement.innerHTML = '';
       url: "/administrators/session",
       contentType: 'application/json',
       success:function(responseData) {
-        console.log(responseData);
         admin = responseData;
+        if(admin.permissionId === 2){
+        admin["teaId"] = admin.adminId;}
+        sessionStorage.setItem('adminStorage', JSON.stringify(admin));
         var role = (admin.permissionId === 1) ? "管理員" : "老師";
         var newSubMenu;
         var newBar;
@@ -136,7 +143,20 @@ ulElement.innerHTML = '';
                 <li><a href="../coupon/backcouponADD.html">新增優惠券</a></li>
               </ul>
             </li>
-            <hr class="m-2" style="width: 50%">
+                                   <li>
+              <a href="#sublist5" data-bs-toggle="collapse"
+                >訂單管理<i class="fa-solid fa-cart-shopping"></i
+              ></a>
+              <ul
+                id="sublist5"
+                class="list-unstyled collapse"
+                data-bs-parent="#accordion"
+              >
+                <li><a href="../administrator/backCourseOrder.html">課程訂單</a></li>
+                <li><a href="../administrator/backActiveOrder.html">活動訂單</a></li>
+                <li><a href="../administrator/backShopOrder.html">商城訂單</a></li>
+              </ul>
+            </li>
             <li>
               <a href="#sublist2" data-bs-toggle="collapse"
                 >課程管理<i class="fa-solid fa-graduation-cap"></i
@@ -146,9 +166,8 @@ ulElement.innerHTML = '';
                 class="list-unstyled collapse"
                 data-bs-parent="#accordion"
               >
-                <li><a href="#">課程列表</a></li>
-                <li><a href="#">上傳課程</a></li>
-                <li><a href="#">審核課程</a></li>
+                <li><a href="../courseteacher/BackCourses.html">課程列表</a></li>
+                <li><a href="../courseteacher/AddCourses.html">上傳課程</a></li>
               </ul>
             </li>
             <li>
@@ -160,9 +179,8 @@ ulElement.innerHTML = '';
                 class="list-unstyled collapse"
                 data-bs-parent="#accordion"
               >
-                <li><a href="#">活動列表</a></li>
-                <li><a href="#">上傳活動</a></li>
-                <li><a href="#">審核活動</a></li>
+                <li><a href="../active/activeBack.html">活動列表</a></li>
+                <li><a href="../active/activeBackAdd.html">上傳活動</a></li>
               </ul>
             </li>
             <li>
@@ -174,43 +192,29 @@ ulElement.innerHTML = '';
                 class="list-unstyled collapse"
                 data-bs-parent="#accordion"
               >
-                <li><a href="#">商品列表</a></li>
-                <li><a href="#">新增商品</a></li>
+                <li><a href="../baseVer3/commodityLIST.html">商品列表</a></li>
+                <li><a href="../baseVer3/backuserLIST.html">新增商品</a></li>
               </ul>
             </li>
                         <li>
               <a href="#">站內信管理 <i class="fa-solid fa-envelope"></i></a>
             </li>
 
-                        <li>
-              <a href="#sublist5" data-bs-toggle="collapse"
-                >訂單管理<i class="fa-solid fa-cart-shopping"></i
-              ></a>
-              <ul
-                id="sublist5"
-                class="list-unstyled collapse"
-                data-bs-parent="#accordion"
-              >
-                <li><a href="#">課程訂單</a></li>
-                <li><a href="#">活動訂單</a></li>
-                <li><a href="#">商城訂單</a></li>
-              </ul>
-            </li>
                         <hr class="m-2" style="width: 50%">
-             <li>
-              <a href="backmemberLIST.html"
-                >會員管理<i class="fa-solid fa-user"></i
-              ></a>
-            </li>
-            <li>
-              <a href="#">許願管理<i class="fa-solid fa-face-smile"></i></a>
-            </li>
-            <li>
-              <a href="#">論壇管理<i class="fa-solid fa-comments"></i></a>
-            </li>
-            <li>
-              <a href="#">客服信管理<i class="fa-solid fa-paper-plane"></i></a>
-            </li>
+<!--             <li>-->
+<!--              <a href="backmemberLIST.html"-->
+<!--                >會員管理<i class="fa-solid fa-user"></i-->
+<!--              ></a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a href="#">許願管理<i class="fa-solid fa-face-smile"></i></a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a href="#">論壇管理<i class="fa-solid fa-comments"></i></a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a href="#">客服信管理<i class="fa-solid fa-paper-plane"></i></a>-->
+<!--            </li>-->
           `;
           $(".list-unstyled").append(newSubMenu);
         }else{
@@ -226,8 +230,8 @@ ulElement.innerHTML = '';
                 class="list-unstyled collapse"
                 data-bs-parent="#accordion"
               >
-                <li><a href="#">課程列表</a></li>
-                <li><a href="#">上傳課程</a></li>
+                <li><a href="../courseteacher/BackCourses.html">課程列表</a></li>
+                <li><a href="../courseteacher/AddCourses.html">上傳課程</a></li>
               </ul>
             </li>
             <li>
@@ -239,21 +243,8 @@ ulElement.innerHTML = '';
                 class="list-unstyled collapse"
                 data-bs-parent="#accordion"
               >
-                <li><a href="#">活動列表</a></li>
-                <li><a href="#">上傳活動</a></li>
-              </ul>
-            </li>
-                        <li>
-              <a href="#sublist4" data-bs-toggle="collapse"
-                >商城管理<i class="fa-sharp fa-solid fa-shop"></i
-              ></a>
-              <ul
-                id="sublist4"
-                class="list-unstyled collapse"
-                data-bs-parent="#accordion"
-              >
-                <li><a href="#">商品列表</a></li>
-                <li><a href="#">新增商品</a></li>
+                <li><a href="../active/activeBack.html">活動列表</a></li>
+                <li><a href="../active/activeBackAdd.html">上傳活動</a></li>
               </ul>
             </li>
             <li>
@@ -261,7 +252,10 @@ ulElement.innerHTML = '';
             </li>
             `
             $(".list-unstyled").append(newSubMenu);
+        // 新增屬性
 
+
+        console.log(admin);
 
 
             getTeaPhoto()
@@ -269,9 +263,6 @@ ulElement.innerHTML = '';
         var role0 = (admin.permissionId === 1) ? `<span style="color:red;">管理員</span>` : "老師";
         $("#nameid").append(admin.adminName);
         $("#role").html(role0);
-        console.log(role0)
-        // var name=admin.adminName+" "+role;
-        // $(".barname").text(name);
       },
       error:function (){
         alert("沒登入");
@@ -280,10 +271,11 @@ ulElement.innerHTML = '';
       }
     });
   }
+  var test=sessionStorage.getItem('adminStorage');
+  console.log(test)
+  console.log(admin);
 
-
-
-
+// ===========取得每頁的老師照片======================
   function getTeaPhoto(){
     $.ajax({
       type: 'GET',
@@ -304,13 +296,13 @@ ulElement.innerHTML = '';
   }
 
 
-
+// ===========登出的方法===============
   function logout() {
-    console.log("想登出");
     $.ajax({
       url: "/administrators/logout", // 修正URL
       type: "GET",
       success: function(response) {
+        sessionStorage.removeItem('adminStorage');
         window.location.href = "../administrator/backlogin.html";
       },
       error: function(xhr, status, error) {
@@ -321,7 +313,7 @@ ulElement.innerHTML = '';
   
 
 
-  //回到首頁的方法
+  //===========回到首頁的方法===========
   function goToIndexPage() {
     window.location.href = "../administrator/backIndex.html";
   }

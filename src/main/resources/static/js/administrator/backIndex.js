@@ -1,3 +1,6 @@
+var test=sessionStorage.getItem('adminStorage');
+console.log(test)
+
 // 確保整個文檔完全加載後再執行代碼
 $(document).ready(function() {
   $("#collapse").on("click",function(){
