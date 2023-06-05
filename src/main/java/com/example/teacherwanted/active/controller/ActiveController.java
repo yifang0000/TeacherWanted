@@ -9,6 +9,7 @@ import com.example.teacherwanted.active.service.ActiveFavoriteService;
 import com.example.teacherwanted.active.service.ActiveOrderDetailService;
 import com.example.teacherwanted.active.service.ActiveService;
 import com.example.teacherwanted.active.service.MemberServiceActive;
+import com.example.teacherwanted.administrator.model.Administrator;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -113,7 +114,7 @@ public class ActiveController {
             if (activeFavoriteService.queryActiveFavoriteHistory(activityId, memId)) {
                 return "未收藏";
             } else {
-                return "以收藏過";
+                return "已收藏過";
             }
         }
 //        return "以收藏";
@@ -188,7 +189,7 @@ public class ActiveController {
     @GetMapping("/activeBack")
     public List<Active> selectAllActiveBack(@RequestParam(required = false) String searchKeyword,
                                             @RequestParam(required = false) String activityType,
-                                            @SessionAttribute(value = "TeacherSession") Integer teaId) {
+                                            @RequestParam(required = false) Integer teaId) {
 //        System.out.println(teaId);
 
         List<Active> activeList = activeService.selectBackAll(searchKeyword, activityType, teaId);
@@ -198,8 +199,9 @@ public class ActiveController {
     //    創建活動 圖片方法base64
     @PostMapping("/activeBackAdd")
     public String insertActiveBack(@RequestBody Active active,
-                                   @SessionAttribute("TeacherSession") Integer teaId) {
-        active.setTeaId(teaId);
+                                   @SessionAttribute("adminSession") Administrator administrator) {
+        System.out.println("12313:"+administrator.getAdminId());
+        active.setTeaId(administrator.getAdminId());
         return activeService.insert(active);
     }
 
@@ -278,8 +280,8 @@ public class ActiveController {
     //    修改活動 圖片方法base64
     @PutMapping("/activeBackEdit")
     public String updateActiveBack(@RequestBody Active active,
-                                   @SessionAttribute("TeacherSession") Integer teaId) {
-        active.setTeaId(teaId);
+                                   @SessionAttribute("adminSession") Administrator administrator) {
+        active.setTeaId(administrator.getAdminId());
         return activeService.update(active);
     }
     //    修改活動 圖片方法檔案夾路徑

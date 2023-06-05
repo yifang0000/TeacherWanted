@@ -5,8 +5,6 @@ import com.example.teacherwanted.register_login.UserNotFoundException;
 import com.example.teacherwanted.register_login.entity.User;
 import com.example.teacherwanted.register_login.service.UserService;
 import com.example.test.register_login.util.Utility;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
@@ -53,20 +53,20 @@ public class UserForgotPw {
             String resetPaswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
             System.out.println(resetPaswordLink);
             sendEmail(memEmail, resetPaswordLink);
-            model.addAttribute("error", "重設密碼信已寄出!");
+            model.addAttribute("message", "重設密碼信已寄出!");
 
         } catch (UserNotFoundException ex) {
-            model.addAttribute("error", "查無此Email，請重新輸入");
+            model.addAttribute("message", "查無此Email，請重新輸入");
 
         } catch (MessagingException e) {
-            model.addAttribute("error", "傳送失敗");
+            model.addAttribute("message", "傳送失敗");
         } catch (UnsupportedEncodingException e) {
-            model.addAttribute("error", "傳送失敗");
+            model.addAttribute("message", "傳送失敗");
         }
         return "forgot_pw";
     }
 
-    private void sendEmail(String memEmail, String resetPaswordLink) throws MessagingException, UnsupportedEncodingException {
+    private void sendEmail(String memEmail, String resetPaswordLink) throws MessagingException, UnsupportedEncodingException, jakarta.mail.MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
         helper.setFrom("TeacherWanted123@gmail.com", "Teacher Wanted");
@@ -97,17 +97,17 @@ public class UserForgotPw {
     }
 
     @PostMapping("/reset_password")
-    public String processResetPassword(HttpServletRequest request, Model model) {
+    public String processResetPassword(HttpServletRequest request, Model model,@ModelAttribute("user") User viewUser) {
         String token = request.getParameter("token");
-        String password = request.getParameter("password");
         User user = userService.get(token);
         if (user == null) {
             model.addAttribute("title", "重設密碼");
             model.addAttribute("message", "Invalid Token");
             return "message";
         } else{
-            userService.updatePassword(user, password);
-            model.addAttribute("message","設定成功");
+            userService.updatePassword(user, viewUser.getMemPassword());
+            model.addAttribute("message","設定成功! ");
+            System.out.println(user.getMemAccount()+" 已重設密碼"+user.getMemPassword());
         }
         return "login";
     }

@@ -9,13 +9,26 @@ $(document).ready(function(){
       // console.log("1111");
       event.preventDefault();
       
-
+      function validateEmail(email) {
+        // 电子邮件地址的正则表达式
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        // 使用正则表达式验证电子邮件地址
+        return emailRegex.test(email);
+      }
+      
+      // 示例用法
+      var email = $('#adminEmail').val();
+      if (!validateEmail(email)) {
+        alert("電子信箱請依照規範");
+        return false;  // 結束迴圈
+      }
            // 檢查每個 input 元素的值
            var allInputsFilled = true;
            $(".needvalue").each(function() {
              if ($(this).val() === "") {
                allInputsFilled = false;
-               console.log("有空值")
+               alert("有空值")
                return false;  // 結束迴圈
              }
            });
@@ -99,13 +112,35 @@ $(document).ready(function(){
               data: JSON.stringify(formDataTeacher),
               contentType: 'application/json',
                 success: function(response) {
-                  alert('老師新增成功！');
+                  // alert('老師新增成功！');
                 },
                 error: function(xhr, textStatus, errorThrown) {
 
                     alert("發生錯誤");
                 }
             });
+            var mailbody={
+                recipient:$('#adminEmail').val(),
+                msgBody:`${$('#adminName').val()}老師您好，您的帳號已開通：\n帳號為：${$('#adminAccount').val()}\n密碼為：${randomCode}\n後台登入頁面請往：http://localhost:8080/administrator/backlogin.html`,
+                subject:"懸賞啼雀｜您的老師帳號已開通"
+            }
+            console.log(mailbody)
+            $.ajax({
+              type: 'POST',
+              url: '/sendMail',
+              data: JSON.stringify(mailbody),
+              contentType: 'application/json',
+                success: function(response) {
+                  alert('寄信成功！');
+                },
+                error: function(xhr, textStatus, errorThrown) {
+
+                    alert("發生錯誤");
+                }
+            });
+
+
+
         }
 
 })

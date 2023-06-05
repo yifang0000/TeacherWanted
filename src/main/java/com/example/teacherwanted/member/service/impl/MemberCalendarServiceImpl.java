@@ -1,9 +1,8 @@
-package com.example.teacherwanted.active.service.impl;
+package com.example.teacherwanted.member.service.impl;
 
-import com.example.teacherwanted.active.dao.MemberCalendarDao;
-import com.example.teacherwanted.active.dao.impl.MemberCalendarDaoImpl;
-import com.example.teacherwanted.active.model.MemberCalendar;
-import com.example.teacherwanted.active.service.MemberCalendarService;
+import com.example.teacherwanted.member.dao.MemberCalendarDao;
+import com.example.teacherwanted.member.model.MemberCalendar;
+import com.example.teacherwanted.member.service.MemberCalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

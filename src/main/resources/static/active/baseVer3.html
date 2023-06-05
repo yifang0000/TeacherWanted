@@ -36,12 +36,12 @@
     <header class="TeacherWanted">
       <div id="mySidebar">
         <img src="../img/base/logo.png" alt="" />
-        <a href="#" class="">首頁</a>
-        <a href="#" class="">課程</a>
-        <a href="#" class="">活動</a>
-        <a href="#" class="">許願池</a>
-        <a href="#" class="">論壇</a>
-        <a href="#" class="">商城</a>
+        <a href="/index" class="">首頁</a>
+        <a href="/courseteacher/CourseVue.html" class="">課程</a>
+        <a href="/active/activeIndex.html" class="">活動</a>
+        <a href="/wish" class="">許願池</a>
+        <a href="/bbsdiscuss/index.html" class="">論壇</a>
+        <a href="/baseVer3/homepage.html" class="">商城</a>
       </div>
       <div class="navBar">
         <ul class="containerHearder flexWrap flexVerticalCenter">
@@ -82,12 +82,14 @@
               class="flexWrap flexAllCenter pcHave"
               style="flex-grow: 1"
             >
-              <a class="flexAllCenter" href="">首頁</a>
-              <a class="flexAllCenter" href="">課程</a>
-              <a class="flexAllCenter" href="">活動</a>
-              <a class="flexAllCenter" href="">許願池</a>
-              <a class="flexAllCenter" href="">論壇</a>
-              <a class="flexAllCenter" href="">商城</a>
+              <a class="flexAllCenter" href="/index">首頁</a>
+              <a class="flexAllCenter" href="/courseteacher/CourseVue.html"
+                >課程</a
+              >
+              <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
+              <a class="flexAllCenter" href="/wish">許願池</a>
+              <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+              <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
             </div>
             <div
               class="flexWrap flexAllCenter"
@@ -105,8 +107,10 @@
                   <img src="../img/base/search.svg" alt="" />
                 </form>
               </div>
+
               <img
                 src="../img//base/mailForNavbar.svg"
+                id="navMail"
                 class="miniMobile"
                 style="
                   height: 30px;
@@ -119,20 +123,48 @@
               />
               <img
                 src="../img/base/shoppingCart.svg"
-                class="miniMobile"
-                style="height: 30px; margin: 3px 5px; cursor: pointer"
-                alt=""
-              />
-              <img
-                src="../img/base/bell.svg"
+                id="navShoppingcart"
                 class="miniMobile"
                 style="height: 30px; margin: 3px 5px; cursor: pointer"
                 alt=""
               />
 
-              <a class="btnCss flexAllCenter" style="color: white" href=""
-                >登入</a
-              >
+              <!--登入按鈕 開始 -->
+
+              <div id="loginOrUser">
+                <!-- <a class="btnCss flexAllCenter" style="color: white" href=""
+                    >登入</a
+                  > -->
+                <div class="btn-group">
+                  <button
+                    class="btn btn-sm dropdown-toggle flexWrap flexVerticalCenter"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img src="/img/base/logo3D.png" id="userImg" />
+                    <p id="userName">張明宏</p>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="/member/MemberDetail.html"
+                        >會員中心</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/announcement/ann.html"
+                        >公告</a
+                      >
+                    </li>
+
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                      <a class="dropdown-item" href="#">登出</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- 登入按鈕 結束 -->
             </div>
           </li>
         </ul>
@@ -236,22 +268,26 @@
               </li>
               <div class="webMap">
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>首頁</a>
+                  <a class="webMapLink" href="/index">>首頁</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>課程</a>
+                  <a class="webMapLink" href="/courseteacher/CourseVue.html"
+                    >>課程</a
+                  >
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>活動</a>
+                  <a class="webMapLink" href="/active/activeIndex.html"
+                    >>活動</a
+                  >
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>許願池</a>
+                  <a class="webMapLink" href="/wish">>許願池</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>論壇</a>
+                  <a class="webMapLink" href="/bbsdiscuss/index.html">>論壇</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>商城</a>
+                  <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
                 </li>
               </div>
             </div>

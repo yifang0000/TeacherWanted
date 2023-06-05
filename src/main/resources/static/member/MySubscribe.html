@@ -152,9 +152,9 @@
     <main class="TeacherWanted">
       <!-- ！！！寫在這裡！！！
       如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
-      <section class="container" style="display: flex">
+      <section class="container" style="display: flex" id="app">
         <!-- 頁面左邊 -->
-        <div class="aside">
+        <div class="aside" >
           <div style="width: 100%" >
             <div class="detailSearch" >
               <!--按鈕圖示-->
@@ -165,11 +165,41 @@
                 <div>
                   <form id="navSearch" action="">
                     <select style="width: 125px; margin-left: 80px" name="formal" onchange="javascript:handleSelect(this)">
-                      <option value="MemberCenter">我的課程</option>
-                      <option value="MemberDetail">會員資料</option>
-                      <option value="MySubscribe">訂閱與收藏</option>
-                      <option value="orderList">訂單管理</option>
-                      <option>站內信</option>
+                      <option value="MemberCenter">
+                        <a
+                          class="flexAllCenter"
+                          href="/member/MemberCenter.html"
+                        ></a>
+                        我的課程
+                      </option>
+                      <option value="MemberDetail">
+                        <a
+                          class="flexAllCenter"
+                          href="/member/MemberDetail.html"
+                        ></a>
+                        會員資料
+                      </option>
+                      <option value="MySubscribe">
+                        <a
+                          class="flexAllCenter"
+                          href="/member/MySubscribe.html"
+                        ></a>
+                        訂閱與收藏
+                      </option>
+                      <option value="orderList">
+                        <a
+                          class="flexAllCenter"
+                          href="/member/OrderList.html"
+                        ></a>
+                        訂單管理
+                      </option>
+                      <option value="inboxmail">
+                        <a
+                          class="flexAllCenter"
+                          href="/inboxmail/inbox.html"
+                        ></a>
+                        站內信
+                      </option>
                     </select>
                   </form>
                 </div>
@@ -197,7 +227,7 @@
                     <div id="file_camera">
                       <i class="fa-solid fa-cloud-arrow-up"></i>
                     </div>
-                    <span>會員姓名:</span>
+                    <span>會員姓名:{{member.memName}}</span>
                   </div>
                   
                     
@@ -205,13 +235,13 @@
                     <!--在此加入行事曆-->
                     <div class="flexHorizontalCenter">
                       <!--在此加入行事曆-->
-                      <div id="calendar"></div>
+                      <div vue-else id="calendar"></div>
                     </div>
                   </div>
                 </div>               
               </div>
           </div>
-        </div>  
+          
           <!-- 頁面右邊 -->
           <div class="main">
             <div>
@@ -317,7 +347,7 @@
 
       <!-- 分頁1 我的訂閱 -->
       <section id="page1" class="containerLession">
-        <div class="bulletinBoard borderShadow">
+        <div class="bulletinBoard borderShadow" id="app_subscribe">
           <div>          
             <h2 class="favoriteItem">課程</h2>
               <ul class="item_list">
@@ -412,11 +442,11 @@
           </div>
         </div>
       
-      <!-- 分頁1 我的訂閱結束 -->
+      <!-- 分頁1 我的訂閱結束 --------------------------------->
 
-      <!-- 分頁2 收藏 -->
+      <!-- 分頁2 收藏 -------------------->
       <section id="page2" class="containerLession">
-        <div class="bulletinBoard borderShadow">
+        <div class="bulletinBoard borderShadow" id="app_favorite">
           <!-- Three columns of text below the carousel -->
     <div class="row">
       <div class="col-lg-4">
@@ -452,7 +482,7 @@
       <section
         id="page3"
         class="containerLession">
-      <div class="bulletinBoard borderShadow">
+      <div class="bulletinBoard borderShadow" id="app_wish">
         
           
           <ul class="item_list">
@@ -501,10 +531,10 @@
 
       <!-- 分頁4 行事曆 -->
       <section id="page4" class="containerLession">
-        <div class="bulletinBoard borderShadow">
+        <div class="bulletinBoard borderShadow" id="app_calendar">
               <!--行事曆-->
                          
-                <div id="mainCalendar"></div><br>
+                <div vue-if id="mainCalendar"></div><br>
 
                 <div class="flexVerticalCenter"> 
                 <div style="width: 50%;">

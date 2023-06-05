@@ -1,12 +1,5 @@
 
-$(document).ready(function(){
-    $("#collapse").on("click",function(){
-        $("#sidebar").toggleClass("active")
-        // 讓圖示轉換成另一個圖示
-        // $(".fa-bars").toggleClass("fa-arrow-right")
-        // $(".fa-solid").toggleClass("fa-shake")  
-        
-    })
+
 
  
     //==============課程訂單明細==================//
@@ -28,16 +21,16 @@ $(document).ready(function() {
       // 將每筆資料加入DataTable
       response.forEach(function(order) {
         table.row.add([
-          order.groupOrderDetailId,
-          order.activityId,
+          order.orderId,
           order.memId,
-          order.registerTime,
-          order.memEmail,
-          order.memName,
-          order.memPhone,
-          '<button id="delet-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">修改</button>&nbsp;' +
+          order.originalPrice,
+          order.couponCode,
+          order.discount,
+          order.discountPrice,
+          order.orderStatus,
           '<button id="rate-btn" data-bs-toggle="modal" data-bs-target="#exampleModal1">刪除</button>'
         ]);
+
       });
 
       table.draw();  // 重新繪製DataTable
@@ -299,7 +292,7 @@ $(document).ready(function() {
 
   // 發送AJAX請求取得資料
   $.ajax({
-    url: '/OrderList',  // 請將URL替換為實際的資料取得端點
+    url: '/backActiveOrder',  // 請將URL替換為實際的資料取得端點
     type: 'POST',
     dataType: 'json',
     success: function(response) {
@@ -317,7 +310,6 @@ $(document).ready(function() {
           order.memEmail,
           order.memName,
           order.memPhone,
-          '<button id="editor-edit" data-bs-toggle="modal" data-bs-target="#exampleModal">修改</button>&nbsp;' +
           '<button id="delete-btn" data-bs-toggle="modal" data-bs-target="#exampleModal1">刪除</button>'
         ]);
       });
@@ -569,71 +561,44 @@ $(document).ready(function() {
           "thousands": ","
       
   },
+
+  "drawCallback": function () {
+    $(".editor-delete").on("click", function () {
+      let row = $(this).closest("tr");
+      
+      var groupOrderDetailId = table.row(row).data().groupOrderDetailId;
+      console.log("Clicked groupOrderDetailId:", groupOrderDetailId);
+      // 在这里可以执行你想要的操作，使用groupOrderDetailId的值
+      
+        if (confirm('確定要刪除嗎？')) {
+    // 發送刪除請求到後端 API
+    fetch('../activeOrderList/delete/' + groupOrderDetailId, {
+      method: 'DELETE'
+    })
+    .then(function(response) {
+      if (response.ok) {
+        // 刪除成功，從前端移除該行
+         row.remove();
+        table.ajax.reload()/* 将触发重新加载数据并更新表格。 */
+        console.log('刪除成功');
+      } else {
+        // 處理刪除失敗的情況
+        console.log('刪除失敗');
+      }
+    })
+    .catch(function(error) {
+      // 處理錯誤情況
+      console.log('錯誤：', error);
+    });
+  }   
+    });
+
+   
   
 
-  });
 
-
-  $("#editor-edit").on("click", function () {
-    console.log('有嗎');
-    var row = $(this).closest("tr");
-    var data = table.row(row).data();
-    var groupOrderDetailId = data.groupOrderDetailId;
-    var activityId = data.activityId;
-    var memId = data.memId;
-    var registerTime = data.registerTime;
-    var memEmail = data.memEmail;
-    var memName = data.memName;
-    var memPhone = data.memPhone;
   
-  
-  
-  
-  // 更新模态框中的表单字段值
-  $("#groupOrderDetailId").val(groupOrderDetailId);
-  $("#activityId").val(activityId);
-  $("#memId").val(memId);
-  $("#registerTime").val(registerTime);
-  $("#memEmail").val(memEmail);    
-  $("#memName").val(memName);
-  $("#memPhone").val(memPhone);
-  
-  
-  
-  
-  
-  // 显示模态框
-  $("#updateModal").modal("show");
-  });
-  
-  // 点击更新按钮的事件处理程序
-  $("#updateBtn").on("click", function () {
-  var groupOrderDetailId = $("#groupOrderDetailId").val();
-  var activityId = $("#activityId").val();
-  var memId = $("#memId").val();
-  var registerTime = $("#registerTime").val();
-  var memEmail = $("#memEmail").val();
-  var memName = $("#memName").val();
-  var memPhone = $("#memPhone").val();
-  
-  
-  
-  
-  // 在这里可以执行更新操作或发送更新请求到后端
-  
-  // 添加其他字段
-  var data = {
-    groupOrderDetailId: groupOrderDetailId,
-    activityId: activityId,
-    memId: memId,
-    registerTime: registerTime,
-    memEmail: memEmail,
-    memName: memName,
-    memPhone: memPhone,
-  
-  // 添加其他字段
-  };
-  console.log("資料"+data);
+//   console.log("資料"+ data);
   // 发送Ajax请求
   $.ajax({
   url: "/activeOrderDelete" + memId, // 替换为实际的后端接口URL
@@ -651,10 +616,10 @@ $(document).ready(function() {
   });
   // 关闭模态框
   $("#updateModal").modal("hide");
-  });
+  }
   
+ });
 });
-
 
 
 
@@ -933,11 +898,127 @@ $(document).ready(function() {
           "search": "搜尋：",
           "searchPlaceholder": "請輸入關鍵字",
           "thousands": ","
+      
   },
+
+  "drawCallback": function () {
+    $(".editor-delete").on("click", function () {
+      let row = $(this).closest("tr");
+      
+      var groupOrderDetailId = table.row(row).data().groupOrderDetailId;
+      console.log("Clicked groupOrderDetailId:", groupOrderDetailId);
+      // 在这里可以执行你想要的操作，使用groupOrderDetailId的值
+      
+        if (confirm('確定要刪除嗎？')) {
+    // 發送刪除請求到後端 API
+    fetch('../activeOrderList/delete/' + groupOrderDetailId, {
+      method: 'DELETE'
+    })
+    .then(function(response) {
+      if (response.ok) {
+        // 刪除成功，從前端移除該行
+         row.remove();
+        table.ajax.reload()/* 将触发重新加载数据并更新表格。 */
+        console.log('刪除成功');
+      } else {
+        // 處理刪除失敗的情況
+        console.log('刪除失敗');
+      }
+    })
+    .catch(function(error) {
+      // 處理錯誤情況
+      console.log('錯誤：', error);
+    });
+  }   
+    });
+
+    $("#editor-edit").on("click", function () {
+        console.log('有嗎');
+        var row = $(this).closest("tr");
+        var data = table.row(row).data();
+        var groupOrderDetailId = data.groupOrderDetailId;
+        var activityId = data.activityId;
+        var memId = data.memId;
+        var registerTime = data.registerTime;
+        var memEmail = data.memEmail;
+        var memName = data.memName;
+        var memPhone = data.memPhone;
+      
+      
+      
+      
+      // 更新模态框中的表单字段值
+      $("#groupOrderDetailId").val(groupOrderDetailId);
+      $("#activityId").val(activityId);
+      $("#memId").val(memId);
+      $("#registerTime").val(registerTime);
+      $("#memEmail").val(memEmail);    
+      $("#memName").val(memName);
+      $("#memPhone").val(memPhone);
+      
+      
+      
+      
+      
+      // 显示模态框
+      $("#updateModal").modal("show");
+      });
+      
+      // 点击更新按钮的事件处理程序
+      $("#updateBtn").on("click", function () {
+      var groupOrderDetailId = $("#groupOrderDetailId").val();
+      var activityId = $("#activityId").val();
+      var memId = $("#memId").val();
+      var registerTime = $("#registerTime").val();
+      var memEmail = $("#memEmail").val();
+      var memName = $("#memName").val();
+      var memPhone = $("#memPhone").val();
+      
+      
+      
+      
+      // 在这里可以执行更新操作或发送更新请求到后端
+      
+      // 添加其他字段
+      var data = {
+        groupOrderDetailId: groupOrderDetailId,
+        activityId: activityId,
+        memId: memId,
+        registerTime: registerTime,
+        memEmail: memEmail,
+        memName: memName,
+        memPhone: memPhone,
+      
+      // 添加其他字段
+      
+      };
+      console.log("資料"+ data);
   });
 
+
   
-}); 
+//   console.log("資料"+ data);
+  // 发送Ajax请求
+  $.ajax({
+  url: "/activeOrderDelete" + memId, // 替换为实际的后端接口URL
+  type: "DELETE",
+  contentType: "application/json",
+  data: JSON.stringify(data),
+  success: function (response) {
+  // 更新成功的处理逻辑
+  console.log('更新成功');
+  table.ajax.reload()
+  },
+  error: function (xhr, status, error) {
+  // 更新失败的处理逻辑
+  }
+  });
+  // 关闭模态框
+  $("#updateModal").modal("hide");
+  }
+  
+ });
+});
 
     
         // =================================表單====================================//

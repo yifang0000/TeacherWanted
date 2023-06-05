@@ -15,6 +15,7 @@ const app = Vue.createApp({
       activityName: "",
       activityStartTime: "",
       activityEndTime: "",
+      activityDueTime: "",
       activityPrice: "",
       activeRecommendList: [],
       activeRecentlyList: [],
@@ -33,6 +34,7 @@ const app = Vue.createApp({
         this.activityName = data.activityName;
         this.activityStartTime = convertToFormattedDate(data.activityStartTime);
         this.activityEndTime = convertToFormattedDate(data.activityEndTime);
+        this.activityDueTime = convertToFormattedDate(data.activityDueTime);
         this.activityPrice = data.activityPrice;
         let lng = data.activityLng;
         let lat = data.activityLat;

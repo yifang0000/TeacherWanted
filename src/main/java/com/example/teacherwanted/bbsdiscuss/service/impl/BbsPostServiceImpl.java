@@ -3,9 +3,7 @@ package com.example.teacherwanted.bbsdiscuss.service.impl;
 import com.example.teacherwanted.active.dao.MemberDaoActive;
 import com.example.teacherwanted.active.model.MemberActive;
 import com.example.teacherwanted.bbsdiscuss.dao.BbsPostDao;
-import com.example.teacherwanted.bbsdiscuss.dto.BbsPostRequest;
-import com.example.teacherwanted.bbsdiscuss.dto.FavoriterArticleRequest;
-import com.example.teacherwanted.bbsdiscuss.dto.PostReactionRequest;
+import com.example.teacherwanted.bbsdiscuss.dto.*;
 import com.example.teacherwanted.bbsdiscuss.model.*;
 import com.example.teacherwanted.bbsdiscuss.service.BbsPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +79,12 @@ public class BbsPostServiceImpl implements BbsPostService {
     public BbsPost getBbsPostById(Integer bbsPostId) {
         return bbsPostDao.getBbsPostById(bbsPostId);
     }
+
+    @Override
+    public BbsComment getBbsCommById(Integer bbsCommentId) {
+        return bbsPostDao.getBbsCommById(bbsCommentId);
+    }
+
     //  根據留言id取得，大頭貼
     @Override
     public MemberActive getBbsCommInfoById(Integer bbsCommentId) {
@@ -124,6 +128,12 @@ public class BbsPostServiceImpl implements BbsPostService {
     public Integer createBbsPost(BbsPostRequest bbsPostRequest) {
         return bbsPostDao.createBbsPost(bbsPostRequest);
     }
+    // 新增留言
+    @Override
+    public Integer createBbsComm(BbsCommentRequest bbsCommentRequest) {
+        return bbsPostDao.createBbsComm(bbsCommentRequest);
+    }
+
     //新增收藏資料
     @Override
     public int createBbsPostFavArt(FavoriterArticleRequest favoriterArticleRequest) {
@@ -139,11 +149,59 @@ public class BbsPostServiceImpl implements BbsPostService {
     //新增讚/倒讚資料
     @Override
     public int createPostReaction(PostReactionRequest postReactionRequest) {
-        return 0;
+        return bbsPostDao.createPostReaction(postReactionRequest);
     }
+
+    @Override
+    public int getBbsPostReactionById(PostReactionRequest postReactionRequest) {
+        return bbsPostDao.getReactionCountById(postReactionRequest);
+    }
+
     //依據文章id 跟 status 取得 按讚數字 (0沒按讚; 1有按讚; 2倒讚)
     @Override
     public int getPostReactionById(PostReactionRequest postReactionRequest) {
         return 0;
     }
+
+    @Override
+    public int updateBbsPostFav(int postId, int postFav) {
+        return  bbsPostDao.updateBbsPostFav(postId,postFav);
+    }
+
+    @Override
+    public int updateBbsPostReaction(PostReactionRequest postReactionRequest,int reactionNum) {
+        return  bbsPostDao.updateBbsPostReaction(postReactionRequest,reactionNum);
+    }
+    //修改文章標題
+    @Override
+    public void updateBbsPostTitle(Integer postId, BbsPostUpdateTitle bbsPostUpdateTitle) {
+        bbsPostDao.updateBbsPostTitle(postId,bbsPostUpdateTitle);
+    }
+    //修改文章內容
+
+    @Override
+    public void updateBbsPostContent(Integer postId, BbsPostUpdateContent bbsPostUpdateContent) {
+        bbsPostDao.updateBbsPostContent(postId,bbsPostUpdateContent);
+    }
+    //修改留言內容
+    @Override
+    public void updateComm(Integer commId, BbsCommUpdate bbsCommUpdate) {
+        bbsPostDao.updateComm(commId, bbsCommUpdate);
+    }
+    //修改文章狀態為 0 (隱藏)  , 原本預設 1 (發布)
+    @Override
+    public void updateBbsPostStatus(Integer postId, BbsPostUpdateStatus bbsPostUpdateStatus) {
+        bbsPostDao.updateBbsPostStatus(postId, bbsPostUpdateStatus);
+    }
+    //修改留言狀態為 0 (隱藏)  , 原本預設 1 (發布)
+    @Override
+    public void updateBbsCommStatus(Integer commId, BbsCommUpdateStatus bbsCommUpdateStatus) {
+        bbsPostDao.updateBbsCommStatus(commId, bbsCommUpdateStatus);
+    }
+
+//    //修改收藏狀態為 0 (隱藏)  , 原本預設 1 (有收藏)
+//    @Override
+//    public void updateFavStatus(Integer favoriteArticleId, BbsFavStatus bbsFavStatus) {
+//        bbsPostDao.updateFavStatus(favoriteArticleId, bbsFavStatus);
+//    }
 }

@@ -1,8 +1,7 @@
-package com.example.teacherwanted.active.dao.impl;
+package com.example.teacherwanted.member.dao.impl;
 
-import com.example.teacherwanted.active.dao.MemberCalendarDao;
-import com.example.teacherwanted.active.model.Active;
-import com.example.teacherwanted.active.model.MemberCalendar;
+import com.example.teacherwanted.member.dao.MemberCalendarDao;
+import com.example.teacherwanted.member.model.MemberCalendar;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;

@@ -132,6 +132,7 @@
               </div>
               <img
                 src="../img//base/mailForNavbar.svg"
+                id="navMail"
                 class="miniMobile"
                 style="
                   height: 30px;
@@ -144,20 +145,42 @@
               />
               <img
                 src="../img/base/shoppingCart.svg"
+                id="navShoppingcart"
                 class="miniMobile"
                 style="height: 30px; margin: 3px 5px; cursor: pointer"
                 alt=""
               />
-              <img
-                src="../img/base/bell.svg"
-                class="miniMobile"
-                style="height: 30px; margin: 3px 5px; cursor: pointer"
-                alt=""
-              />
+              <!--登入按鈕 開始 -->
 
-              <a class="btnCss flexAllCenter" style="color: white" href=""
-                >登入</a
-              >
+              <div id="loginOrUser">
+                <!-- <a class="btnCss flexAllCenter" style="color: white" href=""
+                  >登入</a
+                > -->
+                <div class="btn-group">
+                  <button
+                    class="btn btn-sm dropdown-toggle flexWrap flexVerticalCenter"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img src="/img/base/logo3D.png" id="userImg" />
+                    <p id="userName">張明宏</p>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="/member/MemberDetail.html"
+                        >會員中心</a
+                      >
+                    </li>
+
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                      <a class="dropdown-item" href="#">登出</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- 登入按鈕 結束 -->
             </div>
           </li>
         </ul>
@@ -216,10 +239,7 @@
                   <!-- 時間 結束 -->
 
                   <!-- 地點 開始 -->
-                  <li
-                    class="flexWrap flexVerticalCenter"
-                    style="margin-top: 10px"
-                  >
+                  <li class="flexWrap flexVerticalCenter">
                     <!-- 地點icon -->
                     <img
                       src="../img/active/map-marker.svg"
@@ -233,6 +253,21 @@
 
                   <!-- 空白區塊 -->
                   <li style="height: 80px"></li>
+
+                  <!-- 報名截止時間 開始 -->
+                  <li
+                    class="flexWrap flexVerticalCenter"
+                    style="margin-top: 10px"
+                  >
+                    <img
+                      src="../img/active/stopTime.png"
+                      style="height: 25px; margin-right: 10px"
+                      alt=""
+                    />
+                    <h4>報名截止時間:{{activityDueTime}}</h4>
+                  </li>
+                  <!-- 報名截止時間 結束 -->
+
                   <!-- 最下面資訊 開始 -->
                   <li
                     class="flexWrap flexVerticalCenter"
@@ -323,7 +358,7 @@
                           <p style="font-size: 1rem">
                             {{convertToFormattedDate(activeRecommend.activityStartTime)}}
                           </p>
-                          <p style="font-size: 1rem">
+                          <p style="font-size: 1rem; width: 100%">
                             -
                             {{convertToFormattedDate(activeRecommend.activityEndTime)}}
                           </p>
@@ -376,24 +411,15 @@
                 <!-- 活動地點 結束 -->
                 <!-- 老師訊息 開始 -->
                 <div class="borderShadow" style="padding: 25px">
-                  <div class="flexHorizontalCenter" style="width: 100%">
-                    <img src="../img/active/teacherPhoto.png" alt="" />
-                  </div>
-
-                  <h3
-                    class="flexHorizontalCenter"
-                    style="width: 100%; margin-top: 5px"
-                  >
-                    喵喵
-                  </h3>
-                  <h3 class="flexHorizontalCenter" style="width: 100%">
-                    資深網球教練
-                  </h3>
                   <div
                     class="flexHorizontalCenter"
                     style="width: 100%; margin-top: 5px"
                   >
-                    <a class="activeBtn activeBtnShare" href="">老師頁面</a>
+                    <a
+                      class="activeBtn activeBtnShare"
+                      href="/courseteacher/TeacherInfo.html"
+                      >主辦老師頁面</a
+                    >
                   </div>
                 </div>
                 <!-- 老師訊息 結束 -->
