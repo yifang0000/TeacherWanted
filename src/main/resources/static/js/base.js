@@ -62,4 +62,14 @@ $(function () {
     }
   });
   // 上方導航列搜尋 結束
+  // 跳轉 站內信頁面 開始
+  $("#navMail").on("click", () => {
+    window.location.href = "/inboxmail/inbox.html";
+  });
+  // 跳轉 站內信頁面 結束
+  // 跳轉 購物車 開始
+  $("#navMail").on("click", () => {
+    window.location.href = "";
+  });
+  // 跳轉 購物車 結束
 });
