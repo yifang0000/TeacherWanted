@@ -154,13 +154,13 @@
       如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
       <div id="app" class="flexWrap">
         <section class="activeChatRoomIntroduceBlock">
-          <div class="activeChatRoomIntroduceBtnBlock">
-            <a href="">回首頁</a>
-            <a href="">回活動列表</a>
-            <a href=""></a>
+          <div class="activeChatRoomIntroduceBtnBlock flexWrap">
+            <a href="" class="flexAllCenter">首頁</a>
+            <a href="" class="flexAllCenter">活動列表</a>
+            <a href="" class="flexAllCenter">回活動</a>
           </div>
           <div class="activeChatOneImgBlock">
-            <img src="../img/active/active.png" />
+            <img :src="imgSrc" />
           </div>
         </section>
         <section class="activeChatRoomBlock">

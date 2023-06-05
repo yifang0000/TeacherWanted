@@ -64,3 +64,17 @@ section.activeChatRoomBlock {
 .chatMessageInput a:hover {
   background-color: #3c6a36;
 }
+.activeChatRoomIntroduceBtnBlock {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* 介紹的按鈕 開始 */
+.activeChatRoomIntroduceBtnBlock a {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background-color: #a4c964;
+  color: white;
+  margin: 1px 5px;
+}
+/* 介紹的按鈕 節數 */
