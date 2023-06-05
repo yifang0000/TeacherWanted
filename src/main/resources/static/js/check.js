@@ -273,7 +273,6 @@ ulElement.innerHTML = '';
   }
   var test=sessionStorage.getItem('adminStorage');
   console.log(test)
-  console.log(admin);
 
 // ===========取得每頁的老師照片======================
   function getTeaPhoto(){
