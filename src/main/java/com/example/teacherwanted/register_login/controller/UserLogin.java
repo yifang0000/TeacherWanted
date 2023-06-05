@@ -73,7 +73,7 @@ public class UserLogin {
     @GetMapping("/logout")
     public String logout(@ModelAttribute("user")User user, HttpSession session, Model model) {
         // 清除会话中的用户信息
-        session.removeAttribute("user");
+        session.removeAttribute("userInfo");
         session.invalidate();
         model.addAttribute("msg", "您已登出，( •́ω•̩̥̀ )下次再會~");
         System.out.println(user.getMemAccount()+" already logout");
