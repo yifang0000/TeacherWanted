@@ -379,6 +379,8 @@
 
     <script>
       // ===================================畫面一載入=====================================================================
+
+      bbsdiscussGetData = {};
       $.ajax({
         url: "/bbsdiscussGet",
         type: "GET",
@@ -407,6 +409,7 @@
               success: function (data2) {
                 console.log(data);
                 console.log(data2);
+                bbsdiscussGetData = data;
                 // 獲取每個資料項目的相關屬性值
                 let bbsPostId = data[i].bbsPostId;
                 let postTitle = data[i].postTitle;
@@ -418,6 +421,7 @@
                 let postDislikes = data[i].postDislikes;
                 let postLikes = data[i].postLikes;
                 let postStatus = data[i].postStatus;
+                let postFav = data[i].postFav;
                 let elapsedTime = getElapsedTime(updateTime);
                 let memPhoto =
                   "data:image/" + "null" + ";base64," + data2.memPhoto;
@@ -474,16 +478,16 @@
                         <h6>${reaction_status}-${postLikes}</h6></span
                       >
                     </a>
-                    <a href="#" class="btn border-danger col-md-1 bbs_click_heart"
+                    <a href="#" class="btn border-danger col-md-1 bbs_click_heart" onclick="fav(${bbsPostId} , this)"
                       ><span
                         ><img
-                          src="../img/bbsdiscuss/heart-regular.svg"
+                          src="/img/bbsdiscuss/heart-regular.svg"
                           alt=""
                           style="width: 20px"
                           ;
                           height="10px"
                         />
-                        <h6>${favStatus}</h6>
+                        <h6>${postFav}</h6>
                       </span>
                     </a>
                   </div>
@@ -621,7 +625,7 @@
                     <a href="#" class="btn border-danger col-md-1 bbs_click_heart"
                       ><span
                         ><img
-                          src="../img/bbsdiscuss/heart-regular.svg"
+                          src="/img/bbsdiscuss/heart-regular.svg"
                           alt=""
                           style="width: 20px"
                           ;
@@ -691,7 +695,7 @@
 
       $(function () {
         // ============================按讚======================================================================
-        let bbs_post_up = 20;
+        // let bbs_post_up = 20;
         $("a.bbs_click_up").on("click", function (e) {
           // console.log("aaa");
           e.preventDefault();
@@ -716,29 +720,29 @@
         });
 
         // ============================倒讚======================================================================
-        let bbs_post_heart = 10;
-        $("a.bbs_click_heart").on("click", function (e) {
-          // console.log("aaa");
-          e.preventDefault();
-          let img_element = $("a.bbs_click_heart img");
-          let current_src = img_element.attr("src");
-          let solid_src = "img/bbsdiscuss/heart-solid.svg";
-          let regular_src = "img/bbsdiscuss/heart-regular.svg";
+        // let bbs_post_heart = 10;
+        // $("a.bbs_click_heart").on("click", function (e) {
+        //   // console.log("aaa");
+        //   e.preventDefault();
+        //   let img_element = $("a.bbs_click_heart img");
+        //   let current_src = img_element.attr("src");
+        //   let solid_src = "img/bbsdiscuss/heart-solid.svg";
+        //   let regular_src = "img/bbsdiscuss/heart-regular.svg";
 
-          if (current_src === regular_src) {
-            img_element.attr("src", solid_src);
-            bbs_post_heart++; // 讚的數量加1
-            console.log(bbs_post_heart);
-            $("a.bbs_click_heart").addClass("btn-danger text-white");
-          } else if (current_src === solid_src) {
-            img_element.attr("src", regular_src);
-            bbs_post_heart--; // 讚的數量减1
-            console.log(bbs_post_heart);
-            $("a.bbs_click_heart").removeClass("btn-danger text-white");
-          }
-          // 更新讚的數量
-          $(this).find("h6").text(bbs_post_heart);
-        });
+        //   if (current_src === regular_src) {
+        //     img_element.attr("src", solid_src);
+        //     bbs_post_heart++; // 讚的數量加1
+        //     console.log(bbs_post_heart);
+        //     $("a.bbs_click_heart").addClass("btn-danger text-white");
+        //   } else if (current_src === solid_src) {
+        //     img_element.attr("src", regular_src);
+        //     bbs_post_heart--; // 讚的數量减1
+        //     console.log(bbs_post_heart);
+        //     $("a.bbs_click_heart").removeClass("btn-danger text-white");
+        //   }
+        //   // 更新讚的數量
+        //   $(this).find("h6").text(bbs_post_heart);
+        // });
         // ============================跳轉到發表文章======================================================================
 
         $(".bbs_btn_edit").on("click", function () {
@@ -755,6 +759,58 @@
           window.location.href = "heart.html";
         });
       });
+
+      // =================按下收藏====================
+      function fav(element,event) {
+        console.log(`postId : ${element}`);
+        console.log(bbsdiscussGetData);
+        console.log(event);
+
+
+        let bbs_post_heart = 10;
+
+          // element.preventDefault();
+          // let img_element = $("a.bbs_click_heart img");
+          let img_element = event.querySelector('img');
+          console.log(img_element)
+          let current_src = img_element.getAttribute("src");
+          let solid_src = "/img/bbsdiscuss/heart-solid.svg";
+          let regular_src = "/img/bbsdiscuss/heart-regular.svg";
+
+          var nextElement = img_element.nextElementSibling;
+          var domValue = nextElement.textContent;
+
+
+
+          console.log(current_src)
+          console.log(regular_src)
+          console.log(solid_src)
+          if (current_src === regular_src) {
+            img_element.src = solid_src;
+            // img_element.getAttribute("src", solid_src);
+            domValue++; // 讚的數量加1
+            console.log(domValue);
+            var parentElement = img_element.parentNode.parentNode;;
+            console.log(parentElement)
+            parentElement.className += ' btn-danger text-white';
+          } else if (current_src === solid_src) {
+            img_element.src = regular_src;
+            // img_element.getAttribute("src", regular_src);
+            domValue--; // 讚的數量减1
+            console.log(domValue);
+            var parentElement = img_element.parentNode.parentNode;
+            parentElement.classList.remove('btn-danger', 'text-white')
+          }
+          let img_elements = event.querySelector('img');
+          let current_src2 = img_element.getAttribute("src");
+          console.log(current_src2)
+          // 更新讚的數量
+          // img_element.find("h6").text(bbs_post_heart);
+          nextElement.textContent = domValue;
+          console.log(nextElement)
+
+
+      }
     
     
     </script>
