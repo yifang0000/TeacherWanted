@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -59,6 +60,9 @@ public class MemberServiceImpl implements MemberService {
         return null;
     }
 
+    @Override
+    public Member selectBackOrderById(Integer id){ return null;
+    }
 
     //      @Override
 //      public List<Member> selectAll() {

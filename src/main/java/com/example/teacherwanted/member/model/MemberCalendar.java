@@ -1,4 +1,4 @@
-package com.example.teacherwanted.active.model;
+package com.example.teacherwanted.member.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
