@@ -14,4 +14,6 @@ public interface UserRepo extends JpaRepository<User, Integer> { //繼承了JPA�
     public boolean existsByMemEmail(String memEmail);
     public User findByMemEmail(String memEmail);
     public User findByResetPasswordToken(String token);
+
+    Optional<User> findByMemId(Integer MemId);
 }
