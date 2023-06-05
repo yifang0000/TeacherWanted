@@ -284,26 +284,26 @@
                         <tr>
                           <!-- 欄位標題 -->
 
-                          <th>活動訂單編號</th>
-                          <th>活動編號</th>
-                          <th>會員姓名</th>
-                          <th>活動時間</th>
-                          <th>會員信箱</th>
-                          <th>會員姓名</th>
-                          <th>會員電話</th>
+                          <th>課程訂單編號</th>
+                          <th>會員編號</th>
+                          <th>原始價格</th>
+                          <th>優惠券</th>
+                          <th>折扣金額</th>
+                          <th>折扣後金額</th>
+                          <th>訂單狀態</th>
                           <th></th>
                         </tr>
                       </thead>
                       <!-- 資料內容 -->
                       <tbody>
                         <tr>
-                          <td id="groupOrderDetailId"></td>
-                          <td id="activity"></td>
+                          <td id="orderId"></td>
                           <td id="memId"></td>
-                          <td id="registerTime"></td>
-                          <td id="memEmail"></td>
-                          <td id="memName"></td>
-                          <td id="memPhone"></td>
+                          <td id="originalPrice"></td>
+                          <td id="couponCode"></td>
+                          <td id="discount"></td>
+                          <td id="discountPrice"></td>
+                          <td id="orderStatus"></td>
                           <td>
                             <button
                               id="delet-btn"
@@ -338,36 +338,32 @@
         <!-- 在这里添加更新表单或其他内容 -->
         <form>
           <div class="mb-3">
-            <label for="clinicServiceId" class="form-label">產品編號</label>
-            <input type="text" class="form-control" id="clinicServiceId" readonly>
+            <label for="orderId" class="form-label">課程訂單編號</label>
+            <input type="text" class="form-control" id="orderId" readonly>
           </div>
           <div class="mb-3">
-            <label for="clinicServiceName" class="form-label">服務項目</label>
-            <input type="text" class="form-control" id="clinicServiceName">
+            <label for="memId" class="form-label">會員編號</label>
+            <input type="text" class="form-control" id="memId" readonly>
           </div>
           <div class="mb-3">
-            <label for="servicePrice" class="form-label">價格</label>
-            <input type="text" class="form-control" id="servicePrice">
+            <label for="originalPrice" class="form-label">原始價格</label>
+            <input type="text" class="form-control" id="originalPrice">
           </div>
           <div class="mb-3">
-            <label for="serviceDiscountPrice" class="form-label">優惠價</label>
-            <input type="text" class="form-control" id="serviceDiscountPrice">
+            <label for="couponCode" class="form-label">優惠券</label>
+            <input type="text" class="form-control" id="couponCode">
           </div>
           <div class="mb-3">
-            <label for="serviceItem1" class="form-label">細項一</label>
-            <input type="text" class="form-control" id="serviceItem1">
+            <label for="discount" class="form-label">折扣金額</label>
+            <input type="text" class="form-control" id="discount">
           </div>
           <div class="mb-3">
-            <label for="serviceItem2" class="form-label">細項二</label>
-            <input type="text" class="form-control" id="serviceItem2">
+            <label for="discountPrice" class="form-label">折扣後金額</label>
+            <input type="text" class="form-control" id="discountPrice">
           </div>
           <div class="mb-3">
-            <label for="serviceItem3" class="form-label">細項三</label>
-            <input type="text" class="form-control" id="serviceItem3">
-          </div>
-          <div class="mb-3">
-            <label for="serviceItem4" class="form-label">細項四</label>
-            <input type="text" class="form-control" id="serviceItem4">
+            <label for="orderStatus" class="form-label">訂單狀態</label>
+            <input type="text" class="form-control" id="orderStatus">
           </div>
          <div>
          

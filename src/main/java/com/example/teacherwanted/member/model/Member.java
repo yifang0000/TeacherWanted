@@ -1,16 +1,18 @@
 package com.example.teacherwanted.member.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.sql.Timestamp;
 
-@ToString
+
 @Entity
-@Table(name = "MEMBER")
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "MEMBER")
 public class Member {
     private static final long serialVersionUID = 1062017122345367218L;
 
@@ -43,30 +45,36 @@ public class Member {
     @Column(name = "mem_email")  //信箱
     private String memEmail;
 
-    @Column(name = "mail_verify", nullable = false) //信箱認證
+    @Column(name = "mail_verify", insertable = false) //信箱認證
     private Integer mailVerify;
 
-    @Column(name = "mem_location", nullable = false) //地區
+    @Column(name = "mem_location") //地區
     private String memLocation;
 
     @Column(name = "mem_photo")  //大頭貼
     private byte[] memPhoto;
 
-    @Column(name = "interest1", nullable = false)  //有興趣主題1
+    @Column(name = "interest1")  //有興趣主題1
     private Integer interest1;
 
-    @Column(name = "interest2", nullable = false)  //有興趣主題2
+    @Column(name = "interest2")  //有興趣主題2
     private Integer interest2;
 
-    @Column(name = "interest3", nullable = false)  //有興趣主題3
+    @Column(name = "interest3")  //有興趣主題3
     private Integer interest3;
 
-    @Column(name = "create_time", nullable = false) //會員註冊日期
+    @Column(name = "create_time", insertable = false) //會員註冊日期
     private Timestamp createTime;
 
-    @Column(name = "update_time", nullable = false) //會員狀態更新日期
+    @Column(name = "update_time", insertable = false) //會員狀態更新日期
     private Timestamp updateTime;
 
-    @Column(name = "mem_status", nullable = false) //會員狀態  是否有被停權
+    @Column(name = "mem_status", insertable = false) //會員狀態  是否有被停權
     private Integer memStatus;
+
+    @Column(name = "reset_password_token")       //登入驗證
+    private String resetPasswordToken;
+
+
 }
+
