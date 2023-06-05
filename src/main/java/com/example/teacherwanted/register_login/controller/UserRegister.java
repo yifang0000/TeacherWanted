@@ -35,9 +35,8 @@ public class UserRegister {
             String encodePassWord = AES256Util.encode(password);//密碼加密
             user.setMemPassword(encodePassWord);//塞回物件存進資料庫
             service.registerUser(user);//使用了UserService中的registerUser方法
-            session.setAttribute("msg", "註冊成功，歡迎登入");
-            System.out.println(session.getAttribute("msg"));
-            return "redirect:/login";//回傳字串到thymeleaf>>註冊成功頁面
+
+            return "registerSuccess";//回傳字串到thymeleaf>>註冊成功頁面
         }
         return "redirect:/register";
     }
