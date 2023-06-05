@@ -244,7 +244,6 @@
                     <div class="containerActiveEdit" style="padding: 20px 10px">
                         <!-- 表單 開始 -->
                         <div class="flexWrap oneArea">
-                            <h6>請勾選欲修改的章節</h6>
                             <!-- 上傳影片類型 開始 -->
                             <div class="ip2">
                                 上傳類型：
@@ -267,7 +266,6 @@
                             <table class="table">
                                 <thead>
                                 <tr class="table_title">
-                                    <th scope="col"></th>
                                     <th scope="col">章節名稱</th>
                                     <th scope="col">影片網址</th>
                                     <th scope="col">影片資訊</th>
@@ -276,16 +274,6 @@
                                 <tbody>
                                 <template v-for="(chapter, index) in chapters">
                                     <tr>
-                                        <td class="upload_com">
-                                            <br/>
-                                            <br/>
-                                            <input
-                                                    type="checkbox"
-                                                    style="margin-bottom: 5px"
-                                                    v-model="chapter.isSelected"
-                                                    @click="toggleChapterSelection(index)"
-                                            />
-                                        </td>
                                         <td class="upload_com">
                                             <br/>
                                             <h6>第{{index + 1}}章名稱</h6>
@@ -337,7 +325,7 @@
                                             <div class="flexVerticalCenter">
                                                 <input
                                                         type="file"
-                                                        style="width: 300px"
+                                                        style="width: 200px"
                                                         accept="video/*"
                                                         @change="handleVideoUpload($event, index)"
                                                         :key="index"
@@ -345,12 +333,22 @@
                                                 />
                                                 <input
                                                         type="file"
-                                                        style="width: 300px"
+                                                        style="width: 200px"
                                                         accept="video/*"
                                                         @change="handleVideoUpload($event, index)"
                                                         :key="index"
                                                         v-if="selectedUploadType === 'youtube'"
                                                         disabled/>
+                                                <button type="button" class="btn btn-success"
+                                                        style="height: 30px;width:50px;text-align: center;font-size: 10px;"
+                                                        @click="updateThis(index)"
+                                                >更新
+                                                </button>
+                                                <button type="button" class="btn btn-danger"
+                                                        style="height: 30px;width:50px;text-align: center;font-size: 10px;"
+                                                        @click="removeThis(index)"
+                                                >刪除
+                                                </button>
                                             </div>
                                             <div v-if="chapter.chapterFile">
                                                 <p style="color: green;font-size: 10px">原檔名:{{ chapter.fileName
@@ -386,13 +384,12 @@
                                 >
                                     取消
                                 </p>
-                                <p
-                                        class="flexAllCenter"
-                                        id="submitActiveAddBtn"
-                                        @click="updateChapter"
-                                >
-                                    送出
-                                </p>
+<!--                                <p-->
+<!--                                        class="flexAllCenter"-->
+<!--                                        id="submitActiveAddBtn"-->
+<!--                                >-->
+<!--                                    送出-->
+<!--                                </p>-->
                             </div>
                         </div>
                     </div>
@@ -461,6 +458,7 @@
                     ytURL: "",
                     chapterLink: "",
                 },
+                chapterStatus: 0,
                 isUrlValid: null,
             };
         },
@@ -504,16 +502,18 @@
                             // 第二个请求成功的处理逻辑
                             this.chapters = chapterResponse.data;
                             console.log(this.chapters);
-                            this.chapterTitle = this.chapters[0].chapterTitle;
-                            this.index = this.chapters.length - 1; // 依照查询笔数设定下方显示笔数
-                            // Clear the chapterPhotoUrls array before adding new values
-                            this.chapterPhotoUrls = [];
-                            // Iterate through each chapter and add the corresponding image URL to the array
-                            this.chapters.forEach((chapter) => {
-                                const chapterPhotoUrl = `data:image/png;base64,${chapter.chapterPhoto}`;
-                                this.chapterPhotoUrls.push(chapterPhotoUrl);
-                                chapter.ytURL = `https://www.youtube.com/watch?v=${chapter.chapterLink}`;
-                            });
+                            if (this.chapters.length > 0) {
+                                this.chapterTitle = this.chapters[0].chapterTitle;
+                                this.index = this.chapters.length - 1; // 依照查询笔数设定下方显示笔数
+                                // Clear the chapterPhotoUrls array before adding new values
+                                this.chapterPhotoUrls = [];
+                                // Iterate through each chapter and add the corresponding image URL to the array
+                                // this.chapters.forEach((chapter) => {
+                                //     const chapterPhotoUrl = `data:image/png;base64,${chapter.chapterPhoto}`;
+                                //     this.chapterPhotoUrls.push(chapterPhotoUrl);
+                                //     chapter.ytURL = `https://www.youtube.com/watch?v=${chapter.chapterLink}`;
+                                // });
+                            }
                         })
                         .catch((error) => {
                             // 第二个请求失败的处理逻辑
@@ -655,86 +655,78 @@
                         });
                 }
             },
-            updateChapter() {
-                if (confirm("確認修改章節嗎？")) {
+            updateThis(index) {
+                if (confirm("確認更新章節嗎？")) {
+                    const chapterOrder = index + 1;
                     if (this.selectedUploadType === "youtube") {
                         const data = {
-                            chapters: []
-                        };
-
-                        this.chapters.forEach((chapter, index) => {
-                            if (this.selectedIndexes.includes(index)) {
-                                const chapterData = {
-                                    chapterOrder: index + 1,
-                                    chapterTitle: chapter.chapterTitle,
-                                    chapterLink: chapter.ytURL
-                                };
-
-                                data.chapters.push(chapterData);
-                            }
-                        });
-
+                            chapterOrder: chapterOrder,
+                            chapterTitle: this.chapters[index].chapterTitle,
+                            chapterLink: this.chapters[index].ytURL,
+                            chapterStatus: 0,
+                        }
                         console.log(data);
-
-                        // 发送请求...
+                        axios
+                            .put("http://localhost:8080/chapter/" + courseId, data)
+                            .then((response) => {
+                                console.log(response.data);
+                                alert("章節" + chapterOrder + "已更新")
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                                alert("失敗請重試！！");
+                            });
                     }
                     if (this.selectedUploadType === "local") {
-                        const data = {
-                            chapters: []
-                        };
-
-                        this.chapters.forEach((chapter, index) => {
-                            if (this.selectedIndexes.includes(index)) {
-                                const chapterData = {
-                                    chapterOrder: index + 1,
-                                    chapterTitle: chapter.chapterTitle,
-                                };
-
-                                data.chapters.push(chapterData);
-                            }
-                        });
-
-                        console.log(data);
-
-                        // 发送请求...
-
-                        if (this.chapter.chapterFile instanceof Blob) {
-                            // 创建一个FormData对象;
-                            const formData = new FormData();
-                            formData.append("courseId", courseId); // 将courseId作为URL参数
-                            this.chapters.forEach((chapter, index) => {
-                                if (this.selectedIndexes.includes(index)) {
-                                    // 添加章節相關資訊到 FormData
-                                    formData.append("chapterOrder", index + 1);
-                                    // 檢查章節文件是否存在，存在則添加到 FormData
-                                    formData.append(
-                                        "chapterFile",
-                                        chapter.chapterFile,
-                                        chapter.chapterFile.name
-                                    );
-                                }
-
-                            });
+                        // 創建一個FormData;
+                        const formData = new FormData();
+                        const chapterFile = this.chapters[index].chapterFile;
+                        formData.append("courseId", courseId);
+                        formData.append("chapterOrder", chapterOrder);
+                        formData.append("chapterTitle", this.chapters[index].chapterTitle);
+                        // 檢查章節文件是否存在，存在則添加到 FormData
+                        if (chapterFile && chapterFile instanceof Blob) {
+                            formData.append(
+                                "chapterFile",
+                                chapterFile,
+                                this.chapters[index].chapterFile.name
+                            );
                         }
+                        axios.put(
+                            "http://localhost:8080/chapter",
+                            formData,
+                            {
+                                headers: {
+                                    "Content-Type": "multipart/form-data",
+                                },
+                            }
+                        )
+                            .then((response) => {
+                                console.log(response.data);
+                                alert("章節" + chapterOrder + "成功！");
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                                alert("失敗請重試！！");
+                            });
                     }
-                    // console.log(formData);
-                    // return axios.put(
-                    //     "http://localhost:8080/chapters",
-                    //     formData,
-                    //     {
-                    //         headers: {
-                    //             "Content-Type": "multipart/form-data",
-                    //         },
-                    //     }
-                    // )
-                    //     .then((response) => {
-                    //         console.log(response.data);
-                    //         alert("章節修改成功！");
-                    //     })
-                    //     .catch((error) => {
-                    //         console.error(error);
-                    //         alert("失敗請重試！！");
-                    //     });
+                }
+            },
+            removeThis(index) {
+                if (confirm("確認刪除章節嗎？")) {
+                    const chapterOrder = index + 1;
+                    console.log(chapterOrder);
+
+                    axios
+                        .delete("http://localhost:8080/chapter/" + courseId + "/" + chapterOrder)
+                        .then((response) => {
+                            console.log(response.data);
+                            alert("章節" + chapterOrder + "已刪除")
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                            alert("失敗請重試！！");
+                        });
                 }
             },
             //上傳圖片相關
@@ -802,7 +794,8 @@
                         reader.readAsDataURL(file);
                     }
                 });
-            },
+            }
+            ,
             handleChapterImageUpload(
                 uploadSelector,
                 previewSelector,
@@ -843,14 +836,17 @@
                         reader.readAsDataURL(file);
                     }
                 });
-            },
+            }
+            ,
             handleVideoUpload(event, index) {
                 const file = event.target.files[0];
                 this.chapters[index].chapterFile = file;
                 console.log(this.chapters[index].chapterFile);
-            },
+            }
+            ,
         },
-    });
+    })
+    ;
 </script>
 </body>
 </html>

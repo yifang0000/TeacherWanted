@@ -17,4 +17,5 @@ public interface CourseChapterService {
 
     Integer deleteChaptersById(Integer courseId);
 
+    void deleteChapterByOrderId(CourseChapterVo chapterVo);
 }

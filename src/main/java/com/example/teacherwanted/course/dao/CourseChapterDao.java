@@ -18,4 +18,5 @@ public interface CourseChapterDao {
     Integer deleteChaptersById(Integer courseId);
 
 
+    void deleteChapterByOrderId(CourseChapterVo chapterVo);
 }

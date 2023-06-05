@@ -1,7 +1,11 @@
+// document.write("../check.js");
+
 var uniqueParam = Date.now(); // 使用时间戳作为唯一参数
 var url = "/activeBack?param=" + uniqueParam;
+var teacherInfo = JSON.parse(sessionStorage.getItem("adminStorage"));
+console.log("------------->", teacherInfo.teaId);
 $(function () {
-  let data = {};
+  let data = { teaId: teacherInfo.teaId };
   activeAjax(data);
 });
 
@@ -14,6 +18,7 @@ $(function () {
     let dataSearch = {
       searchKeyword: searchKeyword,
       activityType: activityType,
+      teaId: teacherInfo.teaId,
     };
     activeAjax(dataSearch);
   });
@@ -23,7 +28,7 @@ $(function () {
     $("#activeTbody").empty();
     $("#searchKey").val("");
     $("#activityType").val("");
-    let data = {};
+    let data = { teaId: teacherInfo.teaId };
     activeAjax(data);
   });
   // 重製按鈕 結束
