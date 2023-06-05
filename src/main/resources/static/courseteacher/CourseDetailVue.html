@@ -21,6 +21,7 @@
     <!-- vue與axios -->
     <script src="../js/courseJS/vue.js"></script>
     <script src="../js/courseJS/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-star-rating/dist/star-rating.min.js"></script>
     <!-- vue與axios -->
     <link href="../css/course/baseVer2.css" rel="stylesheet" type="text/css"/>
     <link href="../css/course/course.css" rel="stylesheet" type="text/css"/>
@@ -39,6 +40,9 @@
     <style>
         .comment_info {
             margin-right: 10px;
+        }
+        .vue-star-rating-rating-text {
+            display: none;
         }
     </style>
 </head>
@@ -200,18 +204,14 @@
                             <!-- 星級 -->
                             <li
                                     class="forHorizontalCenterFlex intdroucePadding"
-                                    style="height: 40px"
+                                    style="height: 40px; display: flex; justify-content: center; align-items: center"
                             >
-                                <img src="../img/lession/starFull.png"/>
-                                <img src="../img/lession/starFull.png"/>
-                                <img src="../img/lession/starFull.png"/>
-                                <img src="../img/lession/starHalf.png"/>
-                                <img src="../img/lession/starNull.png"/>
-                                <p
-                                        style="display: flex; align-items: center; color: #3fb652"
-                                >
-                                    3.7星
-                                </p>
+                                <star-rating
+                                        :rating="avgRank"
+                                        :read-only="true"
+                                        :increment="0.1"
+                                ></star-rating>
+                                <h1 style="font-size: 30px; color: #3fb652; margin-left: 10px">{{ avgRank }}星</h1>
                             </li>
 
                             <!-- 分享和收藏 -->
@@ -222,13 +222,13 @@
                                 <!--                    </div>-->
                                 <div class="button-container" style="display: flex;justify-content: center;/">
                                     <div v-if="this.fav === 0">
-                                        <button type="button" class="btn btn-success" style="width: 90px"
+                                        <button type="button" class="btn btn-success" style="width: 90px;margin-right: 5px"
                                                 @click="addToFavorite()"><img src="../img/base/cards-heart.svg" alt=""/>收藏
                                         </button>
                                     </div>
                                     <div v-if="this.fav === 1">
                                         <button type="button" class="btn btn-success"
-                                                style="width: 90px; background-color: white; color: #3c6a36 "
+                                                style="width: 90px;margin-right: 5px; background-color: white; color: #3c6a36 "
                                                 @click="removeFromFavorite()"><img src="../img/base/cards-heart.svg"
                                                                                    alt=""/>已收藏
                                         </button>
@@ -382,7 +382,7 @@
         <h1>課程資訊</h1>
         <h1>&nbsp;</h1>
         <h3>●課程時數：{{courseWithPhotoUrl.courseLength}}小時</h3>
-        <h3>●觀看期限：{{courseWithPhotoUrl.coolingOffPeriod}} 個月。</h3>
+        <h3>●觀看期限：{{courseWithPhotoUrl.coolingOffPeriod}} 個月</h3>
         <h3>●同學人數：{{courseWithPhotoUrl.boughtCount}}人</h3>
         <h1>&nbsp;</h1>
 
@@ -390,16 +390,6 @@
         <h1>&nbsp;</h1>
         <h3 v-html="courseWithPhotoUrl.courseDetail"></h3>
         <h1>&nbsp;</h1>
-
-        <!--        <h1>課程目標</h1>-->
-        <!--        <h1>&nbsp;</h1>-->
-        <!--        <h3>◆瞭解 Java SE 平台的應用和相關的開發環境。</h3>-->
-        <!--        <h3>◆掌握 Java 程式語言的基本概念、語法結構和開發技術。</h3>-->
-        <!--        <h3>◆熟悉面向對象程式設計的基本概念和設計模式。</h3>-->
-        <!--        <h3>◆學習如何開發出簡單的應用程式。</h3>-->
-        <!--        <h3>◆增強解決問題和調試程式的能力。</h3>-->
-        <!--        <h1>&nbsp;</h1>-->
-
         <h1>上課前需要先準備</h1>
         <h1>&nbsp;</h1>
         <h3 v-html="courseWithPhotoUrl.coursePre"></h3>
@@ -410,16 +400,16 @@
 
     <!-- 分頁2 老師介紹開始 -->
     <section id="page2" class="containerLession">
-        <div class="bulletinBoard borderShadow">
-            <div class="introduceTeacher" v-if="teacherWithPhotoUrl">
+        <div class="bulletinBoard borderShadow" style="height: fit-content" >
+            <div class="introduceTeacher" v-if="teacherWithPhotoUrl" >
                 <h1>老師介紹</h1>
                 <h1>&nbsp;</h1>
                 <div class="forFlex">
                     <!-- 老師頭貼那區 -->
-                    <div class="forHorizontalCenterFlex col_40">
-                        <ul class="forHorizontalCenterFlex teacherPhoto">
-                            <li class="forHorizontalCenterFlex">
-                                <img :src="teacherWithPhotoUrl.teacherPhotoUrl" alt=""/>
+                    <div class="forHorizontalCenterFlex col_40" style="height: 100%;">
+                        <ul class="forHorizontalCenterFlex teacherPhoto" style="height: 100%;">
+                            <li class="forHorizontalCenterFlex" style="height: 100%;">
+                                <img :src="teacherWithPhotoUrl.teacherPhotoUrl" alt="" style="height: 100%;"/>
                             </li>
                             <li class="forHorizontalCenterFlex" style="padding-top: 5%">
                                 <h3>{{teacher.teaName}}</h3>
@@ -446,20 +436,21 @@
                     <!-- 老師頭貼那區結束 -->
 
                     <!-- 老師簡介 -->
-                    <div class="col_60">
-                        <h1>&nbsp;</h1>
-                        <h3>JAVA 語言課程將由具有豐富實踐經驗的專業講師擔任。</h3>
-                        <h3>他熟悉 Java SE 平台的開發技術和相關工具，</h3>
-                        <h3>能夠向學員講解清晰易懂的課程內容，</h3>
-                        <h3>解答學員的問題，並提供實用的開發技巧。</h3>
-                        <h3>他們還擁有豐富的實踐經驗，能夠引導學員掌握開發技能，</h3>
-                        <h3>並在學習過程中給予指導和建議。</h3>
-                        <h3>JAVA 語言課程將由具有豐富實踐經驗的專業講師擔任。</h3>
-                        <h3>他熟悉 Java SE 平台的開發技術和相關工具，</h3>
-                        <h3>能夠向學員講解清晰易懂的課程內容，</h3>
-                        <h3>解答學員的問題，並提供實用的開發技巧。</h3>
-                        <h3>他們還擁有豐富的實踐經驗，能夠引導學員掌握開發技能，</h3>
-                        <h3>並在學習過程中給予指導和建議。</h3>
+                    <div class="col_60" style="text-align: center">
+                        <h3>{{teacher.teaProfile}}</h3>
+<!--                        <h1>&nbsp;</h1>-->
+<!--                        <h3>JAVA 語言課程將由具有豐富實踐經驗的專業講師擔任。</h3>-->
+<!--                        <h3>他熟悉 Java SE 平台的開發技術和相關工具，</h3>-->
+<!--                        <h3>能夠向學員講解清晰易懂的課程內容，</h3>-->
+<!--                        <h3>解答學員的問題，並提供實用的開發技巧。</h3>-->
+<!--                        <h3>他們還擁有豐富的實踐經驗，能夠引導學員掌握開發技能，</h3>-->
+<!--                        <h3>並在學習過程中給予指導和建議。</h3>-->
+<!--                        <h3>JAVA 語言課程將由具有豐富實踐經驗的專業講師擔任。</h3>-->
+<!--                        <h3>他熟悉 Java SE 平台的開發技術和相關工具，</h3>-->
+<!--                        <h3>能夠向學員講解清晰易懂的課程內容，</h3>-->
+<!--                        <h3>解答學員的問題，並提供實用的開發技巧。</h3>-->
+<!--                        <h3>他們還擁有豐富的實踐經驗，能夠引導學員掌握開發技能，</h3>-->
+<!--                        <h3>並在學習過程中給予指導和建議。</h3>-->
                     </div>
                     <!-- 老師簡介結束 -->
                 </div>
@@ -476,86 +467,70 @@
     >
         <!-- 平均星級以及評價 -->
         <div class="forFlex" style="background-color: rgb(252, 248, 232); display: flex; align-content: center">
-            <h1 style="font-size: 40px; color: #3fb652; margin-bottom: 10px">3.7</h1>
-            <ul style="margin:10px 2% 0 2%">
-                <li style="height: 25px">
-                    <img src="../img/lession/starFull.png" style="height: 100%"/>
-                    <img src="../img/lession/starFull.png" style="height: 100%"/>
-                    <img src="../img/lession/starFull.png" style="height: 100%"/>
-                    <img src="../img/lession/starHalf.png" style="height: 100%"/>
-                    <img src="../img/lession/starNull.png" style="height: 100%"/>
-                </li>
-            </ul>
-            <h4 style="margin:10px 2% 0 0">256則評論</h4>
+            <div style="display: flex;justify-content:center; align-items:center; margin-bottom: 10px">
+                <h1 style="font-size: 40px; color: #3fb652; margin-right: 10px">{{ avgRank }}</h1>
+
+                <star-rating
+                        :rating="avgRank"
+                        :read-only="true"
+                        :increment="0.1"
+                ></star-rating>
+
+                <h4 style="font-size: 16px">{{ totalEvaluate }}則評論</h4>
+            </div>
+            <!-- 填寫評價 -->
+
         </div>
         <!-- 平均星級以及評價結束 -->
         <!-- 分隔線 -->
         <div class="split"></div>
         <!-- 評論 -->
-        <div class="forFlex" style="padding: 1%; box-sizing: border-box">
-            <div class="forHorizontalCenterFlex" style="width: 20%">
-                <div class="member_name">
-                    <img src="../img/lession/student2.png"/>
-                    <span>壞喵喵</span>
+        <div class="forFlex"
+             style="padding: 1%; box-sizing: border-box;border-bottom: 1px solid black;"
+             v-for="(feedback, index) in feedbacks"
+        >
+            <div
+                    :style="{ display: feedbackStatus[index] ? 'block' : 'none' }"
+                    style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); border: solid 1px darkgray; background-color: white; width: 600px; padding: 20px;">
+                <div class="input-group mb-3">
+                    <star-rating v-model="feedback.courseRank"></star-rating>
                 </div>
-            </div>
-            <div style="width: 80%">
-                <ul>
-                    <!-- 星級以及時間 -->
-                    <li class="forVerticalCenterFlex" style="height: 20px">
-                        <img src="../img/lession/starFull.png" style="height: 100%"/>
-                        <img src="../img/lession/starHalf.png" style="height: 100%"/>
-                        <img src="../img/lession/starNull.png" style="height: 100%"/>
-                        <img src="../img/lession/starNull.png" style="height: 100%"/>
-                        <img src="../img/lession/starNull.png" style="height: 100%"/>
-                        <h1>&nbsp;&nbsp;&nbsp;</h1>
-                        <h3>2023/4/8</h3>
-                    </li>
-                    <!-- 星級以及時間結束 -->
-                    <!-- 評論文字內容 -->
-                    <li style="padding-top: 1%">
-                        <h3>Bad :(((</h3>
-                    </li>
-                    <!-- 評論文字內容結束 -->
-                </ul>
-            </div>
-        </div>
-        <hr/>
-        <!-- 評論結束 -->
+                <div class="input-group">
+                    <span class="input-group-text">評論內容</span>
+                    <textarea class="form-control" aria-label="With textarea" style="height: 200px"
+                              v-model="feedback.courseFeedback">
 
-        <!-- 評論 -->
-        <div class="forFlex" style="padding: 1%; box-sizing: border-box">
+                    </textarea>
+                </div>
+            </div>
             <div class="forHorizontalCenterFlex" style="width: 20%">
-                <div class="member_name">
-                    <img src="../img/lession/student1.png"/>
-                    <span>喵喵</span>
+                <div class="member_name" style="width: 80%">
+                    <img :src="feedbackmembers[index].memPhoto" style="width: 100%"/>
                 </div>
             </div>
             <div style="width: 80%">
                 <ul>
                     <!-- 星級以及時間 -->
                     <li class="forVerticalCenterFlex" style="height: 20px">
-                        <img src="../img/lession/starFull.png" style="height: 100%"/>
-                        <img src="../img/lession/starFull.png" style="height: 100%"/>
-                        <img src="../img/lession/starFull.png" style="height: 100%"/>
-                        <img src="../img/lession/starFull.png" style="height: 100%"/>
-                        <img src="../img/lession/starFull.png" style="height: 100%"/>
-                        <h1>&nbsp;&nbsp;&nbsp;</h1>
-                        <h3>2023/4/7</h3>
+                        <star-rating :star-size="20"
+                                     :read-only="true"
+                                     v-model="feedback.courseRank"></star-rating>
                     </li>
                     <!-- 星級以及時間結束 -->
                     <!-- 評論文字內容 -->
                     <li style="padding-top: 1%">
-                        <h3>優質好老師</h3>
+                        <h3>{{feedback.updateTime}}</h3>
+                        <span>{{feedbackmembers[index].memName}}</span>
+                        <h3>{{feedback.courseFeedback}}</h3>
                     </li>
                     <!-- 評論文字內容結束 -->
                 </ul>
             </div>
+
         </div>
-        <hr/>
-        <div class="more">
-            <h5>顯示更多...</h5>
-        </div>
+        <!--        <div class="more">-->
+        <!--            <h5>顯示更多...</h5>-->
+        <!--        </div>-->
         <!-- 評論結束 -->
     </section>
     <!-- 分頁3 課程評價結束 -->
@@ -660,7 +635,7 @@
                 </div>
             </div>
             <!-- 發問者結束 -->
-            <div style="width: 80%">
+            <div style="width: 80%; border-bottom: 1px solid black">
                 <ul>
                     <div style="height: 100px">
                         <!-- 發問者與時間 -->
@@ -699,6 +674,7 @@
                     </div>
                     <!-- 回覆區塊 -->
                     <div class="replybox" v-for="(reply, index) in replies[index]"
+                         style="border-bottom: 1px solid black;"
                          :key="index">
                         <!-- 留言 -->
                         <div
@@ -759,9 +735,9 @@
             </div>
         </div>
         <!-- 問題結束 -->
-        <div class="more">
-            <h5>顯示更多...</h5>
-        </div>
+<!--        <div class="more">-->
+<!--            <h5>顯示更多...</h5>-->
+<!--        </div>-->
     </section>
     <!-- 分頁4 問題討論結束 -->
     <!-- 精選課程 -->
@@ -814,6 +790,7 @@
     <!-- 畫面區 -->
 </main>
 <script>
+    Vue.component("star-rating", VueStarRating.default);
     const urlParams = new URLSearchParams(window.location.search);
     const courseId = urlParams.get("courseId");
     const courseDetailMixin = {
@@ -847,12 +824,13 @@
                 teachers: [],
                 teaId: null,
                 teaName: null,
-                comments: [],
                 members: [],
                 memId: 1,
                 courseId: null,
                 createTime: new Date(),
                 updateTime: new Date(),
+                fav: null,
+                comments: [],
                 courseCommentIds: [],
                 courseCommentId: null,
                 commentTitle: null,
@@ -862,11 +840,23 @@
                 replyContent: null,
                 replies: [],
                 replyMembers: [],
+                feedbackmembers: [],
+                feedbacks: [],
+                orderDetailId: null,
                 requests: [],
-                fav: null,
+                feedbackStatus: [],
+                feedbackPopup: false, // 初始化時設為 false，控制彈出框的顯示狀態
                 showPopup: false, // 初始化時設為 false，控制彈出框的顯示狀態
                 showupStates: [],
                 showPopupStates: [],
+                rating: "No Rating Selected",
+                currentRating: "No Rating",
+                currentSelectedRating: "No Current Rating",
+                boundRating: 3,
+                courseRank: 5,
+                courseFeedback: "",
+                avgRank: 0,
+                totalEvaluate: 0,
                 photoValue: 0,//圖片初始值
                 photoCount: 0,//計算圖片總數
 
@@ -1024,6 +1014,11 @@
                         console.log("移除失敗!");
                     });
             },
+            feedbackPop() {
+                this.feedbackPopup = !this.feedbackPopup; // 切換彈出框的顯示狀態
+                this.courseRank = 5;
+                this.courseFeedback = "";
+            },
             togglePop() {
                 this.showPopup = !this.showPopup; // 切換彈出框的顯示狀態
                 this.commentTitle = "";
@@ -1167,6 +1162,12 @@
                     if(this.photoCount > 0){
                         this.photoValue = 1;
                     }
+                    this.totalEvaluate = this.course.courseTotalEvaluate;
+                    if (this.course.courseTotalEvaluate === 0) {
+                        this.avgRank = ""; // 設定預設值為 "N/A" 或任何您希望的值
+                    } else {
+                        this.avgRank = Math.round((this.course.courseTotalRank / this.course.courseTotalEvaluate) * 10) / 10;
+                    }
 
                     return axios.get(
                         "http://localhost:8080/teacher/" + this.course.teaId
@@ -1231,6 +1232,23 @@
                         .catch((error) => {
                             console.error(error);
                         });
+                    return axios.get("http://localhost:8080/feedback/" + courseId)
+                })
+                .then((feedbackResponse) => {
+                    this.feedbackmembers = feedbackResponse.data.members.map(feedbackmember => {
+                        const base64Image = 'data:image/png;base64,' + feedbackmember.memPhoto;
+                        return {...feedbackmember, memPhoto: base64Image};
+                    })
+                    this.feedbacks = feedbackResponse.data.courseComments.map(feedback => {
+
+                        const updateTime = feedback.updateTime;
+                        const date = new Date(updateTime);
+                        const formattedDate = date.toISOString().split('T')[0]; // 擷取日期部分，例如 "2023-06-01"
+                        feedback.updateTime = formattedDate; // 將擷取的日期存放在新的屬性中
+                        return feedback;
+                    });
+                    console.log(this.feedbackmembers);
+                    console.log(this.feedbacks);
                 })
                 .catch((error) => {
                     console.error(error);

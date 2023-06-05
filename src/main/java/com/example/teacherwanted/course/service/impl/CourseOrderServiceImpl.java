@@ -40,6 +40,11 @@ public class CourseOrderServiceImpl implements CourseOrderService {
     }
 
     @Override
+    public CourseOrderDetailVo getOrderDetailById(Integer id) {
+        return courseOrderDao.getOrderDetailById(id);
+    }
+
+    @Override
     public void createFeedback(CourseOrderDetailVo courseOrderDetail) {
         courseOrderDao.createFeedback(courseOrderDetail);
     }

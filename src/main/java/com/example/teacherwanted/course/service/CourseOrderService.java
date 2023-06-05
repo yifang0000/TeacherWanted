@@ -12,6 +12,7 @@ public interface CourseOrderService {
     void updateCourseOrder(CourseOrderVo courseOrder);
     void deleteCourseOrder(Integer id);
     List<CourseOrderDetailVo>getFeedbackByCourseId(Integer courseId);
+    CourseOrderDetailVo getOrderDetailById(Integer id);
     void createFeedback(CourseOrderDetailVo courseOrderDetail);
     void updateFeedback(CourseOrderDetailVo courseOrderDetail);
     void deleteFeedback(Integer id);

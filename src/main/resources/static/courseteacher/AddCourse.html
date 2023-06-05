@@ -744,6 +744,7 @@
               // 保存切割後的圖片資料
               this.coursePhotos[`coursePhoto${i + 1}`] = imageData;
 
+              console.log(base64Image);
               const previewId = previewIds[i];
               const previewElement = $(
                       `${previewSelector}[data-preview="${previewId}"]`
