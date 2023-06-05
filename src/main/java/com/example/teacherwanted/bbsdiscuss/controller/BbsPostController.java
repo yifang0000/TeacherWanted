@@ -79,7 +79,7 @@ public class BbsPostController {
 
 
     @GetMapping("/bbsdiscussGet/{bbsPostId}")
-    // 根據文章編號取得文章的數據
+    // 根據文章id取得文章的數據
     public ResponseEntity<BbsPost> getBbsPostById(@PathVariable Integer bbsPostId,
                                                   @SessionAttribute(value = "MemberId", required = false) Integer memId) {
         System.out.println("test查詢一筆文章-根據文章編號取得文章的數據");
@@ -370,5 +370,19 @@ public class BbsPostController {
         bbsPostService.updateBbsCommStatus(bbsCommUpdateStatus.getBbsCommentId(), bbsCommUpdateStatus);
         return ResponseEntity.status(HttpStatus.OK).body("留言刪除成功");
     }
-
+//    //修改收藏狀態為 0 (隱藏)  , 原本預設 1 (有收藏)
+//    @PutMapping("/bbsdiscussGet/bbsfavstatus")
+//    public ResponseEntity<?> updateFavStatus(@RequestBody @Valid BbsFavStatus bbsFavStatus,
+//                                             @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+//        if (memId == null) {
+//            // 如果未獲取到會員ID，返回相應錯誤
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//        }
+//        System.out.println(memId);
+//        System.out.println(bbsFavStatus.getFavoriteArticleId());
+//        //修改收藏狀態為 0 (隱藏)
+//        //更新收藏 id 為 favoriteArticleId ,她要修改的參數物件 bbsFavStatus
+//        bbsPostService.updateFavStatus(bbsFavStatus.getFavoriteArticleId(), bbsFavStatus);
+//        return ResponseEntity.status(HttpStatus.OK).body("取消收藏成功");
+//    }
 }

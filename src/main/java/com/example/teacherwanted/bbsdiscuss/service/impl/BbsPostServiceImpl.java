@@ -198,4 +198,10 @@ public class BbsPostServiceImpl implements BbsPostService {
     public void updateBbsCommStatus(Integer commId, BbsCommUpdateStatus bbsCommUpdateStatus) {
         bbsPostDao.updateBbsCommStatus(commId, bbsCommUpdateStatus);
     }
+
+//    //修改收藏狀態為 0 (隱藏)  , 原本預設 1 (有收藏)
+//    @Override
+//    public void updateFavStatus(Integer favoriteArticleId, BbsFavStatus bbsFavStatus) {
+//        bbsPostDao.updateFavStatus(favoriteArticleId, bbsFavStatus);
+//    }
 }

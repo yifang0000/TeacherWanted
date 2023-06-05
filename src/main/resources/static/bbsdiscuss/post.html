@@ -691,7 +691,7 @@
                                       <img src=${memPhotocomm5} class="img-fluid rounded-start" alt="頭像" />
                                     </div>
                                     <div class="col-md-6">
-                                      <h5 id="bbs_title_test" class="card-title">${memNamecomm5}<p id="bbsCommentId" style="color: white;">${bbsCommentId}</p></h5>
+                                      <h5 id="bbs_title_test" class="card-title">${memNamecomm5}<p class="bbsCommentId" style="color: white;">${bbsCommentId}</p></h5>
                                       <h6 id="bbs_title_test2" class="card-subtitle mb-2 text-muted bbs_pare">
                                         ${commentContent}
                                       </h6>
@@ -809,6 +809,33 @@
           $("div.bbs_post_list").on("click", ".btn_bbs_sure1", function () {
             $("main").hide();
             window.location.href = "index.html";
+            const urlParams = new URLSearchParams(window.location.search);
+            const bbsPostId = urlParams.get("bbsPostId");
+            console.log(bbsPostId);
+            let json_data_bbspost_status = {
+              postStatus: 0,
+            };
+            $.ajax({
+              url: "/bbsdiscussGet/bbspoststatus/" + bbsPostId, // 資料請求的網址
+              type: "PUT", // GET | POST | PUT | DELETE | PATCH
+              data: JSON.stringify(json_data_bbspost_status),
+              dataType: "json",
+              contentType: "application/json",
+              beforeSend: function () {},
+              success: function (data9) {
+                console.log("data9文章刪除成功了999999999");
+                console.log(data8);
+                $(".bbs_msg_content").val(""); // 清空输入框的值
+                location.reload(); // 刷新页面
+              },
+              error: function (xhr) {
+                console.log("data9文章刪除失敗了了GGGGGGG");
+                console.log(xhr);
+              },
+              complete: function (xhr) {
+                // window.location.href = "index.html";
+              },
+            });
           });
         });
         // =====================================編輯文章標題==============================================================
@@ -1019,7 +1046,7 @@
               console.log("data7成功了777777777");
               console.log(data7);
               $(".bbs_msg_content").val(""); // 清空输入框的值
-              location.reload(); // 刷新页面
+              location.reload(); // 刷新頁面
             },
             error: function (xhr) {
               console.log("data7失敗了了GGGGGGG");
@@ -1031,15 +1058,17 @@
           });
         });
         // ==========================================刪除留言==========================================================
-        let bbsCommentId = $("#bbsCommentId").text();
-        console.log(
-          "有bbsCommentId嗎??????????????????????????????????????bbsCommentId"
-        );
-        console.log(bbsCommentId);
-        console.log(
-          "有bbsCommentId嗎??????????????????????????????????????bbsCommentId"
-        );
+
         $(".bbs_comment_list").on("click", "#bbs_xmark_img", function () {
+          console.log(this);
+          let bbsCommentId = $(this)
+            .parent("div")
+            .parent("div.row")
+            .find(".bbsCommentId")
+            .text();
+          console.log("-----------------------------bbsCommentId:");
+          console.log(bbsCommentId);
+          console.log("有bbsCommentId嗎??????????bbsCommentId");
           //按確定後刪除留言
           $(".bbs_comment_list").on("click", ".btn_bbs_sure2", function () {
             console.log(this);
@@ -1049,20 +1078,19 @@
             // 使用jQuery的text()方法
 
             let json_data_comm_status = {
-              bbsCommentId: 6,
+              bbsCommentId: bbsCommentId,
               commentStatus: 0,
             };
             $.ajax({
-              url: "/bbsdiscussGet/newcomm", // 資料請求的網址
-              type: "POST", // GET | POST | PUT | DELETE | PATCH
+              url: "/bbsdiscussGet/bbscommstatus", // 資料請求的網址
+              type: "PUT", // GET | POST | PUT | DELETE | PATCH
               data: JSON.stringify(json_data_comm_status),
               dataType: "json",
               contentType: "application/json",
               beforeSend: function () {},
               success: function (data8) {
-                console.log("data8成功了777777777");
+                console.log("data8成功了888888888888");
                 console.log(data8);
-                $(".bbs_msg_content").val(""); // 清空输入框的值
                 location.reload(); // 刷新页面
               },
               error: function (xhr) {
@@ -1081,7 +1109,6 @@
           // console.log(this);
           if ($(this).attr("data-edit") == undefined) {
             // 進入編輯狀態
-
             $(this).attr("data-edit", true);
             $(this).closest("li").find("h6.bbs_pare").toggleClass("-none");
             $(this)
@@ -1217,10 +1244,8 @@
       );
 
       //========================================新增留言============================================
-
       // $(".sent").on("click", function () {
       //   console.log("有新增留言的觸發嗎");
-
       //   // 獲取 <p> 標籤裡 postId的值
       //   var textContent = $("p").text();
       //   console.log(

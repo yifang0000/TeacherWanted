@@ -592,4 +592,18 @@ public class BbsPostDaoImpl implements BbsPostDao {
 
         namedParameterJdbcTemplate.update(sql,map);
     }
+
+//    //修改收藏狀態為 0 (隱藏)  , 原本預設 1 (有收藏)
+//    @Override
+//    public void updateFavStatus(Integer favoriteArticleId, BbsFavStatus bbsFavStatus) {
+//        String sql = "UPDATE FAVORITE_ARTICLE SET fav_status = 0 " +
+//                " WHERE favorite_article_id = :favoriteArticleId ";
+//
+//        Map<String, Object> map = new HashMap<>();
+//
+//        map.put("commId",favoriteArticleId);
+//
+//        namedParameterJdbcTemplate.update(sql,map);
+//
+//    }
 }
