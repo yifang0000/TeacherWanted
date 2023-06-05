@@ -43,7 +43,7 @@ $(document).ready(function(){
         console.log(admin)
         $.ajax({
           type: 'GET',
-          url: '/teachers/'+admin.adminId,
+          url: '/teachers/pro/'+admin.adminId,
           contentType: 'application/json',
           success: function(data) {
             $('#teaLocation').val(data.teaLocation);
@@ -134,7 +134,7 @@ $(document).ready(function(){
                 teaName: $('#teaName').val(),
             };
                             // 發送 POST 請求到 "/test/t1"
-                            fetch("/teachers/"+admin.adminId, {
+                            fetch("/teachers/pro/"+admin.adminId, {
                               method: "PUT",
                               headers: {
                                   "Content-Type": "application/json"
@@ -169,7 +169,7 @@ $(document).ready(function(){
                 };
                 console.log(formDataEdit)
                             // 發送 POST 請求到 "/test/t1"
-                            fetch("/teachers/"+admin.adminId, {
+                            fetch("/teachers/pro/"+admin.adminId, {
                               method: "PUT",
                               headers: {
                                   "Content-Type": "application/json"
@@ -178,8 +178,8 @@ $(document).ready(function(){
                           })
                           .then(response => {
                               if (response.ok) {
-                                  alert("成功");
-                                  location.reload()
+                                alert("成功");
+                                location.reload() 
                               } else {
                                   alert("失敗");
                               }
