@@ -16,10 +16,10 @@ public class BbsPostRequest {
 
     private Integer memId;
 
-    private Integer post_views;
-    private Integer post_likes;
-    private Integer post_dislikes;
-    private Integer post_status;
+    private Integer postViews;
+    private Integer postLikes;
+    private Integer postDislikes;
+    private Integer postStatus;
 
 
     public String getBbsCategoryName() {
@@ -62,36 +62,36 @@ public class BbsPostRequest {
         this.memId = memId;
     }
 
-    public Integer getPost_views() {
-        return post_views;
+    public Integer getPostViews() {
+        return postViews;
     }
 
-    public void setPost_views(Integer post_views) {
-        this.post_views = post_views;
+    public void setPostViews(Integer postViews) {
+        this.postViews = postViews;
     }
 
-    public Integer getPost_likes() {
-        return post_likes;
+    public Integer getPostLikes() {
+        return postLikes;
     }
 
-    public void setPost_likes(Integer post_likes) {
-        this.post_likes = post_likes;
+    public void setPostLikes(Integer postLikes) {
+        this.postLikes = postLikes;
     }
 
-    public Integer getPost_dislikes() {
-        return post_dislikes;
+    public Integer getPostDislikes() {
+        return postDislikes;
     }
 
-    public void setPost_dislikes(Integer post_dislikes) {
-        this.post_dislikes = post_dislikes;
+    public void setPostDislikes(Integer postDislikes) {
+        this.postDislikes = postDislikes;
     }
 
-    public Integer getPost_status() {
-        return post_status;
+    public Integer getPostStatus() {
+        return postStatus;
     }
 
-    public void setPost_status(Integer post_status) {
-        this.post_status = post_status;
+    public void setPostStatus(Integer postStatus) {
+        this.postStatus = postStatus;
     }
 
     @Override
@@ -102,10 +102,10 @@ public class BbsPostRequest {
                 ", postTitle='" + postTitle + '\'' +
                 ", postContent='" + postContent + '\'' +
                 ", memId=" + memId +
-                ", post_views=" + post_views +
-                ", post_likes=" + post_likes +
-                ", post_dislikes=" + post_dislikes +
-                ", post_status=" + post_status +
+                ", postViews=" + postViews +
+                ", postLikes=" + postLikes +
+                ", postDislikes=" + postDislikes +
+                ", postStatus=" + postStatus +
                 '}';
     }
 }

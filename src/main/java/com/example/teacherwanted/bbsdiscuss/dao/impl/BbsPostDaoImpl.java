@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -63,7 +64,7 @@ public class BbsPostDaoImpl implements BbsPostDao {
                 " comment_status " +
                 "FROM BBS_COMMENT " +
                 "WHERE bbs_post_id = :bbsPostId AND comment_status = 1 " +
-                "ORDER BY update_time DESC";
+                "ORDER BY bbs_comment_id DESC";
         Map<String, Object> map = new HashMap<>();
         map.put("bbsPostId", bbsPostId);
 
@@ -128,7 +129,7 @@ public class BbsPostDaoImpl implements BbsPostDao {
         String sql = "SELECT bbs_comment_id, bbs_post_id, mem_id, comment_content, create_time, update_time," +
                 " comment_status " +
                 " FROM BBS_COMMENT WHERE bbs_comment_id = :bbsCommentId AND comment_status = 1 " +
-                " ORDER BY update_time DESC ";
+                " ORDER BY bbs_comment_id DESC ";
         Map<String, Object> map = new HashMap<>();
         map.put("bbsCommentId", bbsCommentId);
         List<BbsComment> bbsCommentList = namedParameterJdbcTemplate.query(sql, map, new BbsCommentRowMapper());
@@ -296,7 +297,7 @@ public class BbsPostDaoImpl implements BbsPostDao {
     }
 //新增按讚
     @Override
-    public Integer createBbsPostReaction(PostReactionRequest postReactionRequest) {
+    public Integer createPostReaction(PostReactionRequest postReactionRequest) {
 
         String sql = "INSERT INTO post_reaction ( bbs_post_id, mem_id, reaction_status) " +
                 "VALUES ( :bbsPostId, :memId, :reactionStatus) ";
@@ -315,6 +316,21 @@ public class BbsPostDaoImpl implements BbsPostDao {
         return  postReactionId;
     }
 
+
+//   更新文章收藏
+    public Integer updateBbsPostFav(int postId, int postFav) {
+
+        String sql = "UPDATE bbs_post SET post_fav =:postFav " +
+                    "WHERE bbs_post_id = :bbsPostId ";
+
+            Map<String, Object> uMap = new HashMap<>();
+            uMap.put("postFav",postFav);
+            uMap.put("bbsPostId",postId);
+
+        return namedParameterJdbcTemplate.update(sql,uMap);
+
+    }
+    //更新文章按讚
     @Override
     public Integer updateBbsPostReaction(PostReactionRequest postReactionRequest,int reactionNum) {
 
@@ -342,51 +358,10 @@ public class BbsPostDaoImpl implements BbsPostDao {
 
         }
 
-       return namedParameterJdbcTemplate.update(sql,uMap);
-    }
-
-
-//   更新文章收藏
-    public Integer updateBbsPostFav(int postId, int postFav) {
-
-        String sql = "UPDATE bbs_post SET post_fav =:postFav " +
-                    "WHERE bbs_post_id = :bbsPostId ";
-
-            Map<String, Object> uMap = new HashMap<>();
-            uMap.put("postFav",postFav);
-            uMap.put("bbsPostId",postId);
-
         return namedParameterJdbcTemplate.update(sql,uMap);
-
     }
 
-    //新增留言
-    @Override
-    public Integer createBbsPostComm(BbsPostRequest bbsPostRequest) {
-        String sql = "INSERT INTO BBS_COMMENT( bbs_post_id ,mem_id , comment_content,  create_time , update_time , comment_status ) " +
-                " VALUES ( :memId, :bbsCategoryName, :bbsTagName, :postTitle, :postContent, " +
-                " :createTime, :updateTime)";
-        Map<String, Object> map = new HashMap<>();
-        map.put("memId", bbsPostRequest.getMemId());
-        map.put("bbsCategoryName",bbsPostRequest.getBbsCategoryName());
-        map.put("bbsTagName", bbsPostRequest.getBbsTagName());
-        map.put("postTitle", bbsPostRequest.getPostTitle());
-        map.put("postContent", bbsPostRequest.getPostContent());
 
-
-        Date now = new Date();
-        map.put("createTime", now);
-        map.put("updateTime", now);
-
-        //儲存資料庫自動生成的id
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
-
-        int bbsPostId = keyHolder.getKey().intValue();
-
-        return  bbsPostId;
-    }
     //新增收藏資料
     @Override
     public int createBbsPostFavArt(FavoriterArticleRequest favoriterArticleRequest) {
@@ -543,5 +518,78 @@ public class BbsPostDaoImpl implements BbsPostDao {
         }else {
             return 0;
         }
+    }
+//修改文章標題
+    @Override
+    public void updateBbsPostTitle(Integer postId, BbsPostUpdateTitle bbsPostUpdateTitle) {
+        String sql = "UPDATE BBS_POST SET post_title = :postTitle , update_time = :updateTime" +
+                " WHERE bbs_post_id = :postId ";
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("postId",postId);
+        map.put("postTitle",bbsPostUpdateTitle.getPostTitle());
+
+        map.put("updateTime",new Date());
+
+        namedParameterJdbcTemplate.update(sql,map);
+    }
+    //修改文章內容
+    @Override
+    public void updateBbsPostContent(Integer postId, BbsPostUpdateContent bbsPostUpdateContent) {
+        String sql = "UPDATE BBS_POST SET post_content = :postContent , update_time = :updateTime" +
+                " WHERE bbs_post_id = :postId ";
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("postId",postId);
+        map.put("postContent",bbsPostUpdateContent.getPostContent());
+
+        map.put("updateTime",new Date());
+
+        namedParameterJdbcTemplate.update(sql,map);
+    }
+    //修改留言內容
+    @Override
+    public void updateComm(Integer commId, BbsCommUpdate bbsCommUpdate) {
+        String sql = "UPDATE BBS_COMMENT SET comment_content = :commentContent , update_time = :updateTime" +
+                " WHERE bbs_comment_id = :bbsCommentId ";
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("bbsCommentId",commId);
+        map.put("commentContent",bbsCommUpdate.getCommentContent());
+
+        map.put("updateTime",new Date());
+
+        namedParameterJdbcTemplate.update(sql,map);
+    }
+    //修改文章狀態為 0 (隱藏)  , 原本預設 1 (發布)
+    @Override
+    public void updateBbsPostStatus(Integer postId, BbsPostUpdateStatus bbsPostUpdateStatus) {
+        String sql = "UPDATE BBS_POST SET post_status = 0 , update_time = :updateTime" +
+                " WHERE bbs_post_id = :postId ";
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("postId",postId);
+
+        map.put("updateTime",new Date());
+
+        namedParameterJdbcTemplate.update(sql,map);
+    }
+    //修改留言狀態為 0 (隱藏)  , 原本預設 1 (發布)
+    @Override
+    public void updateBbsCommStatus(Integer commId, BbsCommUpdateStatus bbsCommUpdateStatus) {
+        String sql = "UPDATE BBS_COMMENT SET comment_status = 0 , update_time = :updateTime" +
+                " WHERE bbs_comment_id = :commId ";
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("commId",commId);
+
+        map.put("updateTime",new Date());
+
+        namedParameterJdbcTemplate.update(sql,map);
     }
 }

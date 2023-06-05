@@ -3,10 +3,7 @@ package com.example.teacherwanted.bbsdiscuss.service.impl;
 import com.example.teacherwanted.active.dao.MemberDaoActive;
 import com.example.teacherwanted.active.model.MemberActive;
 import com.example.teacherwanted.bbsdiscuss.dao.BbsPostDao;
-import com.example.teacherwanted.bbsdiscuss.dto.BbsCommentRequest;
-import com.example.teacherwanted.bbsdiscuss.dto.BbsPostRequest;
-import com.example.teacherwanted.bbsdiscuss.dto.FavoriterArticleRequest;
-import com.example.teacherwanted.bbsdiscuss.dto.PostReactionRequest;
+import com.example.teacherwanted.bbsdiscuss.dto.*;
 import com.example.teacherwanted.bbsdiscuss.model.*;
 import com.example.teacherwanted.bbsdiscuss.service.BbsPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,7 +149,7 @@ public class BbsPostServiceImpl implements BbsPostService {
     //新增讚/倒讚資料
     @Override
     public int createPostReaction(PostReactionRequest postReactionRequest) {
-        return bbsPostDao.createBbsPostReaction(postReactionRequest);
+        return bbsPostDao.createPostReaction(postReactionRequest);
     }
 
     @Override
@@ -174,5 +171,31 @@ public class BbsPostServiceImpl implements BbsPostService {
     @Override
     public int updateBbsPostReaction(PostReactionRequest postReactionRequest,int reactionNum) {
         return  bbsPostDao.updateBbsPostReaction(postReactionRequest,reactionNum);
+    }
+    //修改文章標題
+    @Override
+    public void updateBbsPostTitle(Integer postId, BbsPostUpdateTitle bbsPostUpdateTitle) {
+        bbsPostDao.updateBbsPostTitle(postId,bbsPostUpdateTitle);
+    }
+    //修改文章內容
+
+    @Override
+    public void updateBbsPostContent(Integer postId, BbsPostUpdateContent bbsPostUpdateContent) {
+        bbsPostDao.updateBbsPostContent(postId,bbsPostUpdateContent);
+    }
+    //修改留言內容
+    @Override
+    public void updateComm(Integer commId, BbsCommUpdate bbsCommUpdate) {
+        bbsPostDao.updateComm(commId, bbsCommUpdate);
+    }
+    //修改文章狀態為 0 (隱藏)  , 原本預設 1 (發布)
+    @Override
+    public void updateBbsPostStatus(Integer postId, BbsPostUpdateStatus bbsPostUpdateStatus) {
+        bbsPostDao.updateBbsPostStatus(postId, bbsPostUpdateStatus);
+    }
+    //修改留言狀態為 0 (隱藏)  , 原本預設 1 (發布)
+    @Override
+    public void updateBbsCommStatus(Integer commId, BbsCommUpdateStatus bbsCommUpdateStatus) {
+        bbsPostDao.updateBbsCommStatus(commId, bbsCommUpdateStatus);
     }
 }

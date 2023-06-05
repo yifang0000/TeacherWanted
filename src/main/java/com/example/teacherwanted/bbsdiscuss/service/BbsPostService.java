@@ -1,10 +1,7 @@
 package com.example.teacherwanted.bbsdiscuss.service;
 
 import com.example.teacherwanted.active.model.MemberActive;
-import com.example.teacherwanted.bbsdiscuss.dto.BbsCommentRequest;
-import com.example.teacherwanted.bbsdiscuss.dto.BbsPostRequest;
-import com.example.teacherwanted.bbsdiscuss.dto.FavoriterArticleRequest;
-import com.example.teacherwanted.bbsdiscuss.dto.PostReactionRequest;
+import com.example.teacherwanted.bbsdiscuss.dto.*;
 import com.example.teacherwanted.bbsdiscuss.model.*;
 
 import java.util.List;
@@ -52,12 +49,23 @@ public interface BbsPostService {
 
 //  更新收藏文章數
     int updateBbsPostFav(int postId, int postFav);
-
+    //更新按讚數
     int updateBbsPostReaction(PostReactionRequest postReactionRequest ,int reactionNum);
 
 
+    //修改文章標題
+    void updateBbsPostTitle (Integer postId, BbsPostUpdateTitle bbsPostUpdateTitle);
+    //修改文章內容
+    void updateBbsPostContent (Integer postId, BbsPostUpdateContent bbsPostUpdateContent);
 
+    //修改留言內容
+    void updateComm (Integer commId, BbsCommUpdate bbsCommUpdate);
 
+   //修改文章狀態為 0 (隱藏)  , 原本預設 1 (發布)
+   void updateBbsPostStatus (Integer postId, BbsPostUpdateStatus bbsPostUpdateStatus);
+
+    //修改留言狀態為 0 (隱藏)  , 原本預設 1 (發布)
+    void updateBbsCommStatus (Integer commId, BbsCommUpdateStatus bbsCommUpdateStatus);
 
 
 

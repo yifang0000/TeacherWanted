@@ -333,7 +333,6 @@
           </div>
         </div>
       </div>
-      <button class="sent">發送</button>
     </main>
 
     <footer
@@ -656,6 +655,7 @@
                               console.log(data4 + "for迴圈裡面的data4");
                               console.log(data4[j]["bbsCommentId"]);
                               let bbsCommentId = data4[j]["bbsCommentId"];
+                              console.log(bbsCommentId);
                               let bbsPostIdcomm = data4[j].bbsPostId;
                               let commentContent = data4[j].commentContent;
                               let commentStatus = data4[j].commentStatus;
@@ -691,7 +691,7 @@
                                       <img src=${memPhotocomm5} class="img-fluid rounded-start" alt="頭像" />
                                     </div>
                                     <div class="col-md-6">
-                                      <h5 id="bbs_title_test" class="card-title">${memNamecomm5}</h5>
+                                      <h5 id="bbs_title_test" class="card-title">${memNamecomm5}<p style="color: white;">${bbsCommentId}</p></h5>
                                       <h6 id="bbs_title_test2" class="card-subtitle mb-2 text-muted bbs_pare">
                                         ${commentContent}
                                       </h6>
@@ -735,79 +735,49 @@
                                   $("ul.bbs_comment_list").append(
                                     bbs_msg_content_html_first
                                   );
-                                  //=====================================留言區按鈕送出留言======================
-                                  $("div.bbs_post_pen_group").on(
-                                    "click",
-                                    ".bbs_send_msg",
-                                    function () {
-                                      let count = 0;
-                                      count++;
-                                      let modalId =
-                                        "exampleModal" + modalCounter;
-                                      modalCounter++;
-                                      let bbs_msg_content_trim = $(
-                                        ".bbs_msg_content"
-                                      )
-                                        .val()
-                                        .trim();
-                                      console.log(bbs_msg_content_trim);
-                                      if (bbs_msg_content_trim != "") {
-                                        let bbs_msg_content_html = `
-                                      <li>
-                                        <div class="card-body comment">
-                                          <div class="row">
-                                            <div class="col-md-1">
-                                              <img src=${updateTime} class="img-fluid rounded-start" alt="頭像" />
-                                            </div>
-                                            <div class="col-md-6">
-                                              <h5 id="bbs_title_test" class="card-title">${sessionName}</h5>
-                                              <h6 id="bbs_title_test2" class="card-subtitle mb-2 text-muted bbs_pare">
-                                                ${bbs_msg_content_trim}
-                                              </h6>
-                                              <input type="text" class="task_name_update -none" placeholder="編輯留言…" value="${bbs_msg_content_trim}">
-                                            </div>
-                                            <div class="col-md-3 mt-2">
-                                              <h6 class="card-subtitle mb-2 text-muted">
-                                                ${updateTime} 回覆
-                                              </h6>
-                                            </div>
-                                            <div class="col-md-1 mt-2">
-                                              <img id="bbs_pen_img" class="w-25" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" />
-                                            </div>
-                                            <div class="col-md-1 mt-2">
-                                              <img id="bbs_xmark_img" data-bs-toggle="modal" data-bs-target="#${modalId}" class="w-25" src="../img/bbsdiscuss/xmark-solid.svg" alt="刪除" />
-                                              <!-- Modal -->
-                                              <div class="modal fade" id="${modalId}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                                  aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                  <div class="modal-content">
-                                                    <div class="modal-header">
-                                                      <h5 class="modal-title" id="exampleModalLabel">是否刪除留言?</h5>
-                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                      <button type="button" class="btn btn-secondary btn_bbs_cancel1" data-bs-dismiss="modal">
-                                                        取消
-                                                      </button>
-                                                      <button type="submit" class="btn btn-success btn_bbs_sure2">
-                                                        確定
-                                                      </button>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </li>
-                                      `;
-                                        $("ul.bbs_comment_list").append(
-                                          bbs_msg_content_html
-                                        );
-                                        $(".bbs_msg_content").val("");
-                                      }
-                                    }
-                                  );
+                                  // //=====================================留言區按鈕送出留言======================
+                                  // $("div.bbs_post_pen_group").on(
+                                  //   "click",
+                                  //   ".bbs_send_msg",
+                                  //   function () {
+                                  //     let count = 0;
+                                  //     count++;
+                                  //     let modalId =
+                                  //       "exampleModal" + modalCounter;
+                                  //     modalCounter++;
+                                  //     let bbs_msg_content_trim = $(
+                                  //       ".bbs_msg_content"
+                                  //     )
+                                  //       .val()
+                                  //       .trim();
+                                  //     console.log(bbs_msg_content_trim);
+                                  //     let json_data_comm = {
+                                  //       commentContent: bbs_msg_content_trim,
+                                  //       bbsPostId: 4,
+                                  //     };
+                                  //     $.ajax({
+                                  //       url: "/bbsdiscussGet/newcomm", // 資料請求的網址
+                                  //       type: "POST", // GET | POST | PUT | DELETE | PATCH
+                                  //       data: JSON.stringify(json_data_comm),
+                                  //       dataType: "json",
+                                  //       contentType: "application/json",
+                                  //       beforeSend: function () {},
+                                  //       success: function (data7) {
+                                  //         console.log("data7成功了777777777");
+                                  //         console.log(data7);
+                                  //         $(".bbs_msg_content").val(""); // 清空输入框的值
+                                  //         location.reload(); // 刷新页面
+                                  //       },
+                                  //       error: function (xhr) {
+                                  //         console.log("data7失敗了了GGGGGGG");
+                                  //         console.log(xhr);
+                                  //       },
+                                  //       complete: function (xhr) {
+                                  //         // window.location.href = "index.html";
+                                  //       },
+                                  //     });
+                                  //   }
+                                  // );
                                 },
                               });
                             }
@@ -1019,7 +989,47 @@
         //     $(".bbs_msg_content").val("");
         //   }
         // });
-
+        //=====================================留言區按鈕送出留言======================
+        const urlParams = new URLSearchParams(window.location.search);
+        const bbsPostId = urlParams.get("bbsPostId");
+        console.log(bbsPostId);
+        let modalCounter = 0;
+        $("div.bbs_post_pen_group").on("click", ".bbs_send_msg", function () {
+          const urlParams = new URLSearchParams(window.location.search);
+          const bbsPostId = urlParams.get("bbsPostId");
+          console.log(bbsPostId);
+          let count = 0;
+          count++;
+          let modalId = "exampleModal" + modalCounter;
+          modalCounter++;
+          let bbs_msg_content_trim = $(".bbs_msg_content").val().trim();
+          console.log(bbs_msg_content_trim);
+          let json_data_comm = {
+            commentContent: bbs_msg_content_trim,
+            bbsPostId: bbsPostId,
+          };
+          $.ajax({
+            url: "/bbsdiscussGet/newcomm", // 資料請求的網址
+            type: "POST", // GET | POST | PUT | DELETE | PATCH
+            data: JSON.stringify(json_data_comm),
+            dataType: "json",
+            contentType: "application/json",
+            beforeSend: function () {},
+            success: function (data7) {
+              console.log("data7成功了777777777");
+              console.log(data7);
+              $(".bbs_msg_content").val(""); // 清空输入框的值
+              location.reload(); // 刷新页面
+            },
+            error: function (xhr) {
+              console.log("data7失敗了了GGGGGGG");
+              console.log(xhr);
+            },
+            complete: function (xhr) {
+              // window.location.href = "index.html";
+            },
+          });
+        });
         // ==========================================刪除留言==========================================================
         $(".bbs_comment_list").on("click", "#bbs_xmark_img", function () {
           //按確定後刪除留言
@@ -1028,6 +1038,34 @@
             $(this).closest("li").fadeOut(1000);
             // 淡出效果完成後關閉燈箱效果
             $(this).closest(".modal").modal("hide");
+            const urlParams = new URLSearchParams(window.location.search);
+            const bbsPostId = urlParams.get("bbsPostId");
+            console.log(bbsPostId);
+            let json_data_comm_status = {
+              bbsCommentId: 6,
+              commentStatus: 0,
+            };
+            $.ajax({
+              url: "/bbsdiscussGet/newcomm", // 資料請求的網址
+              type: "POST", // GET | POST | PUT | DELETE | PATCH
+              data: JSON.stringify(json_data_comm_status),
+              dataType: "json",
+              contentType: "application/json",
+              beforeSend: function () {},
+              success: function (data8) {
+                console.log("data8成功了777777777");
+                console.log(data8);
+                $(".bbs_msg_content").val(""); // 清空输入框的值
+                location.reload(); // 刷新页面
+              },
+              error: function (xhr) {
+                console.log("data8失敗了了GGGGGGG");
+                console.log(xhr);
+              },
+              complete: function (xhr) {
+                // window.location.href = "index.html";
+              },
+            });
           });
         });
         // =====================================編輯留言==============================================================
@@ -1164,43 +1202,48 @@
             type: "POST",
             data: {},
             dataType: "json",
-            success: function (data) {
-              console.log(data);
+            success: function (data6) {
+              console.log(data6);
             },
           });
         }
       );
 
       //========================================新增留言============================================
-      $(".sent").on("click", function () {
-        console.log("有新增留言的觸發嗎");
-        let json_data_comm = {
-          commentContent: "測試一下有新增留言功能有成功嗎?",
-          postId: 4,
-        };
-        // 獲取 <p> 標籤裡 postId的值
-        var textContent = $("p").text();
-        console.log(textContent);
 
-        $.ajax({
-          url: "/bbsdiscussGet/post", // 資料請求的網址
-          type: "POST", // GET | POST | PUT | DELETE | PATCH
-          data: JSON.stringify(json_data_comm),
-          dataType: "json",
-          contentType: "application/json",
-          beforeSend: function () {},
-          success: function (data) {
-            console.log(data);
-          },
-          error: function (xhr) {
-            console.log("error");
-            console.log(xhr);
-          },
-          complete: function (xhr) {
-            // window.location.href = "index.html";
-          },
-        });
-      });
+      // $(".sent").on("click", function () {
+      //   console.log("有新增留言的觸發嗎");
+
+      //   // 獲取 <p> 標籤裡 postId的值
+      //   var textContent = $("p").text();
+      //   console.log(
+      //     "p標籤得值~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      //   );
+      //   console.log(textContent);
+
+      //   let json_data_comm = {
+      //     commentContent: discuss_dr_value,
+      //     bbsPostId: textContent,
+      //   };
+      //   $.ajax({
+      //     url: "/bbsdiscussGet/newcomm", // 資料請求的網址
+      //     type: "POST", // GET | POST | PUT | DELETE | PATCH
+      //     data: JSON.stringify(json_data_comm),
+      //     dataType: "json",
+      //     contentType: "application/json",
+      //     beforeSend: function () {},
+      //     success: function (data) {
+      //       console.log(data);
+      //     },
+      //     error: function (xhr) {
+      //       console.log("error");
+      //       console.log(xhr);
+      //     },
+      //     complete: function (xhr) {
+      //       // window.location.href = "index.html";
+      //     },
+      //   });
+      // });
       //======================================新增留言==========================================
       // $(".bbs_send_msg_test").on("click", function () {
       //   console.log("aaa");
