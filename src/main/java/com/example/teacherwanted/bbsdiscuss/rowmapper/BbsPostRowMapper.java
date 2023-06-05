@@ -22,6 +22,7 @@ public class BbsPostRowMapper implements RowMapper<BbsPost> {
         bbsPost.setPostLikes(rs.getInt("post_likes"));
         bbsPost.setPostDislikes(rs.getInt("post_dislikes"));
         bbsPost.setPostStatus(rs.getInt("post_status"));
+        bbsPost.setPostFav(rs.getInt("post_fav"));
         return bbsPost;
     }
 }

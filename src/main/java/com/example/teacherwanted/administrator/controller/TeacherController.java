@@ -1,15 +1,11 @@
 package com.example.teacherwanted.administrator.controller;
 
-import com.example.teacherwanted.administrator.dao.TeacherDao;
 import com.example.teacherwanted.administrator.model.Teacher;
 import com.example.teacherwanted.administrator.service.TeacherService;
-import com.example.teacherwanted.announcement.model.Announcement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class TeacherController {
@@ -24,7 +20,7 @@ public class TeacherController {
 //    }
 
     //    查詢單個：[restful設計]：若該資料查詢不到，須回傳404給前端
-    @GetMapping("/teachers/{adminId}")
+    @GetMapping("/teachers/pro/{adminId}")
     public ResponseEntity<Teacher> selectByAdminId(@PathVariable Integer adminId) {
         Teacher teacher = teacherService.selectByAdminId(adminId);
         if (teacher != null) {
@@ -42,7 +38,7 @@ public class TeacherController {
     }
 
     //    修改
-    @PutMapping("/teachers/{adminId}")
+    @PutMapping("/teachers/pro/{adminId}")
     public ResponseEntity<?> updateByAnnId(@RequestBody Teacher teacher) {
 //        System.out.println(teacher);
         teacherService.updateByAdminId(teacher);
