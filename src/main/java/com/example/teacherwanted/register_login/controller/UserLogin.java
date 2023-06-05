@@ -2,11 +2,14 @@ package com.example.teacherwanted.register_login.controller;
 
 
 
+import com.example.teacherwanted.administrator.model.Administrator;
 import com.example.teacherwanted.register_login.entity.User;
 import com.example.teacherwanted.register_login.repo.UserRepo;
 import com.example.teacherwanted.register_login.service.AES256Util;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +46,12 @@ public class UserLogin {
         if (userdata.isPresent() && user.getMemPassword().equals(password)) {
             System.out.println(userdata.get());
             // 在登入成功後設置 Session
-            session.setAttribute("user", userdata.get());
+            User userdata1 = userdata.get();
+            System.out.println("user"+userdata1);
+            session.setAttribute("userInfo", userdata1);
             model.addAttribute("memName", userdata.get().getMemName());
             model.addAttribute("memNickname", userdata.get().getMemNickname());
+
             session.setAttribute("memAccount", userdata.get().getMemAccount());
             model.addAttribute("msg", "登入成功，٩(◕‿◕｡)۶歡迎回來~ " + userdata.get().getMemNickname());
 
@@ -56,6 +62,13 @@ public class UserLogin {
         }
     }
 
+    //用來獲取session
+    @GetMapping("/user/session")
+    public ResponseEntity<User> getSessionInfo(@SessionAttribute("userInfo") User user, HttpSession session) {
+        System.out.println(user);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
 
     @GetMapping("/logout")
     public String logout(@ModelAttribute("user")User user, HttpSession session, Model model) {
