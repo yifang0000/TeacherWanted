@@ -10,7 +10,7 @@ public interface BbsPostService {
 
     //   依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or bsdiscusspo.html
     MemberActive selectMemBerOrderInfo(Integer id);
-    //根據 memid 取得  按讚數據
+    //根據 memid 取得  收藏數據
     List<FavoriteArticle> geFavByMemId(Integer memId);
     //根據 memid 取得 按讚數據
     List<PostReaction> getRectionByMemId(Integer memId);
@@ -71,8 +71,6 @@ public interface BbsPostService {
     //修改留言狀態為 0 (隱藏)  , 原本預設 1 (發布)
     void updateBbsCommStatus (Integer commId, BbsCommUpdateStatus bbsCommUpdateStatus);
 
-//    //修改收藏狀態為 0 (隱藏)  , 原本預設 1 (有收藏)
-//    void updateFavStatus (Integer favoriteArticleId, BbsFavStatus bbsFavStatus);
 
 
 }

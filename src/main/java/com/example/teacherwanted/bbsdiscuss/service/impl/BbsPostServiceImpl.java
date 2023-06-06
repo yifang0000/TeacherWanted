@@ -33,7 +33,7 @@ public class BbsPostServiceImpl implements BbsPostService {
         memberInfo.setMemAccount(member.getMemAccount());
         return memberInfo;
     }
-    //根據 memid 取得  按讚數據
+    //根據 memid 取得  收藏數據
     @Override
     public List<FavoriteArticle> geFavByMemId(Integer memId) {
         return bbsPostDao.geFavByMemId(memId);

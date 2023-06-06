@@ -28,4 +28,13 @@ public class PostReactionRequest {
     public void setReactionStatus(Integer reactionStatus) {
         this.reactionStatus = reactionStatus;
     }
+
+    @Override
+    public String toString() {
+        return "PostReactionRequest{" +
+                "bbsPostId=" + bbsPostId +
+                ", memId=" + memId +
+                ", reactionStatus=" + reactionStatus +
+                '}';
+    }
 }
