@@ -22,8 +22,8 @@ $(document).ready(function(){
           const bankCodeInput = document.getElementById('bankCode');
           const bankName = document.getElementById('bankName');
 
-          // 綁定輸入框的onchange事件
-          bankCodeInput.onchange = () => {
+          // 綁定輸入框的oninput事件
+          bankCodeInput.oninput = () => {
             const code = bankCodeInput.value;
             const bank = bankCodes.find(bank => bank.code === code);
             if (bank) {
@@ -37,6 +37,8 @@ $(document).ready(function(){
 
             }
           };
+              // 觸發oninput事件，以取得初始數值
+            bankCodeInput.oninput();
         });
 
 
@@ -83,6 +85,7 @@ $(document).ready(function(){
                var allInputsFilled = true;
                $(".needvalue").each(function() {
                  if ($(this).val() === "") {
+                  console.log(this)
                    allInputsFilled = false;
                    console.log("有空值")
                    return false;  // 結束迴圈

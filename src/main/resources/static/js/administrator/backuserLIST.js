@@ -1,7 +1,7 @@
 
 
 $(document).ready(function(){
-  console.log(admin);
+  // admin = JSON.parse(sessionStorage.getItem('adminStorage'))
     $("#collapse").on("click",function(){
         $("#sidebar").toggleClass("active")
         // 讓圖示轉換成另一個圖示
@@ -9,7 +9,7 @@ $(document).ready(function(){
         // $(".fa-solid").toggleClass("fa-shake")  
         
     })
-    console.log(admin.adminId);
+    // console.log(admin.adminId);
 
         $("#adminTable").DataTable({
 

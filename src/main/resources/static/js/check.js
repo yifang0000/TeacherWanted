@@ -1,7 +1,7 @@
 
 
 // ============去驗證是否登入+把登入者資料放入前端session變數裡
-// ============使用範例：var test=sessionStorage.getItem('adminStorage');
+// ============使用範例：var test=JSON.parse(sessionStorage.getItem('adminStorage'));
 // ============可印出來：console.log(test)
 // ============可印老師ID(管理員沒有teaId)：console.log(test.teaId)
 
@@ -68,7 +68,7 @@ ulElement.innerHTML = '';
                   <a
                     class="dropdown-item text-center"
                     href="../administrator/backbarsetting.html"
-                    >帳號設定</a
+                    >修改密碼</a
                   >
                 </li>
                 <li>
@@ -279,7 +279,7 @@ ulElement.innerHTML = '';
   function getTeaPhoto(){
     $.ajax({
       type: 'GET',
-      url: '/teachers/'+admin.adminId,
+      url: '/teachers/pro/'+admin.adminId,
       contentType: 'application/json',
       success: function(data) {
         teacherDateAjex = data;
