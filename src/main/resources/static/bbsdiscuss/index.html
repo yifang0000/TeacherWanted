@@ -1,221 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- bootstrap相關 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+    <!-- bootstrap相關 -->
 
-  <!-- bootstrap相關 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-          crossorigin="anonymous"></script>
-  <!-- bootstrap相關 -->
+    <link href="../css/basebbs.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="../jquery/jquery-3.6.4.min.js"></script>
+    <!-- 要登入驗證請解開這個 -->
+    <!-- <script src="../js/loginCheck.js"></script> -->
+    <script src="../js/base.js"></script>
 
-  <link href="../css/baseVer2.css" rel="stylesheet" type="text/css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
-        rel="stylesheet" />
-  <script src="../jquery/jquery-3.6.4.min.js"></script>
-  <script src="../js/base.js"></script>
+    <title>Document</title>
+    <style>
+      .truncate-text {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        /* 顯示3行 */
+        -webkit-box-orient: vertical;
+        line-height: 1.5em;
+        /* 行高 */
+      }
 
-  <title>Document</title>
-  <style>
-    .truncate-text {
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      /* 顯示3行 */
-      -webkit-box-orient: vertical;
-      line-height: 1.5em;
-      /* 行高 */
-    }
-
-    /* .show-more {
+      /* .show-more {
       display: none;
     } */
 
-    .show-all .truncate-text {
-      -webkit-line-clamp: unset;
-      /* 取消行數限制 */
-    }
+      .show-all .truncate-text {
+        -webkit-line-clamp: unset;
+        /* 取消行數限制 */
+      }
 
-    /* .show-all .show-more {
+      /* .show-all .show-more {
       display: none;
     } */
 
-    .show-all {
-      display: none;
-    }
-  </style>
-</head>
+      .show-all {
+        display: none;
+      }
+    </style>
+  </head>
 
-<body class="TeacherWanted">
-  <!-- 手機板導引列(粗糙) -->
-  <header class="TeacherWanted">
-    <div id="mySidebar">
-      <img src="../img/base/logo.png" alt="" />
-      <a href="#" class="">首頁</a>
-      <a href="#" class="">課程</a>
-      <a href="#" class="">活動</a>
-      <a href="#" class="">許願池</a>
-      <a href="#" class="">論壇</a>
-      <a href="#" class="">商城</a>
-    </div>
-    <div class="navBar">
-      <ul class="containerHearder flexWrap flexVerticalCenter">
-        <li>
-          <img src="../img/base/menu.png" id="phoneMenu" class="mobileHave" style="height: 30px; margin: 10px" alt="" />
-        </li>
+  <body class="TeacherWanted">
+    <!-- 手機板導引列(粗糙) -->
+    <header class="TeacherWanted">
+      <div id="mySidebar">
+        <img src="../img/base/logo.png" alt="" />
+        <a href="/index" class="">首頁</a>
+        <a href="/courseteacher/CourseVue.html" class="">課程</a>
+        <a href="/active/activeIndex.html" class="">活動</a>
+        <a href="/wish" class="">許願池</a>
+        <a href="/bbsdiscuss/index.html" class="">論壇</a>
+        <a href="/baseVer3/homepage.html" class="">商城</a>
+      </div>
+      <div class="navBar">
+        <ul class="containerHearder flexWrap flexVerticalCenter">
+          <li>
+            <img
+              src="../img/base/menu.png"
+              id="phoneMenu"
+              class="mobileHave"
+              style="height: 30px; margin: 10px"
+              alt=""
+            />
+          </li>
 
-        <li class="flexWrap flexAllCenter" style="font-size: 50px; color: #a4c964; margin: 10px 0px">
-          <img src="../img/base/logo.png" class="miniMobile" style="height: 50px; margin: 0px 5px" alt="" />
-          <p>懸賞啼雀</p>
-        </li>
-        <li class="flexWrap" style="
+          <li
+            class="flexWrap flexAllCenter"
+            style="font-size: 50px; color: #a4c964; margin: 10px 0px"
+          >
+            <img
+              src="../img/base/logo.png"
+              class="miniMobile"
+              style="height: 50px; margin: 0px 5px"
+              alt=""
+            />
+            <p>懸賞啼雀</p>
+          </li>
+          <li
+            class="flexWrap"
+            style="
               flex-grow: 1;
               display: flex;
               align-items: center;
               justify-content: end;
-            ">
-          <!-- 電腦版導引列 -->
-          <div id="navLink" class="flexWrap flexAllCenter pcHave" style="flex-grow: 1">
-            <a class="flexAllCenter" href="">首頁</a>
-            <a class="flexAllCenter" href="">課程</a>
-            <a class="flexAllCenter" href="">活動</a>
-            <a class="flexAllCenter" href="">許願池</a>
-            <a class="flexAllCenter" href="">論壇</a>
-            <a class="flexAllCenter" href="">商城</a>
-          </div>
-          <div class="flexWrap flexAllCenter" style="position: relative; top: 2px">
-            <div class="miniMobile">
-              <form id="navSearch" action="">
-                <select>
-                  <option>課程</option>
-                  <option>活動</option>
-                  <option>商城</option>
-                  <option>許願</option>
-                </select>
-                <input type="text" />
-                <img src="../img/base/search.svg" alt="" />
-              </form>
+            "
+          >
+            <!-- 電腦版導引列 -->
+            <div
+              id="navLink"
+              class="flexWrap flexAllCenter pcHave"
+              style="flex-grow: 1"
+            >
+              <a class="flexAllCenter" href="/index">首頁</a>
+              <a class="flexAllCenter" href="/courseteacher/CourseVue.html"
+                >課程</a
+              >
+              <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
+              <a class="flexAllCenter" href="/wish">許願池</a>
+              <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+              <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
             </div>
-            <img src="../img//base/mailForNavbar.svg" class="miniMobile" style="
+            <div
+              class="flexWrap flexAllCenter"
+              style="position: relative; top: 2px"
+            >
+              <div class="miniMobile">
+                <div id="navSearch" action="">
+                  <select id="serchType">
+                    <option value="課程">課程</option>
+                    <option value="活動">活動</option>
+                    <!-- <option value="商城">商城</option>
+                    <option value="許願">許願</option> -->
+                  </select>
+                  <input id="searchText" type="text" />
+                  <img id="searchIcon" src="../img/base/search.svg" alt="" />
+                </div>
+              </div>
+
+              <img
+                src="../img/base/bell.svg"
+                id="navAnn"
+                class="miniMobile"
+                style="height: 30px; margin: 3px 5px; cursor: pointer"
+                alt=""
+              />
+              <img
+                src="../img/base/mailForNavbar.svg"
+                id="navMail"
+                class="miniMobile"
+                style="
                   height: 30px;
                   margin: 3px 5px;
                   cursor: pointer;
                   position: relative;
                   bottom: 1px;
-                " alt="" />
-            <img src="../img/base/shoppingCart.svg" class="miniMobile"
-                 style="height: 30px; margin: 3px 5px; cursor: pointer" alt="" />
-            <img src="../img/base/bell.svg" class="miniMobile" style="height: 30px; margin: 3px 5px; cursor: pointer"
-                 alt="" />
+                "
+                alt=""
+              />
+              <img
+                src="../img/base/shoppingCart.svg"
+                id="navShoppingcart"
+                class="miniMobile"
+                style="height: 30px; margin: 3px 5px; cursor: pointer"
+                alt=""
+              />
 
-            <a class="btnCss flexAllCenter" style="color: white" href="">登入</a>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </header>
+              <!--登入按鈕 開始 -->
 
-  <main class="TeacherWanted">
-    <!-- ！！！寫在這裡！！！
+              <div id="loginOrUser"></div>
+              <!-- 登入按鈕 結束 -->
+            </div>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="TeacherWanted">
+      <!-- ！！！寫在這裡！！！
       如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
 
-    <!-- ==================================(上)發表文章/發文紀錄/我的收藏/搜尋================================================= -->
-    <!-- 發表文章/發文紀錄/我的收藏/搜尋 -->
-    <div class="container-fluid">
-      <nav class="navbar">
-        <div class="container-fluid">
-          <div class="col-md">
-            <button type="button" class="btn btn-outline-success bbs_btn_edit">
-              發表文章
-            </button>
+      <!-- ==================================(上)發表文章/發文紀錄/我的收藏/搜尋================================================= -->
+      <!-- 發表文章/發文紀錄/我的收藏/搜尋 -->
+      <div class="container-fluid">
+        <nav class="navbar">
+          <div class="container-fluid">
+            <div class="col-md">
+              <button
+                type="button"
+                class="btn btn-outline-success bbs_btn_edit"
+              >
+                發表文章
+              </button>
+            </div>
+            <div class="col-md">
+              <button
+                type="button"
+                class="btn btn-outline-success bbs_btn_view"
+              >
+                發文紀錄
+              </button>
+            </div>
+            <div class="col-md-7">
+              <button
+                type="button"
+                class="btn btn-outline-success bbs_btn_favorite"
+              >
+                我的收藏
+              </button>
+            </div>
+            <form class="d-flex col-md-3">
+              <input
+                class="form-control me-md-2"
+                type="search"
+                placeholder="查詢文章請輸入..."
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
           </div>
-          <div class="col-md">
-            <button type="button" class="btn btn-outline-success bbs_btn_view">
-              發文紀錄
-            </button>
+        </nav>
+      </div>
+      <!-- =====================================(下)======================================================== -->
+      <div class="row g-3">
+        <!-- =====================================(下左)側邊欄======================================================== -->
+        <div class="col-md-2 mt-3">
+          <!-- 側邊攔 -->
+          <div class="list-group" id="list-tab" role="tablist">
+            <a
+              class="list-group-item list-group-item-action bbs_kb_lg"
+              data-bs-toggle="list"
+              href="#"
+              role="tab"
+              aria-controls="list-profile"
+              data-value="1"
+              onclick="change_type(this)"
+              >語言討論版</a
+            >
+            <a
+              class="list-group-item list-group-item-action bbs_kb_pg"
+              data-bs-toggle="list"
+              href="#"
+              role="tab"
+              aria-controls="list-messages"
+              data-value="2"
+              onclick="change_type(this)"
+              >程式討論版</a
+            >
+            <a
+              class="list-group-item list-group-item-action bbs_kb_lf"
+              data-bs-toggle="list"
+              href="#"
+              role="tab"
+              aria-controls="list-settings"
+              data-value="3"
+              onclick="change_type(this)"
+              >生活討論版</a
+            >
+            <a
+              class="list-group-item list-group-item-action bbs_kb_gm"
+              data-bs-toggle="list"
+              href="#"
+              role="tab"
+              aria-controls="list-settings"
+              data-value="4"
+              onclick="change_type(this)"
+              >電競討論版</a
+            >
           </div>
-          <div class="col-md-7">
-            <button type="button" class="btn btn-outline-success bbs_btn_favorite">
-              我的收藏
-            </button>
-          </div>
-          <form class="d-flex col-md-3">
-            <input class="form-control me-md-2" type="search" placeholder="查詢文章請輸入..." aria-label="Search" />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
         </div>
-      </nav>
-    </div>
-    <!-- =====================================(下)======================================================== -->
-    <div class="row g-3">
-      <!-- =====================================(下左)側邊欄======================================================== -->
-      <div class="col-md-2 mt-3">
-        <!-- 側邊攔 -->
-        <div class="list-group" id="list-tab" role="tablist">
-          <a class="list-group-item list-group-item-action bbs_kb_lg" data-bs-toggle="list" href="#" role="tab"
-             aria-controls="list-profile" data-value="1" onclick="change_type(this)">語言討論版</a>
-          <a class="list-group-item list-group-item-action bbs_kb_pg" data-bs-toggle="list" href="#" role="tab"
-             aria-controls="list-messages" data-value="2" onclick="change_type(this)">程式討論版</a>
-          <a class="list-group-item list-group-item-action bbs_kb_lf" data-bs-toggle="list" href="#" role="tab"
-             aria-controls="list-settings" data-value="3" onclick="change_type(this)">生活討論版</a>
-          <a class="list-group-item list-group-item-action bbs_kb_gm" data-bs-toggle="list" href="#" role="tab"
-             aria-controls="list-settings" data-value="4" onclick="change_type(this)">電競討論版</a>
+        <!-- =====================================(下右)一篇發文資訊======================================================= -->
+        <div class="col-md-6 bbs_index_group mx-lg-5">
+          <!-- =================================開始複製大頭貼/發文者名稱/看版標籤======================================== -->
+          <!-- bbs_index_html -->
+
+          <!-- =================================結束複製大頭貼/發文者名稱/看版標籤======================================== -->
         </div>
       </div>
-      <!-- =====================================(下右)一篇發文資訊======================================================= -->
-      <div class="col-md-6 bbs_index_group mx-lg-5">
-        <!-- =================================開始複製大頭貼/發文者名稱/看版標籤======================================== -->
-        <!-- bbs_index_html -->
+    </main>
 
-        <!-- =================================結束複製大頭貼/發文者名稱/看版標籤======================================== -->
-      </div>
-    </div>
-  </main>
-
-  <footer class="TeacherWanted" style="background-color: #3c6a36; color: white">
-    <div class="containerFooter flexAllCenter" style="box-sizing: border-box; padding-top: 50px">
+    <footer
+    class="TeacherWanted"
+    style="background-color: #3c6a36; color: white"
+  >
+    <div
+      class="containerFooter flexAllCenter"
+      style="box-sizing: border-box; padding-top: 50px"
+    >
       <div class="flexWrap">
         <ul class="col_33">
           <li class="flexAllCenter" style="color: #a4c964; font-size: 40px">
             懸賞啼雀
           </li>
-          <li class="flexAllCenter" style="margin: 10px 30px; font-weight: normal">
-            Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
-            dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
-            elitr stet diam duo eos rebum ipsum diam ipsum elitr.
+          <li
+            class="flexAllCenter"
+            style="margin: 10px 30px; font-weight: normal"
+          >
+            現代⼈⽣活步相當緊湊我們的課平台幫助
+            ⼈們學並且除了線上課提供了實家的合會⼤了學的⾯向
+            課元可提⾼學⽣的學興積性 並促學⽣的⾯發展
           </li>
-          <li id="imgIcon" class="flexVerticalCenter" style="margin: 20px 30px">
+          <li
+            id="imgIcon"
+            class="flexVerticalCenter"
+            style="margin: 20px 30px"
+          >
             <img src="../img/base/facebook.svg" class="imgIntroduce" alt="" />
             <img src="../img/base/twitter.svg" class="imgIntroduce" alt="" />
-            <img src="../img/base/instagram.svg" class="imgIntroduce" alt="" />
+            <img
+              src="../img/base/instagram.svg"
+              class="imgIntroduce"
+              alt=""
+            />
           </li>
         </ul>
         <ul class="col_33 flexHorizontalCenter footerMobile">
           <div style="width: 70%">
-            <li class="flexAllCenter" style="color: #a4c964; font-size: 30px; height: 65px">
+            <li
+              class="flexAllCenter"
+              style="color: #a4c964; font-size: 30px; height: 65px"
+            >
               Get In Touch
             </li>
             <div class="" style="height: 250px; font-weight: 400">
               <li class="flexWrap" style="margin-top: 10px">
-                <img src="../img/base/map-marker.svg" style="height: 24px; padding-right: 10px; margin-top: 6px"
-                     alt="" />
+                <img
+                  src="../img/base/map-marker.svg"
+                  style="height: 24px; padding-right: 10px; margin-top: 6px"
+                  alt=""
+                />
                 <div>
                   <h3 style="font-size: 1.3rem">地址</h3>
-                  <h5 style="font-size: 1rem">123</h5>
+                  <h5 style="font-size: 1rem">台北市中山區南京東路三段</h5>
                 </div>
               </li>
 
               <li class="flexWrap" style="margin-top: 10px">
-                <img src="../img/base/mail.svg" style="height: 24px; padding-right: 10px; margin-top: 6px" alt="" />
+                <img
+                  src="../img/base/mail.svg"
+                  style="height: 24px; padding-right: 10px; margin-top: 6px"
+                  alt=""
+                />
                 <div>
                   <h3 style="font-size: 1.3rem">信箱</h3>
                   <h5 style="font-size: 1rem">a1234567890@gmail.com</h5>
@@ -223,7 +351,11 @@
               </li>
 
               <li class="flexWrap" style="margin-top: 10px">
-                <img src="../img/base/phone.svg" style="height: 24px; padding-right: 10px; margin-top: 6px" alt="" />
+                <img
+                  src="../img/base/phone.svg"
+                  style="height: 24px; padding-right: 10px; margin-top: 6px"
+                  alt=""
+                />
                 <div>
                   <h3 style="font-size: 1.3rem">連絡電話</h3>
                   <h5 style="font-size: 1rem">0900123456</h5>
@@ -234,27 +366,34 @@
         </ul>
         <ul class="col_33 flexHorizontalCenter footerMobile">
           <div style="width: 40%">
-            <li class="flexAllCenter" style="color: #a4c964; font-size: 30px; height: 65px">
+            <li
+              class="flexAllCenter"
+              style="color: #a4c964; font-size: 30px; height: 65px"
+            >
               網站地圖
             </li>
             <div class="webMap">
               <li style="margin-top: 5px">
-                <a class="webMapLink" href="">>首頁</a>
+                <a class="webMapLink" href="/index">>首頁</a>
               </li>
               <li style="margin-top: 5px">
-                <a class="webMapLink" href="">>課程</a>
+                <a class="webMapLink" href="/courseteacher/CourseVue.html"
+                  >>課程</a
+                >
               </li>
               <li style="margin-top: 5px">
-                <a class="webMapLink" href="">>活動</a>
+                <a class="webMapLink" href="/active/activeIndex.html"
+                  >>活動</a
+                >
               </li>
               <li style="margin-top: 5px">
-                <a class="webMapLink" href="">>許願池</a>
+                <a class="webMapLink" href="/wish">>許願池</a>
               </li>
               <li style="margin-top: 5px">
-                <a class="webMapLink" href="">>論壇</a>
+                <a class="webMapLink" href="/bbsdiscuss/index.html">>論壇</a>
               </li>
               <li style="margin-top: 5px">
-                <a class="webMapLink" href="">>商城</a>
+                <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
               </li>
             </div>
           </div>
@@ -263,186 +402,168 @@
     </div>
   </footer>
 
-  <script>
-    // ===================================畫面一載入=====================================================================
+    <script>
+      // ===================================畫面一載入=====================================================================
 
-    bbsdiscussGetData = {};
-    // http://localhost:8080/bbsdiscuss/index.html?posttype=語言討論版
-    $(function () {
+      bbsdiscussGetData = {};
+      // http://localhost:8080/bbsdiscuss/index.html?posttype=語言討論版
+      $(function () {
+        let pt;
 
-      let pt
-
-      try {
-        const urlParams = new URLSearchParams(window.location.search);
-        pt = urlParams.get("posttype");
-      } catch (error) {
-        alert('url 錯誤');
-        return
-      }
-
-      if (pt === 'all') {
-        let all_item = $('.list-group-item');
-        for (let index = 0; index < all_item.length; index++) {
-          change_type(all_item[index])
+        try {
+          const urlParams = new URLSearchParams(window.location.search);
+          pt = urlParams.get("posttype");
+        } catch (error) {
+          alert("url 錯誤");
+          return;
         }
-      } else {
-        let all_item = $('.list-group-item');
 
-        for (let index = 0; index < all_item.length; index++) {
-          if ($('.list-group-item')[index].textContent === pt) {
-            change_type($('.list-group-item')[index])
+        if (pt === "all") {
+          let all_item = $(".list-group-item");
+          for (let index = 0; index < all_item.length; index++) {
+            change_type(all_item[index]);
+          }
+        } else {
+          let all_item = $(".list-group-item");
+
+          for (let index = 0; index < all_item.length; index++) {
+            if ($(".list-group-item")[index].textContent === pt) {
+              change_type($(".list-group-item")[index]);
+            }
           }
         }
-      }
-    });
-
-    // ======================================看板================================================
-    async function change_type(event) {
-      let elements = document.getElementsByClassName('bbs_index_group');  // 获取具有指定类名的元素列表
-      // console.log(event);
-
-
-      // 遍历元素列表，并将每个元素的textContent属性设置为空字符串
-      for (let i = 0; i < elements.length; i++) {
-        elements[i].textContent = '';
-      }
-
-
-      let type_content = event.textContent;
-      let type_theme = get_url_theme_type(type_content);
-      let url = `/bbsdiscussGet/${type_theme}/${type_content}`;
-
-      let theme_data = await my_ajax(url, 'GET', {})
-      // console.log(theme_data);
-
-      let theme_post_content = await get_theme_post_content(theme_data)
-
-      // console.log(theme_post_content)
-
-      let theme_post_content_html = get_theme_post_content_html(theme_data, theme_post_content)
-
-      $(".bbs_index_group").append(theme_post_content_html);
-    }
-
-
-    function get_url_theme_type(type) {
-      switch (type) {
-        case "語言討論版":
-        case "程式討論版":
-        case "生活討論版":
-        case "電競討論版":
-          return 'lg';
-        default:
-          aler('未設定的討論版')
-          break;
-      }
-    }
-
-
-
-    function my_ajax(url, type, json_data) {
-
-      // console.log(`use my_ajax 
-      //              url: ${url} 
-      //              type: ${type}
-      //              json_data: ${json_data}`)
-      return new Promise((resolve, reject) => {
-        $.ajax({
-          url: url, // 資料請求的網址
-          type: type, // GET | POST | PUT | DELETE | PATCH
-          data: json_data,
-          dataType: "json",
-          contentType: "application/json",
-          beforeSend: function () {
-          },
-          success: function (data) {
-
-            // console.log(`response_data: ${data}`);
-            resolve(data)
-          },
-          error: function (xhr) {
-            console.log("error");
-            console.log(xhr);
-          },
-          complete: function (xhr) {
-            // window.location.href = "index.html";
-          },
-        });
-
-
       });
 
+      // ======================================看板================================================
+      async function change_type(event) {
+        let elements = document.getElementsByClassName("bbs_index_group"); // 获取具有指定类名的元素列表
+        // console.log(event);
 
-    }
+        // 遍历元素列表，并将每个元素的textContent属性设置为空字符串
+        for (let i = 0; i < elements.length; i++) {
+          elements[i].textContent = "";
+        }
 
+        let type_content = event.textContent;
+        let type_theme = get_url_theme_type(type_content);
+        let url = `/bbsdiscussGet/${type_theme}/${type_content}`;
 
-    function get_theme_post_content(data) {
+        let theme_data = await my_ajax(url, "GET", {});
+        // console.log(theme_data);
 
-      return new Promise((resolve, reject) => {
+        let theme_post_content = await get_theme_post_content(theme_data);
 
-        let url = "/bbsdiscussGetAll";
-        let type = "GET";
+        // console.log(theme_post_content)
 
-        let results = [];
-        data.forEach(element => {
-          json_data = {
-            "bbsPostId": element['bbsPostId']
-          }
-          ajax_result = my_ajax(url, type, json_data)
+        let theme_post_content_html = get_theme_post_content_html(
+          theme_data,
+          theme_post_content
+        );
 
-          results.push(ajax_result);
+        $(".bbs_index_group").append(theme_post_content_html);
+      }
 
+      function get_url_theme_type(type) {
+        switch (type) {
+          case "語言討論版":
+          case "程式討論版":
+          case "生活討論版":
+          case "電競討論版":
+            return "lg";
+          default:
+            aler("未設定的討論版");
+            break;
+        }
+      }
 
+      function my_ajax(url, type, json_data) {
+        // console.log(`use my_ajax
+        //              url: ${url}
+        //              type: ${type}
+        //              json_data: ${json_data}`)
+        return new Promise((resolve, reject) => {
+          $.ajax({
+            url: url, // 資料請求的網址
+            type: type, // GET | POST | PUT | DELETE | PATCH
+            data: json_data,
+            dataType: "json",
+            contentType: "application/json",
+            beforeSend: function () {},
+            success: function (data) {
+              // console.log(`response_data: ${data}`);
+              resolve(data);
+            },
+            error: function (xhr) {
+              console.log("error");
+              console.log(xhr);
+            },
+            complete: function (xhr) {
+              // window.location.href = "index.html";
+            },
+          });
         });
+      }
 
-        Promise.all(results)
-          .then(function (responses) {
-            // 所有请求都成功完成
-            // responses.forEach(function (data) {
-            //   console.log(data);
-            // });
-            resolve(responses)
-            // return responses;
-          })
-          .catch(function (error) {
-            console.log('發生錯誤：', error);
+      function get_theme_post_content(data) {
+        return new Promise((resolve, reject) => {
+          let url = "/bbsdiscussGetAll";
+          let type = "GET";
+
+          let results = [];
+          data.forEach((element) => {
+            json_data = {
+              bbsPostId: element["bbsPostId"],
+            };
+            ajax_result = my_ajax(url, type, json_data);
+
+            results.push(ajax_result);
           });
 
-      });
+          Promise.all(results)
+            .then(function (responses) {
+              // 所有请求都成功完成
+              // responses.forEach(function (data) {
+              //   console.log(data);
+              // });
+              resolve(responses);
+              // return responses;
+            })
+            .catch(function (error) {
+              console.log("發生錯誤：", error);
+            });
+        });
+      }
 
-    }
+      function get_theme_post_content_html(theme_data, theme_post_content) {
+        str_content = "";
+        theme_data.forEach((e_theme_data) => {
+          theme_post_content.forEach((e_theme_post_content) => {
+            if (
+              e_theme_data["bbsPostId"] === e_theme_post_content["bbsPostId"]
+            ) {
+              let bbsPostId = e_theme_data["bbsPostId"];
+              let postTitle = e_theme_data["postTitle"];
+              let postContent = e_theme_data["postContent"];
+              let bbsCategoryName = e_theme_data["bbsCategoryName"];
+              let bbsTagName = e_theme_data["bbsTagName"];
+              let memId = e_theme_data["memId"];
+              let updateTime = e_theme_data["updateTime"];
+              let postDislikes = e_theme_data["postDislikes"];
+              let postLikes = e_theme_data["postLikes"];
+              let postStatus = e_theme_data["postStatus"];
+              let postFav = e_theme_data["postFav"];
 
-
-    function get_theme_post_content_html(theme_data, theme_post_content) {
-
-
-      str_content = '';
-      theme_data.forEach(e_theme_data => {
-
-        theme_post_content.forEach(e_theme_post_content => {
-
-          if (e_theme_data['bbsPostId'] === e_theme_post_content['bbsPostId']) {
-
-            let bbsPostId = e_theme_data['bbsPostId'];
-            let postTitle = e_theme_data['postTitle'];
-            let postContent = e_theme_data['postContent'];
-            let bbsCategoryName = e_theme_data['bbsCategoryName'];
-            let bbsTagName = e_theme_data['bbsTagName'];
-            let memId = e_theme_data['memId'];
-            let updateTime = e_theme_data['updateTime'];
-            let postDislikes = e_theme_data['postDislikes'];
-            let postLikes = e_theme_data['postLikes'];
-            let postStatus = e_theme_data['postStatus'];
-            let postFav = e_theme_data['postFav'];
-
-            let elapsedTime = getElapsedTime(updateTime);
-            let memPhoto =
-              "data:image/" + "null" + ";base64," + e_theme_post_content['memPhoto'];
-            let favStatus = e_theme_post_content['favStatus'];
-            let reaction_status = e_theme_post_content['reaction_status'];
-            let memAccount = e_theme_post_content['memAccount'];
-            let memName = e_theme_post_content['memName'];
-            str_content += `
+              let elapsedTime = getElapsedTime(updateTime);
+              let memPhoto =
+                "data:image/" +
+                "null" +
+                ";base64," +
+                e_theme_post_content["memPhoto"];
+              let favStatus = e_theme_post_content["favStatus"];
+              let reaction_status = e_theme_post_content["reaction_status"];
+              let memAccount = e_theme_post_content["memAccount"];
+              let memName = e_theme_post_content["memName"];
+              str_content += `
               <div class="card mt-3 mb-3">
                 <div
                   class="card-header row"
@@ -505,197 +626,188 @@
                 <div class="text-center card-footer text-muted">${elapsedTime}</div>
               </div>
               `;
+            }
+          });
+        });
+
+        return str_content;
+      }
+
+      // =============================================查看完整文章===================================================
+
+      function show_more(bbsPostId) {
+        window.location.href = `post.html?bbsPostId=${bbsPostId}`;
+      }
+
+      // ===================================================顯示幾天前===================================================
+      function getElapsedTime(updateTime) {
+        const currentDate = new Date();
+        const updatedDate = new Date(updateTime);
+
+        const timeDiff = Math.abs(currentDate - updatedDate);
+        const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const hoursDiff = Math.floor(timeDiff / (1000 * 60 * 60)) % 24;
+
+        if (daysDiff === 0) {
+          if (hoursDiff > 0) {
+            return `${hoursDiff} 小時前`;
+          } else {
+            return "今天";
           }
+        } else if (daysDiff === 1) {
+          if (hoursDiff > 0) {
+            return `1 天前`;
+          } else {
+            return "昨天";
+          }
+        } else {
+          return `${daysDiff} 天前`;
+        }
+      }
+
+      $(function () {
+        // ============================倒讚======================================================================
+        // let bbs_post_heart = 10;
+        // $("a.bbs_click_heart").on("click", function (e) {
+        //   // console.log("aaa");
+        //   e.preventDefault();
+        //   let img_element = $("a.bbs_click_heart img");
+        //   let current_src = img_element.attr("src");
+        //   let solid_src = "img/bbsdiscuss/heart-solid.svg";
+        //   let regular_src = "img/bbsdiscuss/heart-regular.svg";
+
+        //   if (current_src === regular_src) {
+        //     img_element.attr("src", solid_src);
+        //     bbs_post_heart++; // 讚的數量加1
+        //     console.log(bbs_post_heart);
+        //     $("a.bbs_click_heart").addClass("btn-danger text-white");
+        //   } else if (current_src === solid_src) {
+        //     img_element.attr("src", regular_src);
+        //     bbs_post_heart--; // 讚的數量减1
+        //     console.log(bbs_post_heart);
+        //     $("a.bbs_click_heart").removeClass("btn-danger text-white");
+        //   }
+        //   // 更新讚的數量
+        //   $(this).find("h6").text(bbs_post_heart);
+        // });
+        // ============================跳轉到發表文章======================================================================
+
+        $(".bbs_btn_edit").on("click", function () {
+          window.location.href = "edit.html";
+        });
+        // ============================跳轉到發文紀錄======================================================================
+
+        $(".bbs_btn_view").on("click", function () {
+          window.location.href = "bsdiscusspo.html";
+        });
+        // ============================跳轉到我的收藏======================================================================
+
+        $(".bbs_btn_favorite").on("click", function () {
+          window.location.href = "heart.html";
         });
       });
 
-      return str_content;
-    }
+      // ============================讚======================================================================
 
+      async function lik(element, event) {
+        // console.log(`postId : ${element}`);
+        // console.log(event);
 
+        let like_type;
 
-    // =============================================查看完整文章===================================================      
+        let img_element = event.querySelector("img");
+        let current_src = img_element.getAttribute("src");
+        let solid_src = "/img/bbsdiscuss/thumbs-up-solid.svg";
+        let regular_src = "/img/bbsdiscuss/thumbs-up-regular.svg";
 
-    function show_more(bbsPostId) {
-      window.location.href = `post.html?bbsPostId=${bbsPostId}`;
-    }
+        let nextElement = img_element.nextElementSibling;
+        let domValue = nextElement.textContent;
 
-    // ===================================================顯示幾天前===================================================
-    function getElapsedTime(updateTime) {
-      const currentDate = new Date();
-      const updatedDate = new Date(updateTime);
+        // console.log(current_src)
+        // console.log(regular_src)
+        // console.log(solid_src)
+        if (current_src === regular_src) {
+          // 讚
+          like_type = 1;
+          img_element.src = solid_src;
 
-      const timeDiff = Math.abs(currentDate - updatedDate);
-      const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-      const hoursDiff = Math.floor(timeDiff / (1000 * 60 * 60)) % 24;
-
-      if (daysDiff === 0) {
-        if (hoursDiff > 0) {
-          return `${hoursDiff} 小時前`;
-        } else {
-          return "今天";
+          let parentElement = img_element.parentNode.parentNode;
+          parentElement.className += " btn-primary text-white";
+        } else if (current_src === solid_src) {
+          // 取消讚
+          like_type = 0;
+          img_element.src = regular_src;
+          let parentElement = img_element.parentNode.parentNode;
+          parentElement.classList.remove("btn-primary", "text-white");
         }
-      } else if (daysDiff === 1) {
-        if (hoursDiff > 0) {
-          return `1 天前`;
-        } else {
-          return "昨天";
+        let img_elements = event.querySelector("img");
+        let current_src2 = img_element.getAttribute("src");
+
+        // 更新收藏的數量
+        json_data = {
+          bbsPostId: element,
+          reactionStatus: like_type,
+        };
+        let result_lik = await my_ajax(
+          "/bbsdiscussGet/reactionstatus",
+          "POST",
+          JSON.stringify(json_data)
+        );
+        // console.log(result_lik);
+        let h6 = event.querySelector("h6");
+        // console.log(h6)
+
+        h6.textContent = result_lik;
+      }
+
+      // =================按下收藏====================
+      async function fav(element, event) {
+        // console.log(`postId : ${element}`);
+        // console.log(event);
+
+        let like_type;
+
+        let img_element = event.querySelector("img");
+        let current_src = img_element.getAttribute("src");
+        let solid_src = "/img/bbsdiscuss/heart-solid.svg";
+        let regular_src = "/img/bbsdiscuss/heart-regular.svg";
+
+        let nextElement = img_element.nextElementSibling;
+        let domValue = nextElement.textContent;
+
+        if (current_src === regular_src) {
+          // 收藏
+          like_type = 1;
+          img_element.src = solid_src;
+
+          let parentElement = img_element.parentNode.parentNode;
+          parentElement.className += " btn-danger text-white";
+        } else if (current_src === solid_src) {
+          // 取消收藏
+          like_type = 0;
+          img_element.src = regular_src;
+          let parentElement = img_element.parentNode.parentNode;
+          parentElement.classList.remove("btn-danger", "text-white");
         }
-      } else {
-        return `${daysDiff} 天前`;
+        let img_elements = event.querySelector("img");
+        let current_src2 = img_element.getAttribute("src");
+
+        // 更新收藏的數量
+        json_data = {
+          bbsPostId: element,
+          favStatus: like_type,
+        };
+        let result_fav = await my_ajax(
+          "/bbsdiscussGet/favStstatus",
+          "POST",
+          JSON.stringify(json_data)
+        );
+        // console.log(result_fav);
+        let h6 = event.querySelector("h6");
+        // console.log(h6)
+
+        h6.textContent = result_fav;
       }
-    }
-
-    $(function () {
-
-      // ============================倒讚======================================================================
-      // let bbs_post_heart = 10;
-      // $("a.bbs_click_heart").on("click", function (e) {
-      //   // console.log("aaa");
-      //   e.preventDefault();
-      //   let img_element = $("a.bbs_click_heart img");
-      //   let current_src = img_element.attr("src");
-      //   let solid_src = "img/bbsdiscuss/heart-solid.svg";
-      //   let regular_src = "img/bbsdiscuss/heart-regular.svg";
-
-      //   if (current_src === regular_src) {
-      //     img_element.attr("src", solid_src);
-      //     bbs_post_heart++; // 讚的數量加1
-      //     console.log(bbs_post_heart);
-      //     $("a.bbs_click_heart").addClass("btn-danger text-white");
-      //   } else if (current_src === solid_src) {
-      //     img_element.attr("src", regular_src);
-      //     bbs_post_heart--; // 讚的數量减1
-      //     console.log(bbs_post_heart);
-      //     $("a.bbs_click_heart").removeClass("btn-danger text-white");
-      //   }
-      //   // 更新讚的數量
-      //   $(this).find("h6").text(bbs_post_heart);
-      // });
-      // ============================跳轉到發表文章======================================================================
-
-      $(".bbs_btn_edit").on("click", function () {
-        window.location.href = "edit.html";
-      });
-      // ============================跳轉到發文紀錄======================================================================
-
-      $(".bbs_btn_view").on("click", function () {
-        window.location.href = "bsdiscusspo.html";
-      });
-      // ============================跳轉到我的收藏======================================================================
-
-      $(".bbs_btn_favorite").on("click", function () {
-        window.location.href = "heart.html";
-      });
-    });
-
-
-
-
-    // ============================讚======================================================================
-
-    async function lik(element, event) {
-      // console.log(`postId : ${element}`);
-      // console.log(event);
-
-      let like_type
-
-      let img_element = event.querySelector('img');
-      let current_src = img_element.getAttribute("src");
-      let solid_src = "/img/bbsdiscuss/thumbs-up-solid.svg";
-      let regular_src = "/img/bbsdiscuss/thumbs-up-regular.svg";
-
-      let nextElement = img_element.nextElementSibling;
-      let domValue = nextElement.textContent;
-
-      // console.log(current_src)
-      // console.log(regular_src)
-      // console.log(solid_src)
-      if (current_src === regular_src) {
-        // 讚
-        like_type = 1
-        img_element.src = solid_src;
-
-        let parentElement = img_element.parentNode.parentNode;
-        parentElement.className += ' btn-primary text-white';
-
-      } else if (current_src === solid_src) {
-        // 取消讚
-        like_type = 0
-        img_element.src = regular_src;
-        let parentElement = img_element.parentNode.parentNode;
-        parentElement.classList.remove('btn-primary', 'text-white')
-      }
-      let img_elements = event.querySelector('img');
-      let current_src2 = img_element.getAttribute("src");
-
-      // 更新收藏的數量
-      json_data = {
-        "bbsPostId": element,
-        "reactionStatus": like_type
-      }
-      let result_lik = await my_ajax('/bbsdiscussGet/reactionstatus', 'POST', JSON.stringify(json_data))
-      // console.log(result_lik);
-      let h6 = event.querySelector('h6')
-      // console.log(h6)
-
-      h6.textContent = result_lik;
-
-    }
-
-
-
-
-
-    // =================按下收藏====================
-    async function fav(element, event) {
-      // console.log(`postId : ${element}`);
-      // console.log(event);
-
-      let like_type
-
-      let img_element = event.querySelector('img');
-      let current_src = img_element.getAttribute("src");
-      let solid_src = "/img/bbsdiscuss/heart-solid.svg";
-      let regular_src = "/img/bbsdiscuss/heart-regular.svg";
-
-      let nextElement = img_element.nextElementSibling;
-      let domValue = nextElement.textContent;
-
-      if (current_src === regular_src) {
-        // 收藏
-        like_type = 1
-        img_element.src = solid_src;
-
-        let parentElement = img_element.parentNode.parentNode;
-        parentElement.className += ' btn-danger text-white';
-
-      } else if (current_src === solid_src) {
-        // 取消收藏
-        like_type = 0
-        img_element.src = regular_src;
-        let parentElement = img_element.parentNode.parentNode;
-        parentElement.classList.remove('btn-danger', 'text-white')
-      }
-      let img_elements = event.querySelector('img');
-      let current_src2 = img_element.getAttribute("src");
-
-      // 更新收藏的數量
-      json_data = {
-        "bbsPostId": element,
-        "favStatus": like_type
-      }
-      let result_fav = await my_ajax('/bbsdiscussGet/favStstatus', 'POST', JSON.stringify(json_data))
-      // console.log(result_fav);
-      let h6 = event.querySelector('h6')
-      // console.log(h6)
-
-      h6.textContent = result_fav;
-
-    }
-
-
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>

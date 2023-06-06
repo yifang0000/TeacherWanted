@@ -12,6 +12,7 @@ public interface CourseService {
     CourseVo getCourseById(Integer courseId);
 
     List<CourseVo> getCoursesByKeyword(String keyword);
+    Map<String, Object> getAllCourses(int page, int pageSize, Integer courseCategoryId, String keyword);
     Map<String, Object> getCoursesByTeacher(Integer teaId, int page, int pageSize, Integer courseCategoryId, String keyword);
 
     Integer createCourse(CourseVo courseVo) throws IOException;

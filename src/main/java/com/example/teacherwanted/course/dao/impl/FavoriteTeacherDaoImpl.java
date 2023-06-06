@@ -1,6 +1,7 @@
 package com.example.teacherwanted.course.dao.impl;
 
 import com.example.teacherwanted.course.dao.FavoriteTeacherDao;
+import com.example.teacherwanted.course.model.vo.CommentReplyVo;
 import com.example.teacherwanted.course.model.vo.FavoriteTeacherVo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -22,6 +23,14 @@ public class FavoriteTeacherDaoImpl implements FavoriteTeacherDao {
     @Override
     public FavoriteTeacherVo getFavTeacherById(Integer id) {
         return entityManager.find(FavoriteTeacherVo.class, id);
+    }
+
+    @Override
+    public List<FavoriteTeacherVo> getFavTeacherByMemId(Integer memId) {
+        String hql = "FROM FavoriteTeacherVo cr WHERE cr.memId = :memId";
+        TypedQuery<FavoriteTeacherVo> query = entityManager.createQuery(hql, FavoriteTeacherVo.class);
+        query.setParameter("memId", memId);
+        return query.getResultList();
     }
 
     @Override

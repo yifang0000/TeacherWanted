@@ -16,4 +16,6 @@ public class FavoriteTeacherVo {
     private Integer memId;
     private Integer teaId;
     private Date createTime;
+    private byte[] favTeaPhoto;
+    private String favTeaName;
 }

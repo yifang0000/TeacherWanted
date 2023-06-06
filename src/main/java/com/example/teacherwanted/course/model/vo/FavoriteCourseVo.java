@@ -15,4 +15,6 @@ public class FavoriteCourseVo {
     private Integer memId;
     private Integer courseId;
     private Date createTime;
+    private byte[] favCoursePhoto;
+    private String favCourseName;
 }

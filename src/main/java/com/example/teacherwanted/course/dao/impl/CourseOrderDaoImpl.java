@@ -4,6 +4,7 @@ import com.example.teacherwanted.course.dao.CourseOrderDao;
 import com.example.teacherwanted.course.model.vo.CourseCommentVo;
 import com.example.teacherwanted.course.model.vo.CourseOrderDetailVo;
 import com.example.teacherwanted.course.model.vo.CourseOrderVo;
+import com.example.teacherwanted.course.model.vo.FavoriteCourseVo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -14,24 +15,47 @@ import java.util.List;
 public class CourseOrderDaoImpl implements CourseOrderDao {
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    public List<CourseOrderVo> findAll() {
+        String hql = "FROM  CourseOrderVo ORDER BY orderId";
+        return (List<CourseOrderVo>) entityManager.createQuery(hql).getResultList();
+    }
+
     @Override
     public CourseOrderVo getCourseOrderById(Integer id) {
         return null;
     }
 
     @Override
-    public void createCourseOrder(CourseOrderVo courseOrder) {
+    public List<CourseOrderVo> getCourseOrdersByMemId(Integer memId) {
+        String hql = "FROM CourseOrderVo cr WHERE cr.memId = :memId";
+        TypedQuery<CourseOrderVo> query = entityManager.createQuery(hql, CourseOrderVo.class);
+        query.setParameter("memId", memId);
+        return query.getResultList();
+    }
 
+    @Override
+    public void createCourseOrder(CourseOrderVo courseOrder) {
+        entityManager.persist(courseOrder);
     }
 
     @Override
     public void updateCourseOrder(CourseOrderVo courseOrder) {
-
+        entityManager.merge(courseOrder);
     }
 
     @Override
     public void deleteCourseOrder(Integer id) {
+        entityManager.remove(getOrderDetailById(id));
+    }
 
+    @Override
+    public List<CourseOrderDetailVo> getOrderDetailsByMemId(Integer memId) {
+        String hql = "FROM CourseOrderDetailVo cr WHERE cr.memId = :memId";
+        TypedQuery<CourseOrderDetailVo> query = entityManager.createQuery(hql, CourseOrderDetailVo.class);
+        query.setParameter("memId", memId);
+        return query.getResultList();
     }
 
     @Override

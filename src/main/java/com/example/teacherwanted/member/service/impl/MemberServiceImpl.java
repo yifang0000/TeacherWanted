@@ -5,6 +5,7 @@ import com.example.teacherwanted.active.model.ActiveOrderDetail;
 import com.example.teacherwanted.member.dao.MemberDao;
 import com.example.teacherwanted.member.model.Member;
 import com.example.teacherwanted.member.service.MemberService;
+import com.example.teacherwanted.wish.entity.Wish;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -62,6 +63,11 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member selectBackOrderById(Integer id){ return null;
+    }
+
+    @Override
+    public List<Wish> getWishByMemId(Integer memId) {
+        return memberDao.getWishByMemId(memId);
     }
 
     //      @Override

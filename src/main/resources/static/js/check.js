@@ -20,6 +20,7 @@ ulElement.innerHTML = '';
         if(admin.permissionId === 2){
         admin["teaId"] = admin.adminId;}
         sessionStorage.setItem('adminStorage', JSON.stringify(admin));
+        JSON.parse(sessionStorage.getItem('adminStorage'));
         var role = (admin.permissionId === 1) ? "管理員" : "老師";
         var newSubMenu;
         var newBar;

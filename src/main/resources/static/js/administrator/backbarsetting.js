@@ -4,11 +4,19 @@ $(document).ready(function(){
     $("#collapse").on("click",function(){
         $("#sidebar").toggleClass("active")
     })
-    $('#adminAccount').val(admin.adminAccount);
-    $('#adminPassword').val(admin.adminPassword);
-    $('#adminName').val(admin.adminName);
-    $('#adminEmail').val(admin.adminEmail);
-    $('#adminPhone').val(admin.adminPhone);
+
+    if(sessionStorage.getItem('NewTeacher')!=null){
+
+      var pass = document.getElementById('pass');
+      pass.removeAttribute("hidden");
+      
+     }  
+
+     var admin1=JSON.parse(sessionStorage.getItem('adminStorage'))
+    $('#adminAccount').val(admin1.adminAccount);
+    $('#adminName').val(admin1.adminName);
+    $('#adminEmail').val(admin1.adminEmail);
+    $('#adminPhone').val(admin1.adminPhone);
     
     // console.log(admin);
 
@@ -16,7 +24,14 @@ $(document).ready(function(){
       // console.log("1111");
       event.preventDefault();
       console.log("按了按鈕喔")
-
+      if(sessionStorage.getItem('NewTeacher')!=null){
+        var p0=$('#adminPassword').val()
+        var p1=$('#adminPassword2').val()
+        if(p0!=p1){
+          alert("兩次密碼不相符！請再次確認")
+          return false;
+        }
+       }
            // 檢查每個 input 元素的值
            var allInputsFilled = true;
            $(".needvalue").each(function() {
@@ -26,7 +41,6 @@ $(document).ready(function(){
                return false;  // 結束迴圈
              }
            });
- 
            // 如果所有 input 元素都有值，執行送出資料的動作
            if (allInputsFilled) {
            } else {
@@ -69,7 +83,14 @@ var formattedDate = year + "/" + month + "/" + day + " " + hours + ":" + minutes
         data: JSON.stringify(formData),
         contentType: 'application/json',
         success: function(response) {
-          alert('成功');
+          if(sessionStorage.getItem('NewTeacher')==null){
+
+            alert('成功');
+          }else{
+            alert('首次登入繼續填寫老師基本資料');
+            sessionStorage.removeItem('NewTeacher');
+            window.location.href = "../administrator/backbarprofile.html";            
+          }
         },
         error: function(jqXHR, textStatus, errorThrown) {
           alert('失敗' );

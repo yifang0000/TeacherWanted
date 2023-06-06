@@ -28,9 +28,7 @@ public class ChatHandler extends TextWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         String chatRoomId = extractChatRoomId(session);
         Integer chatRoomActivityId = Integer.parseInt(chatRoomId);
-        Integer memId = (Integer) session.getAttributes().get("MemberId");
         jedis.select(15);
-        System.out.println("会员ID：" + memId);
         System.out.println("聊天室ID：" + chatRoomActivityId);
         //        將list轉為json放進broadcast裡xxx的位置
 
@@ -38,18 +36,19 @@ public class ChatHandler extends TextWebSocketHandler {
 //        用br換行
 //        String result = String.join("<br>", chatHistory);
 //        用p標籤包住
-        String result = String.join("</p><p>", chatHistory);
-        result = "<p>" + result + "</p>";
+//        String result = String.join("</p><p>", chatHistory);
+//        result = "<p>" + result + "</p>";
+        String result = String.join("",chatHistory);
 
-        for (String chatOne : chatHistory) {
-            System.out.println("資料:" + chatOne);
-        }
+//        for (String chatOne : chatHistory) {
+//            System.out.println("資料:" + chatOne);
+//        }
 
-        if (memId != null && !isAuthorized(chatRoomActivityId, memId)) {
+        if (true) {
             // 身份验证成功
             // 打印聊天室ID和会员ID
-            System.out.println("成功的聊天室ID：" + chatRoomActivityId);
-            System.out.println("成功的会员ID：" + memId);
+
+
 
             // 将会话添加到聊天室中
             Set<WebSocketSession> sessions = chatRooms.getOrDefault(chatRoomId, new HashSet<>());
@@ -83,11 +82,10 @@ public class ChatHandler extends TextWebSocketHandler {
         Set<WebSocketSession> sessions = chatRooms.get(chatRoomId);
         if (sessions != null) {
             String payload = message.getPayload();
-            Integer memId = (Integer) session.getAttributes().get("MemberId");
             jedis.select(15);
             String chatKey = "chat:" + chatRoomId;
 
-            String modifiedPayload = "ID" + memId + ":" + payload;
+            String modifiedPayload = payload;
 //            儲存資料，用list
             jedis.rpush(chatKey, modifiedPayload);
             System.out.println("接收到消息: " + payload);
@@ -120,11 +118,11 @@ public class ChatHandler extends TextWebSocketHandler {
         return pathSegments[pathSegments.length - 1];
     }
 
-    private boolean isAuthorized(Integer chatRoomActivityId, Integer memId) {
-        // 在这里执行身份验证逻辑，例如调用activeOrderDetailService.queryActiveOrderHistory(chatRoomId, memId)来验证身份
-        // 返回true表示身份验证通过，返回false表示身份验证失败
-        // 可根据实际需求进行身份验证逻辑的实现
-        System.out.println(activeOrderDetailService.queryActiveOrderHistory(chatRoomActivityId, memId));
-        return activeOrderDetailService.queryActiveOrderHistory(chatRoomActivityId, memId);
-    }
+//    private boolean isAuthorized(Integer chatRoomActivityId, Integer memId) {
+//        // 在这里执行身份验证逻辑，例如调用activeOrderDetailService.queryActiveOrderHistory(chatRoomId, memId)来验证身份
+//        // 返回true表示身份验证通过，返回false表示身份验证失败
+//        // 可根据实际需求进行身份验证逻辑的实现
+//        System.out.println(activeOrderDetailService.queryActiveOrderHistory(chatRoomActivityId, memId));
+//        return activeOrderDetailService.queryActiveOrderHistory(chatRoomActivityId, memId);
+//    }
 }

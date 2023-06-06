@@ -82,40 +82,6 @@
 
             <form class="needs-validation" novalidate>
               <div class="card-body">
-                <!-- <div class="form-group row mb-2">
-                  <label for="couponId" class="col-sm-2 col-form-label"
-                    >編號</label
-                  >
-                  <div class="col-sm-4">
-                    <input
-                      type="text"
-                      class="form-control-plaintext"
-                      id="couponId"
-                      value="這是編號"
-                      style="width: 250px"
-                      readonly
-                    />
-                  </div>
-                </div> -->
-
-                <!-- <div class="form-group row mb-2">
-                  <label for="couponArea" class="col-sm-2 col-form-label"
-                    >範圍</label
-                  >
-                  <div class="col-sm-4">
-                    <select
-                      class="form-select"
-                      id="couponArea"
-                      style="width: 250px"
-                      required
-                    >
-                      <option value="">請選擇</option>
-                      <option value="shop">課程</option>
-                      <option value="course">商城</option>
-                    </select>
-                    <div class="invalid-feedback">請選擇適用範圍</div>
-                  </div>
-                </div> -->
                 <div class="form-group row mb-2">
                   <label for="annCategory" class="col-sm-2 col-form-label"
                     >分類</label
@@ -228,6 +194,23 @@
                       name="annDate"
                       style="width: 250px"
                     />
+                  </div>
+                </div>
+                <div id="status" class="form-group row mb-2" hidden>
+                  <label for="annStatus" class="col-sm-2 col-form-label"
+                    >上下架狀態</label
+                  >
+                  <div class="col-sm-10">
+                    <select
+                      class="form-select needvalue"
+                      id="annStatus"
+                      style="width: 250px"
+                      required
+                    >
+                      <option value="">請選擇</option>
+                      <option value="0">下架</option>
+                      <option value="1">上架</option>
+                    </select>
                   </div>
                 </div>
                 <a

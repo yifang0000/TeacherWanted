@@ -7,15 +7,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 public interface CourseOrderService {
+    List<CourseOrderVo> findAll();
     CourseOrderVo getCourseOrderById(Integer id);
+    List<CourseOrderVo> getCourseOrdersByMemId(Integer memId);
     void createCourseOrder(CourseOrderVo courseOrder);
     void updateCourseOrder(CourseOrderVo courseOrder);
     void deleteCourseOrder(Integer id);
+    List<CourseOrderDetailVo> getOrderDetailsByMemId(Integer memId);
     List<CourseOrderDetailVo>getFeedbackByCourseId(Integer courseId);
     CourseOrderDetailVo getOrderDetailById(Integer id);
     void createFeedback(CourseOrderDetailVo courseOrderDetail);
     void updateFeedback(CourseOrderDetailVo courseOrderDetail);
     void deleteFeedback(Integer id);
-
 
 }
