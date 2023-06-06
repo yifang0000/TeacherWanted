@@ -42,6 +42,10 @@ public class UserLogin {
     public String userLogin(@ModelAttribute("user") User user, Model model, HttpSession session) {
         String xxx = user.getMemAccount();
         Optional<User> userdata = repo.findByMemAccount(xxx);
+        if (!userdata.isPresent()) {
+            return "loginFail";
+        }
+
         String password = AES256Util.decode(userdata.get().getMemPassword());//解密
         if (userdata.isPresent() && user.getMemPassword().equals(password)) {
             System.out.println(userdata.get());
@@ -58,6 +62,7 @@ public class UserLogin {
 
             return "index";
         } else {
+
             return "loginFail";
         }
     }
