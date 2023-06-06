@@ -1,6 +1,7 @@
 package com.example.teacherwanted.wish.controller;
 
 
+import com.example.teacherwanted.register_login.entity.User;
 import com.example.teacherwanted.wish.WishNotFoundException;
 import com.example.teacherwanted.wish.entity.Wish;
 import com.example.teacherwanted.wish.service.WishService;
@@ -31,11 +32,11 @@ public class WishController {
 
     @GetMapping("/wish/new")
     public String showNewForm(Model model,HttpSession session,RedirectAttributes ra) {
-        String loggedInAccount = (String) session.getAttribute("memAccount");
-        if (loggedInAccount != null) {
+        User currentUser = (User) session.getAttribute("userInfo");
+        if (currentUser != null) {
             model.addAttribute("wish", new Wish());
             model.addAttribute("pageTitle", "新增許願");
-            System.out.println("memAccount: " + loggedInAccount);
+            System.out.println("memAccount: " + currentUser);
             return "wish_form";
         } else {
             ra.addFlashAttribute("message", "請先登入後再許願<(￣︶￣)>");
@@ -93,5 +94,27 @@ public class WishController {
             ra.addFlashAttribute("message", e.getMessage());
         }
         return "redirect:/wish";
+    }
+
+    @GetMapping("/mywish")
+    public String showMyWishList(@ModelAttribute("wish") Wish wish, Model model, HttpSession session,RedirectAttributes ra) {
+        // 檢查使用者是否已登入
+        User currentUser = (User) session.getAttribute("userInfo");
+        if (currentUser != null) {
+            // 獲取當前會員的會員ID
+            String memberAccount = currentUser.getMemAccount();
+
+            // 根據會員ID查詢該會員發布的 Wish
+            List<Wish> myWishList = service.listByMemberAccount(memberAccount);
+
+            model.addAttribute("myWishList", myWishList);
+
+            return "wish_my";
+
+
+        } else {
+            ra.addFlashAttribute("message", "請先登入再查看<(￣︶￣)>");
+            return "redirect:/wish";
+        }
     }
 }

@@ -149,7 +149,7 @@ $(document).ready(function(){
               // =====================ajax======//
             var formData = {
               annId:annId,
-                adminId:"2",
+                adminId:"8",
                 annTitle:$('#annTitle').val(),
               annCategory:$('#annCategory').val(),
               annContent:htmlValue,

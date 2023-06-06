@@ -2,8 +2,10 @@ package com.example.teacherwanted.member.dao.impl;
 
 import com.example.teacherwanted.member.dao.MemberDao;
 import com.example.teacherwanted.member.model.Member;
+import com.example.teacherwanted.wish.entity.Wish;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -39,6 +41,14 @@ public class MemberDaoImpl implements MemberDao {
     public Member selectById(Integer memId) {
 
         return entityManager.find(Member.class, memId);
+    }
+
+    @Override
+    public List<Wish> getWishByMemId(Integer memId) {
+        String hql = "FROM Wish ws WHERE ws.memId = :memId";
+        TypedQuery<Wish> query = entityManager.createQuery(hql, Wish.class);
+        query.setParameter("memId", memId);
+        return query.getResultList();
     }
 
     @Override

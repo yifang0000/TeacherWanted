@@ -26,6 +26,11 @@ public class FavoriteTeacherController {
         FavoriteTeacherVo favoriteTeacher = favoriteTeacherService.getFavTeacherById(id);
         return new ResponseEntity<>(favoriteTeacher, HttpStatus.OK);
     }
+    @GetMapping("/favteas/{memId}")
+    public ResponseEntity<List<FavoriteTeacherVo>> getFavTeacherByMemId(@PathVariable("memId") Integer memId) {
+        List<FavoriteTeacherVo> favoriteTeachers = favoriteTeacherService.getFavTeacherByMemId(memId);
+        return new ResponseEntity<>(favoriteTeachers, HttpStatus.OK);
+    }
 
     @GetMapping("/favtea/{memId}/{teaId}")
     public int checkFavTeacher(@PathVariable("memId") Integer memId, @PathVariable("teaId") Integer teaId) {

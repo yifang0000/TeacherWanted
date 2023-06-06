@@ -21,9 +21,9 @@ public class FavoriteArticleDaoImpl implements FavoriteArticleDao {
     public List<FavoriteArticle> getBbsFavoriteBymemId(Integer memId) {
         String sql = "SELECT fa.favorite_article_id, fa.bbs_post_id, fa.mem_id, fa.create_time , fa.fav_status, " +
                 "      bp.post_title, bp.post_content " +
-                "FROM FAVORITE_ARTICLE fa " +
+                " FROM FAVORITE_ARTICLE fa " +
                 "         JOIN BBS_POST bp ON fa.bbs_post_id = bp.bbs_post_id " +
-                "WHERE bp.mem_id = :memId AND fa.fav_status = 1 ;";
+                " WHERE fa.mem_id = :memId AND fa.fav_status = 1 ;";
         Map<String, Object> map = new HashMap<>();
         map.put("memId", memId);
 

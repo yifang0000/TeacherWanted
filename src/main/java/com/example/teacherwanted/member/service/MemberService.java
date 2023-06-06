@@ -5,6 +5,7 @@ import com.example.teacherwanted.active.model.Active;
 import com.example.teacherwanted.active.model.ActiveOrderDetail;
 import com.example.teacherwanted.member.dao.MemberDao;
 import com.example.teacherwanted.member.model.Member;
+import com.example.teacherwanted.wish.entity.Wish;
 
 import java.util.List;
 
@@ -34,4 +35,5 @@ public interface MemberService {
 
     Member selectBackOrderById(Integer id);
 
+    List<Wish> getWishByMemId(Integer memId);
 }

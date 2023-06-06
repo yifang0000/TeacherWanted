@@ -14,9 +14,20 @@ import java.util.List;
 public class CourseOrderServiceImpl implements CourseOrderService {
     @Autowired
     private CourseOrderDao courseOrderDao;
+
+    @Override
+    public List<CourseOrderVo> findAll() {
+        return courseOrderDao.findAll();
+    }
+
     @Override
     public CourseOrderVo getCourseOrderById(Integer id) {
         return courseOrderDao.getCourseOrderById(id);
+    }
+
+    @Override
+    public List<CourseOrderVo> getCourseOrdersByMemId(Integer memId) {
+        return courseOrderDao.getCourseOrdersByMemId(memId);
     }
 
     @Override
@@ -32,6 +43,11 @@ public class CourseOrderServiceImpl implements CourseOrderService {
     @Override
     public void deleteCourseOrder(Integer id) {
         courseOrderDao.deleteCourseOrder(id);
+    }
+
+    @Override
+    public List<CourseOrderDetailVo> getOrderDetailsByMemId(Integer memId) {
+        return courseOrderDao.getOrderDetailsByMemId(memId);
     }
 
     @Override

@@ -8,8 +8,10 @@ import java.util.List;
 public interface FavoriteTeacherService {
     List<FavoriteTeacherVo> findAll();
     FavoriteTeacherVo getFavTeacherById(Integer id);
+    List<FavoriteTeacherVo> getFavTeacherByMemId(Integer memId);
     void createFavTeacher(FavoriteTeacherVo favoriteTeacher);
     void deleteFavTeacher(Integer memId, Integer teaId);
 
     int checkFavTeacher(Integer memId, Integer teaId);
+
 }

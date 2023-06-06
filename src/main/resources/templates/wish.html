@@ -32,7 +32,7 @@
 <style>
 
   .container {
-    width: 1800px;
+    width: 2000px;
     background-color: rgb(238, 245, 212);
   }
   .dropdown-toggle {
@@ -65,22 +65,21 @@
 </style>
 <body>
 
-<!-- 手機板導引列(粗糙) -->
 <header class="TeacherWanted">
   <div id="mySidebar">
     <img src="../img/base/logo.png" alt="" />
-    <a href="#" class="">首頁</a>
-    <a href="#" class="">課程</a>
-    <a href="#" class="">活動</a>
-    <a href="#" class="">許願池</a>
-    <a href="#" class="">論壇</a>
-    <a href="#" class="">商城</a>
+    <a href="/index" class="">首頁</a>
+    <a href="/courseteacher/CourseVue.html" class="">課程</a>
+    <a href="/active/activeIndex.html" class="">活動</a>
+    <a href="/wish" class="">許願池</a>
+    <a href="/bbsdiscuss/index.html" class="">論壇</a>
+    <a href="/baseVer3/homepage.html" class="">商城</a>
   </div>
   <div class="navBar">
     <ul class="containerHearder flexWrap flexVerticalCenter">
       <li>
         <img
-                src="../static/img/base/menu.png"
+                src="../img/base/menu.png"
                 id="phoneMenu"
                 class="mobileHave"
                 style="height: 30px; margin: 10px"
@@ -115,31 +114,42 @@
                 class="flexWrap flexAllCenter pcHave"
                 style="flex-grow: 1"
         >
-          <a class="flexAllCenter" href=""><b>首頁</b></a>
-          <a class="flexAllCenter" href=""><b>課程</b></a>
-          <a class="flexAllCenter" href=""><b>活動</b></a>
-          <a class="flexAllCenter" href=""><b>許願池</b></a>
-          <a class="flexAllCenter" href=""><b>論壇</b></a>
-          <a class="flexAllCenter" href=""><b>商城</b></a>
+          <a class="flexAllCenter" href="/index">首頁</a>
+          <a class="flexAllCenter" href="/courseteacher/CourseVue.html"
+          >課程</a
+          >
+          <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
+          <a class="flexAllCenter" href="/wish">許願池</a>
+          <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+          <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
         </div>
         <div
                 class="flexWrap flexAllCenter"
                 style="position: relative; top: 2px"
         >
           <div class="miniMobile">
-            <form id="navSearch" action="">
-              <select>
-                <option>課程</option>
-                <option>活動</option>
-                <option>商城</option>
-                <option>許願</option>
+            <div id="navSearch" action="">
+              <select id="serchType">
+                <option value="課程">課程</option>
+                <option value="活動">活動</option>
+                <!-- <option value="商城">商城</option>
+                <option value="許願">許願</option> -->
               </select>
-              <input type="text" />
-              <img src="../img/base/search.svg" alt="" />
-            </form>
+              <input id="searchText" type="text" />
+              <img id="searchIcon" src="../img/base/search.svg" alt="" />
+            </div>
           </div>
+
+          <img
+                  src="../img/base/bell.svg"
+                  id="navAnn"
+                  class="miniMobile"
+                  style="height: 30px; margin: 3px 5px; cursor: pointer"
+                  alt=""
+          />
           <img
                   src="../img/base/mailForNavbar.svg"
+                  id="navMail"
                   class="miniMobile"
                   style="
                   height: 30px;
@@ -152,28 +162,22 @@
           />
           <img
                   src="../img/base/shoppingCart.svg"
-                  class="miniMobile"
-                  style="height: 30px; margin: 3px 5px; cursor: pointer"
-                  alt=""
-          />
-          <img
-                  src="../img/base/bell.svg"
+                  id="navShoppingcart"
                   class="miniMobile"
                   style="height: 30px; margin: 3px 5px; cursor: pointer"
                   alt=""
           />
 
-          <li>
-            <a id="loginButton" href="/login" class="nav-link" style="display: flex; justify-content: center;">登入</a>
-          </li>
-          <li>
-            <a id="logoutButton" href="/logout" class="nav-link" style="display: flex; justify-content: center;">登出</a>
-          </li>
+          <!--登入按鈕 開始 -->
+
+          <div id="loginOrUser"></div>
+          <!-- 登入按鈕 結束 -->
         </div>
       </li>
     </ul>
   </div>
 </header>
+
 
 <br>
 <br>
@@ -187,7 +191,7 @@
 <!--  <a class="h3 d-block ml-auto" style="margin-right: 20px;" th:href="@{/wish/new}">新增許願</a>-->
 <!--</div>-->
   <div class="container">
-    <div class="row" style="margin-bottom: 60px">
+    <div class="row" style="margin-bottom: 10px">
       <br>
       <br>
       <div class="col-3"></div>
@@ -199,6 +203,7 @@
       </div>
 
       <div class="col-3"></div>
+
       <div class="col-4" style="margin-left: 50px;font-size:20px;display: flex;font-weight: bold; align-items:end;color: #ba8b00;">
         <p >
           這座許願池有個古老的傳說...
@@ -215,30 +220,56 @@
         <img src="../img/wish/wish.png" alt="" width="250px" />
       </div>
 
+      <div class="col-4"></div>
 
 
-      <div class="col-4" >
-        <a id="postwish"
-           th:href="@{/wish/new}"
-           style="
-      font-size: 20px;
-      text-align: center;
-      color: rgb(1, 47, 5);
-      font-weight: bold;
-      background-color: #a4c964;
-      margin-left: 1100px;
-      text-decoration: none;
-      width: 150px;
-      border-radius: 5px;
-      line-height: 55px;
-      height: 56px;
-      position: absolute;
-      margin-bottom: 50px;
-    ">
-          張貼許願</a>
+      <div style="margin-left: 1000px">
+        <a
+                th:href="@{/wish/new}"
+                class="postwish"
+                style="
+
+              align-items: center;
+
+              font-size: 20px;
+              text-align: center;
+              color: rgb(1, 47, 5);
+              font-weight: bold;
+              background-color: #a4c964;
+              display: inline-block;
+              text-decoration: none;
+              width: 130px;
+              border-radius: 5px;
+              line-height: 55px;
+              height: 56px;
+            "
+        >張貼許願</a
+        >
+
+        <a
+                th:href="@{/mywish}"
+                class="mywish"
+                style="
+
+              margin-left: 30px;
+              align-items: center;
+              font-size: 20px;
+              text-align: center;
+              color: black;
+              font-weight: bold;
+              background-color: #a4c964;
+              display: inline-block;
+              text-decoration: none;
+              width: 130px;
+              border-radius: 5px;
+              line-height: 55px;
+              height: 56px;
+            "
+        >我的許願</a
+        >
+      </div>
       </div>
 
-    </div>
     <br>
   </div>
 
@@ -249,7 +280,7 @@
 </div>
 
 <div>
-  <table class="table table-stripe table-hover" style="width: 1400px; margin: 0 auto;">
+  <table class="table table-stripe table-hover" style="width: 1320px; margin: 0 auto;">
 
     <thead >
         <tr class="success"
@@ -263,11 +294,11 @@
           <th>許願帳號</th>
           <th>許願科目</th>
           <th>上課地點</th>
-          <th>學生人數</th>
+          <th>人數</th>
           <th>上課時段</th>
           <th>時薪</th>
           <th>課程需求</th>
-          <th>聯絡信箱</th>
+<!--          <th>聯絡信箱</th>-->
 
           <th></th>
         </tr>
@@ -283,24 +314,39 @@
          <td>[[${wish.wishPeriod}]]</td>
          <td>[[${wish.wishSalary}]]</td>
          <td>[[${wish.wishContent}]]</td>
-         <td>[[${wish.wishEmail}]]</td>
+<!--         <td>[[${wish.wishEmail}]]</td>-->
 
          <td>
-           <nav>
-             <ul>
-               <li class="dropdown" style="color: #1c7430; font-weight: bold;text-decoration: none;">
-             <a href="#" class="dropdown-toggle" style="text-decoration: none;">詳情 </a>
-             <ul class="dropdown-menu">
-               <li><a href="#"style="text-decoration: none;">站內信應徵</a></li>
-               <li><a style="text-decoration: none;"th:href="@{'/wish/edit/' + ${wish.wishId}}">發文者編輯</a></li>
-               <li><a style="text-decoration: none;"th:href="@{'/wish/delete/' + ${wish.wishId}}">發文者刪除</a></li>
-             </ul>
-             </li>
-             </ul>
-           </nav>
-<!--           <a class="btn btn-success m-2" th:href="@{'/wish/edit/' + ${wish.wishId}}" style="font-size: 16px;margin-right: 10px; ">編輯</a>-->
-<!--           <a class="btn btn-secondary m-2" th:href="@{'/wish/delete/' + ${wish.wishId}}" style="font-size: 16px;"  >刪除</a>-->
+<!--           <nav>-->
+<!--             <ul>-->
+<!--               <li class="dropdown" style="color: #1c7430; font-weight: bold;text-decoration: none;">-->
+<!--             <a href="#" class="dropdown-toggle" style="text-decoration: none;">詳情 </a>-->
+<!--             <ul class="dropdown-menu">-->
+<!--               <li><a href="#"style="text-decoration: none;">站內信應徵</a></li>-->
+<!--               <li><a style="text-decoration: none;"th:href="@{'/wish/edit/' + ${wish.wishId}}">發文者編輯</a></li>-->
+<!--               <li><a style="text-decoration: none;"th:href="@{'/wish/delete/' + ${wish.wishId}}">發文者刪除</a></li>-->
+<!--             </ul>-->
+<!--             </li>-->
+<!--             </ul>-->
+<!--           </nav>-->
+           <a
+                  href="#"
+                   class="mywish"
+                   style="
 
+              margin-left: 30px;
+              align-items: center;
+              font-size: 18px;
+              text-align: center;
+              color: green;
+              font-weight: bold;
+              display: inline-block;
+              text-decoration: none;
+              border-radius: 5px;
+              line-height: 55px;
+            "
+           >站內信</a
+           >
 
 
          </td>
