@@ -28,6 +28,8 @@
     />
     <script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
     <script src="../jquery/jquery-3.6.4.min.js"></script>
+        <!-- 要登入驗證請解開這個 -->
+    <!-- <script src="../js/loginCheck.js"></script> -->
     <script src="../js/base.js"></script>
 
     <title>Document</title>
@@ -38,12 +40,12 @@
     <header class="TeacherWanted">
       <div id="mySidebar">
         <img src="../img/base/logo.png" alt="" />
-        <a href="#" class="">首頁</a>
-        <a href="#" class="">課程</a>
-        <a href="#" class="">活動</a>
-        <a href="#" class="">許願池</a>
-        <a href="#" class="">論壇</a>
-        <a href="#" class="">商城</a>
+        <a href="/index" class="">首頁</a>
+        <a href="/courseteacher/CourseVue.html" class="">課程</a>
+        <a href="/active/activeIndex.html" class="">活動</a>
+        <a href="/wish" class="">許願池</a>
+        <a href="/bbsdiscuss/index.html" class="">論壇</a>
+        <a href="/baseVer3/homepage.html" class="">商城</a>
       </div>
       <div class="navBar">
         <ul class="containerHearder flexWrap flexVerticalCenter">
@@ -84,31 +86,42 @@
               class="flexWrap flexAllCenter pcHave"
               style="flex-grow: 1"
             >
-              <a class="flexAllCenter" href="">首頁</a>
-              <a class="flexAllCenter" href="">課程</a>
-              <a class="flexAllCenter" href="">活動</a>
-              <a class="flexAllCenter" href="">許願池</a>
-              <a class="flexAllCenter" href="">論壇</a>
-              <a class="flexAllCenter" href="">商城</a>
+              <a class="flexAllCenter" href="/index">首頁</a>
+              <a class="flexAllCenter" href="/courseteacher/CourseVue.html"
+                >課程</a
+              >
+              <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
+              <a class="flexAllCenter" href="/wish">許願池</a>
+              <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+              <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
             </div>
             <div
               class="flexWrap flexAllCenter"
               style="position: relative; top: 2px"
             >
               <div class="miniMobile">
-                <form id="navSearch" action="">
-                  <select>
-                    <option>課程</option>
-                    <option>活動</option>
-                    <option>商城</option>
-                    <option>許願</option>
+                <div id="navSearch" action="">
+                  <select id="serchType">
+                    <option value="課程">課程</option>
+                    <option value="活動">活動</option>
+                    <!-- <option value="商城">商城</option>
+                    <option value="許願">許願</option> -->
                   </select>
-                  <input type="text" />
-                  <img src="../img/base/search.svg" alt="" />
-                </form>
+                  <input id="searchText" type="text" />
+                  <img id="searchIcon" src="../img/base/search.svg" alt="" />
+                </div>
               </div>
+
               <img
-                src="../img//base/mailForNavbar.svg"
+                src="../img/base/bell.svg"
+                id="navAnn"
+                class="miniMobile"
+                style="height: 30px; margin: 3px 5px; cursor: pointer"
+                alt=""
+              />
+              <img
+                src="../img/base/mailForNavbar.svg"
+                id="navMail"
                 class="miniMobile"
                 style="
                   height: 30px;
@@ -121,20 +134,16 @@
               />
               <img
                 src="../img/base/shoppingCart.svg"
-                class="miniMobile"
-                style="height: 30px; margin: 3px 5px; cursor: pointer"
-                alt=""
-              />
-              <img
-                src="../img/base/bell.svg"
+                id="navShoppingcart"
                 class="miniMobile"
                 style="height: 30px; margin: 3px 5px; cursor: pointer"
                 alt=""
               />
 
-              <a class="btnCss flexAllCenter" style="color: white" href=""
-                >登入</a
-              >
+              <!--登入按鈕 開始 -->
+
+              <div id="loginOrUser"></div>
+              <!-- 登入按鈕 結束 -->
             </div>
           </li>
         </ul>
@@ -160,120 +169,124 @@
     </main>
 
     <footer
-      class="TeacherWanted"
-      style="background-color: #3c6a36; color: white"
+    class="TeacherWanted"
+    style="background-color: #3c6a36; color: white"
+  >
+    <div
+      class="containerFooter flexAllCenter"
+      style="box-sizing: border-box; padding-top: 50px"
     >
-      <div
-        class="containerFooter flexAllCenter"
-        style="box-sizing: border-box; padding-top: 50px"
-      >
-        <div class="flexWrap">
-          <ul class="col_33">
-            <li class="flexAllCenter" style="color: #a4c964; font-size: 40px">
-              懸賞啼雀
-            </li>
+      <div class="flexWrap">
+        <ul class="col_33">
+          <li class="flexAllCenter" style="color: #a4c964; font-size: 40px">
+            懸賞啼雀
+          </li>
+          <li
+            class="flexAllCenter"
+            style="margin: 10px 30px; font-weight: normal"
+          >
+            現代⼈⽣活步相當緊湊我們的課平台幫助
+            ⼈們學並且除了線上課提供了實家的合會⼤了學的⾯向
+            課元可提⾼學⽣的學興積性 並促學⽣的⾯發展
+          </li>
+          <li
+            id="imgIcon"
+            class="flexVerticalCenter"
+            style="margin: 20px 30px"
+          >
+            <img src="../img/base/facebook.svg" class="imgIntroduce" alt="" />
+            <img src="../img/base/twitter.svg" class="imgIntroduce" alt="" />
+            <img
+              src="../img/base/instagram.svg"
+              class="imgIntroduce"
+              alt=""
+            />
+          </li>
+        </ul>
+        <ul class="col_33 flexHorizontalCenter footerMobile">
+          <div style="width: 70%">
             <li
               class="flexAllCenter"
-              style="margin: 10px 30px; font-weight: normal"
+              style="color: #a4c964; font-size: 30px; height: 65px"
             >
-              Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
-              dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
-              elitr stet diam duo eos rebum ipsum diam ipsum elitr.
+              Get In Touch
             </li>
+            <div class="" style="height: 250px; font-weight: 400">
+              <li class="flexWrap" style="margin-top: 10px">
+                <img
+                  src="../img/base/map-marker.svg"
+                  style="height: 24px; padding-right: 10px; margin-top: 6px"
+                  alt=""
+                />
+                <div>
+                  <h3 style="font-size: 1.3rem">地址</h3>
+                  <h5 style="font-size: 1rem">台北市中山區南京東路三段</h5>
+                </div>
+              </li>
+
+              <li class="flexWrap" style="margin-top: 10px">
+                <img
+                  src="../img/base/mail.svg"
+                  style="height: 24px; padding-right: 10px; margin-top: 6px"
+                  alt=""
+                />
+                <div>
+                  <h3 style="font-size: 1.3rem">信箱</h3>
+                  <h5 style="font-size: 1rem">a1234567890@gmail.com</h5>
+                </div>
+              </li>
+
+              <li class="flexWrap" style="margin-top: 10px">
+                <img
+                  src="../img/base/phone.svg"
+                  style="height: 24px; padding-right: 10px; margin-top: 6px"
+                  alt=""
+                />
+                <div>
+                  <h3 style="font-size: 1.3rem">連絡電話</h3>
+                  <h5 style="font-size: 1rem">0900123456</h5>
+                </div>
+              </li>
+            </div>
+          </div>
+        </ul>
+        <ul class="col_33 flexHorizontalCenter footerMobile">
+          <div style="width: 40%">
             <li
-              id="imgIcon"
-              class="flexVerticalCenter"
-              style="margin: 20px 30px"
+              class="flexAllCenter"
+              style="color: #a4c964; font-size: 30px; height: 65px"
             >
-              <img src="../img/base/facebook.svg" class="imgIntroduce" alt="" />
-              <img src="../img/base/twitter.svg" class="imgIntroduce" alt="" />
-              <img
-                src="../img/base/instagram.svg"
-                class="imgIntroduce"
-                alt=""
-              />
+              網站地圖
             </li>
-          </ul>
-          <ul class="col_33 flexHorizontalCenter footerMobile">
-            <div style="width: 70%">
-              <li
-                class="flexAllCenter"
-                style="color: #a4c964; font-size: 30px; height: 65px"
-              >
-                Get In Touch
+            <div class="webMap">
+              <li style="margin-top: 5px">
+                <a class="webMapLink" href="/index">>首頁</a>
               </li>
-              <div class="" style="height: 250px; font-weight: 400">
-                <li class="flexWrap" style="margin-top: 10px">
-                  <img
-                    src="../img/base/map-marker.svg"
-                    style="height: 24px; padding-right: 10px; margin-top: 6px"
-                    alt=""
-                  />
-                  <div>
-                    <h3 style="font-size: 1.3rem">地址</h3>
-                    <h5 style="font-size: 1rem">123</h5>
-                  </div>
-                </li>
-
-                <li class="flexWrap" style="margin-top: 10px">
-                  <img
-                    src="../img/base/mail.svg"
-                    style="height: 24px; padding-right: 10px; margin-top: 6px"
-                    alt=""
-                  />
-                  <div>
-                    <h3 style="font-size: 1.3rem">信箱</h3>
-                    <h5 style="font-size: 1rem">a1234567890@gmail.com</h5>
-                  </div>
-                </li>
-
-                <li class="flexWrap" style="margin-top: 10px">
-                  <img
-                    src="../img/base/phone.svg"
-                    style="height: 24px; padding-right: 10px; margin-top: 6px"
-                    alt=""
-                  />
-                  <div>
-                    <h3 style="font-size: 1.3rem">連絡電話</h3>
-                    <h5 style="font-size: 1rem">0900123456</h5>
-                  </div>
-                </li>
-              </div>
-            </div>
-          </ul>
-          <ul class="col_33 flexHorizontalCenter footerMobile">
-            <div style="width: 40%">
-              <li
-                class="flexAllCenter"
-                style="color: #a4c964; font-size: 30px; height: 65px"
-              >
-                網站地圖
+              <li style="margin-top: 5px">
+                <a class="webMapLink" href="/courseteacher/CourseVue.html"
+                  >>課程</a
+                >
               </li>
-              <div class="webMap">
-                <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>首頁</a>
-                </li>
-                <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>課程</a>
-                </li>
-                <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>活動</a>
-                </li>
-                <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>許願池</a>
-                </li>
-                <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>論壇</a>
-                </li>
-                <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>商城</a>
-                </li>
-              </div>
+              <li style="margin-top: 5px">
+                <a class="webMapLink" href="/active/activeIndex.html"
+                  >>活動</a
+                >
+              </li>
+              <li style="margin-top: 5px">
+                <a class="webMapLink" href="/wish">>許願池</a>
+              </li>
+              <li style="margin-top: 5px">
+                <a class="webMapLink" href="/bbsdiscuss/index.html">>論壇</a>
+              </li>
+              <li style="margin-top: 5px">
+                <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
+              </li>
             </div>
-          </ul>
-        </div>
+          </div>
+        </ul>
       </div>
-    </footer>
+    </div>
+  </footer>
 
     <script>
 
