@@ -201,7 +201,7 @@ ulElement.innerHTML = '';
               <a href="#">站內信管理 <i class="fa-solid fa-envelope"></i></a>
             </li>
 
-                        <hr class="m-2" style="width: 50%">
+                       
 <!--             <li>-->
 <!--              <a href="backmemberLIST.html"-->
 <!--                >會員管理<i class="fa-solid fa-user"></i-->

@@ -41,8 +41,6 @@ $(document).ready(function(){
             bankCodeInput.oninput();
         });
 
-
-        console.log(admin)
         $.ajax({
           type: 'GET',
           url: '/teachers/pro/'+admin.adminId,
