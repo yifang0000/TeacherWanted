@@ -22,6 +22,15 @@ public class BbsPostController {
     @Autowired
     private BbsPostService bbsPostService;
 
+    //把session傳到前端
+    @GetMapping("/bbsdiscussGet/session")
+    public Integer sessionToFront(@SessionAttribute(value = "MemberId", required = false) Integer memId){
+        if (memId == null) {
+            return 0;
+        } else {
+            return memId;
+        }
+    }
 
 
 
@@ -39,11 +48,33 @@ public class BbsPostController {
         }
 
     }
+    //根據 memId 取得 收藏數據 及 按讚數據
+    @GetMapping("/bbsdiscussGet/favandreaction")
+    public ResponseEntity <ResponseFandR> getFavAndReactionByMemId(@SessionAttribute(value = "MemberId", required = false) Integer memId) {
+        System.out.println("test//根據 memid 取得 收藏數據 及 按讚數據");
+
+        List<FavoriteArticle> favoriteArticleList = bbsPostService.geFavByMemId(memId);
+        List<PostReaction> postReactionList = bbsPostService.getRectionByMemId(memId);
+        ResponseFandR responseFandR = new ResponseFandR();
+        responseFandR.setFavoriteArticleList(favoriteArticleList);
+        responseFandR.setPostReactionList(postReactionList);
+
+        if (memId == null) {
+            // 如果未獲取到會員ID，返回相應錯誤
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        if (responseFandR != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(responseFandR);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 
     //  根據文章id取得文章，大頭貼，tag，文章分類，收藏狀態，按讚狀態
     @GetMapping("/bbsdiscussGetAll")
     public ResponseEntity<Response> getBbsPostInfoById(@RequestParam(required = false) Integer bbsPostId,
-                                                       @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+                                                  @SessionAttribute(value = "MemberId", required = false) Integer memId) {
         System.out.println("test查詢一筆文章-根據文章id取得文章，大頭貼，tag，文章分類，收藏狀態，按讚狀態");
 
         BbsPost bbsPost = bbsPostService.getBbsPostById(bbsPostId);
@@ -63,6 +94,7 @@ public class BbsPostController {
         response.setMemPhoto(member.getMemPhoto());
         response.setFavStatus(favoriteArticle.getFavStatus());
         response.setReaction_status(postReaction.getReactionStatus());
+        response.setBbsPostId(bbsPost.getBbsPostId());
 
         if (memId == null) {
             // 如果未獲取到會員ID，返回相應錯誤
@@ -79,7 +111,7 @@ public class BbsPostController {
 
 
     @GetMapping("/bbsdiscussGet/{bbsPostId}")
-    // 根據文章id取得文章的數據
+    // 根據文章編號取得文章的數據
     public ResponseEntity<BbsPost> getBbsPostById(@PathVariable Integer bbsPostId,
                                                   @SessionAttribute(value = "MemberId", required = false) Integer memId) {
         System.out.println("test查詢一筆文章-根據文章編號取得文章的數據");
@@ -101,7 +133,7 @@ public class BbsPostController {
     //  根據文章id取得，留言數據
     @GetMapping("/bbsdiscussGet/comm")
     public ResponseEntity<List<BbsComment>> getCommById(@RequestParam Integer bbsPostId,
-                                                        @SessionAttribute(value = "MemberId", required = false) Integer memId){
+                                                       @SessionAttribute(value = "MemberId", required = false) Integer memId){
         System.out.println("留言數據留言數據test根據文章id取得，留言數據");
         System.out.println("bbsPostId:" +bbsPostId);
         System.out.println(memId);
@@ -120,7 +152,7 @@ public class BbsPostController {
     //  根據留言id取得，大頭貼
     @GetMapping("/bbsdiscussGet/commInfo")
     public ResponseEntity <MemberActive> getBbsCommInfoById(@RequestParam(required = false) Integer bbsCommentId,
-                                                            @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+                                                       @SessionAttribute(value = "MemberId", required = false) Integer memId) {
         System.out.println("test根據留言id取得，大頭貼");
 //        根據文章id取得大頭貼，
         MemberActive member = bbsPostService.getBbsCommInfoById(bbsCommentId);
@@ -222,7 +254,7 @@ public class BbsPostController {
     // 新增我的收藏
     @PostMapping("/bbsdiscussGet/favStstatus")
     public ResponseEntity<?> createBbsPostFavArt(@RequestBody @Valid FavoriterArticleRequest favoriterArticleRequest,
-                                                 @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+                                           @SessionAttribute(value = "MemberId", required = false) Integer memId) {
 
         System.out.println(favoriterArticleRequest);
         System.out.println(memId);
@@ -248,8 +280,37 @@ public class BbsPostController {
             return ResponseEntity.status(HttpStatus.CREATED).body(favArtNum);
         }
     }
+    // 新增讚/倒讚
+    @PostMapping("/bbsdiscussGet/reactionstatus")
+    public ResponseEntity<?> createPostReaction(@RequestBody @Valid PostReactionRequest postReactionRequest,
+                                                 @SessionAttribute(value = "MemberId", required = false) Integer memId) {
 
-    //修改文章標題
+        System.out.println(postReactionRequest);
+        System.out.println(memId);
+        if (memId == null) {
+            // 如果未獲取到會員ID，返回相應錯誤
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        System.out.println(postReactionRequest);
+        System.out.println(memId);
+        postReactionRequest.setMemId(memId);
+        Integer postReactionId = bbsPostService.createPostReaction(postReactionRequest);
+
+        if(postReactionId == null){
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }else {
+//          取的該篇文有幾個人 按讚  status 取得 按讚數字 (1有按讚; 2倒讚)
+            int reactionNum = bbsPostService.getBbsPostReactionById(postReactionRequest);
+
+//          更新案讚數 0沒按讚 1有按讚; 2沒按倒讚 3倒讚
+            bbsPostService.updateBbsPostReaction(postReactionRequest,reactionNum);
+
+//            updateBbsPostReaction(int postId , int postFav)
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(reactionNum);
+        }
+    }
+ //修改文章標題
     @PutMapping("/bbsdiscussGet/title/{postId}")
     public ResponseEntity<?> updateBbsPostTitle(@PathVariable Integer postId,
                                                 @RequestBody @Valid BbsPostUpdateTitle bbsPostUpdateTitle,
@@ -370,19 +431,21 @@ public class BbsPostController {
         bbsPostService.updateBbsCommStatus(bbsCommUpdateStatus.getBbsCommentId(), bbsCommUpdateStatus);
         return ResponseEntity.status(HttpStatus.OK).body("留言刪除成功");
     }
-//    //修改收藏狀態為 0 (隱藏)  , 原本預設 1 (有收藏)
-//    @PutMapping("/bbsdiscussGet/bbsfavstatus")
-//    public ResponseEntity<?> updateFavStatus(@RequestBody @Valid BbsFavStatus bbsFavStatus,
-//                                             @SessionAttribute(value = "MemberId", required = false) Integer memId) {
-//        if (memId == null) {
-//            // 如果未獲取到會員ID，返回相應錯誤
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-//        System.out.println(memId);
-//        System.out.println(bbsFavStatus.getFavoriteArticleId());
-//        //修改收藏狀態為 0 (隱藏)
-//        //更新收藏 id 為 favoriteArticleId ,她要修改的參數物件 bbsFavStatus
-//        bbsPostService.updateFavStatus(bbsFavStatus.getFavoriteArticleId(), bbsFavStatus);
-//        return ResponseEntity.status(HttpStatus.OK).body("取消收藏成功");
-//    }
+    //修改收藏狀態為 0 (隱藏)
+    @PutMapping("/bbsdiscussGet/bbsfavpagestatus")
+    public ResponseEntity<?> updateBbsFavPageStatus(@RequestBody @Valid FavCancelRequest favCancelRequest,
+                                                 @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+        if (memId == null) {
+            // 如果未獲取到會員ID，返回相應錯誤
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        System.out.println(memId);
+        System.out.println(favCancelRequest.getBbsPostId());
+        System.out.println("上面是文章postId");
+        //修改收藏狀態為 0 (隱藏)
+        //更新收藏 postid 及 memid 都符合者
+        bbsPostService.updateBbsFavPageStatus( favCancelRequest , memId);
+        return ResponseEntity.status(HttpStatus.OK).body("取消收藏成功");
+    }
+
 }

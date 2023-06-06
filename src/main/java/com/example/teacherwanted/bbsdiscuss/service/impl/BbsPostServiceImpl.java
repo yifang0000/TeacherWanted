@@ -33,6 +33,20 @@ public class BbsPostServiceImpl implements BbsPostService {
         memberInfo.setMemAccount(member.getMemAccount());
         return memberInfo;
     }
+    //根據 memid 取得  收藏數據
+    @Override
+    public List<FavoriteArticle> geFavByMemId(Integer memId) {
+        return bbsPostDao.geFavByMemId(memId);
+    }
+    //根據 memid 取得 按讚數據
+    @Override
+    public List<PostReaction> getRectionByMemId(Integer memId) {
+        return bbsPostDao.getRectionByMemId(memId);
+    }
+
+
+
+
     //  根據文章id取得文章，大頭貼
     @Override
     public MemberActive getMemById(Integer bbsPostId) {
@@ -198,7 +212,11 @@ public class BbsPostServiceImpl implements BbsPostService {
     public void updateBbsCommStatus(Integer commId, BbsCommUpdateStatus bbsCommUpdateStatus) {
         bbsPostDao.updateBbsCommStatus(commId, bbsCommUpdateStatus);
     }
-
+    //修改收藏狀態為 0 (隱藏)
+    @Override
+    public void updateBbsFavPageStatus(FavCancelRequest favCancelRequest, Integer memId) {
+        bbsPostDao.updateBbsFavPageStatus(favCancelRequest, memId);
+    }
 //    //修改收藏狀態為 0 (隱藏)  , 原本預設 1 (有收藏)
 //    @Override
 //    public void updateFavStatus(Integer favoriteArticleId, BbsFavStatus bbsFavStatus) {

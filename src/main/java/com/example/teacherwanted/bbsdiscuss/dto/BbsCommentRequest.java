@@ -44,4 +44,14 @@ public class BbsCommentRequest {
     public void setCommentStatus(Integer commentStatus) {
         this.commentStatus = commentStatus;
     }
+
+    @Override
+    public String toString() {
+        return "BbsCommentRequest{" +
+                "commentContent='" + commentContent + '\'' +
+                ", bbsPostId=" + bbsPostId +
+                ", memId=" + memId +
+                ", commentStatus=" + commentStatus +
+                '}';
+    }
 }

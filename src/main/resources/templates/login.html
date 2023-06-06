@@ -312,7 +312,7 @@
         </div>
       </form>
 
-      <div th:if="${message != null }">
+      <div th:if="${message}">
         <script th:inline="javascript">
           alert([[${message}]]);
         </script>
