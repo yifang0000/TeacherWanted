@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -29,15 +30,40 @@ public class ActiveServiceImpl implements ActiveService {
         if (activityType == null || activityType.isEmpty()) {
             activityType = null; // 或根據需要設置為默認值
         }
+        List<Active> activesReturn = activeDao.selectAllByKeyWorldAndType(key, activityType);
+        Iterator<Active> iterator = activesReturn.iterator();
+        while (iterator.hasNext()) {
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            Active active = iterator.next();
+            int comparison = (active.getActivityDueTime()).compareTo(timestamp);
+            if (comparison < 0) {
+                System.out.println("时间戳1早于时间戳2");
+                iterator.remove();
+            }
 
-        return activeDao.selectAllByKeyWorldAndType(key, activityType);
+        }
+
+        return activesReturn;
     }
 
 
     //    推薦活動
     @Override
     public List<Active> recommendActivities(String activityType) {
-        return activeDao.recommendActivities(activityType);
+        List<Active> activesReturn =activeDao.recommendActivities(activityType);
+        Iterator<Active> iterator = activesReturn.iterator();
+        while (iterator.hasNext()) {
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            Active active = iterator.next();
+            int comparison = (active.getActivityDueTime()).compareTo(timestamp);
+            if (comparison < 0) {
+                System.out.println("时间戳1早于时间戳2");
+                iterator.remove();
+            }
+
+        }
+
+        return activesReturn;
     }
 
     ;
@@ -47,7 +73,9 @@ public class ActiveServiceImpl implements ActiveService {
     @Override
     public Active selectById(Integer id) {
         Active active = activeDao.selectById(id);
-        if (active != null && active.getActivityStatus() != 0) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        int comparison = (active.getActivityDueTime()).compareTo(timestamp);
+        if (active != null && active.getActivityStatus() != 0 && comparison>0) {
             return active;
         } else {
             return null;
