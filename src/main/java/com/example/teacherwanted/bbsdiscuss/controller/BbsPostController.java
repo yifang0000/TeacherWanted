@@ -445,6 +445,25 @@ public class BbsPostController {
         //修改收藏狀態為 0 (隱藏)
         //更新收藏 postid 及 memid 都符合者
         bbsPostService.updateBbsFavPageStatus( favCancelRequest , memId);
+
+
+        FavoriterArticleRequest favoriterArticleRequest = new FavoriterArticleRequest();
+        favoriterArticleRequest.setMemId(memId);
+        favoriterArticleRequest.setBbsPostId(favCancelRequest.getBbsPostId());
+        favoriterArticleRequest.setFavStatus(1);
+
+        //          取的該篇文有幾個人 收藏
+        int favArtNum = bbsPostService.getBbsPostFavArtById(favoriterArticleRequest);
+
+//          更新收藏數
+        bbsPostService.updateBbsPostFav(favoriterArticleRequest.getBbsPostId(),favArtNum);
+
+//            updateBbsPostReaction(int postId , int postFav)
+
+//        return ResponseEntity.status(HttpStatus.CREATED).body(favArtNum);
+
+//
+
         return ResponseEntity.status(HttpStatus.OK).body("取消收藏成功");
     }
 
