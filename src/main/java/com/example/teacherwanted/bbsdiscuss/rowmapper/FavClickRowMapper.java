@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class FavoriteArticleRowMapper implements RowMapper<FavoriteArticle> {
+public class FavClickRowMapper implements RowMapper<FavoriteArticle> {
     @Override
     public FavoriteArticle mapRow(ResultSet rs, int rowNum) throws SQLException {
         FavoriteArticle favoriteArticle = new FavoriteArticle();
@@ -15,12 +15,6 @@ public class FavoriteArticleRowMapper implements RowMapper<FavoriteArticle> {
         favoriteArticle.setMemId(rs.getInt("mem_id"));
         favoriteArticle.setCreateTime(rs.getTimestamp("create_time"));
         favoriteArticle.setFavStatus(rs.getInt("fav_status"));
-//我的收藏(heart.html)
-        favoriteArticle.setPostTitle(rs.getString("post_title"));
-        favoriteArticle.setPostContent(rs.getString("post_content"));
-
-
-
         return favoriteArticle;
     }
 }

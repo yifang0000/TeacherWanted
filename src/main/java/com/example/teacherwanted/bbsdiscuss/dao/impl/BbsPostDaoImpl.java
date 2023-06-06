@@ -29,7 +29,6 @@ public class BbsPostDaoImpl implements BbsPostDao {
     private EntityManager entityManager;
 
 
-
     //   依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)- post.html or bsdiscusspo.html
     @Override
     public List<ActiveOrderDetail> selectActiveOrderDetailByMemberId(Integer memId) {
@@ -40,7 +39,37 @@ public class BbsPostDaoImpl implements BbsPostDao {
         return query.getResultList();
 
     }
-//依文章id取得會員資料  -回傳 Member物件 - post.html的發文者
+    //根據 memid 取得  按讚數據
+    @Override
+    public List<FavoriteArticle> geFavByMemId(Integer memId) {
+        String sql = "SELECT favorite_article_id, bbs_post_id, mem_id, create_time, fav_status " +
+                " FROM FAVORITE_ARTICLE WHERE mem_id = :memId AND fav_status = 1 " ;
+        Map<String, Object> map = new HashMap<>();
+        map.put("memId", memId);
+        List<FavoriteArticle> favoriteArticleList = namedParameterJdbcTemplate.query(sql, map, new FavClickRowMapper());
+        if(favoriteArticleList.size() > 0){
+            return favoriteArticleList;
+        }else {
+            return null;
+        }
+    }
+
+    //根據 memid 取得 按讚數據
+    @Override
+    public List<PostReaction> getRectionByMemId(Integer memId) {
+        String sql = "SELECT post_reaction_id, bbs_post_id, mem_id, reaction_status " +
+                " FROM POST_REACTION WHERE mem_id = :memId AND reaction_status = 1 " ;
+        Map<String, Object> map = new HashMap<>();
+        map.put("memId", memId);
+        List<PostReaction> postReactionList = namedParameterJdbcTemplate.query(sql, map, new PostReactionRowMapper());
+        if(postReactionList.size() > 0){
+            return postReactionList;
+        }else {
+            return null;
+        }
+    }
+
+    //依文章id取得會員資料  -回傳 Member物件 - post.html的發文者
     @Override
     public MemberActive getMemById(Integer bbsPostId) {
         String sql = "SELECT m.mem_id, m.mem_account, m.mem_password, m.mem_name, m.mem_phone, m.mem_nickname, m.mem_birthday, " +
@@ -51,12 +80,13 @@ public class BbsPostDaoImpl implements BbsPostDao {
         Map<String, Object> map = new HashMap<>();
         map.put("bbsPostId", bbsPostId);
         List<MemberActive> memberList = namedParameterJdbcTemplate.query(sql, map, new MemberRowMapper());
-        if(memberList.size() > 0){
+        if (memberList.size() > 0) {
             return memberList.get(0);
-        }else {
+        } else {
             return null;
         }
     }
+
     //依文章id，取得留言數據 - post.html
     @Override
     public List<BbsComment> getCommById(Integer bbsPostId) {
@@ -69,12 +99,13 @@ public class BbsPostDaoImpl implements BbsPostDao {
         map.put("bbsPostId", bbsPostId);
 
         List<BbsComment> bbsCommentList = namedParameterJdbcTemplate.query(sql, map, new BbsCommentRowMapper());
-        if(bbsCommentList.size() > 0){
+        if (bbsCommentList.size() > 0) {
             return bbsCommentList;
-        }else {
+        } else {
             return null;
         }
     }
+
     //依文章id取得收藏數據  -我收藏的文章 - heart.html - post.html
     @Override
     public FavoriteArticle geFavById(Integer bbsPostId) {
@@ -86,12 +117,13 @@ public class BbsPostDaoImpl implements BbsPostDao {
         Map<String, Object> map = new HashMap<>();
         map.put("bbsPostId", bbsPostId);
         List<FavoriteArticle> favoriteArticleList = namedParameterJdbcTemplate.query(sql, map, new FavoriteArticleRowMapper());
-        if(favoriteArticleList.size() > 0){
+        if (favoriteArticleList.size() > 0) {
             return favoriteArticleList.get(0);
-        }else {
+        } else {
             return null;
         }
     }
+
     //依文章id取得按讚數據 - post.html
     @Override
     public PostReaction getReactionById(Integer bbsPostId) {
@@ -101,15 +133,15 @@ public class BbsPostDaoImpl implements BbsPostDao {
         Map<String, Object> map = new HashMap<>();
         map.put("bbsPostId", bbsPostId);
         List<PostReaction> postReactionList = namedParameterJdbcTemplate.query(sql, map, new PostReactionRowMapper());
-        if(postReactionList.size() > 0){
+        if (postReactionList.size() > 0) {
             return postReactionList.get(0);
-        }else {
+        } else {
             return null;
         }
     }
 
     // 根據文章id，取得文章的數據 - index.html
-    public BbsPost getBbsPostById(Integer bbsPostId){
+    public BbsPost getBbsPostById(Integer bbsPostId) {
         String sql = "SELECT bbs_post_id, mem_id, bbs_category_name, bbs_tag_name, post_title, post_content," +
                 " create_time, update_time, post_views, post_likes, post_dislikes, post_status , post_fav " +
                 " FROM BBS_POST WHERE bbs_post_id = :bbsPostId AND post_status = 1 " +
@@ -117,12 +149,13 @@ public class BbsPostDaoImpl implements BbsPostDao {
         Map<String, Object> map = new HashMap<>();
         map.put("bbsPostId", bbsPostId);
         List<BbsPost> bbsPostList = namedParameterJdbcTemplate.query(sql, map, new BbsPostRowMapper());
-        if(bbsPostList.size() > 0){
+        if (bbsPostList.size() > 0) {
             return bbsPostList.get(0);
-        }else {
+        } else {
             return null;
         }
     }
+
     // 根據留言id，取得留言的數據
     @Override
     public BbsComment getBbsCommById(Integer bbsCommentId) {
@@ -133,9 +166,9 @@ public class BbsPostDaoImpl implements BbsPostDao {
         Map<String, Object> map = new HashMap<>();
         map.put("bbsCommentId", bbsCommentId);
         List<BbsComment> bbsCommentList = namedParameterJdbcTemplate.query(sql, map, new BbsCommentRowMapper());
-        if(bbsCommentList.size() > 0){
+        if (bbsCommentList.size() > 0) {
             return bbsCommentList.get(0);
-        }else {
+        } else {
             return null;
         }
     }
@@ -152,9 +185,9 @@ public class BbsPostDaoImpl implements BbsPostDao {
         map.put("bbsCommentId", bbsCommentId);
 
         List<MemberActive> memberList = namedParameterJdbcTemplate.query(sql, map, new MemberRowMapper());
-        if(memberList.size() > 0){
+        if (memberList.size() > 0) {
             return memberList.get(0);
-        }else {
+        } else {
             return null;
         }
     }
@@ -171,17 +204,18 @@ public class BbsPostDaoImpl implements BbsPostDao {
         map.put("memId", memId);
 
         List<BbsPost> bbsPostList = namedParameterJdbcTemplate.query(sql, map, new BbsPostRowMapper());
-        if(bbsPostList.size() > 0){
+        if (bbsPostList.size() > 0) {
             return bbsPostList;
-        }else {
+        } else {
             return null;
         }
     }
+
     //語言討論版-顯示所有文章-無須登入
     @Override
     public List<BbsPost> getBbsPostsByKblg(String bbsCategoryName) {
         String sql = "SELECT bbs_post_id, mem_id, bbs_category_name, bbs_tag_name, post_title, post_content," +
-                " create_time, update_time, post_views, post_likes, post_dislikes, post_status, post_fav " +
+                " create_time, update_time, post_views, post_likes, post_dislikes, post_status , post_fav " +
                 " FROM BBS_POST " +
                 " WHERE bbs_category_name = :bbsCategoryName AND post_status = 1 " +
                 " ORDER BY update_time DESC";
@@ -189,9 +223,9 @@ public class BbsPostDaoImpl implements BbsPostDao {
         map.put("bbsCategoryName", bbsCategoryName);
 
         List<BbsPost> bbsPostList = namedParameterJdbcTemplate.query(sql, map, new BbsPostRowMapper());
-        if(bbsPostList.size() > 0){
+        if (bbsPostList.size() > 0) {
             return bbsPostList;
-        }else {
+        } else {
             return null;
         }
     }
@@ -208,44 +242,46 @@ public class BbsPostDaoImpl implements BbsPostDao {
 
         List<BbsPost> bbsPostList = namedParameterJdbcTemplate.query(sql, map, new BbsPostRowMapper());
 
-        if(bbsPostList.size() > 0){
+        if (bbsPostList.size() > 0) {
             return bbsPostList;
-        }else {
+        } else {
             return null;
         }
     }
-//新增文章
+
+    //新增文章
     @Override
     public Integer createBbsPost(BbsPostRequest bbsPostRequest) {
 
         System.out.println(
                 bbsPostRequest
         );
-            String sql = "INSERT INTO BBS_POST( mem_id ,bbs_category_name , bbs_tag_name,  post_title , post_content , create_time , update_time" +
-                    " ) " +
-                    " VALUES ( :memId, :bbsCategoryName, :bbsTagName, :postTitle, :postContent, " +
-                    " :createTime, :updateTime)";
+        String sql = "INSERT INTO BBS_POST( mem_id ,bbs_category_name , bbs_tag_name,  post_title , post_content , create_time , update_time" +
+                " ) " +
+                " VALUES ( :memId, :bbsCategoryName, :bbsTagName, :postTitle, :postContent, " +
+                " :createTime, :updateTime)";
         Map<String, Object> map = new HashMap<>();
-            map.put("memId", bbsPostRequest.getMemId());
-            map.put("bbsCategoryName",bbsPostRequest.getBbsCategoryName());
-            map.put("bbsTagName", bbsPostRequest.getBbsCategoryName());
-            map.put("postTitle", bbsPostRequest.getPostTitle());
-            map.put("postContent", bbsPostRequest.getPostContent());
+        map.put("memId", bbsPostRequest.getMemId());
+        map.put("bbsCategoryName", bbsPostRequest.getBbsCategoryName());
+        map.put("bbsTagName", bbsPostRequest.getBbsTagName());
+        map.put("postTitle", bbsPostRequest.getPostTitle());
+        map.put("postContent", bbsPostRequest.getPostContent());
 
 
-            Date now = new Date();
-            map.put("createTime", now);
-            map.put("updateTime", now);
+        Date now = new Date();
+        map.put("createTime", now);
+        map.put("updateTime", now);
 
-            //儲存資料庫自動生成的id
-            KeyHolder keyHolder = new GeneratedKeyHolder();
+        //儲存資料庫自動生成的id
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
-            namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
-            int bbsPostId = keyHolder.getKey().intValue();
+        int bbsPostId = keyHolder.getKey().intValue();
 
-            return  bbsPostId;
+        return bbsPostId;
     }
+
     //新增留言
     @Override
     public Integer createBbsComm(BbsCommentRequest bbsCommentRequest) {
@@ -256,7 +292,7 @@ public class BbsPostDaoImpl implements BbsPostDao {
                 " VALUES ( :bbsPostId, :memId, :commentContent, :createTime, :updateTime )";
         Map<String, Object> map = new HashMap<>();
         map.put("bbsPostId", bbsCommentRequest.getBbsPostId());
-        map.put("memId",bbsCommentRequest.getMemId());
+        map.put("memId", bbsCommentRequest.getMemId());
         map.put("commentContent", bbsCommentRequest.getCommentContent());
 
         Date now = new Date();
@@ -270,7 +306,7 @@ public class BbsPostDaoImpl implements BbsPostDao {
 
         int bbsCommentId = keyHolder.getKey().intValue();
 
-        return  bbsCommentId;
+        return bbsCommentId;
     }
 
     //新增我的最愛
@@ -280,7 +316,7 @@ public class BbsPostDaoImpl implements BbsPostDao {
                 "VALUES ( :bbsPostId, :memId, :createTime, :favStatus ";
         Map<String, Object> map = new HashMap<>();
         map.put("bbsPostId", bbsPostRequest.getMemId());
-        map.put("memId",bbsPostRequest.getBbsCategoryName());
+        map.put("memId", bbsPostRequest.getBbsCategoryName());
 
         Date now = new Date();
         map.put("createTime", now);
@@ -293,71 +329,110 @@ public class BbsPostDaoImpl implements BbsPostDao {
 
         int favoriteArticleId = keyHolder.getKey().intValue();
 
-        return  favoriteArticleId;
+        return favoriteArticleId;
     }
-//新增按讚
+
+    //新增按讚
     @Override
     public Integer createPostReaction(PostReactionRequest postReactionRequest) {
+        //        select favorite_article_id  from FAVORITE_ARTICLE where bbs_post_id = 2 and mem_id = 4;
 
-        String sql = "INSERT INTO post_reaction ( bbs_post_id, mem_id, reaction_status) " +
-                "VALUES ( :bbsPostId, :memId, :reactionStatus) ";
+        String selectSql = "SELECT post_reaction_id  as result FROM post_reaction  " +
+                "WHERE bbs_post_id = :bbsPostId and mem_id = :memId ";
         Map<String, Object> map = new HashMap<>();
         map.put("bbsPostId", postReactionRequest.getBbsPostId());
         map.put("memId", postReactionRequest.getMemId());
-        map.put("reactionStatus",postReactionRequest.getReactionStatus());
 
-        //儲存資料庫自動生成的id
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+        List<FavAndReactionCount> data = namedParameterJdbcTemplate.query(selectSql, map, new FavAndReactionCountRowMapper());
 
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
+        if (data.size() > 0) {
+            // 從列表中取得第一個 FavAndReactionCount 物件
+            FavAndReactionCount favAndReactionCount = data.get(0);
+            // 獲取結果數字
+            int id = favAndReactionCount.getResult();
+//            select favorite_article_id  from FAVORITE_ARTICLE where bbs_post_id = 2 and mem_id = 9 order by create_time desc;
 
-        int postReactionId = keyHolder.getKey().intValue();
+            String sql = "UPDATE post_reaction SET reaction_status =:reactionStatus " +
+                    "WHERE bbs_post_id = :bbsPostId and  mem_id =:memId ";
 
-        return  postReactionId;
+            Map<String, Object> uMap = new HashMap<>();
+
+            uMap.put("reactionStatus", postReactionRequest.getReactionStatus());
+            uMap.put("bbsPostId", postReactionRequest.getBbsPostId());
+            uMap.put("memId", postReactionRequest.getMemId());
+
+            namedParameterJdbcTemplate.update(sql, uMap);
+
+            return id;
+
+        } else {
+
+            //        ==================================
+            String sql = "INSERT INTO post_reaction (bbs_post_id, mem_id, reaction_status) "
+                    + "VALUES (:bbsPostId, :memId, :reactionStatus)";
+//        select count(1)  as result from FAVORITE_ARTICLE where bbs_post_id = 1 and fav_status = 1;
+
+            Map<String, Object> iMap = new HashMap<>();
+
+            iMap.put("bbsPostId", postReactionRequest.getBbsPostId());
+            iMap.put("memId", postReactionRequest.getMemId());
+            iMap.put("reactionStatus", postReactionRequest.getReactionStatus());
+
+            //儲存資料庫自動生成的id
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+
+            namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(iMap), keyHolder);
+
+            int result = keyHolder.getKey().intValue();
+
+            return result;
+        }
     }
-    //更新文章按讚
-    @Override
-    public Integer updateBbsPostReaction(PostReactionRequest postReactionRequest,int reactionNum) {
 
-        String sql = "" ;
+    @Override
+    public Integer updateBbsPostReaction(PostReactionRequest postReactionRequest, int reactionNum) {
+
+        String sql = "";
 
         Map<String, Object> uMap = new HashMap<>();
 
-        if (postReactionRequest.getReactionStatus() == 2) {
+        if (postReactionRequest.getReactionStatus() == 2 ||
+            postReactionRequest.getReactionStatus() == 3) {
 //         倒讚
             sql = "UPDATE bbs_post SET post_dislikes =:postDislikes " +
                     "WHERE bbs_post_id = :bbsPostId ";
 
-            uMap.put("postDislikes",reactionNum);
-            uMap.put("bbsPostId",postReactionRequest.getBbsPostId());
+            uMap.put("postDislikes", reactionNum);
+            uMap.put("bbsPostId", postReactionRequest.getBbsPostId());
 
         }
 
-        if (postReactionRequest.getReactionStatus() == 1) {
+        if (postReactionRequest.getReactionStatus() == 1 ||
+            postReactionRequest.getReactionStatus() == 0) {
 //          案讚
             sql = "UPDATE bbs_post SET post_likes =:postLikes " +
                     "WHERE bbs_post_id = :bbsPostId ";
 
-            uMap.put("postLikes",reactionNum);
-            uMap.put("bbsPostId",postReactionRequest.getBbsPostId());
+            uMap.put("postLikes", reactionNum);
+            uMap.put("bbsPostId", postReactionRequest.getBbsPostId());
 
         }
 
-        return namedParameterJdbcTemplate.update(sql,uMap);
+        return namedParameterJdbcTemplate.update(sql, uMap);
     }
 
 
-//   更新文章收藏
+    //   更新文章收藏
     public Integer updateBbsPostFav(int postId, int postFav) {
 
         String sql = "UPDATE bbs_post SET post_fav =:postFav " +
-                    "WHERE bbs_post_id = :bbsPostId ";
+                "WHERE bbs_post_id = :bbsPostId ";
 
-            Map<String, Object> uMap = new HashMap<>();
-            uMap.put("postFav",postFav);
-            uMap.put("bbsPostId",postId);
+        Map<String, Object> uMap = new HashMap<>();
+        uMap.put("postFav", postFav);
+        uMap.put("bbsPostId", postId);
 
-        return namedParameterJdbcTemplate.update(sql,uMap);
+        return namedParameterJdbcTemplate.update(sql, uMap);
 
     }
 
@@ -379,23 +454,23 @@ public class BbsPostDaoImpl implements BbsPostDao {
             // 從列表中取得第一個 FavAndReactionCount 物件
             FavAndReactionCount favAndReactionCount = data.get(0);
             // 獲取結果數字
-            int id= favAndReactionCount.getResult();
+            int id = favAndReactionCount.getResult();
 //            select favorite_article_id  from FAVORITE_ARTICLE where bbs_post_id = 2 and mem_id = 9 order by create_time desc;
 
             String sql = "UPDATE FAVORITE_ARTICLE SET fav_status =:favStatus " +
-                         "WHERE bbs_post_id = :bbsPostId and   mem_id =:memId order by create_time desc";
+                    "WHERE bbs_post_id = :bbsPostId and   mem_id =:memId order by create_time desc";
 
             Map<String, Object> uMap = new HashMap<>();
 
-            uMap.put("favStatus",favoriterArticleRequest.getFavStatus());
-            uMap.put("bbsPostId",favoriterArticleRequest.getBbsPostId());
-            uMap.put("memId",favoriterArticleRequest.getMemId());
+            uMap.put("favStatus", favoriterArticleRequest.getFavStatus());
+            uMap.put("bbsPostId", favoriterArticleRequest.getBbsPostId());
+            uMap.put("memId", favoriterArticleRequest.getMemId());
 
-            namedParameterJdbcTemplate.update(sql,uMap);
+            namedParameterJdbcTemplate.update(sql, uMap);
 
-            return  id;
+            return id;
 
-        } else{
+        } else {
 
             //        ==================================
             String sql = "INSERT INTO FAVORITE_ARTICLE (bbs_post_id, mem_id, create_time, fav_status) "
@@ -416,11 +491,12 @@ public class BbsPostDaoImpl implements BbsPostDao {
 
             int result = keyHolder.getKey().intValue();
 
-            return  result;
+            return result;
         }
 
     }
-    //依據文章id 跟 status 取得 收藏數字 ( 1有收藏 )
+
+    //依據文章id 跟 status 取得 按讚數字 ( 1有按讚 )
     @Override
     public int getFavoriteCountById(FavoriterArticleRequest favoriterArticleRequest) {
 
@@ -446,14 +522,14 @@ public class BbsPostDaoImpl implements BbsPostDao {
         // 預設返回 0，表示無按讚數字
         return 0;
     }
-    //依據文章id 跟 status 取得 按讚數字 ( 1有按讚 )
+
     @Override
     public int getReactionCountById(PostReactionRequest postReactionRequest) {
         String sql = "SELECT count(1)  as result FROM post_reaction " +
                 "WHERE bbs_post_id = :bbsPostId and reaction_status = :reactionStatus;";
         Map<String, Object> map = new HashMap<>();
         map.put("bbsPostId", postReactionRequest.getBbsPostId());
-        map.put("reactionStatus", postReactionRequest.getReactionStatus());
+        map.put("reactionStatus",1);
 
         List<FavAndReactionCount> favAndReactionCountList = namedParameterJdbcTemplate.query(sql, map, new FavAndReactionCountRowMapper());
 
@@ -481,12 +557,13 @@ public class BbsPostDaoImpl implements BbsPostDao {
 
         List<FavAndReactionCount> favAndReactionCountList = namedParameterJdbcTemplate.query(sql, map, new FavAndReactionCountRowMapper());
 
-        if(favAndReactionCountList.size() > 0){
+        if (favAndReactionCountList.size() > 0) {
             return 0;
-        }else {
+        } else {
             return 0;
         }
     }
+
     //依據文章id 跟 status 取得 按讚數字 ( 1有按讚 )
     @Override
     public int getUpLikedCountById(PostReactionRequest postReactionRequest) {
@@ -497,12 +574,13 @@ public class BbsPostDaoImpl implements BbsPostDao {
 
         List<FavAndReactionCount> favAndReactionCountList = namedParameterJdbcTemplate.query(sql, map, new FavAndReactionCountRowMapper());
 
-        if(favAndReactionCountList.size() > 0){
+        if (favAndReactionCountList.size() > 0) {
             return 0;
-        }else {
+        } else {
             return 0;
         }
     }
+
     //依據文章id 跟 status 取得 按讚數字 ( 2倒讚 )
     @Override
     public int getDownLikedCountById(PostReactionRequest postReactionRequest) {
@@ -513,9 +591,9 @@ public class BbsPostDaoImpl implements BbsPostDao {
 
         List<FavAndReactionCount> favAndReactionCountList = namedParameterJdbcTemplate.query(sql, map, new FavAndReactionCountRowMapper());
 
-        if(favAndReactionCountList.size() > 0){
+        if (favAndReactionCountList.size() > 0) {
             return 0;
-        }else {
+        } else {
             return 0;
         }
     }
@@ -592,8 +670,21 @@ public class BbsPostDaoImpl implements BbsPostDao {
 
         namedParameterJdbcTemplate.update(sql,map);
     }
+    //修改收藏狀態為 0 (隱藏)
+    @Override
+    public void updateBbsFavPageStatus(FavCancelRequest favCancelRequest, Integer memId) {
+        String sql = "UPDATE FAVORITE_ARTICLE SET fav_status = 0 " +
+                " WHERE bbs_post_id = :postId AND mem_id = :memId ";
 
-//    //修改收藏狀態為 0 (隱藏)  , 原本預設 1 (有收藏)
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("postId",favCancelRequest.getBbsPostId());
+
+        map.put("memId",memId);
+
+        namedParameterJdbcTemplate.update(sql,map);
+    }
+    //    //修改收藏狀態為 0 (隱藏)  , 原本預設 1 (有收藏)
 //    @Override
 //    public void updateFavStatus(Integer favoriteArticleId, BbsFavStatus bbsFavStatus) {
 //        String sql = "UPDATE FAVORITE_ARTICLE SET fav_status = 0 " +
