@@ -271,6 +271,7 @@
             return {
                 teacher: null,
                 courses: [],
+                rankings: [],
                 memId: 1,
                 teaId: null,
                 createTime: new Date(),
@@ -299,8 +300,9 @@
                 const data = {
                     memId: this.memId,
                     teaId: this.teaId,
-                    rankings: [],
-                    createTime: new Date()
+                    createTime: new Date(),
+                    favTeaPhoto: this.teacher.teaPhoto,
+                    favTeaName: this.teacher.teaName,
                 };
                 console.log(data);
 
