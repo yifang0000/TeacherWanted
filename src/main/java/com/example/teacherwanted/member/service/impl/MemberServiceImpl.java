@@ -64,6 +64,14 @@ public class MemberServiceImpl implements MemberService {
     public Member selectBackOrderById(Integer id){ return null;
     }
 
+    @Override
+    public Member getMemberById(Integer memId) {
+        return null;
+    }
+
+
+
+
     //      @Override
 //      public List<Member> selectAll() {
 //          return memberDao.selectAll();

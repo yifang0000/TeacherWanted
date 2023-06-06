@@ -10,7 +10,7 @@ $(document).ready(function() {
 
   // 發送AJAX請求取得資料
   $.ajax({
-    url: '/OrderList',  // 請將URL替換為實際的資料取得端點
+    url: '/course_teacher'+id,  // 請將URL替換為實際的資料取得端點
     type: 'POST',
     dataType: 'json',
     success: function(response) {
@@ -292,7 +292,7 @@ $(document).ready(function() {
 
   // 發送AJAX請求取得資料
   $.ajax({
-    url: '/backActiveOrder',  // 請將URL替換為實際的資料取得端點
+    url: '/activeBack',  // 請將URL替換為實際的資料取得端點
     type: 'POST',
     dataType: 'json',
     success: function(response) {
@@ -572,7 +572,7 @@ $(document).ready(function() {
       
         if (confirm('確定要刪除嗎？')) {
     // 發送刪除請求到後端 API
-    fetch('../activeOrderList/delete/' + groupOrderDetailId, {
+    fetch('backActiveOrder' + groupOrderDetailId, {
       method: 'DELETE'
     })
     .then(function(response) {
@@ -601,7 +601,7 @@ $(document).ready(function() {
 //   console.log("資料"+ data);
   // 发送Ajax请求
   $.ajax({
-  url: "/activeOrderDelete" + memId, // 替换为实际的后端接口URL
+  url: "/activeOrderDelete", // 替换为实际的后端接口URL
   type: "DELETE",
   contentType: "application/json",
   data: JSON.stringify(data),
@@ -630,7 +630,7 @@ $(document).ready(function() {
 
   // 發送AJAX請求取得資料
   $.ajax({
-    url: '/OrderList',  // 請將URL替換為實際的資料取得端點
+    url: '/',  // 請將URL替換為實際的資料取得端點
     type: 'POST',
     dataType: 'json',
     success: function(response) {
@@ -641,14 +641,16 @@ $(document).ready(function() {
       // 將每筆資料加入DataTable
       response.forEach(function(order) {
         table.row.add([
-          order.groupOrderDetailId,
-          order.activityId,
+          order.shopOrderlId,
           order.memId,
-          order.registerTime,
-          order.memEmail,
-          order.memName,
-          order.memPhone,
-          '<button id="delet-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">修改</button>&nbsp;' +
+          order.originalPrice,
+          order.couponCode,
+          order.discount,
+          order.discountPrice,
+          order.orderStatus,
+          order.address,
+          order.phone,
+          order.deliverCode,          
           '<button id="rate-btn" data-bs-toggle="modal" data-bs-target="#exampleModal1">刪除</button>'
         ]);
       });

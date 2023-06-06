@@ -2,18 +2,23 @@ package com.example.teacherwanted.member.controller;
 
 
 import com.example.teacherwanted.active.dao.ActiveOrderDetailDao;
-import com.example.teacherwanted.active.model.ActiveOrderDetail;
-import com.example.teacherwanted.active.model.MemberActive;
+import com.example.teacherwanted.active.model.Active;
+import com.example.teacherwanted.administrator.model.Administrator;
+import com.example.teacherwanted.bbsdiscuss.dto.BbsCommentRequest;
+import com.example.teacherwanted.course.model.vo.CourseVo;
 import com.example.teacherwanted.member.model.Member;
 import com.example.teacherwanted.member.service.MemberService;
+import com.example.teacherwanted.register_login.entity.User;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.notFound;
@@ -33,15 +38,17 @@ public class MemberController {
     @Autowired
     private ActiveOrderDetailDao activeOrderDetailDao;
 
+
 //      會員中心相關
 //      會員資料
 //      用memId拿會員資料明細
     @PostMapping("/memberDetail")
     public ResponseEntity<Member> selectByMemId(
-        @RequestBody Member memberRequest, @SessionAttribute(value = "MemberId", required = false) Integer memId)  {
+        @RequestBody Member memberRequest, @SessionAttribute(value = "UserId", required = false) User user)  {
 
-        Member member = memberService.selectById(memId);
+        Member member = memberService.selectById(user.getMemId());
         if (member != null) {
+            System.out.println(member);
             return ok(member);
         } else {
             return notFound().build();
@@ -50,18 +57,23 @@ public class MemberController {
 
 
 //      會員資料編輯
-    @PutMapping("/memberDetail")
-    public String updateMemberDetail(@RequestBody Member member,
-                               @SessionAttribute("MemberId") Integer memId) {
-    member.setMemId(memId);
-    return memberService.update(member);
-}
-
-
-
-
-
-
+    @PutMapping("/memberDetailEdit/{memId}")
+    public String updateMemberOrder(@RequestBody Member member,
+                                   @SessionAttribute("UserId") User user) {
+       member.setMemId(user.getMemId());
+        return memberService.update(member);
+    }
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
