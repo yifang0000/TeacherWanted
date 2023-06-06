@@ -506,12 +506,12 @@ main.TeacherWanted {
 }
 
 #loginOrUser {
-  width: 150px;
+  width: 110px;
 }
 
 .dropdown-menu {
-  min-width: 120px;
-  width: 120px;
+  min-width: 110px;
+  width: 110px;
 }
 .dropdown-menu {
   outline: none;

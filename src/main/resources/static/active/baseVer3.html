@@ -27,7 +27,8 @@
       rel="stylesheet"
     />
     <script src="../jquery/jquery-3.6.4.min.js"></script>
-
+    <!-- 要登入驗證請解開這個 -->
+    <!-- <script src="../js/loginCheck.js"></script> -->
     <script src="../js/base.js"></script>
 
     <title>Document</title>
@@ -97,20 +98,27 @@
               style="position: relative; top: 2px"
             >
               <div class="miniMobile">
-                <form id="navSearch" action="">
-                  <select>
-                    <option>課程</option>
-                    <option>活動</option>
-                    <option>商城</option>
-                    <option>許願</option>
+                <div id="navSearch" action="">
+                  <select id="serchType">
+                    <option value="課程">課程</option>
+                    <option value="活動">活動</option>
+                    <!-- <option value="商城">商城</option>
+                    <option value="許願">許願</option> -->
                   </select>
-                  <input type="text" />
-                  <img src="../img/base/search.svg" alt="" />
-                </form>
+                  <input id="searchText" type="text" />
+                  <img id="searchIcon" src="../img/base/search.svg" alt="" />
+                </div>
               </div>
 
               <img
-                src="../img//base/mailForNavbar.svg"
+                src="../img/base/bell.svg"
+                id="navAnn"
+                class="miniMobile"
+                style="height: 30px; margin: 3px 5px; cursor: pointer"
+                alt=""
+              />
+              <img
+                src="../img/base/mailForNavbar.svg"
                 id="navMail"
                 class="miniMobile"
                 style="
@@ -132,42 +140,7 @@
 
               <!--登入按鈕 開始 -->
 
-              <div id="loginOrUser">
-                <a
-                  class="btnCss flexAllCenter"
-                  style="color: white"
-                  href="/login"
-                  >登入</a
-                >
-                <div class="btn-group" hidden>
-                  <button
-                    class="btn btn-sm dropdown-toggle flexWrap flexVerticalCenter"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <img src="/img/base/logo3D.png" id="userImg" />
-                    <p id="userName">張明宏</p>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a class="dropdown-item" href="/member/MemberDetail.html"
-                        >會員中心</a
-                      >
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="/announcement/ann.html"
-                        >公告</a
-                      >
-                    </li>
-
-                    <li><hr class="dropdown-divider" /></li>
-                    <li>
-                      <a class="dropdown-item" href="#">登出</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+              <div id="loginOrUser"></div>
               <!-- 登入按鈕 結束 -->
             </div>
           </li>
@@ -197,9 +170,9 @@
               class="flexAllCenter"
               style="margin: 10px 30px; font-weight: normal"
             >
-              Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
-              dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
-              elitr stet diam duo eos rebum ipsum diam ipsum elitr.
+              現代⼈⽣活步相當緊湊我們的課平台幫助
+              ⼈們學並且除了線上課提供了實家的合會⼤了學的⾯向
+              課元可提⾼學⽣的學興積性 並促學⽣的⾯發展
             </li>
             <li
               id="imgIcon"
@@ -232,7 +205,7 @@
                   />
                   <div>
                     <h3 style="font-size: 1.3rem">地址</h3>
-                    <h5 style="font-size: 1rem">123</h5>
+                    <h5 style="font-size: 1rem">台北市中山區南京東路三段</h5>
                   </div>
                 </li>
 

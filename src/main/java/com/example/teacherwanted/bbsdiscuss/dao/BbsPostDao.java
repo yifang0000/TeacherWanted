@@ -15,7 +15,10 @@ public interface BbsPostDao {
 
     //查找會員資料-編輯文章用
     List<ActiveOrderDetail> selectActiveOrderDetailByMemberId(Integer id);
-
+    //根據 memid 取得  按讚數據
+    List<FavoriteArticle> geFavByMemId(Integer memId);
+    //根據 memid 取得 按讚數據
+    List<PostReaction> getRectionByMemId(Integer memId);
     //  根據文章id取得，mem大頭貼
     MemberActive getMemById(Integer bbsPostId);
     //  根據文章id取得，留言
@@ -76,7 +79,11 @@ public interface BbsPostDao {
 
     //修改留言狀態為 0 (隱藏)  , 原本預設 1 (發布)
     void updateBbsCommStatus (Integer commId, BbsCommUpdateStatus bbsCommUpdateStatus);
+    //修改收藏狀態為 0 (隱藏)
+    void updateBbsFavPageStatus (FavCancelRequest favCancelRequest, Integer memId);
 
 //    //修改收藏狀態為 0 (隱藏)  , 原本預設 1 (有收藏)
 //    void updateFavStatus (Integer favoriteArticleId, BbsFavStatus bbsFavStatus);
+
+
 }
