@@ -149,6 +149,14 @@
               alert("歡迎管理員：" + response.adminName + "，登入成功！");
               window.location.href = "../administrator/backIndex.html";
             } else {
+              if (response.createdDate == response.lastUpdatedDate) {
+                sessionStorage.setItem("NewTeacher", "yes");
+                alert(
+                  "歡迎老師：" + response.adminName + "，首次登入請先修改密碼"
+                );
+                window.location.href = "../administrator/backbarsetting.html";
+                return;
+              }
               alert("歡迎老師：" + response.adminName + "，登入成功！");
               window.location.href = "../administrator/backIndex.html";
             }

@@ -1,12 +1,13 @@
 
 
 // ============去驗證是否登入+把登入者資料放入前端session變數裡
-// ============使用範例：var test=sessionStorage.getItem('adminStorage');
+// ============使用範例：var test=JSON.parse(sessionStorage.getItem('adminStorage'));
 // ============可印出來：console.log(test)
 // ============可印老師ID(管理員沒有teaId)：console.log(test.teaId)
 
 
 Checklogin()
+
   function Checklogin() {
     var ulElement = document.querySelector('.list-unstyled');
 ulElement.innerHTML = '';
@@ -20,6 +21,7 @@ ulElement.innerHTML = '';
         if(admin.permissionId === 2){
         admin["teaId"] = admin.adminId;}
         sessionStorage.setItem('adminStorage', JSON.stringify(admin));
+
         var role = (admin.permissionId === 1) ? "管理員" : "老師";
         var newSubMenu;
         var newBar;
@@ -278,7 +280,7 @@ ulElement.innerHTML = '';
   function getTeaPhoto(){
     $.ajax({
       type: 'GET',
-      url: '/teachers/'+admin.adminId,
+      url: '/teachers/pro/'+admin.adminId,
       contentType: 'application/json',
       success: function(data) {
         teacherDateAjex = data;
