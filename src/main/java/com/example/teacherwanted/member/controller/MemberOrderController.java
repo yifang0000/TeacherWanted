@@ -72,16 +72,16 @@ public class MemberOrderController {
     //     後台活動訂單全部
     @PostMapping ("/backActiveOrder")
     public ResponseEntity<?> selectAllBackActiveOrder(
-            @RequestBody (required = false) MemberActive memberRequest, @SessionAttribute(value = "AdminId", required = false) Integer adminId){
+            @RequestBody (required = false) MemberActive memberRequest, @SessionAttribute(value = "MemberId", required = false) Integer memId){
         // 根據memId查询相應的memberActiveOrder資料
         List<ActiveOrderDetail> selectAllBackActiveOrder = activeOrderDetailDao.selectAll();
 
         if (selectAllBackActiveOrder != null) {
             System.out.println(selectAllBackActiveOrder);
-            System.out.println("後台有東西");
+            System.out.println("有東西");
             return ResponseEntity.ok(selectAllBackActiveOrder);
         } else {
-            System.out.println("後台沒有東西");
+            System.out.println("沒有東西");
             return ResponseEntity.notFound().build();
         }
     }
@@ -90,7 +90,7 @@ public class MemberOrderController {
 
 
     //      活動訂單刪除
-    @DeleteMapping("/backActiveOrder")
+    @DeleteMapping("/backActiveOrderDelete")
     public String deleteActiveOrder (@RequestBody (required = false) MemberActive memberRequest,
                                      @SessionAttribute(value = "AdminId", required = false) Integer adminId) {
         return memberService.deleteById(adminId);
