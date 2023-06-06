@@ -98,6 +98,7 @@ section.activeChatRoomBlock {
 #chatroomAnn {
   resize: none;
   border: none;
+  width: 100%;
 }
 #chatroomAnn:focus {
   resize: none;
