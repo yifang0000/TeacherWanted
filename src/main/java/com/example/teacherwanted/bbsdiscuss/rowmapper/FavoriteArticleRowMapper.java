@@ -15,9 +15,10 @@ public class FavoriteArticleRowMapper implements RowMapper<FavoriteArticle> {
         favoriteArticle.setMemId(rs.getInt("mem_id"));
         favoriteArticle.setCreateTime(rs.getTimestamp("create_time"));
         favoriteArticle.setFavStatus(rs.getInt("fav_status"));
-//我的收藏
+//我的收藏(heart.html)
         favoriteArticle.setPostTitle(rs.getString("post_title"));
         favoriteArticle.setPostContent(rs.getString("post_content"));
+
 
 
         return favoriteArticle;

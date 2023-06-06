@@ -19,12 +19,6 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    @GetMapping("/Courses")
-    public String getPage(Model model) {
-        model.addAttribute("title", "My Page");
-        return "CourseVue"; // 課程首頁
-    }
-
     @GetMapping("/courses")
     public ResponseEntity<List<CourseVo>> getCourses(
             @RequestParam(defaultValue = "1") int page,
@@ -94,7 +88,7 @@ public class CourseController {
 
     @PutMapping("/coursestatus/{courseId}")
     public ResponseEntity<CourseVo> updateCourseStatus(@PathVariable Integer courseId,
-                                                 @RequestBody @Valid CourseVo courseRequest){
+                                                       @RequestBody @Valid CourseVo courseRequest){
         CourseVo courseVo = courseService.getCourseById(courseId);
         if(courseVo == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -106,7 +100,7 @@ public class CourseController {
     }
     @PutMapping("/courses/{courseId}")
     public ResponseEntity<CourseVo> updateCourse(@PathVariable Integer courseId,
-                                                       @RequestBody @Valid CourseVo courseRequest){
+                                                 @RequestBody @Valid CourseVo courseRequest){
         CourseVo courseVo = courseService.getCourseById(courseId);
         if(courseVo == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

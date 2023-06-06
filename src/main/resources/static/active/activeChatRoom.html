@@ -36,6 +36,10 @@
     <script src="../vue/vue-3.3.4.js"></script>
 
     <script src="../jquery/jquery-3.6.4.min.js"></script>
+
+    <!-- 要登入驗證請解開這個 -->
+    <!-- <script src="../js/loginCheck.js"></script> -->
+
     <script src="../js/base.js"></script>
     <script src="../js/active/activeChatRoom.js"></script>
 
@@ -46,12 +50,12 @@
     <header class="TeacherWanted">
       <div id="mySidebar">
         <img src="../img/base/logo.png" alt="" />
-        <a href="#" class="">首頁</a>
-        <a href="#" class="">課程</a>
-        <a href="#" class="">活動</a>
-        <a href="#" class="">許願池</a>
-        <a href="#" class="">論壇</a>
-        <a href="#" class="">商城</a>
+        <a href="/index" class="">首頁</a>
+        <a href="/courseteacher/CourseVue.html" class="">課程</a>
+        <a href="/active/activeIndex.html" class="">活動</a>
+        <a href="/wish" class="">許願池</a>
+        <a href="/bbsdiscuss/index.html" class="">論壇</a>
+        <a href="/baseVer3/homepage.html" class="">商城</a>
       </div>
       <div class="navBar">
         <ul class="containerHearder flexWrap flexVerticalCenter">
@@ -92,31 +96,42 @@
               class="flexWrap flexAllCenter pcHave"
               style="flex-grow: 1"
             >
-              <a class="flexAllCenter" href="">首頁</a>
-              <a class="flexAllCenter" href="">課程</a>
-              <a class="flexAllCenter" href="">活動</a>
-              <a class="flexAllCenter" href="">許願池</a>
-              <a class="flexAllCenter" href="">論壇</a>
-              <a class="flexAllCenter" href="">商城</a>
+              <a class="flexAllCenter" href="/index">首頁</a>
+              <a class="flexAllCenter" href="/courseteacher/CourseVue.html"
+                >課程</a
+              >
+              <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
+              <a class="flexAllCenter" href="/wish">許願池</a>
+              <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+              <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
             </div>
             <div
               class="flexWrap flexAllCenter"
               style="position: relative; top: 2px"
             >
               <div class="miniMobile">
-                <form id="navSearch" action="">
-                  <select>
-                    <option>課程</option>
-                    <option>活動</option>
-                    <option>商城</option>
-                    <option>許願</option>
+                <div id="navSearch" action="">
+                  <select id="serchType">
+                    <option value="課程">課程</option>
+                    <option value="活動">活動</option>
+                    <!-- <option value="商城">商城</option>
+                    <option value="許願">許願</option> -->
                   </select>
-                  <input type="text" />
-                  <img src="../img/base/search.svg" alt="" />
-                </form>
+                  <input id="searchText" type="text" />
+                  <img id="searchIcon" src="../img/base/search.svg" alt="" />
+                </div>
               </div>
+
               <img
-                src="../img//base/mailForNavbar.svg"
+                src="../img/base/bell.svg"
+                id="navAnn"
+                class="miniMobile"
+                style="height: 30px; margin: 3px 5px; cursor: pointer"
+                alt=""
+              />
+              <img
+                src="../img/base/mailForNavbar.svg"
+                id="navMail"
                 class="miniMobile"
                 style="
                   height: 30px;
@@ -129,20 +144,16 @@
               />
               <img
                 src="../img/base/shoppingCart.svg"
-                class="miniMobile"
-                style="height: 30px; margin: 3px 5px; cursor: pointer"
-                alt=""
-              />
-              <img
-                src="../img/base/bell.svg"
+                id="navShoppingcart"
                 class="miniMobile"
                 style="height: 30px; margin: 3px 5px; cursor: pointer"
                 alt=""
               />
 
-              <a class="btnCss flexAllCenter" style="color: white" href=""
-                >登入</a
-              >
+              <!--登入按鈕 開始 -->
+
+              <div id="loginOrUser"></div>
+              <!-- 登入按鈕 結束 -->
             </div>
           </li>
         </ul>
@@ -154,21 +165,84 @@
       如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
       <div id="app" class="flexWrap">
         <section class="activeChatRoomIntroduceBlock">
-          <div class="activeChatRoomIntroduceBtnBlock">
-            <a href="">回首頁</a>
-            <a href="">回活動列表</a>
-            <a href=""></a>
+          <div
+            class="activeChatRoomIntroduceBtnBlock flexWrap flexHorizontalCenter"
+          >
+            <a :href="'/index'" class="flexAllCenter">首頁</a>
+            <a :href="'/active/activeIndex.html'" class="flexAllCenter"
+              >活動列表</a
+            >
+            <a
+              :href="'/active/active.html?activityId='+activityId"
+              class="flexAllCenter"
+              >回原活動</a
+            >
           </div>
           <div class="activeChatOneImgBlock">
-            <img src="../img/active/active.png" />
+            <img :src="imgSrc" />
+          </div>
+          <div v-if="chatroomAnnEditing">
+            <h3 class="chatroomAnnText flexHorizontalCenter">公告</h3>
+            <textarea
+              name=""
+              id="chatroomAnn"
+              cols="30"
+              rows="5"
+              v-model="chatroomAnn"
+            ></textarea>
+            <div id="chatroomAnnBtnBlock">
+              <a id="chatroomAnnEditSubmit" @click="annSubmit">確認</a>
+              <a id="chatroomAnnEditBtnNone" @click="annNone">取消</a>
+            </div>
+          </div>
+          <div v-else>
+            <h3 class="chatroomAnnText flexHorizontalCenter">公告</h3>
+            <textarea
+              name=""
+              id="chatroomAnn"
+              cols="30"
+              rows="5"
+              v-model="chatroomAnn"
+              disabled
+            ></textarea>
+            <div id="chatroomAnnBtnBlock" v-if="isTeacher">
+              <a id="chatroomAnnEditBtn" @click="beginEdit">修改</a>
+            </div>
+            <div id="chatroomAnnBtnBlock" v-else></div>
           </div>
         </section>
         <section class="activeChatRoomBlock">
           <div id="chatMessageBlock" class="chatMessage">
             <p>歡迎來到{{activityName}}的聊天室</p>
           </div>
-          <div class="chatMessageInput flexWrap flexAllCenter">
+          <div class="chatMessageInput flexWrap flexAllCenter" v-if="isTeacher">
+            文字背景顏色<input
+              id="messageBackgroundColor"
+              v-model="messageBackgroundColor"
+              type="color"
+            />
+            文字顏色<input
+              id="messageColor"
+              v-model="messageColor"
+              type="color"
+            />
+
             <input
+              id="intputVal"
+              v-model="intputVal"
+              @keyup.enter="sendMessage"
+              type="text"
+            /><a @click="sendMessage">發送</a>
+          </div>
+          <div class="chatMessageInput flexWrap flexAllCenter" v-else>
+            文字顏色<input
+              id="messageColor"
+              v-model="messageColor"
+              type="color"
+            />
+
+            <input
+              id="intputVal"
               v-model="intputVal"
               @keyup.enter="sendMessage"
               type="text"
@@ -195,9 +269,9 @@
               class="flexAllCenter"
               style="margin: 10px 30px; font-weight: normal"
             >
-              Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
-              dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
-              elitr stet diam duo eos rebum ipsum diam ipsum elitr.
+              現代⼈⽣活步相當緊湊我們的課平台幫助
+              ⼈們學並且除了線上課提供了實家的合會⼤了學的⾯向
+              課元可提⾼學⽣的學興積性 並促學⽣的⾯發展
             </li>
             <li
               id="imgIcon"
@@ -230,7 +304,7 @@
                   />
                   <div>
                     <h3 style="font-size: 1.3rem">地址</h3>
-                    <h5 style="font-size: 1rem">123</h5>
+                    <h5 style="font-size: 1rem">台北市中山區南京東路三段</h5>
                   </div>
                 </li>
 
@@ -270,22 +344,26 @@
               </li>
               <div class="webMap">
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>首頁</a>
+                  <a class="webMapLink" href="/index">>首頁</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>課程</a>
+                  <a class="webMapLink" href="/courseteacher/CourseVue.html"
+                    >>課程</a
+                  >
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>活動</a>
+                  <a class="webMapLink" href="/active/activeIndex.html"
+                    >>活動</a
+                  >
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>許願池</a>
+                  <a class="webMapLink" href="/wish">>許願池</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>論壇</a>
+                  <a class="webMapLink" href="/bbsdiscuss/index.html">>論壇</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="">>商城</a>
+                  <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
                 </li>
               </div>
             </div>

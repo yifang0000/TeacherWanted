@@ -94,19 +94,19 @@
               style="position: relative; top: 2px"
             >
               <div class="miniMobile">
-                <div id="navSearch" action="">
-                  <select id="serchType">
-                    <option value="課程">課程</option>
-                    <option value="活動">活動</option>
-                    <option value="商城">商城</option>
-                    <option value="許願">許願</option>
+                <form id="navSearch" action="">
+                  <select>
+                    <option>課程</option>
+                    <option>活動</option>
+                    <option>商城</option>
+                    <option>許願</option>
                   </select>
-                  <input id="searchText" type="text" />
-                  <img id="searchIcon" src="../img/base/search.svg" alt="" />
-                </div>
+                  <input type="text" />
+                  <img src="../img/base/search.svg" alt="" />
+                </form>
               </div>
               <img
-                src="../img//base/mailForNavbar.svg"
+                src="../img/base/mailForNavbar.svg"
                 class="miniMobile"
                 style="
                   height: 30px;
@@ -130,9 +130,10 @@
                 alt=""
               />
 
-              <a class="btnCss flexAllCenter" style="color: white" href=""
-                >登入</a
-              >
+
+              <li class="btnCss flexAllCenter" style="color: white" >
+                <a href="/login" class="nav-link">登入</a>
+              </li>
             </div>
           </li>
         </ul>
@@ -140,10 +141,20 @@
     </header>
 
     <main class="TeacherWanted">
-      <!-- ！！！寫在這裡！！！
-      如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
-    </main>
+     <br>
+    <br>
+    <h1 style="color:green;text-align: center;">註冊成功</h1>
+    <br>
+    <br>
 
+      <h2 style="color:#a4c964;text-align: center;">請按右上角登入</h2>
+    </main>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	
     <footer
       class="TeacherWanted"
       style="background-color: #3c6a36; color: white"
@@ -172,11 +183,7 @@
             >
               <img src="../img/base/facebook.svg" class="imgIntroduce" alt="" />
               <img src="../img/base/twitter.svg" class="imgIntroduce" alt="" />
-              <img
-                src="../img/base/instagram.svg"
-                class="imgIntroduce"
-                alt=""
-              />
+              <img src="../img/base/instagram.svg" class="imgIntroduce" alt="" />
             </li>
           </ul>
           <ul class="col_33 flexHorizontalCenter footerMobile">

@@ -1,6 +1,6 @@
-var test=sessionStorage.getItem('adminStorage');
+var test=json.parse(sessionStorage.getItem('adminStorage'));
 console.log(test)
-
+console.log(test.teaId)
 // 確保整個文檔完全加載後再執行代碼
 $(document).ready(function() {
   $("#collapse").on("click",function(){

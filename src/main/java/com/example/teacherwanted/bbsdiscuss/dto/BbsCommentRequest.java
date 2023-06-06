@@ -3,10 +3,14 @@ package com.example.teacherwanted.bbsdiscuss.dto;
 import jakarta.validation.constraints.NotBlank;
 
 public class BbsCommentRequest {
+
+    @NotBlank
+    private String commentContent;
+
     private Integer bbsPostId;
     private Integer memId;
-    @NotBlank
-    private Integer commentContent;
+
+    private Integer commentStatus;
 
 
     public Integer getBbsPostId() {
@@ -25,11 +29,29 @@ public class BbsCommentRequest {
         this.memId = memId;
     }
 
-    public Integer getCommentContent() {
+    public String getCommentContent() {
         return commentContent;
     }
 
-    public void setCommentContent(Integer commentContent) {
+    public void setCommentContent(String commentContent) {
         this.commentContent = commentContent;
+    }
+
+    public Integer getCommentStatus() {
+        return commentStatus;
+    }
+
+    public void setCommentStatus(Integer commentStatus) {
+        this.commentStatus = commentStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "BbsCommentRequest{" +
+                "commentContent='" + commentContent + '\'' +
+                ", bbsPostId=" + bbsPostId +
+                ", memId=" + memId +
+                ", commentStatus=" + commentStatus +
+                '}';
     }
 }

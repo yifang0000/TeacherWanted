@@ -8,6 +8,7 @@ const activityId = urlParams.get("activityId");
 const app = Vue.createApp({
   data() {
     return {
+      teaId: "",
       activityId: "",
       activityDetail: "",
       imgSrc: "",
@@ -36,6 +37,7 @@ const app = Vue.createApp({
         this.activityEndTime = convertToFormattedDate(data.activityEndTime);
         this.activityDueTime = convertToFormattedDate(data.activityDueTime);
         this.activityPrice = data.activityPrice;
+        this.teaId = data.teaId;
         let lng = data.activityLng;
         let lat = data.activityLat;
         leafletMap(lat, lng);
@@ -132,6 +134,7 @@ const app = Vue.createApp({
         })
         .catch((err) => {
           console.error(err.response.data);
+          alert(err.response.data);
         });
     },
     // 收藏功能 確認收藏過以及收藏 Vue方法裡 結束
@@ -144,8 +147,11 @@ const app = Vue.createApp({
         })
         .then((res) => {
           console.log(res.data);
-          alert("已取消收藏");
-          this.favoriteStatic = false;
+          alert(res.data);
+          if (res.data == "已取消收藏") {
+            this.favoriteStatic = false;
+          }
+
           // window.location.reload();
         })
         .catch((err) => {
@@ -248,8 +254,8 @@ function activityGetFavorite(activityId) {
   return axios
     .get("/activityFavorite", { params: { activityId: activityId } })
     .then((res) => {
-      // console.log(res.data);
-      if (res.data == "以收藏過") {
+      console.log("第一次收藏判斷" + res.data);
+      if (res.data == "已收藏過") {
         return true;
       } else if (res.data == "未收藏") {
         return false;

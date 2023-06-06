@@ -271,9 +271,10 @@ $(document).ready(function () {
     } else if (!$("#preview").children("img").attr("src")) {
       alert("請輸入活動圖片");
     } else {
+      // var teacherInfo = JSON.parse(sessionStorage.getItem("adminStorage"));
       const data = JSON.stringify({
         activityName: $("#activityName").val(),
-        // teaId: 8,
+        // teaId: teacherInfo.teaId,
         activityType: $("#activityType").val(),
         currentNumber: 0,
         maxNumber: $("#maxNumber").val(),
@@ -286,6 +287,7 @@ $(document).ready(function () {
         activityEndTime: $("#activeStopTime").val(),
         activityDueTime: $("#stopTime").val(),
         activityStatus: 0,
+        remarks: "OK",
         activityPhotoType: extractBase64String(
           $("#preview").children("img").attr("src")
         ).mimeType,
