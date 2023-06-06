@@ -20,6 +20,7 @@ public class FavoriteArticleRowMapper implements RowMapper<FavoriteArticle> {
         favoriteArticle.setPostContent(rs.getString("post_content"));
 
 
+
         return favoriteArticle;
     }
 }

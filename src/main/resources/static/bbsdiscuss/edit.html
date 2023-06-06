@@ -209,7 +209,7 @@
         beforeSend: function () { },
         success: function (data) {
           // request 成功取得回應後執行
-          console.log(data);
+          // console.log(data);
           let goodurl = "data:image/" +
             "null" +
             ";base64," +
@@ -356,8 +356,8 @@
 
     //===============================返回首頁==========================
     $("div.bbs_body").on("click", "#btn_give_up_edit", function () {
-      console.log("有綁掉嗎 要跳回首頁")
-      window.location.href = "index.html";
+      // console.log("有綁掉嗎 要跳回首頁")
+      window.location.href = "/bbsdiscuss/index.html?posttype=all";
     })
 
 
@@ -376,17 +376,16 @@
 
       if (discuss_dr_value == "" || post_dr_value == "" || post_title_value == "" || post_content_value == "") {
         // event.preventDefault(); // 阻止表單的預設提交行為
-        console.log('無')
-
+        alert('內容有空值 不送出')
         return
       }
-      console.log("第二個bbs_test_out 有嗎???????")
+      // console.log("第二個bbs_test_out 有嗎???????")
 
 
 
-      console.log(`討論區:${discuss_dr_value} , 文章分類:${post_dr_value}`)
-      console.log(post_title_value)
-      console.log(post_content_value)
+      // console.log(`討論區:${discuss_dr_value} , 文章分類:${post_dr_value}`)
+      // console.log(post_title_value)
+      // console.log(post_content_value)
 
       let json_data = {
         "bbsCategoryName": discuss_dr_value,
@@ -395,16 +394,13 @@
         "postContent": post_content_value
       }
 
-      console.log(json_data)
+      // console.log(json_data)
 
       let postValue = await my_ajax("/bbsdiscussGet/post", "POST", json_data)
 
-      alert("OK go")
-
       //  let postValue  = await  my_ajax("/bbsdiscussGet/post" ,"POST" , json_data )
 
-      alert('aaa')
-      window.location.href = "/bbsdiscuss/index.html";
+      window.location.href = "/bbsdiscuss/index.html?posttype=all";
 
     }
 

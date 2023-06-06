@@ -263,7 +263,7 @@ public class BbsPostDaoImpl implements BbsPostDao {
         Map<String, Object> map = new HashMap<>();
         map.put("memId", bbsPostRequest.getMemId());
         map.put("bbsCategoryName", bbsPostRequest.getBbsCategoryName());
-        map.put("bbsTagName", bbsPostRequest.getBbsCategoryName());
+        map.put("bbsTagName", bbsPostRequest.getBbsTagName());
         map.put("postTitle", bbsPostRequest.getPostTitle());
         map.put("postContent", bbsPostRequest.getPostContent());
 
@@ -670,8 +670,21 @@ public class BbsPostDaoImpl implements BbsPostDao {
 
         namedParameterJdbcTemplate.update(sql,map);
     }
+    //修改收藏狀態為 0 (隱藏)
+    @Override
+    public void updateBbsFavPageStatus(FavCancelRequest favCancelRequest, Integer memId) {
+        String sql = "UPDATE FAVORITE_ARTICLE SET fav_status = 0 " +
+                " WHERE bbs_post_id = :postId AND mem_id = :memId ";
 
-//    //修改收藏狀態為 0 (隱藏)  , 原本預設 1 (有收藏)
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("postId",favCancelRequest.getBbsPostId());
+
+        map.put("memId",memId);
+
+        namedParameterJdbcTemplate.update(sql,map);
+    }
+    //    //修改收藏狀態為 0 (隱藏)  , 原本預設 1 (有收藏)
 //    @Override
 //    public void updateFavStatus(Integer favoriteArticleId, BbsFavStatus bbsFavStatus) {
 //        String sql = "UPDATE FAVORITE_ARTICLE SET fav_status = 0 " +

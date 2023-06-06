@@ -23,7 +23,7 @@ public class FavoriteArticleDaoImpl implements FavoriteArticleDao {
                 "      bp.post_title, bp.post_content " +
                 "FROM FAVORITE_ARTICLE fa " +
                 "         JOIN BBS_POST bp ON fa.bbs_post_id = bp.bbs_post_id " +
-                "WHERE bp.mem_id = :memId;";
+                "WHERE bp.mem_id = :memId AND fa.fav_status = 1 ;";
         Map<String, Object> map = new HashMap<>();
         map.put("memId", memId);
 

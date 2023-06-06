@@ -70,6 +70,9 @@ public interface BbsPostService {
 
     //修改留言狀態為 0 (隱藏)  , 原本預設 1 (發布)
     void updateBbsCommStatus (Integer commId, BbsCommUpdateStatus bbsCommUpdateStatus);
+    //修改收藏狀態為 0 (隱藏)
+    void updateBbsFavPageStatus (FavCancelRequest favCancelRequest, Integer memId);
+
 
 
 

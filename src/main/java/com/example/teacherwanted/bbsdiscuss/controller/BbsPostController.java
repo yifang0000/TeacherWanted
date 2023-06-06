@@ -431,6 +431,21 @@ public class BbsPostController {
         bbsPostService.updateBbsCommStatus(bbsCommUpdateStatus.getBbsCommentId(), bbsCommUpdateStatus);
         return ResponseEntity.status(HttpStatus.OK).body("留言刪除成功");
     }
-
+    //修改收藏狀態為 0 (隱藏)
+    @PutMapping("/bbsdiscussGet/bbsfavpagestatus")
+    public ResponseEntity<?> updateBbsFavPageStatus(@RequestBody @Valid FavCancelRequest favCancelRequest,
+                                                 @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+        if (memId == null) {
+            // 如果未獲取到會員ID，返回相應錯誤
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        System.out.println(memId);
+        System.out.println(favCancelRequest.getBbsPostId());
+        System.out.println("上面是文章postId");
+        //修改收藏狀態為 0 (隱藏)
+        //更新收藏 postid 及 memid 都符合者
+        bbsPostService.updateBbsFavPageStatus( favCancelRequest , memId);
+        return ResponseEntity.status(HttpStatus.OK).body("取消收藏成功");
+    }
 
 }
