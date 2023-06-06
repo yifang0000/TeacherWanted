@@ -39,8 +39,8 @@ public class CourseOrderController {
         }
     }
     @GetMapping("/course_orders/{memId}")
-    public ResponseEntity<List<CourseOrderVo>> getCourseOrdesByMemId(@PathVariable("memId") Integer memId) {
-        List<CourseOrderVo> courseOrders = courseOrderService.getCourseOrdesByMemId(memId);
+    public ResponseEntity<List<CourseOrderVo>> getCourseOrdersByMemId(@PathVariable("memId") Integer memId) {
+        List<CourseOrderVo> courseOrders = courseOrderService.getCourseOrdersByMemId(memId);
         return new ResponseEntity<>(courseOrders, HttpStatus.OK);
     }
 
@@ -61,6 +61,12 @@ public class CourseOrderController {
     public ResponseEntity<Void> deleteCourseOrder(@PathVariable Integer id) {
         courseOrderService.deleteCourseOrder(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/orderdetails/{memId}")
+    public ResponseEntity<List<CourseOrderDetailVo>> getOrderDetailsByMemId(@PathVariable("memId") Integer memId) {
+        List<CourseOrderDetailVo> courseOrders = courseOrderService.getOrderDetailsByMemId(memId);
+        return new ResponseEntity<>(courseOrders, HttpStatus.OK);
     }
 
     @GetMapping("/feedback/{courseId}")

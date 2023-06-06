@@ -26,8 +26,8 @@ public class CourseOrderServiceImpl implements CourseOrderService {
     }
 
     @Override
-    public List<CourseOrderVo> getCourseOrdesByMemId(Integer memId) {
-        return courseOrderDao.getCourseOrdesByMemId(memId);
+    public List<CourseOrderVo> getCourseOrdersByMemId(Integer memId) {
+        return courseOrderDao.getCourseOrdersByMemId(memId);
     }
 
     @Override
@@ -43,6 +43,11 @@ public class CourseOrderServiceImpl implements CourseOrderService {
     @Override
     public void deleteCourseOrder(Integer id) {
         courseOrderDao.deleteCourseOrder(id);
+    }
+
+    @Override
+    public List<CourseOrderDetailVo> getOrderDetailsByMemId(Integer memId) {
+        return courseOrderDao.getOrderDetailsByMemId(memId);
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.List;
 public interface CourseOrderDao {
     List<CourseOrderVo> findAll();
     CourseOrderVo getCourseOrderById(Integer id);
-    List<CourseOrderVo> getCourseOrdesByMemId(Integer memId);
+    List<CourseOrderVo> getCourseOrdersByMemId(Integer memId);
 
     void createCourseOrder(CourseOrderVo courseOrder);
 
@@ -16,6 +16,7 @@ public interface CourseOrderDao {
 
     void deleteCourseOrder(Integer id);
 
+    List<CourseOrderDetailVo> getOrderDetailsByMemId(Integer memId);
     List<CourseOrderDetailVo> getFeedbackByCourseId(Integer courseId);
     CourseOrderDetailVo getOrderDetailById(Integer id);
     void createFeedback(CourseOrderDetailVo courseOrderDetail);

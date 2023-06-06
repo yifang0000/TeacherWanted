@@ -28,7 +28,7 @@ public class CourseOrderDaoImpl implements CourseOrderDao {
     }
 
     @Override
-    public List<CourseOrderVo> getCourseOrdesByMemId(Integer memId) {
+    public List<CourseOrderVo> getCourseOrdersByMemId(Integer memId) {
         String hql = "FROM CourseOrderVo cr WHERE cr.memId = :memId";
         TypedQuery<CourseOrderVo> query = entityManager.createQuery(hql, CourseOrderVo.class);
         query.setParameter("memId", memId);
@@ -37,17 +37,25 @@ public class CourseOrderDaoImpl implements CourseOrderDao {
 
     @Override
     public void createCourseOrder(CourseOrderVo courseOrder) {
-
+        entityManager.persist(courseOrder);
     }
 
     @Override
     public void updateCourseOrder(CourseOrderVo courseOrder) {
-
+        entityManager.merge(courseOrder);
     }
 
     @Override
     public void deleteCourseOrder(Integer id) {
+        entityManager.remove(getOrderDetailById(id));
+    }
 
+    @Override
+    public List<CourseOrderDetailVo> getOrderDetailsByMemId(Integer memId) {
+        String hql = "FROM CourseOrderDetailVo cr WHERE cr.memId = :memId";
+        TypedQuery<CourseOrderDetailVo> query = entityManager.createQuery(hql, CourseOrderDetailVo.class);
+        query.setParameter("memId", memId);
+        return query.getResultList();
     }
 
     @Override

@@ -181,7 +181,7 @@
     <!--主體文字1  -->
     <!-- ====================主要區========================== -->
     <div class="containerActive">
-      <section style="border: solid 2px red">
+      <section >
         <section id="section1">
           <div class="pb-1 bg-body-tertiary rounded-3">
             <div class="container-fluid">
@@ -195,18 +195,17 @@
             <tr>
               <td></td>
               <td></td>
-              <td>課程名稱</td>
-              <td>金額</td>
+              <td></td>
+              <td></td>
               <td></td>
               <td></td>
             </tr>
             </thead>
-            <tbody id="activeTbody">
+            <tbody>
             <tr>
-              <td class="activityId">{{course.courseId}}</td>
-              <td><img :src="'data:image/png;base64,' + course.coursePhoto1"></td>
-              <td class="activityName">{{course.courseName}}</td>
-              <td class="currentNumber">{{course.coursePrice}}</td>
+              <td><img :src="'data:image/png;base64,' + course.coursePhoto1" style="height: 100px"></td>
+              <td>{{course.courseName}}</td>
+              <td>NT${{course.coursePrice}}</td>
               <td>
 <!--                <select-->
 <!--                        v-model="course.courseStatus"-->
@@ -236,31 +235,42 @@
             </tbody>
           </table>
           <section class="activeSearch flexWrap">
-            <div class="col_50">
-              <p>搜尋類型</p>
-              <select
-                      name=""
-                      id="courseCategoryId"
-
-              >
-                <option value="1">語言</option>
-                <option value="2">生活</option>
-                <option value="3">程式語言</option>
-                <option value="4">電競</option>
-              </select>
+            <div class="col_30" style="margin-left: 50px">
             </div>
-            <div class="col_50">
-              <p>輸入欄位</p>
+            <div class="col_30"  style="margin-left: 10px">
+              <p>使用優惠券</p>
+              <input
+                      type="text"
+                      style="border: solid 1px black; font-size: 15px"
+                      placeholder="請輸入折扣碼"
+                      v-model="couponCode"
+                      @change="checkCoupon(couponCode)"
+              />
+              <h6 style="color: #0ea75a;font-size: 10px" v-if="isValid === true">折扣碼有效</h6>
+              <h6 style="color: crimson;font-size: 10px" v-if="isValid === false">折扣碼無效</h6>
+            </div>
+            <div class="col_30" style="margin-left: 10px">
+              <p>折扣金額</p>
               <input
                       type="text"
                       id="searchKey"
-
-              />
+                      style="border: solid 1px black; font-size: 15px"
+                      v-model="discount"
+              disabled/>
             </div>
-            <div class="searchRemake">
-              <a class="searchBtn" >搜尋</a>
-              <a class="searchBtn" >清空</a>
-              <a class="searchBtn" >重整</a>
+            <div class="col_30">
+              <input
+                      type="text"
+                      style="background-color: white"
+                      disabled/>
+            </div>
+            <div class="col_30">
+              <p>結帳金額</p>
+              <p>NT${{coursePrice}}</p>
+            </div>
+            <div class="col_30" style="margin-left: 50px">
+              <br/>
+              <button type="button" class="btn btn-success" style="height: 60%;width: 120%" @click="createOrder">來去結帳</button>
             </div>
           </section>
         </div>
@@ -272,27 +282,87 @@
   const bus = new Vue();
   const urlParams = new URLSearchParams(window.location.search);
   const courseId = urlParams.get("courseId");
+  var memId = 1;
   new Vue({
     el: "#main",
     data() {
       return {
         course: null,
+        coupons:[],
         courseId: "",
+        coursePrice:"",
+        couponCode:"",
+        discount: "",
+        isValid: null,
       };
     },
     computed: {
 
     },
     methods: {
+      checkCoupon(couponCode){
+        const coupon = this.coupons.find((coupon) => coupon.couponCode === couponCode);
+        this.coursePrice = this.course.coursePrice
 
+        if (coupon) {
+          // couponCode 存在于返回的 coupons 中
+          console.log("Coupon code is valid.");
+          this.discount = coupon.discount;
+          this.isValid = true;
+        } else {
+          // couponCode 不存在于返回的 coupons 中
+          console.log("Coupon code is not valid.");
+          this.discount = "";
+          this.coursePrice = this.course.coursePrice
+          this.isValid = false;
+        }
+        this.coursePrice = this.coursePrice - this.discount;
+      },
+      createOrder(){
+        let code;
+        if(this.isValid === true){
+          code = this.couponCode;
+        }
+        if(this.isValid === false){
+          code = "";
+        }
+        if(confirm("確認要購買嗎?")) {
+          const data = {
+            memId: memId,
+            originalPrice: this.course.coursePrice,
+            couponCode: code,
+            discount: this.discount,
+            discountPrice: this.coursePrice,
+            orderStatus: 0,
+          }
+          console.log(data);
+          axios
+                  .post("http://localhost:8080/course_order", data)
+                  .then((orderResponse) => {
+                    console.log(orderResponse.data);
+                    alert("金額" + this.coursePrice + "結帳成功，感謝您的購買!")
+                    const targetUrl = `./CourseVideo.html?courseId=${courseId}`;
+                    window.location.href = targetUrl;
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+        }
+      },
     },
     mounted() {
       axios
               .get("http://localhost:8080/course/" + courseId)
               .then((coursesResponse) => {
                 this.course = coursesResponse.data;
-                console.log(coursesResponse.data);
+                console.log(this.course);
+                this.coursePrice = this.course.coursePrice;
+                return  axios.get("http://localhost:8080/coupons")
 
+              })
+              .then((couponsResponse) => {
+                this.coupons = couponsResponse.data;
+                console.log(this.coupons);
               })
               .catch((error) => {
                 console.error(error);

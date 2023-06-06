@@ -252,7 +252,7 @@
                                     class="forHorizontalCenterFlex intdroucePadding"
                                     style="padding-bottom: 10px"
                             >
-                                <button class="btn">立即參加</button>
+                                <button class="btn" @click="butCourse">立即參加</button>
                             </li>
                             <div class="course_info">
                                 <ul class="forHorizontalCenterFlex">
@@ -843,6 +843,7 @@
                 feedbackmembers: [],
                 feedbacks: [],
                 orderDetailId: null,
+                orderList:[],
                 requests: [],
                 feedbackStatus: [],
                 feedbackPopup: false, // 初始化時設為 false，控制彈出框的顯示狀態
@@ -891,6 +892,24 @@
             },
         },
         methods: {
+            butCourse(){
+                const memId = this.memId;
+                axios.get("http://localhost:8080/orderdetails/" + memId)
+                    .then((response) => {
+                        const orderList = response.data;
+                        const foundCourse = orderList.find((course) => course.courseId === this.courseId);
+
+                        if (foundCourse) {
+                            alert("您已購買過此課程囉!")
+                        } else {
+                            const targetUrl = `./CourseCheck.html?courseId=${courseId}`;
+                            window.location.href = targetUrl;
+                        }
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            },
             //切換圖片
             changeValue() {
                 this.photoValue++;
