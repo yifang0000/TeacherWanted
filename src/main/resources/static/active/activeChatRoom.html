@@ -166,12 +166,22 @@
       <div id="app" class="flexWrap">
         <section class="activeChatRoomIntroduceBlock">
           <div
+            v-if="isTeacher"
             class="activeChatRoomIntroduceBtnBlock flexWrap flexHorizontalCenter"
           >
-            <a :href="'/index'" class="flexAllCenter">首頁</a>
-            <a :href="'/active/activeIndex.html'" class="flexAllCenter"
-              >活動列表</a
+            <a
+              :href="'/active/active.html?activityId='+activityId"
+              class="flexAllCenter"
+              >回原活動</a
             >
+            <a :href="'/active/activeBack.html'" class="flexAllCenter"
+              >回後台</a
+            >
+          </div>
+          <div
+            v-else
+            class="activeChatRoomIntroduceBtnBlock flexWrap flexHorizontalCenter"
+          >
             <a
               :href="'/active/active.html?activityId='+activityId"
               class="flexAllCenter"

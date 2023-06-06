@@ -21,6 +21,8 @@ const app = Vue.createApp({
       activeRecommendList: [],
       activeRecentlyList: [],
       favoriteStatic: false,
+      activityPhotoType: "",
+      activityPhoto: "",
     };
   },
   mounted() {
@@ -40,6 +42,8 @@ const app = Vue.createApp({
         this.teaId = data.teaId;
         let lng = data.activityLng;
         let lat = data.activityLat;
+        this.activityPhotoType = data.activityPhotoType;
+        this.activityPhoto = data.activityPhoto;
         leafletMap(lat, lng);
 
         this.imgSrc =
@@ -123,7 +127,12 @@ const app = Vue.createApp({
     // 活動訂單 確認是否有參加活動過 Vue方法裡 結束
     // 收藏功能 確認收藏過以及收藏 Vue方法裡 開始
     activityFavoriteAdd() {
-      let data = { activityId: activityId };
+      let data = {
+        activityId: activityId,
+        activityName: this.activityName,
+        activityPhoto: this.activityPhoto,
+        activityPhotoType: this.activityPhotoType,
+      };
       axios
         .post("/activityFavoriteAdd", data)
         .then((res) => {

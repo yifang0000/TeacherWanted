@@ -50,9 +50,9 @@ public class ActiveController {
     @Autowired
     private MemberServiceActive memberService;
 
-//    聊天室公告 修改
+    //    聊天室公告 修改
     @PutMapping("/chatAnnEdit")
-    public String chatAnnEdit (@RequestBody Active active){
+    public String chatAnnEdit(@RequestBody Active active) {
         Active activeEdit = activeService.selectBackById(active.getActivityId());
         activeEdit.setActiveChatroomAnnouncement(active.getActiveChatroomAnnouncement());
 //        System.out.println(activeEdit);
@@ -77,6 +77,10 @@ public class ActiveController {
                 chatVerify.setVerifyMessage("主辦方");
                 return chatVerify;
 //                不是開課教師就回去看有沒有使用者登入
+            } else if (administrator.getPermissionId() == 1) {
+                chatVerify.setChatUserName(administrator.getAdminName());
+                chatVerify.setVerifyMessage("系統管理員");
+                return chatVerify;
             } else if (user != null) {
 //            有的話就查詢有沒有訂單
                 if (!activeOrderDetailService.queryActiveOrderHistory(activityId, user.getMemId())) {
@@ -269,7 +273,7 @@ public class ActiveController {
     //    創建活動 圖片方法base64
     @PostMapping("/activeBackAdd")
     public String insertActiveBack(@RequestBody Active active,
-                                   @SessionAttribute("adminSession") Administrator administrator) {
+                                   @SessionAttribute(value = "adminSession", required = false) Administrator administrator) {
         System.out.println("12313:" + administrator.getAdminId());
         active.setTeaId(administrator.getAdminId());
         return activeService.insert(active);
@@ -350,9 +354,16 @@ public class ActiveController {
     //    修改活動 圖片方法base64
     @PutMapping("/activeBackEdit")
     public String updateActiveBack(@RequestBody Active active,
-                                   @SessionAttribute("adminSession") Administrator administrator) {
-        active.setTeaId(administrator.getAdminId());
-        return activeService.update(active);
+                                   @SessionAttribute(value = "adminSession", required = false) Administrator administrator) {
+
+
+        //        判斷管理員
+        if (administrator.getPermissionId() == 1 || active.getTeaId().equals(administrator.getAdminId())) {
+            return activeService.update(active);
+        } else {
+            return "權限不夠，不能修改";
+        }
+
     }
     //    修改活動 圖片方法檔案夾路徑
 //    @PutMapping("/activeBackEdit")

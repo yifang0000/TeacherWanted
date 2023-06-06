@@ -444,7 +444,7 @@ $(document).ready(function () {
             // 新增成功的逻辑
           } else {
             // 新增失败的逻辑
-            alert("更新失敗，如遇問題請聯繫管理員");
+            alert(response + "，如遇問題請聯繫管理員");
           }
         },
       });

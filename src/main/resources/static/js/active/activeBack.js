@@ -143,6 +143,9 @@ function tableAction(data) {
             )}</p>
             <p>報名人數:${data[i].currentNumber}</p>
             <p>活動介紹:${data[i].activityDetail}</p>
+            <a href="/active/activeChatRoom.html?activityId=${
+              data[i].activityId
+            }">活動聊天室連結</a>
           </div>
         </div>
       </section>
