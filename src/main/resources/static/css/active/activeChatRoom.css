@@ -42,14 +42,21 @@ section.activeChatRoomBlock {
   background-color: #a5bd69;
 }
 
-.chatMessageInput input {
-  width: 70%;
+#intputVal {
+  width: 60%;
   height: 30px;
   border-radius: 4px;
   border-style: none;
+  margin: 0px 5px;
 }
-.chatMessageInput input:focus {
+#intputVal:focus {
   outline: none;
+}
+
+#messageColor,
+#messageBackgroundColor {
+  border-radius: 4px;
+  margin-right: 10px;
 }
 
 .chatMessageInput a {
@@ -64,10 +71,10 @@ section.activeChatRoomBlock {
 .chatMessageInput a:hover {
   background-color: #3c6a36;
 }
-.activeChatRoomIntroduceBtnBlock {
+/* .activeChatRoomIntroduceBtnBlock {
   display: flex;
   justify-content: space-around;
-}
+} */
 
 /* 介紹的按鈕 開始 */
 .activeChatRoomIntroduceBtnBlock a {
@@ -75,6 +82,59 @@ section.activeChatRoomBlock {
   border-radius: 4px;
   background-color: #a4c964;
   color: white;
-  margin: 1px 5px;
+  margin: 5px 5px;
 }
-/* 介紹的按鈕 節數 */
+
+.activeChatRoomIntroduceBtnBlock a:hover {
+  background-color: #3c6a36;
+}
+/* 介紹的按鈕 結束 */
+
+/* 公告部分 開始 */
+.chatroomAnnText {
+  margin: 5px 0px;
+  width: 100%;
+}
+#chatroomAnn {
+  resize: none;
+  border: none;
+}
+#chatroomAnn:focus {
+  resize: none;
+  outline: none;
+  border-radius: 4px;
+}
+/* 按扭區塊 */
+#chatroomAnnBtnBlock {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+}
+#chatroomAnnBtnBlock a {
+  margin: 0px 5px;
+}
+/* 修改按鈕 */
+#chatroomAnnEditBtn,
+#chatroomAnnEditSubmit {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background-color: #a4c964;
+  color: white;
+  cursor: pointer;
+}
+#chatroomAnnEditBtn:hover,
+#chatroomAnnEditSubmit:hover {
+  background-color: #3c6a36;
+}
+
+#chatroomAnnEditBtnNone {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background-color: #d6d8d9;
+  color: black;
+  cursor: pointer;
+}
+#chatroomAnnEditBtnNone:hover {
+  background-color: #c4c6c7;
+}
+/* 公告部分 結束 */

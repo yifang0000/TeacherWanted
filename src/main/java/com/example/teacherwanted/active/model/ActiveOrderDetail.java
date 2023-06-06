@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 
 @ToString
 @Entity
-@Table(name = "GROUP_ORDER_DETAIL")
+@Table(name = "ACTIVITY_ORDER_DETAIL")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

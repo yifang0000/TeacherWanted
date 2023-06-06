@@ -26,47 +26,92 @@ const app = Vue.createApp({
       activeRecommendList: [],
       activeRecentlyList: [],
       favoriteStatic: false,
+      isTeacher: false,
+      teaId: "",
+      chatNameTitle: "",
+      chatName: "",
+      messageColor: "#000000",
+      messageBackgroundColor: "#ffffff",
+      chatroomAnn: "",
+      chatroomAnnEditing: false,
     };
   },
   mounted() {
-    axiosGetActive().then((data) => {
-      console.log(data);
-      this.activityId = data.activityId;
-      this.activityDetail = data.activityDetail;
-      this.activityLocation = data.activityLocation;
-      this.activityName = data.activityName;
-      this.activityStartTime = convertToFormattedDate(data.activityStartTime);
-      this.activityEndTime = convertToFormattedDate(data.activityEndTime);
-      this.activityPrice = data.activityPrice;
-      let lng = data.activityLng;
-      let lat = data.activityLat;
-      // 設定地圖用
-      // leafletMap(lat, lng);
+    axiosGetActive()
+      .then((data) => {
+        // console.log(data);
+        this.activityId = data.activityId;
+        this.activityDetail = data.activityDetail;
+        this.activityLocation = data.activityLocation;
+        this.activityName = data.activityName;
+        this.activityStartTime = convertToFormattedDate(data.activityStartTime);
+        this.activityEndTime = convertToFormattedDate(data.activityEndTime);
+        this.activityPrice = data.activityPrice;
+        this.chatroomAnn = data.activeChatroomAnnouncement;
+        let lng = data.activityLng;
+        let lat = data.activityLat;
+        this.teaId = data.teaId;
+        // 設定地圖用
+        // leafletMap(lat, lng);
 
-      this.imgSrc =
-        "data:image/" +
-        data.activityPhotoType +
-        ";base64," +
-        data.activityPhoto;
-      console.log(data.activityType);
+        this.imgSrc =
+          "data:image/" +
+          data.activityPhotoType +
+          ";base64," +
+          data.activityPhoto;
+        console.log(data.activityType);
 
-      return data.activityType;
-    });
+        return data.teaId;
+      })
+      .then((teaId) => {
+        return axiosGetSession(this.teaId, this.activityId);
+      })
+      .then((chatSession) => {
+        console.log(chatSession);
+        if (chatSession.verifyMessage == "主辦方") {
+          this.isTeacher = true;
+          this.chatNameTitle = "主辦方";
+          this.chatName = chatSession.chatUserName;
+          alert("歡迎" + this.chatNameTitle + this.chatName);
+        } else if (chatSession.verifyMessage == "成員") {
+          this.isTeacher = false;
+          this.chatNameTitle = "成員";
+          this.chatName = chatSession.chatUserName;
+          alert("歡迎" + this.chatNameTitle + this.chatName);
+        } else {
+          alert("無登入資訊，或尚未參加此活動");
+          window.location.href = "/active/active.html?activityId=" + activityId;
+        }
+      });
     // 呼叫預先執行的函式
   },
   methods: {
     // 送出訊息 Vue方法裡 開始
     sendMessage() {
-      console.log(this.intputVal);
-      socket.send(this.intputVal);
+      this.textColor;
+      let sendFullMessage =
+        "<p style='color:" +
+        this.messageColor +
+        ";background-color:" +
+        this.messageBackgroundColor +
+        "'>(" +
+        this.chatNameTitle +
+        ")" +
+        this.chatName +
+        ":" +
+        this.intputVal +
+        "</p>";
+
+      console.log(sendFullMessage);
+      socket.send(sendFullMessage);
 
       this.intputVal = "";
     },
     // 送出訊息 Vue方法裡 結束
     // 顯示訊息至畫面中 Vue方法裡 開始
-    ouputMessage(event) {
-      console.log("I am in event:", event.detail.message);
-    },
+    // ouputMessage(event) {
+    //   console.log("I am in event:", event.detail.message);
+    // },
     // 顯示訊息至畫面中 Vue方法裡 結束
     // 推薦課程 時間轉換 Vue方法裡 開始
     convertToFormattedDate(dateString) {
@@ -91,6 +136,32 @@ const app = Vue.createApp({
       return formattedDate;
     },
     // 推薦課程 時間轉換 Vue方法裡 結束
+    // 公告修改轉換 開始
+    beginEdit() {
+      this.chatroomAnnEditing = true;
+    },
+    // 送出公告
+    annSubmit() {
+      this.chatroomAnnEditing = false;
+      axios
+        .put("/chatAnnEdit", {
+          activityId: activityId,
+          activeChatroomAnnouncement: this.chatroomAnn,
+        })
+        .then((res) => {
+          console.log(res.data);
+          // alert(res.data);
+          // location.reload();
+        });
+    },
+    // 取消送出
+    annNone() {
+      this.chatroomAnnEditing = false;
+      axiosGetActive().then((data) => {
+        this.chatroomAnn = data.activeChatroomAnnouncement;
+      });
+    },
+    // 公告修改轉換 結束
   },
 });
 
@@ -130,7 +201,7 @@ function updateWebSocketUrl(chatRoomId) {
   // 接收到訊息時觸發
   socket.onmessage = function (event) {
     const message = event.data;
-    console.log("我在一開始:", message);
+    // console.log("我在一開始:", message);
 
     if (message == "無報名活動") {
       alert("沒有參加此活動，請先報名");
@@ -177,6 +248,17 @@ function axiosGetActive() {
     });
 }
 // 接收活動資料 結束
+
+// 取得當前使用者 開始
+function axiosGetSession(teaId, activityId) {
+  return axios
+    .get("/chatSession", { params: { teaId: teaId, activityId: activityId } })
+    .then((response) => {
+      // console.log(response.data);
+      return response.data;
+    });
+}
+// 取得當前使用者 結束
 
 // 推薦課程 時間轉換 開始
 
