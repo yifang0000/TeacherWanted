@@ -17,7 +17,7 @@
       crossorigin="anonymous"
     ></script>
     <!-- bootstrap相關 -->
-    <link href="../css/baseVer2.css" rel="stylesheet" type="text/css" />
+    <link href="../css/basebbs.css" rel="stylesheet" type="text/css" />
     <link href="../css/active/active.css" rel="stylesheet" type="text/css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -244,7 +244,9 @@
               <h1>我的收藏</h1>
               <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="/bbsdiscuss/index.html?posttype=all">論壇</a></li>
+                  <li class="breadcrumb-item">
+                    <a href="/bbsdiscuss/index.html?posttype=all">論壇</a>
+                  </li>
                   <li class="breadcrumb-item active" aria-current="page">
                     我的收藏
                   </li>
@@ -380,14 +382,14 @@
     <script>
       $(function () {
         // =================================查詢收藏列表===========================================================
-        $.ajax({  
+        $.ajax({
           url: "/bbsdiscussGet/session",
           type: "GET",
           data: {},
           dataType: "json",
           success: function (data_id) {
-          //   }
-          // });
+            //   }
+            // });
             $.ajax({
               url: "/bbsdiscussGet/fav",
               type: "GET",
@@ -442,13 +444,13 @@
                     </div>
                   </li>
                   `;
-                  if(String(data_id) === String(memId)){
+                  if (String(data_id) === String(memId)) {
                     $("ul.bbs_favorite_list").append(bbs_favorite_html);
                   }
                 }
               },
             });
-          }
+          },
         });
         // ==============================================================================
 
@@ -465,8 +467,8 @@
         console.log(bbsPostId);
         console.log("取消收藏的bbspostid");
         let jason_data_fav_cancel = {
-          bbsPostId : bbsPostId,
-        }
+          bbsPostId: bbsPostId,
+        };
         $("ul.bbs_favorite_list").on(
           "click",
           "#bbs_cancel_favorite",
