@@ -6,6 +6,7 @@ public class Response {
     private byte[] memPhoto;
     private Integer favStatus;
     private Integer reaction_status;
+    private Integer bbsPostId;
 
     public String getMemAccount() {
         return memAccount;
@@ -45,5 +46,13 @@ public class Response {
 
     public void setReaction_status(Integer reaction_status) {
         this.reaction_status = reaction_status;
+    }
+
+    public Integer getBbsPostId() {
+        return bbsPostId;
+    }
+
+    public void setBbsPostId(Integer bbsPostId) {
+        this.bbsPostId = bbsPostId;
     }
 }

@@ -244,7 +244,7 @@
               <h1>我的收藏</h1>
               <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="index.html">論壇</a></li>
+                  <li class="breadcrumb-item"><a href="/bbsdiscuss/index.html?posttype=all">論壇</a></li>
                   <li class="breadcrumb-item active" aria-current="page">
                     我的收藏
                   </li>
@@ -379,65 +379,78 @@
 
     <script>
       $(function () {
-        // =========================================================================================================
-
-        $.ajax({
-          url: "/bbsdiscussGet/fav",
+        // =================================查詢收藏列表===========================================================
+        $.ajax({  
+          url: "/bbsdiscussGet/session",
           type: "GET",
           data: {},
           dataType: "json",
-          success: function (data) {
-            console.log(data);
-            // 使用迴圈遍歷資料陣列
-            for (let i = 0; i < data.length; i++) {
-              // 獲取每個資料項目的相關屬性值
-              let bbsPostId = data[i].bbsPostId;
-              let postTitle = data[i].postTitle;
-              let postContent = data[i].postContent;
-              let bbs_favorite_html = `
-            <li class="col-sm-4" style="list-style: none">
-              <div class="card" style="width: 18rem">
-                <div class="card-body">
-                  <h5 class="card-title d-block text-truncate" style="max-width: 300px">
-                    ${postTitle}
-                  </h5>
-                  <p class="card-text d-block text-truncate" style="max-width: 300px">
-                    ${postContent}
-                  </p>
-                  <!-- Button trigger modal -->
+          success: function (data_id) {
+          //   }
+          // });
+            $.ajax({
+              url: "/bbsdiscussGet/fav",
+              type: "GET",
+              data: {},
+              dataType: "json",
+              success: function (data) {
+                console.log(data);
+                // 使用迴圈遍歷資料陣列
+                for (let i = 0; i < data.length; i++) {
+                  // 獲取每個資料項目的相關屬性值
+                  let bbsPostId = data[i].bbsPostId;
+                  let postTitle = data[i].postTitle;
+                  let postContent = data[i].postContent;
+                  let memId = data[i].memId;
+                  let bbs_favorite_html = `
+                  <li class="col-sm-4" style="list-style: none">
+                    <div class="card" style="width: 18rem">
+                      <div class="card-body">
+                        <h5 class="card-title d-block text-truncate" style="max-width: 300px">
+                          ${postTitle}
+                        </h5>
+                        <p class="card-text d-block text-truncate" style="max-width: 300px">
+                          ${postContent}
+                        </p>
+                        <!-- Button trigger modal -->
 
-                  <button id="bbs_cancel_favorite" type="button" class="btn btn-outline-danger bbs_cancel_favorite" data-bs-toggle="modal" data-bs-target="#${bbsPostId}">
-                  取消收藏 </button>
+                        <button id="bbs_cancel_favorite" type="button" class="btn btn-outline-danger bbs_cancel_favorite" data-bs-toggle="modal" data-bs-target="#${bbsPostId}">
+                        取消收藏</button>
+                        <p>${bbsPostId}</p>
 
-                  <!-- Modal -->
-                  <div class="modal fade" id="${bbsPostId}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">是否取消收藏此篇文章?</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary btn_bbs_cancel1" data-bs-dismiss="modal">
-                            取消
-                          </button>
-                          <button type="submit" class="btn btn-danger btn_bbs_sure1">
-                            確定
-                          </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="${bbsPostId}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                              aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">是否取消收藏此篇文章?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn_bbs_cancel1" data-bs-dismiss="modal">
+                                  取消
+                                </button>
+                                <button type="submit" class="btn btn-danger btn_bbs_sure1">
+                                  確定
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            `;
-              $("ul.bbs_favorite_list").append(bbs_favorite_html);
-            }
-          },
+                  </li>
+                  `;
+                  if(String(data_id) === String(memId)){
+                    $("ul.bbs_favorite_list").append(bbs_favorite_html);
+                  }
+                }
+              },
+            });
+          }
         });
- // ==============================================================================
+        // ==============================================================================
 
         // 唯一ID的計數器
         let modalCounterTop = 0;
@@ -448,7 +461,12 @@
         let modalIdMid = "exampleModal" + modalCounterMid;
         modalCounterMid++;
 
-        //取消收藏
+        //=======================================取消收藏=======================================
+        console.log(bbsPostId);
+        console.log("取消收藏的bbspostid");
+        let jason_data_fav_cancel = {
+          bbsPostId : bbsPostId,
+        }
         $("ul.bbs_favorite_list").on(
           "click",
           "#bbs_cancel_favorite",
@@ -456,6 +474,16 @@
             $(this).closest("li").fadeOut(1000);
             // 淡出效果完成後關閉燈箱效果
             $(this).closest(".bbsPostId").modal("hide");
+            $.ajax({
+              url: "/bbsdiscussGet/bbsfavpagestatus",
+              type: "PUT",
+              data: JSON.stringify(jason_data_fav_cancel),
+              dataType: "json",
+              contentType: "application/json",
+              success: function (data_fav_cancel) {
+                console.log(data_fav_cancel);
+              },
+            });
           }
         );
 
