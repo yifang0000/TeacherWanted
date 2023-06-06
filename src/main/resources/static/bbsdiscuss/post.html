@@ -573,10 +573,8 @@
                               let editStr2 = "";
 
                               if (String(data_id) === String(memId)) {
-                                editStr =
-                                  '<img id="bbs_top_pen_img" class="w-25 col-md-1" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" />';
-                                editStr1 =
-                                  '<img id="bbs_top_xmark_img" data-bs-toggle="modal" data-bs-target="#${modalIdTop}" class="w-25" src="../img/bbsdiscuss/xmark-solid.svg" alt="刪除" />';
+                                editStr = `<img id="bbs_top_pen_img" class="w-25 col-md-1" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" />`;
+                                editStr1 = `<img id="bbs_top_xmark_img" data-bs-toggle="modal" data-bs-target="#${modalIdTop}" class="w-25" src="../img/bbsdiscuss/xmark-solid.svg" alt="刪除" />`;
                                 editStr2 =
                                   '<img id="bbs_mid_pen_img" class="w-25 col-md-1" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" />';
                               }
@@ -740,10 +738,13 @@
                                       if (
                                         String(data_id) === String(memIdcomm)
                                       ) {
+                                        console.log(modalId);
+                                        console.log(
+                                          "1111111111111111111111111111111111"
+                                        );
                                         editStr3 =
                                           ' <img id="bbs_pen_img" class="w-25" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" />';
-                                        editStr4 =
-                                          ' <img id="bbs_xmark_img" data-bs-toggle="modal" data-bs-target="#${modalId}" class="w-25" src="../img/bbsdiscuss/xmark-solid.svg" alt="刪除" />';
+                                        editStr4 = ` <img id="bbs_xmark_img" data-bs-toggle="modal" data-bs-target="#${modalId}" class="w-25" src="../img/bbsdiscuss/xmark-solid.svg" alt="刪除" />`;
                                       }
 
                                       let bbs_msg_content_html_first =
