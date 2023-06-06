@@ -269,17 +269,12 @@
                   我的收藏
                 </button>
               </div>
-              <form class="d-flex">
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="查詢文章請輸入..."
-                  aria-label="Search"
-                />
-                <button class="btn btn-outline-success" type="submit">
-                  Search
-                </button>
-              </form>
+              <!-- <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="查詢文章請輸入..." aria-label="Search" />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form> -->
             </div>
           </nav>
         </div>
@@ -290,34 +285,34 @@
               <a
                 class="list-group-item list-group-item-action active"
                 data-bs-toggle="list"
-                href="#"
+                href="/bbsdiscuss/index.html?posttype=語言討論版"
                 role="tab"
                 aria-controls="list-home"
-                >全部看板</a
+                >語言討論版</a
               >
               <a
                 class="list-group-item list-group-item-action"
                 data-bs-toggle="list"
-                href="#"
+                href="/bbsdiscuss/index.html?posttype=程式討論版"
                 role="tab"
                 aria-controls="list-profile"
-                >讀書學術討論版</a
+                >程式討論版</a
               >
               <a
                 class="list-group-item list-group-item-action"
                 data-bs-toggle="list"
-                href="#"
+                href="/bbsdiscuss/index.html?posttype=生活討論版"
                 role="tab"
                 aria-controls="list-messages"
-                >休閒娛樂討論版</a
+                >生活討論版</a
               >
               <a
                 class="list-group-item list-group-item-action"
                 data-bs-toggle="list"
-                href="#"
+                href="/bbsdiscuss/index.html?posttype=電競討論版"
                 role="tab"
                 aria-controls="list-settings"
-                >許願討論版</a
+                >電競討論版</a
               >
             </div>
           </div>
@@ -343,7 +338,7 @@
           </div>
         </div>
       </div>
-      <button class="sent">發送</button>
+      <!-- <button class="sent">發送</button> -->
     </main>
 
     <footer
@@ -470,90 +465,119 @@
         // DOM 載入完成之後
         //================================== 根據文章編號取得文章的數據=====================================
         $.ajax({
-          url: "/bbsdiscussGet/session",
+          url: "/bbsdiscussGet/favandreaction",
           type: "GET",
           data: {},
           dataType: "json",
-          success: function (data_id) {
-            //   }
-            // });
+          success: function (memberid_favandreaction) {
+            let fav = [];
+            let reaction = [];
 
+            if (memberid_favandreaction["favoriteArticleList"] != null) {
+              fav = memberid_favandreaction["favoriteArticleList"].map(
+                (x) => x.bbsPostId
+              );
+            }
+
+            if (memberid_favandreaction["postReactionList"] != null) {
+              reaction = memberid_favandreaction["postReactionList"].map(
+                (x) => x.bbsPostId
+              );
+            }
             $.ajax({
-              url: "/bbsdiscussGet",
+              url: "/bbsdiscussGet/session",
               type: "GET",
               data: {},
               dataType: "json",
-              success: function (data0) {
-                console.log(data0);
-                console.log(data0 + "// 根據文章編號取得文章的數據");
+              success: function (data_id) {
+                //   }
+                // });
 
-                // 獲取URL參數
-                const urlParams = new URLSearchParams(window.location.search);
-                const bbsPostId = urlParams.get("bbsPostId");
-                console.log(bbsPostId);
-                // 使用迴圈遍歷資料陣列
-                // for (let i = 0; i < data.length; i++) {
-                let data = data0.filter((x) => x.bbsPostId == bbsPostId)[0];
-                let currentBbsPostId = data["bbsPostId"];
-                let postTitle = data["postTitle"];
-                let postContent = data["postContent"];
-                let bbsCategoryName = data["bbsCategoryName"];
-                let bbsTagName = data["bbsTagName"];
-                let memId = data["memId"];
-                let updateTimepost = data["updateTime"];
-                let postDislikes = data["postDislikes"];
-                let postLikes = data["postLikes"];
-                let postStatus = data["postStatus"];
-                let postFav = data["postFav"];
-
-                // ============= 根據文章id取得文章，大頭貼，tag，文章分類，收藏狀態，按讚狀態=======================
                 $.ajax({
-                  url: "/bbsdiscussGetAll",
+                  url: "/bbsdiscussGet",
                   type: "GET",
-                  data: { bbsPostId: currentBbsPostId },
+                  data: {},
                   dataType: "json",
-                  beforeSend: function () {},
-                  success: function (data2) {
-                    console.log(data2);
-                    console.log(
-                      data2 +
-                        "// 根據文章id取得文章，大頭貼，tag，文章分類，收藏狀態，按讚狀態"
+                  success: function (data0) {
+                    console.log(data0);
+                    console.log(data0 + "// 根據文章編號取得文章的數據");
+
+                    // 獲取URL參數
+                    const urlParams = new URLSearchParams(
+                      window.location.search
                     );
-                    let memPhoto =
-                      "data:image/" + "null" + ";base64," + data2.memPhoto;
-                    let favStatus = data2.favStatus;
-                    let reaction_status = data2.reaction_status;
-                    let memAccount = data2.memAccount;
-                    let memName = data2.memName;
-                    //  ========== 依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or bsdiscusspo.html==============
+                    const bbsPostId = urlParams.get("bbsPostId");
+                    console.log(bbsPostId);
+                    // 使用迴圈遍歷資料陣列
+                    // for (let i = 0; i < data.length; i++) {
+                    let data = data0.filter((x) => x.bbsPostId == bbsPostId)[0];
+                    let currentBbsPostId = data["bbsPostId"];
+                    let postTitle = data["postTitle"];
+                    let postContent = data["postContent"];
+                    let bbsCategoryName = data["bbsCategoryName"];
+                    let bbsTagName = data["bbsTagName"];
+                    let memId = data["memId"];
+                    let updateTimepost = data["updateTime"];
+                    let postDislikes = data["postDislikes"];
+                    let postLikes = data["postLikes"];
+                    let postStatus = data["postStatus"];
+                    let postFav = data["postFav"];
+
+                    // ============= 根據文章id取得文章，大頭貼，tag，文章分類，收藏狀態，按讚狀態=======================
                     $.ajax({
-                      url: "/bbsdiscussGet/memberInfo",
+                      url: "/bbsdiscussGetAll",
                       type: "GET",
+                      data: { bbsPostId: currentBbsPostId },
                       dataType: "json",
-                      success: function (data3) {
-                        console.log(data3);
-                        console.log(data3 + "// 依據memId查找會員資料");
-                        let sessionName = data3.memName;
-                        console.log(sessionName + "是sessionName");
-                        //=================根據文章id取得，留言數據=====================================
+                      beforeSend: function () {},
+                      success: function (data2) {
+                        console.log(data2);
+                        console.log(
+                          data2 +
+                            "// 根據文章id取得文章，大頭貼，tag，文章分類，收藏狀態，按讚狀態"
+                        );
+                        let memPhoto =
+                          "data:image/" + "null" + ";base64," + data2.memPhoto;
+                        let favStatus = data2.favStatus;
+                        let reaction_status = data2.reaction_status;
+                        let memAccount = data2.memAccount;
+                        let memName = data2.memName;
+                        //  ========== 依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or bsdiscusspo.html==============
                         $.ajax({
-                          url: "/bbsdiscussGet/comm",
+                          url: "/bbsdiscussGet/memberInfo",
                           type: "GET",
-                          data: { bbsPostId: data.bbsPostId },
                           dataType: "json",
-                          success: function (data4) {
-                            console.log(data4);
-                            console.log(data4 + "// 根據文章id取得，留言數據");
-                            // 獲取每個資料項目的相關屬性值
-                            console.log(currentBbsPostId);
-                            console.log(bbsPostId);
-                            if (
-                              String(currentBbsPostId) === String(bbsPostId)
-                            ) {
-                              // console.log(currentBbsPostId);
-                              // console.log(bbsPostId);
-                              // ======================================論壇>看板>文章=============================================
-                              let bbs_post_topper_html = `
+                          success: function (data3) {
+                            console.log(data3);
+                            console.log(data3 + "// 依據memId查找會員資料");
+                            let sessionName = data3.memName;
+                            console.log(sessionName + "是sessionName");
+                            //=================根據文章id取得，留言數據=====================================
+                            $.ajax({
+                              url: "/bbsdiscussGet/comm",
+                              type: "GET",
+                              data: { bbsPostId: data.bbsPostId },
+                              dataType: "json",
+                              success: function (data4) {
+                                console.log(data4);
+
+                                data4 = data4.sort(function (a, b) {
+                                  return b.bbsCommentId - a.bbsCommentId;
+                                });
+
+                                console.log(
+                                  data4 + "// 根據文章id取得，留言數據"
+                                );
+                                // 獲取每個資料項目的相關屬性值
+                                console.log(currentBbsPostId);
+                                console.log(bbsPostId);
+                                if (
+                                  String(currentBbsPostId) === String(bbsPostId)
+                                ) {
+                                  // console.log(currentBbsPostId);
+                                  // console.log(bbsPostId);
+                                  // ======================================論壇>看板>文章=============================================
+                                  let bbs_post_topper_html = `
                             <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
                               <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/bbsdiscuss/index.html?posttype=all">論壇</a><p>${bbsPostId}</p></li>
@@ -564,34 +588,20 @@
                               </ol>
                             </nav>
                             `;
-                              $("div.bbs_bread_list").append(
-                                bbs_post_topper_html
-                              );
-                              // ======================================發文者資訊及發文內容=============================
-                              let editStr = "";
-                              let editStr1 = "";
-                              let editStr2 = "";
+                                  $("div.bbs_bread_list").append(
+                                    bbs_post_topper_html
+                                  );
+                                  // ======================================發文者資訊及發文內容=============================
+                                  let editStr = "";
+                                  let editStr1 = "";
+                                  let editStr2 = "";
 
-                              if (String(data_id) === String(memId)) {
-                                editStr = `<img id="bbs_top_pen_img" class="w-25 col-md-1" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" />`;
-                                editStr1 = `<img id="bbs_top_xmark_img" data-bs-toggle="modal" data-bs-target="#${modalIdTop}" class="w-25" src="../img/bbsdiscuss/xmark-solid.svg" alt="刪除" />`;
-                                editStr2 =
-                                  '<img id="bbs_mid_pen_img" class="w-25 col-md-1" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" />';
-                              }
-
-                              let bbs_post_top_html =
-                                `
-                            <div class="card">
-                              <div class="card-body row bbs_post_title_edit_group bbs_post_conent_edit_group">
-                                <h1 class="card-title mb-3 col-md-10 bbs_post_title_edit">${postTitle}</h1>
-                                <input type="text" class="post_title_update -none" placeholder="編輯文章標題…" value="${postTitle}">
-                                <div class="col-md-1 mt-2">` +
-                                editStr +
-                                ` </div>
-                                <div class="col-md-1 mt-2 bbs_post_top_xmark">
-                                ` +
-                                editStr1 +
-                                ` <!-- Modal -->
+                                  if (String(data_id) === String(memId)) {
+                                    editStr =
+                                      '<img id="bbs_top_pen_img" class="w-25 col-md-1" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" />';
+                                    editStr1 = `
+                                  <img id="bbs_top_xmark_img" data-bs-toggle="modal" data-bs-target="#${modalIdTop}" class="w-25" src="../img/bbsdiscuss/xmark-solid.svg" alt="刪除" />
+                                  <!-- Modal -->
                                   <div class="modal fade" id="${modalIdTop}" tabindex="-1" aria-labelledby="exampleModalLabel"
                                       aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
@@ -610,8 +620,25 @@
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </div>
+                                  </div>`;
+                                    editStr2 =
+                                      '<img id="bbs_mid_pen_img" class="w-25 col-md-1" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" />';
+                                  }
+
+                                  let bbs_post_top_html =
+                                    `
+                            <div class="card">
+                              <span id="cardId" style="display: none;">${bbsPostId}</span>
+                              <div class="card-body row bbs_post_title_edit_group bbs_post_conent_edit_group">
+                                <h1 class="card-title mb-3 col-md-10 bbs_post_title_edit">${postTitle}</h1>
+                                <input type="text" class="post_title_update -none" placeholder="編輯文章標題…" value="${postTitle}">
+                                <div class="col-md-1 mt-2">` +
+                                    editStr +
+                                    ` </div>
+                                <div class="col-md-1 mt-2 bbs_post_top_xmark">
+                                ` +
+                                    editStr1 +
+                                    `</div>
                                 <div class="row mb-3">
                                   <div class="col-md-2  text-muted ">
                                     <h6 class="card-subtitle mb-2 ">${bbsCategoryName}</h6>
@@ -638,211 +665,217 @@
                                   </div>
                                   <div class="col-md-1 mt-2">
                                     ` +
-                                editStr2 +
-                                `</div>
+                                    editStr2 +
+                                    `</div>
                                 </div>
                               </div>
                             </div>
                             `;
-                              $("div.bbs_post_list").append(bbs_post_top_html);
-                              // ======================================讚/倒讚/收藏==========================================
-                              let bbs_post_mid_html = `
-                            <div class="col-md-1 mx-lg-3">
-                              <div class="bbs_thumbs_up_group" style="cursor: pointer"  onclick="lik(${bbsPostId} , this)" >
-                                <img id="bbs_thumbs_up_img" class="w-25" src="/img/bbsdiscuss/thumbs-up-regular.svg" alt="讚" />
-                                <!--   <span class="bbs_thumbs_up_count">${reaction_status}-${postLikes}</span>-->
-                                 <span class="bbs_thumbs_up_count">${postLikes}</span> 
-                              </div>
-                            </div>
+                                  $("div.bbs_post_list").append(
+                                    bbs_post_top_html
+                                  );
+                                  // ======================================讚/倒讚/收藏==========================================
+                                  let reaction_str = check_fav_reaction(
+                                    reaction,
+                                    bbsPostId,
+                                    "reaction",
+                                    postLikes
+                                  );
+                                  let fav_str = check_fav_reaction(
+                                    fav,
+                                    bbsPostId,
+                                    "fav",
+                                    postFav
+                                  );
+
+                                  let bbs_post_mid_html = `
+
+                                ${reaction_str}
+
                             <!--        <div class="col-md-1 mx-lg-3">
                               <div class="bbs_thumbs_down_group" style="cursor: pointer">
                                 <img id="bbs_thumbs_down_img" class="w-25" src="../img/bbsdiscuss/thumbs-down-regular.svg" alt="倒讚" />
                                 <span class="bbs_thumbs_down_count">${postDislikes}</span>
                               </div> -->
                             </div>
-                            <div class="col-md-1 mx-lg-3">
-                              <div class="bbs_heart_group" style="cursor: pointer" onclick="fav(${bbsPostId} , this)" >
-                                <img id="bbs_heart_img" class="w-25" src="/img/bbsdiscuss/heart-regular.svg" alt="收藏" />
-                                <span class="bbs_heart_count">${postFav}</span>
-                              </div>
-                            </div>
+
+                                ${fav_str}
                             `;
-                              $("div.bbs_post_up_down_heart_list").append(
-                                bbs_post_mid_html
-                              );
-                              // ======================================打字框===================================================
-                              let bbs_post_pen_bottom_html = `
+                                  $("div.bbs_post_up_down_heart_list").append(
+                                    bbs_post_mid_html
+                                  );
+                                  // ======================================打字框===================================================
+                                  let bbs_post_pen_bottom_html = `
                             <input type="text" class="form-control bbs_msg_content" placeholder="留言..."aria-label="Recipient's username" aria-describedby="button-addon2" />
                             <button class="btn btn-outline-success bbs_send_msg" type="button" id="button-addon2">發送</button>
                             `;
-                              $("div.bbs_post_pen_group").append(
-                                bbs_post_pen_bottom_html
-                              );
+                                  $("div.bbs_post_pen_group").append(
+                                    bbs_post_pen_bottom_html
+                                  );
 
-                              // =====================================留言區enter送出===================================
-                              $("div.bbs_post_pen_group").on(
-                                "keyup",
-                                ".bbs_msg_content",
-                                function (e) {
-                                  if (e.which === 13) {
-                                    console.log("enter有觸發嗎?");
-                                    $("div.bbs_post_pen_group")
-                                      .find(".bbs_send_msg")
-                                      .click();
-                                    console.log("enter有觸發嗎?");
+                                  // =====================================留言區enter送出===================================
+                                  $("div.bbs_post_pen_group").on(
+                                    "keyup",
+                                    ".bbs_msg_content",
+                                    function (e) {
+                                      if (e.which === 13) {
+                                        console.log("enter有觸發嗎?");
+                                        $("div.bbs_post_pen_group")
+                                          .find(".bbs_send_msg")
+                                          .click();
+                                        console.log("enter有觸發嗎?");
+                                      }
+                                    }
+                                  );
+                                  let modalCounter = 0;
+                                  // =====================================留言區請求查詢===================================
+                                  for (let j = 0; j < data4.length; j++) {
+                                    console.log(data4 + "for迴圈裡面的data4");
+                                    console.log(data4[j]["bbsCommentId"]);
+                                    let bbsCommentId = data4[j]["bbsCommentId"];
+                                    if (bbsCommentId != null) {
+                                      let bbsPostIdcomm = data4[j].bbsPostId;
+                                      let commentContent =
+                                        data4[j].commentContent;
+                                      let commentStatus =
+                                        data4[j].commentStatus;
+                                      let createTimecomm = data4[j].createTime;
+                                      let memIdcomm = data4[j].memId;
+                                      let updateTime = data4[j].updateTime;
+                                      let count = 0;
+                                      count++;
+                                      let modalId =
+                                        "exampleModal" + modalCounter;
+                                      modalCounter++;
+                                      //=================//  根據留言id取得，大頭貼=====================================
+                                      $.ajax({
+                                        url: "/bbsdiscussGet/commInfo",
+                                        type: "GET",
+                                        data: { bbsCommentId: bbsCommentId },
+                                        dataType: "json",
+                                        success: function (data5) {
+                                          console.log(
+                                            data5 +
+                                              "data5 //  根據留言id取得，大頭貼"
+                                          );
+                                          console.log(data5);
+                                          let memNamecomm5 = data5.memName;
+                                          let memPhotocomm5 =
+                                            "data:image/" +
+                                            "null" +
+                                            ";base64," +
+                                            data5.memPhoto;
+
+                                          let editStr3 = "";
+                                          let editStr4 = "";
+
+                                          console.log(String(data_id));
+                                          console.log(memIdcomm);
+
+                                          if (
+                                            String(data_id) ===
+                                            String(memIdcomm)
+                                          ) {
+                                            editStr3 = ` <img id="bbs_pen_img" class="w-25" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" onClick="bbs_pen(this,${data4[j]["bbsCommentId"]})" />`;
+                                            editStr4 = ` <img id="bbs_xmark_img" data-bs-toggle="modal" data-bs-target="#${modalId}_comm" class="w-25" src="../img/bbsdiscuss/xmark-solid.svg" alt="刪除" />
+                                          <!-- Modal -->
+                                          <div class="modal fade" id="${modalId}_comm" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                              aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title" id="exampleModalLabel">是否刪除留言?</h5>
+                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <button type="button" class="btn btn-secondary btn_bbs_cancel1" data-bs-dismiss="modal">
+                                                    取消
+                                                  </button>
+                                                  <button type="submit" class="btn btn-success btn_bbs_sure2">
+                                                    確定
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>`;
+                                          }
+
+                                          let bbs_msg_content_html_first = `
+                                          <li>
+                                            <div class="card-body comment">
+                                              <div class="row">
+                                                <div class="col-md-1">
+                                                  <img src=${memPhotocomm5} class="img-fluid rounded-start" alt="頭像" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                  <h5 id="bbs_title_test" class="card-title">${memNamecomm5}</h5>
+                                                  <h6 id="bbs_title_test2" class="card-subtitle mb-2 mt-2 text-muted bbs_pare">
+                                                    ${commentContent}
+                                                  </h6>
+                                                  <input type="text" class="task_name_update -none" placeholder="編輯留言…" value="${commentContent}">
+                                                </div>
+                                                <div class="col-md-3 mt-2">
+                                                  <h6 class="card-subtitle mb-2 text-muted">
+                                                    ${updateTime} 回覆
+                                                  </h6>
+                                                  <h6 class="card-subtitle mb-2 text-muted mt-2">
+                                                     第 ${bbsCommentId} 樓
+                                                  </h6>
+                                                </div>
+                                                <div class="col-md-1 mt-2">
+                                                      ${editStr3}
+                                                      </div>
+                                                <div class="col-md-1 mt-2">
+                                                     ${editStr4}
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </li>
+                                          `;
+                                          $("ul.bbs_comment_list").append(
+                                            bbs_msg_content_html_first
+                                          );
+
+                                          //=====================================留言區按鈕送出留言======================
+                                          $("div.bbs_post_pen_group").on(
+                                            "click",
+                                            ".bbs_send_msg",
+                                            function () {
+                                              let count = 0;
+                                              count++;
+                                              let modalId =
+                                                "exampleModal" + modalCounter;
+                                              modalCounter++;
+                                              let bbs_msg_content_trim = $(
+                                                ".bbs_msg_content"
+                                              )
+                                                .val()
+                                                .trim();
+                                              console.log(bbs_msg_content_trim);
+                                              if (bbs_msg_content_trim != "") {
+                                                $(".bbs_msg_content").val("");
+                                              }
+                                            }
+                                          );
+                                        },
+                                      });
+                                    }
+                                    // =====================================下一位==================================
                                   }
                                 }
-                              );
-                              let modalCounter = 0;
-                              // =====================================留言區請求查詢===================================
-                              for (let j = 0; j < data4.length; j++) {
-                                console.log(data4 + "for迴圈裡面的data4");
-                                console.log(data4[j]["bbsCommentId"]);
-                                let bbsCommentId = data4[j]["bbsCommentId"];
-                                if (bbsCommentId != null) {
-                                  let bbsPostIdcomm = data4[j].bbsPostId;
-                                  let commentContent = data4[j].commentContent;
-                                  let commentStatus = data4[j].commentStatus;
-                                  let createTimecomm = data4[j].createTime;
-                                  let memIdcomm = data4[j].memId;
-                                  let updateTime = data4[j].updateTime;
-                                  let count = 0;
-                                  count++;
-                                  let modalId = "exampleModal" + modalCounter;
-                                  modalCounter++;
-                                  //=================//  根據留言id取得，大頭貼=====================================
-                                  $.ajax({
-                                    url: "/bbsdiscussGet/commInfo",
-                                    type: "GET",
-                                    data: { bbsCommentId: bbsCommentId },
-                                    dataType: "json",
-                                    success: function (data5) {
-                                      console.log(
-                                        data5 +
-                                          "data5 //  根據留言id取得，大頭貼"
-                                      );
-                                      console.log(data5);
-                                      let memNamecomm5 = data5.memName;
-                                      let memPhotocomm5 =
-                                        "data:image/" +
-                                        "null" +
-                                        ";base64," +
-                                        data5.memPhoto;
-
-                                      let editStr3 = "";
-                                      let editStr4 = "";
-
-                                      console.log(String(data_id));
-                                      console.log(memIdcomm);
-
-                                      if (
-                                        String(data_id) === String(memIdcomm)
-                                      ) {
-                                        console.log(modalId);
-                                        console.log(
-                                          "1111111111111111111111111111111111"
-                                        );
-                                        editStr3 =
-                                          ' <img id="bbs_pen_img" class="w-25" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" />';
-                                        editStr4 = ` <img id="bbs_xmark_img" data-bs-toggle="modal" data-bs-target="#${modalId}" class="w-25" src="../img/bbsdiscuss/xmark-solid.svg" alt="刪除" />`;
-                                      }
-
-                                      let bbs_msg_content_html_first =
-                                        `
-                              <li>
-                                <div class="card-body comment">
-                                  <div class="row">
-                                    <div class="col-md-1">
-                                      <img src=${memPhotocomm5} class="img-fluid rounded-start" alt="頭像" />
-                                    </div>
-                                    <div class="col-md-6">
-                                      <h5 id="bbs_title_test" class="card-title">${memNamecomm5}</h5>
-                                      <h6 id="bbs_title_test2" class="card-subtitle mb-2 text-muted bbs_pare mt-2">
-                                        ${commentContent}
-                                      </h6>
-                                      <input type="text" class="task_name_update -none" placeholder="編輯留言…" value="${commentContent}">
-                                    </div>
-                                    <div class="col-md-3 mt-2">
-                                      <h6 class="card-subtitle mb-2 text-muted">
-                                        ${updateTime} 回覆
-                                      </h6>
-                                      <h6 class="card-subtitle mb-2 text-muted mt-2">
-                                        第 ${bbsCommentId} 樓
-                                      </h6>
-                                    </div>
-                                    <div class="col-md-1 mt-2">` +
-                                        editStr3 +
-                                        `</div>
-                                    <div class="col-md-1 mt-2">` +
-                                        editStr4 +
-                                        ` <!-- Modal -->
-                                      <div class="modal fade" id="${modalId}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                          aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                          <div class="modal-content">
-                                            <div class="modal-header">
-                                              <h5 class="modal-title" id="exampleModalLabel">是否刪除留言?</h5>
-                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-footer">
-                                              <button type="button" class="btn btn-secondary btn_bbs_cancel1" data-bs-dismiss="modal">
-                                                取消
-                                              </button>
-                                              <button type="submit" class="btn btn-success btn_bbs_sure2">
-                                                確定
-                                              </button>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </li>
-                              `;
-                                      $("ul.bbs_comment_list").append(
-                                        bbs_msg_content_html_first
-                                      );
-
-                                      //=====================================留言區按鈕送出留言======================
-                                      $("div.bbs_post_pen_group").on(
-                                        "click",
-                                        ".bbs_send_msg",
-                                        function () {
-                                          let count = 0;
-                                          count++;
-                                          let modalId =
-                                            "exampleModal" + modalCounter;
-                                          modalCounter++;
-                                          let bbs_msg_content_trim = $(
-                                            ".bbs_msg_content"
-                                          )
-                                            .val()
-                                            .trim();
-                                          console.log(bbs_msg_content_trim);
-                                          if (bbs_msg_content_trim != "") {
-                                            $(".bbs_msg_content").val("");
-                                          }
-                                        }
-                                      );
-                                    },
-                                  });
-                                }
-                                // =====================================下一位==================================
-                              }
-                            }
+                              },
+                            });
                           },
                         });
                       },
                     });
+                    // }
                   },
                 });
-                // }
               },
             });
           },
         });
-
         // =============================================文章內容=================================================================
         // 唯一ID的計數器
         let modalCounterTop = 0;
@@ -891,7 +924,9 @@
         // =====================================編輯文章標題==============================================================
         $("div.bbs_post_list").on("click", "#bbs_top_pen_img", function () {
           // console.log("aaa");
-          console.log(this);
+          // console.log(this);
+
+          let post_title_update = "";
           if ($(this).attr("data-edit") == undefined) {
             // 進入編輯狀態
 
@@ -903,29 +938,50 @@
               .find("input.post_title_update")
               .toggleClass("-none");
           } else {
-            let post_title_update = $("div.bbs_post_title_edit_group")
+            post_title_update = $("div.bbs_post_title_edit_group")
               .find("input.post_title_update")
               .val()
               .trim();
-            if (post_title_update == "") {
-              alert("未輸入文字");
-            } else {
-              $("div.bbs_post_title_edit_group")
-                .find("h1.bbs_post_title_edit")
-                .html(post_title_update)
-                .toggleClass("-none");
-              $("div.bbs_post_title_edit_group")
-                .find("input.post_title_update")
-                .val(post_title_update)
-                .toggleClass("-none");
-              $("div.bbs_post_title_edit_group").removeAttr("data-edit");
-            }
+            $("div.bbs_post_title_edit_group")
+              .find("h1.bbs_post_title_edit")
+              .html(post_title_update)
+              .toggleClass("-none");
+            $("div.bbs_post_title_edit_group")
+              .find("input.post_title_update")
+              .val(post_title_update)
+              .toggleClass("-none");
+            $("div.bbs_post_title_edit_group").removeAttr("data-edit");
+          }
+
+          let preEelemnt =
+            this.parentNode.previousElementSibling.classList.contains("-none");
+          let will_sav_title = preEelemnt;
+
+          if (will_sav_title) {
+            let post_id = document.getElementById("cardId").textContent;
+            alert(
+              `要儲存tiltle了 , title標題:${post_title_update} , postId:${post_id}`
+            );
+            let jason_data_title_update = {
+              postTitle: post_title_update,
+            };
+            $.ajax({
+              url: "/bbsdiscussGet/title/" + post_id,
+              type: "PUT",
+              data: JSON.stringify(jason_data_title_update),
+              dataType: "json",
+              contentType: "application/json",
+              success: function (data_title_update) {
+                console.log(data_title_update);
+              },
+            });
+            //  console.log('要儲存tile了')
           }
         });
         // =====================================編輯文章內容=============================================================
         $("div.bbs_post_list").on("click", "#bbs_mid_pen_img", function () {
           // console.log("aaa");
-          console.log(this);
+          // console.log(this);
           if ($(this).attr("data-edit") == undefined) {
             // 進入編輯狀態
 
@@ -941,19 +997,45 @@
               .find("textarea.post_content_update")
               .val()
               .trim();
-            if (post_content_update == "") {
-              alert("未輸入文字");
-            } else {
-              $("div.bbs_post_conent_edit_group")
-                .find("h3.bbs_post_content_edit")
-                .html(post_content_update)
-                .toggleClass("-none");
-              $("div.bbs_post_conent_edit_group")
-                .find("textarea.post_content_update")
-                .val(post_content_update)
-                .toggleClass("-none");
-              $("div.bbs_post_conent_edit_group").removeAttr("data-edit");
-            }
+
+            $("div.bbs_post_conent_edit_group")
+              .find("h3.bbs_post_content_edit")
+              .html(post_content_update)
+              .toggleClass("-none");
+            $("div.bbs_post_conent_edit_group")
+              .find("textarea.post_content_update")
+              .val(post_content_update)
+              .toggleClass("-none");
+            $("div.bbs_post_conent_edit_group").removeAttr("data-edit");
+          }
+
+          let preEelemnt =
+            this.parentNode.previousElementSibling.children[1].classList.contains(
+              "-none"
+            );
+          let will_sav_content = preEelemnt;
+
+          if (will_sav_content) {
+            let post_id = document.getElementById("cardId").textContent;
+            let post_content_update =
+              this.parentNode.previousElementSibling.children[0].textContent;
+
+            alert(
+              `要儲存content了 內容:${post_content_update} , postId:${post_id}`
+            );
+            let jason_data_content_update = {
+              postContent: post_content_update,
+            };
+            $.ajax({
+              url: "/bbsdiscussGet/content/" + post_id,
+              type: "PUT",
+              data: JSON.stringify(jason_data_content_update),
+              dataType: "json",
+              contentType: "application/json",
+              success: function (data_content_update) {
+                console.log(data_content_update);
+              },
+            });
           }
         });
 
@@ -1152,42 +1234,7 @@
             });
           });
         });
-        // =====================================編輯留言==============================================================
-        $(".bbs_comment_list").on("click", "#bbs_pen_img", function () {
-          // console.log("aaa");
-          // console.log(this);
-          if ($(this).attr("data-edit") == undefined) {
-            // 進入編輯狀態
 
-            $(this).attr("data-edit", true);
-            $(this).closest("li").find("h6.bbs_pare").toggleClass("-none");
-            $(this)
-              .closest("li")
-              .find("input.task_name_update")
-              .toggleClass("-none");
-          } else {
-            let update_task_name = $(this)
-              .closest("li")
-              .find("input.task_name_update")
-              .val()
-              .trim();
-            if (update_task_name == "") {
-              alert("未輸入留言");
-            } else {
-              $(this)
-                .closest("li")
-                .find("h6.bbs_pare")
-                .html(update_task_name)
-                .toggleClass("-none");
-              $(this)
-                .closest("li")
-                .find("input.task_name_update")
-                .val(update_task_name)
-                .toggleClass("-none");
-              $(this).removeAttr("data-edit");
-            }
-          }
-        });
         //==========================跳轉到發文紀錄====================================================
         $(".bbs_btn_view").on("click", function () {
           window.location.href = "bsdiscusspo.html";
@@ -1506,6 +1553,131 @@
             },
           });
         });
+      }
+
+      // =============================================確認該會員是否曾經按過收藏或讚UI需做對應顯示===================================================
+      function check_fav_reaction(list, postid, type, fav_reaction_count) {
+        let result = false;
+
+        if (list.indexOf(Number(postid)) > -1) {
+          result = true;
+        }
+
+        // console.log(`------------------------`)
+
+        // console.log(list)
+        // console.log(`postid=> ${postid} `)
+        // console.log(`${type} 結果 => ${result}`)
+        // console.log(`------------------------`)
+
+        switch (type) {
+          case "fav":
+            let str_fav = "";
+
+            if (result) {
+              str_fav = `<div class="col-md-1 mx-lg-3 btn-danger text-white">
+                             <div class="bbs_heart_group" style="cursor: pointer" onclick="fav(${postid} , this)">
+                                <img id="bbs_heart_img" class="w-25" src="/img/bbsdiscuss/heart-solid.svg" alt="收藏">
+                                <span class="bbs_heart_count">${fav_reaction_count}</span>
+                             </div>
+               </div>`;
+            } else {
+              str_fav = `<div class="col-md-1 mx-lg-3">
+                             <div class="bbs_heart_group" style="cursor: pointer" onclick="fav(${postid} , this)">
+                                <img id="bbs_heart_img" class="w-25" src="/img/bbsdiscuss/heart-regular.svg" alt="收藏">
+                                <span class="bbs_heart_count">${fav_reaction_count}</span>
+                             </div>
+                      </div>`;
+            }
+
+            return str_fav;
+
+          case "reaction":
+            let str_reaction = "";
+
+            if (result) {
+              str_reaction = `<div class="col-md-1 mx-lg-3 btn-primary text-white">
+                              <div class="bbs_thumbs_up_group" style="cursor: pointer" onclick="lik(${postid} , this)">
+                                <img id="bbs_thumbs_up_img" class="w-25" src="/img/bbsdiscuss/thumbs-up-solid.svg" alt="讚">
+                                 <span class="bbs_thumbs_up_count">${fav_reaction_count}</span> 
+                              </div>
+                            </div>`;
+            } else {
+              str_reaction = `
+                            <div class="col-md-1 mx-lg-3">
+                               <div class="bbs_thumbs_up_group" style="cursor: pointer" onclick="lik(${postid} , this)">
+                                <img id="bbs_thumbs_up_img" class="w-25" src="/img/bbsdiscuss/thumbs-up-regular.svg" alt="讚">
+                                 <span class="bbs_thumbs_up_count">${fav_reaction_count}</span> 
+                               </div>
+                            </div>`;
+            }
+
+            return str_reaction;
+
+          default:
+            console.log("無判斷類別");
+            break;
+        }
+      }
+
+      // =====================================編輯留言==============================================================
+      function bbs_pen(event, bbsCommentId) {
+        //  $(".bbs_comment_list").on("click", "#bbs_pen_img", function () {
+        // console.log("aaa");
+        console.log(event);
+        if ($(event).attr("data-edit") == undefined) {
+          // 進入編輯狀態
+
+          $(event).attr("data-edit", true);
+          $(event).closest("li").find("h6.bbs_pare").toggleClass("-none");
+          $(event)
+            .closest("li")
+            .find("input.task_name_update")
+            .toggleClass("-none");
+        } else {
+          let update_task_name = $(event)
+            .closest("li")
+            .find("input.task_name_update")
+            .val()
+            .trim();
+
+          $(event)
+            .closest("li")
+            .find("h6.bbs_pare")
+            .html(update_task_name)
+            .toggleClass("-none");
+          $(event)
+            .closest("li")
+            .find("input.task_name_update")
+            .val(update_task_name)
+            .toggleClass("-none");
+          $(event).removeAttr("data-edit");
+        }
+
+        let will_sav_bbsComment = !event.hasAttribute("data-edit");
+
+        if (will_sav_bbsComment) {
+          let post_id = document.getElementById("cardId").textContent;
+          let post_bbsComment_update =
+            document.getElementById("bbs_title_test2").textContent;
+
+          alert(
+            `要儲存comm留言了 內容:${post_bbsComment_update} , postId:${post_id} , bbsCommentId: ${bbsCommentId}`
+          );
+          let jason_data_content_update = {
+            postContent: post_bbsComment_update,
+          };
+          $.ajax({
+            url: "/bbsdiscussGet/content/" + post_id,
+            type: "PUT",
+            data: JSON.stringify(jason_data_content_update),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data_content_update) {
+              console.log(data_content_update);
+            },
+          });
+        }
       }
     </script>
   </body>

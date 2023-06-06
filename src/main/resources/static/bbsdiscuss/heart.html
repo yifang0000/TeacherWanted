@@ -194,7 +194,7 @@
                   發文紀錄
                 </button>
               </div>
-              <form class="d-flex">
+              <!-- <form class="d-flex">
                 <input
                   class="form-control me-2"
                   type="search"
@@ -204,7 +204,7 @@
                 <button class="btn btn-outline-success" type="submit">
                   Search
                 </button>
-              </form>
+              </form> -->
             </div>
           </nav>
         </div>
@@ -253,16 +253,14 @@
               <h1>我的收藏</h1>
               <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item">
-                    <a href="/bbsdiscuss/index.html?posttype=all">論壇</a>
-                  </li>
+                  <li class="breadcrumb-item"><a href="/bbsdiscuss/index.html?posttype=all">論壇</a></li>
                   <li class="breadcrumb-item active" aria-current="page">
                     我的收藏
                   </li>
                 </ol>
               </nav>
             </div>
-            <div class="container">
+            <div class="container bbs_no_fav">
               <ul
                 class="row row-cols-1 row-cols-md-3 g-4 bbs_favorite_list"
               ></ul>
@@ -429,9 +427,9 @@
                         </p>
                         <!-- Button trigger modal -->
 
-                        <button id="bbs_cancel_favorite" type="button" class="btn btn-outline-danger bbs_cancel_favorite" data-bs-toggle="modal" data-bs-target="#${bbsPostId}">
+                        <button id="bbs_cancel_favorite" type="button" class="btn btn-outline-danger bbs_cancel_favorite" style="display:inline" data-bs-toggle="modal" data-bs-target="#${bbsPostId}" >
                         取消收藏</button>
-                        <p>${bbsPostId}</p>
+                        <p id="bbsPostId_cancel" style="display:inline; color:white " >${bbsPostId}</p>
 
                         <!-- Modal -->
                         <div class="modal fade" id="${bbsPostId}" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -457,13 +455,28 @@
                     </div>
                   </li>
                   `;
-                  if (String(data_id) === String(memId)) {
+                  if(String(data_id) === String(memId)){
                     $("ul.bbs_favorite_list").append(bbs_favorite_html);
                   }
                 }
               },
+              error: function(xhr, status, error) {
+                // 错误响应处理逻辑
+                console.log("請求失敗");
+                console.log("狀態碼" + xhr.status);
+                console.log("錯誤訊息" + error);
+                if(xhr.status == 404){
+                  let no_fav_html = `
+                <div class=" mt-5 mb-5" style=" display: flex; justify-content: center;  align-items: center; 
+                     height: 300px; background-color: rgba(0, 100, 0, 0.5); color: white; text-align: center;"   
+                  <h6>無收藏的文章~~</h6>
+                </div>
+                `
+                $("div.bbs_no_fav").append(no_fav_html);
+                }
+              }
             });
-          },
+          }
         });
         // ==============================================================================
 
@@ -477,38 +490,42 @@
         modalCounterMid++;
 
         //=======================================取消收藏=======================================
-        console.log(bbsPostId);
-        console.log("取消收藏的bbspostid");
-        let jason_data_fav_cancel = {
-          bbsPostId: bbsPostId,
-        };
-        $("ul.bbs_favorite_list").on(
-          "click",
-          "#bbs_cancel_favorite",
-          function () {
+       
+        
+       
+        
+        $("ul.bbs_favorite_list").on( "click", "#bbs_cancel_favorite",function () {
+          console.log(this);
+          let bbsPostId = $(this).siblings("#bbsPostId_cancel").text();
+          console.log(bbsPostId);
+          console.log(bbsPostId_cancel);
+          console.log("取消收藏的bbspostid");
+          let jason_data_fav_cancel = {
+          bbsPostId : bbsPostId,
+           }
             $(this).closest("li").fadeOut(1000);
             // 淡出效果完成後關閉燈箱效果
             $(this).closest(".bbsPostId").modal("hide");
-            // $.ajax({
-            //   url: "/bbsdiscussGet/bbsfavpagestatus",
-            //   type: "PUT",
-            //   data: JSON.stringify(jason_data_fav_cancel),
-            //   dataType: "json",
-            //   contentType: "application/json",
-            //   success: function (data_fav_cancel) {
-            //     console.log(data_fav_cancel);
-            //   },
-            // });
+            $.ajax({
+              url: "/bbsdiscussGet/bbsfavpagestatus",
+              type: "PUT",
+              data: JSON.stringify(jason_data_fav_cancel),
+              dataType: "json",
+              contentType: "application/json",
+              success: function (data_fav_cancel) {
+                console.log(data_fav_cancel);
+              }
+            });
           }
         );
 
         //跳轉到發表文章
         $(".btn_edit").on("click", function () {
-          window.location.href = "edit.html";
+          window.location.href = "/bbsdiscuss/edit.html";
         });
         //跳轉到發文紀錄
         $(".btn_posting_record").on("click", function () {
-          window.location.href = "bsdiscusspo.html";
+          window.location.href = "/bbsdiscuss/bsdiscusspo.html";
         });
       });
     </script>
