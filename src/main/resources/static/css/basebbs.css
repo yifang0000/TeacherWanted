@@ -509,7 +509,7 @@ main.TeacherWanted {
   width: 110px;
 }
 
-.dropdown-menu {
+/* .dropdown-menu {
   min-width: 110px;
   width: 110px;
 }
@@ -518,7 +518,7 @@ main.TeacherWanted {
 }
 .dropdown-item {
   font-size: 1rem;
-}
+} */
 #userName {
   font-weight: 700;
   font-size: 1rem;
