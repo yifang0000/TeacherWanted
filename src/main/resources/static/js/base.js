@@ -140,13 +140,32 @@ $(function () {
   
       <li><hr class="dropdown-divider" /></li>
       <li>
-        <a class="dropdown-item" href="/logout">登出</a>
+        <a class="dropdown-item" id=exitBtn>登出</a>
       </li>
     </ul>
   </div>`;
     var ulElement = document.querySelector("#loginOrUser");
     ulElement.innerHTML = "";
     $("#loginOrUser").append(b);
+
+    $("#exitBtn").on("click", () => {
+      logOut();
+    });
+
+    function logOut() {
+      $.ajax({
+        url: "/logout", // 修正URL
+        type: "GET",
+        success: function (Data) {
+          sessionStorage.removeItem("memberStorage");
+          // window.location.href = "/index";
+          location.reload();
+        },
+        error: function (xhr, status, error) {
+          console.log("登出失敗");
+        },
+      });
+    }
   }
   // ===========登出的方法===============
   // function logOut() {
