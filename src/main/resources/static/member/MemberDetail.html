@@ -36,7 +36,7 @@
     ></script>
 
     <!--   Jquery   -->
-    <script src="/jquery/jquery-3.6.4.min.js"></script>
+    <!-- <script src="/jquery/jquery-3.6.4.min.js"></script> -->
     <!-- 要登入驗證解開這個 -->
     <!-- <script src="../js/loginCheck.js"></script> -->
 
@@ -171,43 +171,13 @@
                 style="position: relative; top: 2px"
               >
                 <div>
-                  <form id="navSearch" action="">
-                    <select style="width: 125px; margin-left: 80px" name="formal" onchange="javascript:handleSelect(this)">
-                      <option value="MemberCenter">
-                        <a
-                          class="flexAllCenter"
-                          href="/member/MemberCenter.html"
-                        ></a>
-                        我的課程
-                      </option>
-                      <option value="MemberDetail">
-                        <a
-                          class="flexAllCenter"
-                          href="/member/MemberDetail.html"
-                        ></a>
-                        會員資料
-                      </option>
-                      <option value="MySubscribe">
-                        <a
-                          class="flexAllCenter"
-                          href="/member/MySubscribe.html"
-                        ></a>
-                        訂閱與收藏
-                      </option>
-                      <option value="orderList">
-                        <a
-                          class="flexAllCenter"
-                          href="/member/OrderList.html"
-                        ></a>
-                        訂單管理
-                      </option>
-                      <option value="inboxmail">
-                        <a
-                          class="flexAllCenter"
-                          href="/inboxmail/inbox.html"
-                        ></a>
-                        站內信
-                      </option>
+                  <form id="navSearch1" action="">
+                    <select style="width: 125px; margin-left: 80px" name="formal" >
+                      <option value="MemberCenter"> 我的課程</option>
+                      <option value="MemberDetail"> 會員資料</option> 
+                        <option value="MySubscribe">訂閱與收藏 </option>
+                      <option value="orderList"> 訂單管理 </option>
+                      <option value="inboxmail"> 站內信</option>
                     </select>
                   </form>
                 </div>
@@ -307,7 +277,7 @@
                                     </div>
                                     <div class="col-md">
                                       <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memPassword">
+                                        <input type="password" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memPassword">
                                         <label for="floatingInputGrid">密碼</label>
                                       </div>
                                     </div>

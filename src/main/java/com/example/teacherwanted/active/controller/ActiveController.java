@@ -199,7 +199,7 @@ public class ActiveController {
                     activeFavoriteService.insert(activeFavorite)) {
                 return ResponseEntity.ok("收藏成功");
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("以收藏過");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("已收藏過");
             }
         }
 

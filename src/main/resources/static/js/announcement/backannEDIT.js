@@ -50,6 +50,7 @@ function toggleScheduledTime(show) {
         console.log(formatDateTime(data.activateTime))
           $('#annTitle').val(data.annTitle);
           $('#annCategory').val(data.annCategory);
+          $('#annStatus').val(data.annStatus);
           $('#annContent').val(data.annContent.replace(/<br>/g, '\n'));
           $('#annDate').val(formatDateTime(data.annDate));
         },
@@ -119,7 +120,6 @@ $(document).ready(function(){
 
                 // 格式化日期時間字串
                 var annDate = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-
                 annStatus=1;
             } else if (scheduleOptions[1].checked) {
                 // 取得 input 元素
@@ -141,8 +141,8 @@ $(document).ready(function(){
 
                 // 格式化日期時間字串
                 var annDate = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-
-                annStatus=1;
+                annStatus=$('#annStatus').val()
+              
             }
             }
 

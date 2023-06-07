@@ -79,11 +79,11 @@
               <div class="card-body">
                 <article class="row py-1 gy-3">
                   <div class="tab-content col-sm-7">
-                    <div class="form-group row mb-2">
-                      <label for="id" class="col-sm-2 col-form-label" hidden
+                    <div class="form-group row mb-3" hidden>
+                      <label for="id" class="col-sm-3 col-form-label"
                         >老師編號</label
                       >
-                      <div class="col-sm-2" hidden>
+                      <div class="col-sm-2">
                         <input
                           type="text"
                           class="form-control-plaintext"
@@ -94,28 +94,28 @@
                         />
                       </div>
                     </div>
-                    <div class="form-group row mb-2">
-                      <label for="teaName" class="col-sm-2 col-form-label"
+                    <div class="form-group row mb-3">
+                      <label for="teaName" class="col-sm-3 col-form-label"
                         >老師暱稱</label
                       >
                       <div class="col-sm-2">
                         <input
                           type="text"
-                          class="form-control"
+                          class="form-control-plaintext"
                           id="teaName"
                           maxlength="20"
                           style="width: 250px"
-                          required
+                          readonly
                         />
                       </div>
                     </div>
-                    <div class="form-group row mb-2">
-                      <label for="teaLocation" class="col-sm-2 col-form-label"
+                    <div class="form-group row mb-3">
+                      <label for="teaLocation" class="col-sm-3 col-form-label"
                         >教學地區</label
                       >
-                      <div class="col-sm-10">
+                      <div class="col-sm">
                         <select
-                          class="form-select"
+                          class="form-select needvalue"
                           id="teaLocation"
                           style="width: 250px"
                           required
@@ -147,11 +147,11 @@
                         </select>
                       </div>
                     </div>
-                    <div class="form-group row mb-2">
-                      <label for="id" class="col-sm-2 col-form-label" hidden
+                    <div class="form-group row mb-3" hidden>
+                      <label for="id" class="col-sm-3 col-form-label"
                         >老師編號</label
                       >
-                      <div class="col-sm-2" hidden>
+                      <div class="col-sm-2">
                         <input
                           type="text"
                           class="form-control-plaintext"
@@ -162,58 +162,15 @@
                         />
                       </div>
                     </div>
-                    <hr />
-                    <div class="form-group row mb-2">
-                      <label for="bankCode" class="col-sm-2 col-form-label"
-                        >銀行代碼</label
-                      >
-                      <div class="col-sm-2 m-0">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="bankCode"
-                          pattern="[0-9]{1,3}"
-                          maxlength="3"
-                          onKeypress="return (/[\d]/.test(String.fromCharCode(event.keyCode)))"
-                          style="width: 80px"
-                          required
-                        />
-                        <div class="invalid-feedback">
-                          請輸入正確的銀行代碼。
-                        </div>
-                      </div>
-                      <div
-                        id="bankName"
-                        class="col-sm-6 align-self-center"
-                      ></div>
-                    </div>
-                    <div class="form-group row mb-2">
-                      <label for="bankAccount" class="col-sm-2 col-form-label"
-                        >銀行帳號</label
-                      >
-                      <div class="col-sm-10">
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="bankAccount"
-                          pattern="[0-9]{8,14}"
-                          maxlength="12"
-                          style="width: 250px"
-                          required
-                        />
-                        <div class="invalid-feedback">請輸入銀行帳號</div>
-                      </div>
-                    </div>
-                    <hr />
-                    <div class="form-group row mb-2">
+                    <div class="form-group row mb-3">
                       <label
                         for="teachingSubject1"
-                        class="col-sm-2 col-form-label"
+                        class="col-sm-3 col-form-label"
                         >擅長科目</label
                       >
-                      <div class="col-sm-10">
+                      <div class="col-sm">
                         <select
-                          class="form-select"
+                          class="form-select needvalue"
                           id="teachingSubject1"
                           style="width: 250px"
                           required
@@ -230,65 +187,16 @@
                         <div class="invalid-feedback">請選擇</div>
                       </div>
                     </div>
-                    <!-- <div class="form-group row mb-2">
-                      <label
-                        for="teachingSubject2"
-                        class="col-sm-2 col-form-label"
-                        >擅長科目2</label
-                      >
-                      <div class="col-sm-10">
-                        <select
-                          class="form-select"
-                          id="teachingSubject2"
-                          style="width: 250px"
-                          required
-                        >
-                          <option value="">請選擇</option>
-                          <option value="100">音樂</option>
-                          <option value="200">語言</option>
-                          <option value="300">藝術</option>
-                          <option value="400">程式</option>
-                          <option value="500">學科</option>
-                          <option value="600">體育</option>
-                          <option value="700">其他</option>
-                        </select>
-                        <div class="invalid-feedback">請選擇</div>
-                      </div>
-                    </div> -->
-                    <!-- <div class="form-group row mb-2">
-                      <label
-                        for="teachingSubject3"
-                        class="col-sm-2 col-form-label"
-                        >擅長科目3</label
-                      >
-                      <div class="col-sm-10">
-                        <select
-                          class="form-select"
-                          id="teachingSubject3"
-                          style="width: 250px"
-                          required
-                        >
-                          <option value="">請選擇</option>
-                          <option value="100">音樂</option>
-                          <option value="200">語言</option>
-                          <option value="300">藝術</option>
-                          <option value="400">程式</option>
-                          <option value="500">學科</option>
-                          <option value="600">體育</option>
-                          <option value="700">其他</option>
-                        </select>
-                        <div class="invalid-feedback">請選擇</div>
-                      </div>
-                    </div> -->
-                    <div class="form-group row mb-2">
-                      <label for="teaProfile" class="col-form-label col-sm-2"
+                    <div class="form-group row mb-3">
+                      <label for="teaProfile" class="col-form-label col-sm-3"
                         >簡介</label
                       >
-                      <div class="col-sm-10">
+                      <div class="col-sm">
                         <textarea
                           class="form-control"
                           id="teaProfile"
                           placeholder=""
+                          style="width: 250px"
                           required
                         ></textarea>
                         <div class="invalid-feedback">
@@ -296,9 +204,51 @@
                         </div>
                       </div>
                     </div>
+                    <hr />
+                    <div class="form-group row mb-3">
+                      <label for="bankCode" class="col-sm-3 col-form-label"
+                        >金融機構代碼</label
+                      >
+                      <div class="col-sm-2 m-0">
+                        <input
+                          type="text"
+                          class="form-control needvalue"
+                          id="bankCode"
+                          pattern="[0-9]{1,3}"
+                          maxlength="3"
+                          onKeypress="return (/[\d]/.test(String.fromCharCode(event.keyCode)))"
+                          style="width: 80px"
+                          required
+                        />
+                        <div class="invalid-feedback">
+                          請輸入正確的金融機構代碼。
+                        </div>
+                      </div>
+                      <div
+                        id="bankName"
+                        class="col-sm-6 align-self-center"
+                      ></div>
+                    </div>
+                    <div class="form-group row mb-3">
+                      <label for="bankAccount" class="col-sm-3 col-form-label"
+                        >帳戶</label
+                      >
+                      <div class="col-sm">
+                        <input
+                          type="number"
+                          class="form-control needvalue"
+                          id="bankAccount"
+                          pattern="[0-9]{8,14}"
+                          maxlength="12"
+                          style="width: 250px"
+                          required
+                        />
+                        <div class="invalid-feedback">請輸入帳戶</div>
+                      </div>
+                    </div>
                     <div id="output"></div>
                   </div>
-                  <div class="tab-content col-sm-5">
+                  <div class="tab-content col-sm">
                     <!-- 頭像開始 -->
 
                     <div class="profile_picture m-0">
