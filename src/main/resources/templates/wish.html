@@ -72,7 +72,7 @@
     <a href="/courseteacher/CourseVue.html" class="">課程</a>
     <a href="/active/activeIndex.html" class="">活動</a>
     <a href="/wish" class="">許願池</a>
-    <a href="/bbsdiscuss/index.html?posttype=all" class="">論壇</a>
+    <a href="/bbsdiscuss/index.html" class="">論壇</a>
     <a href="/baseVer3/homepage.html" class="">商城</a>
   </div>
   <div class="navBar">
@@ -114,14 +114,14 @@
                 class="flexWrap flexAllCenter pcHave"
                 style="flex-grow: 1"
         >
-          <a class="flexAllCenter" href="/index"><b>首頁</b></a>
+          <a class="flexAllCenter" href="/index">首頁</a>
           <a class="flexAllCenter" href="/courseteacher/CourseVue.html"
-          ><b>課程</b></a
+          >課程</a
           >
-          <a class="flexAllCenter" href="/active/activeIndex.html"><b>活動</b></a>
-          <a class="flexAllCenter" href="/wish"><b>許願池</b></a>
-          <a class="flexAllCenter" href="/bbsdiscuss/index.html"><b>論壇</b></a>
-          <a class="flexAllCenter" href="/baseVer3/homepage.html"><b>商城</b></a>
+          <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
+          <a class="flexAllCenter" href="/wish">許願池</a>
+          <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+          <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
         </div>
         <div
                 class="flexWrap flexAllCenter"
@@ -187,36 +187,31 @@
 <br>
 
 
-
+<!--  <div>-->
+<!--  <a class="h3 d-block ml-auto" style="margin-right: 20px;" th:href="@{/wish/new}">新增許願</a>-->
+<!--</div>-->
   <div class="container">
     <div class="row" style="margin-bottom: 10px">
       <br>
       <br>
       <div class="col-3"></div>
-      <div class="col-3" style="display: flex; align-items: center;">
-
-          <p style="color: #3c6a36;font-size:30px;font-weight: bold;background-color: yellow;">今晚~我想學點...</p>
-
-
-
-
-
+      <div class="col-3" style="display: flex; align-items: center;color: #3c6a36;">
+        <h2 style="font-weight: bold;" >今晚~我想學點...</h2>
       </div>
       <div class="col-3" style="display: flex; flex-direction: column; align-items: flex-end; margin-top: 20px;">
         <img src="../img/wish/angel.png" width="200px" />
       </div>
 
-      <div class="col-3"style="display: flex; align-items: center; color: #1c7430; font-size: 20px;font-weight: bold">
-                <p >
-                  這座許願池有個古老的傳說...
-                  <br>
-                  只要在此許下心願，
-                  <br>
-                  小天使就會替你找到適合的老師~
-                </p>
-      </div>
+      <div class="col-3"></div>
 
-      <div class="col-4">
+      <div class="col-4" style="margin-left: 50px;font-size:20px;display: flex;font-weight: bold; align-items:end;color: #ba8b00;">
+        <p >
+          這座許願池有個古老的傳說...
+          <br>
+          只要在此許下心願，
+          <br>
+          小天使就會替你找到適合的老師!!
+        </p>
       </div>
       <div
               class="col-4"
@@ -224,49 +219,19 @@
       >
         <img src="../img/wish/wish.png" alt="" width="250px" />
       </div>
-      <div class="col-4">
-      </div>
-
-
-      <div class="col-4" style="display: flex; align-items: center">
-        <form action="/wish/search" method="get">
-          <input type="text" name="keyword" placeholder="請輸入關鍵字" style="
-            margin-left: 50px;
-            width: 200px;
-            height: 48px;
-            border-radius: 5px;
-            font-size: 20px;
-            border: 3px solid #a4c964;
-        "><button type="submit" style="
-
-            align-items: center;
-            font-size: 22px;
-            text-align: center;
-            color: black;
-            font-weight: bold;
-            background-color: #a4c964;
-            text-decoration: none;
-            width: 80px;
-            border-radius: 5px;
-            line-height: 50%;
-            height: 46px;
-            border: none;
-        ">搜尋</button>
-        </form>
-
-
-      </div>
 
       <div class="col-4"></div>
-      <div class="col-4">
+
+
+      <div style="margin-left: 1000px">
         <a
                 th:href="@{/wish/new}"
                 class="postwish"
                 style="
 
               align-items: center;
-              margin-left: 45px;
-              font-size: 22px;
+
+              font-size: 20px;
               text-align: center;
               color: rgb(1, 47, 5);
               font-weight: bold;
@@ -286,8 +251,9 @@
                 class="mywish"
                 style="
 
+              margin-left: 30px;
               align-items: center;
-              font-size: 22px;
+              font-size: 20px;
               text-align: center;
               color: black;
               font-weight: bold;
@@ -298,12 +264,11 @@
               border-radius: 5px;
               line-height: 55px;
               height: 56px;
-              margin-left: 30px;
             "
         >我的許願</a
         >
       </div>
-    </div>
+      </div>
 
     <br>
   </div>
@@ -352,7 +317,18 @@
 <!--         <td>[[${wish.wishEmail}]]</td>-->
 
          <td>
-
+<!--           <nav>-->
+<!--             <ul>-->
+<!--               <li class="dropdown" style="color: #1c7430; font-weight: bold;text-decoration: none;">-->
+<!--             <a href="#" class="dropdown-toggle" style="text-decoration: none;">詳情 </a>-->
+<!--             <ul class="dropdown-menu">-->
+<!--               <li><a href="#"style="text-decoration: none;">站內信應徵</a></li>-->
+<!--               <li><a style="text-decoration: none;"th:href="@{'/wish/edit/' + ${wish.wishId}}">發文者編輯</a></li>-->
+<!--               <li><a style="text-decoration: none;"th:href="@{'/wish/delete/' + ${wish.wishId}}">發文者刪除</a></li>-->
+<!--             </ul>-->
+<!--             </li>-->
+<!--             </ul>-->
+<!--           </nav>-->
            <a
                   href="#"
                    class="mywish"
@@ -369,7 +345,7 @@
               border-radius: 5px;
               line-height: 55px;
             "
-           >站內信應徵</a
+           >站內信</a
            >
 
 
@@ -408,22 +384,18 @@
                 class="flexAllCenter"
                 style="margin: 10px 30px; font-weight: normal"
         >
-          現代⼈⽣活步相當緊湊，我們的課平台幫助各年齡層
-          的⼈們學習，除了線上課也提供了家教的媒合。
-          相信這裡的課程的多元性可促進學⽣的全⾯發展。
+          Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
+          dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
+          elitr stet diam duo eos rebum ipsum diam ipsum elitr.
         </li>
         <li
                 id="imgIcon"
                 class="flexVerticalCenter"
                 style="margin: 20px 30px"
         >
-          <img src="../img/base/facebook.svg" class="imgIntroduce" alt="" />
-          <img src="../img/base/twitter.svg" class="imgIntroduce" alt="" />
-          <img
-                  src="../img/base/instagram.svg"
-                  class="imgIntroduce"
-                  alt=""
-          />
+          <img src="../static/img/base/facebook.svg" class="imgIntroduce" alt="" />
+          <img src="../static/img/base/twitter.svg" class="imgIntroduce" alt="" />
+          <img src="../static/img/base/instagram.svg" class="imgIntroduce" alt="" />
         </li>
       </ul>
       <ul class="col_33 flexHorizontalCenter footerMobile">
@@ -443,7 +415,7 @@
               />
               <div>
                 <h3 style="font-size: 1.3rem">地址</h3>
-                <h5 style="font-size: 1rem">台北市中山區南京東路三段</h5>
+                <h5 style="font-size: 1rem">123</h5>
               </div>
             </li>
 
@@ -483,26 +455,22 @@
           </li>
           <div class="webMap">
             <li style="margin-top: 5px">
-              <a class="webMapLink" href="/index">>首頁</a>
+              <a class="webMapLink" href="">>首頁</a>
             </li>
             <li style="margin-top: 5px">
-              <a class="webMapLink" href="/courseteacher/CourseVue.html"
-              >>課程</a
-              >
+              <a class="webMapLink" href="">>課程</a>
             </li>
             <li style="margin-top: 5px">
-              <a class="webMapLink" href="/active/activeIndex.html"
-              >>活動</a
-              >
+              <a class="webMapLink" href="">>活動</a>
             </li>
             <li style="margin-top: 5px">
-              <a class="webMapLink" href="/wish">>許願池</a>
+              <a class="webMapLink" href="">>許願池</a>
             </li>
             <li style="margin-top: 5px">
-              <a class="webMapLink" href="/bbsdiscuss/index.html?posttype=all">>論壇</a>
+              <a class="webMapLink" href="">>論壇</a>
             </li>
             <li style="margin-top: 5px">
-              <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
+              <a class="webMapLink" href="">>商城</a>
             </li>
           </div>
         </div>

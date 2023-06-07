@@ -22,5 +22,5 @@ public interface WishService {
 
     public void delete(Integer wishId) throws WishNotFoundException ;
 
-    List<Wish> searchByKeyword(String keyword);
+//    List<Wish> searchByKeyword(String keyword);
 }
