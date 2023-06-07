@@ -111,8 +111,9 @@ $(document).ready(function() {
         updateTime: "",
         memStatus: "",
         member:[],
-        isDisabled: true
-        
+        isDisabled: true,
+       
+
       };
     },
     mounted() {
@@ -125,7 +126,8 @@ $(document).ready(function() {
     },
     methods: {
       getMemberDetail() {
-        axios.post(this.url,{                            //promise 等後端回應
+        axios.post(this.url
+          // ,{                            //promise 等後端回應
         
           
           // memAccount: this.memAccount,
@@ -146,7 +148,8 @@ $(document).ready(function() {
           // updateTime: this.updateTime,
           // memStatus: this.memStatus
       
-      })
+      // }
+      )
         .then((response) => {   
           console.log(response.data)                         // 後端回傳的資訊
           // response = {memId: 10}
@@ -188,32 +191,37 @@ $(document).ready(function() {
       },
 
       submit(){
+        console.log("我在submit裡面")
+        console.log("memId:",this.member.memId)
         //按送出之後要作業送出的資料
         axios.put(this.url, {
-          //   headers: {
-          //     'Content-Type': 'application/x-www-form-urlencoded'
-          // },
-            member: this.member,
-            memId :this.memId,
-            memAccount: this.memAccount,
-            memPassword: this.memPassword,
-            memName: this.memName,
-            memPhone: this.memPhone,
-            memNickname: this.memNickname,
-            memBirthday: this.memBirthday,
-            memGender: this.memGender,
-            memEmail: this.memEmail,
-            mailVerify: this.mailVerify,
-            memLocation: this.memLocation,
-            memPhoto: this.memPhoto,
-            interest1: this.interest1,
-            interest2: this.interest2,
-            interest3: this.interest3,
-            createTime: this.createTime,
-            updateTime: this.updateTime,
-            memStatus: this.memStatus
           
+            memId :this.member.memId,
+            memAccount: this.member.memAccount,
+            memPassword: this.member.memPassword,
+            memName: this.member.memName,
+            memPhone: this.member.memPhone,
+            memNickname: this.member.memNickname,
+            memBirthday: this.member.memBirthday,
+            memGender: this.member.memGender,
+            memEmail: this.member.memEmail,
+            mailVerify: this.member.mailVerify,
+            memLocation: this.member.memLocation,
+            memPhoto: this.member.memPhoto,
+            interest1: this.member.interest1,
+            interest2: this.member.interest2,
+            interest3: this.member.interest3,
+            createTime: this.member.createTime,
+            updateTime: this.member.updateTime,
+            memStatus: this.member.memStatus,
+
           })
+          .then((response) => {
+            // 成功回調函數
+            console.log("資料更新成功");
+            location.reload(); // 重新載入頁面
+          })
+          .catch((error) => console.log(error));
       }
        
 

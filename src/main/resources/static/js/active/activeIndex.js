@@ -5,6 +5,9 @@ const app = Vue.createApp({
   data() {
     return {
       activityIndexList: [],
+      currentPage: 1,
+      totalPages: 0,
+      pageSize: 10, // 每页显示的记录数
     };
   },
   mounted() {
@@ -16,9 +19,32 @@ const app = Vue.createApp({
       .catch((error) => {
         console.error(error);
       });
+
+    this.updateTotalPages();
     // 呼叫預先執行的函式
   },
+  computed: {
+    // 分頁 開始
+    currentPageItems() {
+      // 计算当前页显示的数据
+      const startIndex = (this.currentPage - 1) * this.pageSize;
+      const endIndex = startIndex + this.pageSize;
+      return this.activityIndexList.slice(startIndex, endIndex);
+    },
+    // 分頁 結束
+  },
   methods: {
+    // 分頁 Vue方法裡 開始
+    changePage(page) {
+      this.currentPage = page;
+    },
+    updateTotalPages() {
+      // 更新总页数
+      this.totalPages = Math.ceil(
+        this.activityIndexList.length / this.pageSize
+      );
+    },
+    // 分頁 Vue方法裡 結束
     // 推薦課程 時間轉換 簡單格式 Vue方法裡 開始
     convertDateTimeEasy(originalDateTime) {
       var originalDate = new Date(originalDateTime);
@@ -61,6 +87,12 @@ const app = Vue.createApp({
       window.location.href = "/active/activeIndex.html";
     },
     // 清除搜索 Vue方法裡 結束
+  },
+  watch: {
+    activityIndexList() {
+      // 监听 items 数组的变化，更新总页数
+      this.updateTotalPages();
+    },
   },
 });
 

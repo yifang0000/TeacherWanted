@@ -62,6 +62,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public void updateBoughtCount(CourseVo courseVo) {
+        courseDao.updateBoughtCount(courseVo);
+    }
+
+    @Override
     public void deleteCourseById(Integer courseId) {
         courseDao.deleteCourseById(courseId);
     }

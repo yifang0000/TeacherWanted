@@ -162,7 +162,24 @@ function convertToFormattedDate(dateString) {
   return formattedDate;
 }
 // 轉換時間格式 結束
+// 數字判斷 只能輸入大於0的數字 開始
+function numberCheck(input) {
+  // 使用 parseFloat() 函式將輸入轉換為浮點數
+  var 數字 = parseFloat(input);
 
+  // 檢查數字是否為 NaN（非數字）
+  if (isNaN(數字)) {
+    return false;
+  }
+
+  // 檢查數字是否大於0
+  if (數字 > 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+// 數字判斷 只能輸入大於0的數字 結束
 // 圖片格式相關 開始
 function extractBase64String(dataURL) {
   var prefix = "data:image/";
@@ -396,7 +413,11 @@ $(document).ready(function () {
     } else if (editor.getData() == "") {
       alert("請輸入活動介紹");
     } else if (!$("#preview").children("img").attr("src")) {
-      alert("請輸入活動圖片");
+      alert("請上傳活動圖片");
+    } else if (!numberCheck($("#activityPrice").val())) {
+      alert("活動價格請輸入大於0的數字");
+    } else if (!numberCheck($("#maxNumber").val())) {
+      alert("上限人數請輸入大於0的數字");
     } else {
       console.log("------>activityId:" + activityId);
       const data = JSON.stringify({
@@ -444,7 +465,7 @@ $(document).ready(function () {
             // 新增成功的逻辑
           } else {
             // 新增失败的逻辑
-            alert("更新失敗，如遇問題請聯繫管理員");
+            alert(response + "，如遇問題請聯繫管理員");
           }
         },
       });

@@ -12,6 +12,7 @@ public interface AdministratorDao {
     public int deleteByAdminId(Integer adminId);
     //    修改
     public int updateByAdminId(Administrator administrator);
+    public String updateByadminAccount(Administrator administrator);
     //    查詢全部使用者
     public List<Administrator> findAll();
     //    查詢單個使用者

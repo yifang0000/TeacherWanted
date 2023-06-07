@@ -7,6 +7,7 @@ import com.example.teacherwanted.active.model.MemberActive;
 import com.example.teacherwanted.member.model.Member;
 import com.example.teacherwanted.member.service.MemberService;
 import com.example.teacherwanted.register_login.entity.User;
+import com.example.teacherwanted.register_login.repo.UserRepo;
 import com.example.teacherwanted.register_login.service.UserService;
 import com.example.teacherwanted.wish.entity.Wish;
 import com.example.teacherwanted.wish.repo.WishRepository;
@@ -41,17 +42,20 @@ public class MemberController {
     @Autowired
     private WishRepository repo;
 
+    @Autowired
+    private UserRepo userRepo;
+
 
 //      會員中心相關
 //      會員資料
 //      用memId拿會員資料明細
     @PostMapping("/memberDetail")
     public ResponseEntity<Member> selectByMemId(
-            @RequestBody(required = true) Integer memId,
+            @RequestBody(required = false) Integer memId,
          @SessionAttribute(value = "userInfo", required = false) User user)  {
 
-        Member member = memberService.selectById(memId);
-        if (user != null) {
+        Member member = memberService.selectById(user.getMemId());
+        if (member != null) {
             System.out.println(member);
             return ok(member);
         } else {
@@ -66,9 +70,15 @@ public class MemberController {
                              ) {
 //        User user = new User();
 //        session.setAttribute("userInfo", userService.s);
-        System.out.println(member);
-        System.out.println(memberService.update(member));
-        return memberService.update(member);
+//        System.out.println(member);
+        System.out.println("我在controller:"+member);
+//        System.out.println(memberService.update(member));
+        memberService.update(member);
+        Optional<User> userdata = userRepo.findByMemAccount(member.getMemAccount());
+        User user = userdata.get();
+        session.setAttribute("userInfo",user);
+
+        return "success";
 }
 
 

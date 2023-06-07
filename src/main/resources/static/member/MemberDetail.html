@@ -399,7 +399,8 @@
                         aria-label="Close"
                       ></button>
                     </div>
-                    <div class="modal-body">確定修改資料?</div>
+                    <div class="modal-body"> 
+                      確定修改資料?</div>
                     <div v-else class="modal-footer">
                       <button
                         type="button"
@@ -412,6 +413,7 @@
                         id="btn-submit"
                         type="button"
                         class="btn btn-outline-success"
+                        data-bs-dismiss="modal"
                         @click="submit"
                       >
                         確定變更

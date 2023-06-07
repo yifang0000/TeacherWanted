@@ -292,6 +292,15 @@ a {
   background-color: rgb(24, 89, 110);
   border: 1px solid rgb(24, 89, 110);
 }
+.tbodyBtn .dropNoneBtn {
+  cursor: not-allowed;
+  background-color: rgb(104, 107, 108);
+  border: 1px solid rgb(104, 107, 108);
+}
+.tbodyBtn .dropNoneBtn:hover {
+  background-color: rgb(104, 107, 108);
+  border: 1px solid rgb(104, 107, 108);
+}
 .activeBackOneImgBlock {
   /* width: 50%; */
   height: 100%;
