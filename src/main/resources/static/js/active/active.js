@@ -132,6 +132,27 @@ const app = Vue.createApp({
       return formattedDate;
     },
     // 推薦課程 時間轉換 Vue方法裡 結束
+    // 活動聊天室 確認是否下訂單 Vue方法裡 開始
+    activityChatRoomPermissions(activityId) {
+      return axios
+        .get("/activeOrderDetail", {
+          params: { activityId: activityId },
+        })
+        .then((res) => {
+          console.log(res.data);
+          alert(res.data);
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          if (err.response.data == "無登入狀態") {
+            alert(err.response.data);
+          } else {
+            window.location.href =
+              "/active/activeChatRoom.html?activityId=" + activityId;
+          }
+        });
+    },
+    // 活動聊天室 確認是否下訂單 Vue方法裡 結束
     // 活動訂單 確認是否有參加活動過 Vue方法裡 開始
     activityParticipation(activityId) {
       return axios

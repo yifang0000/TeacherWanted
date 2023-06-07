@@ -249,7 +249,7 @@ public class ActiveController {
     //    推薦活動
     @GetMapping("/activeRecommend")
     public List<Active> recommendActivities(@RequestParam(required = false) String activityType) {
-//        System.out.println(activityType);
+        System.out.println(activityType);
 
 
         return activeService.recommendActivities(activityType);
