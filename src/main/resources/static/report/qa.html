@@ -132,115 +132,47 @@
       <!-- ==============================側邊欄=============================================== -->
 
       <div class="col-md-2 mx-lg-5">
-        <div class="col-md-12 mb-4" id="nq"><a href="#">常見問題</a></div>
-        <div class="col-md-12 mb-4" id="ac"><a href="#">課程相關</a></div>
-        <div class="col-md-12 mb-4" id="ao"><a href="#">訂單相關</a></div>
-        <div class="col-md-12 mb-4" id="oq"><a href="#">其他問題</a></div>
+        <div class="col-md-12 mb-4" id="nq"><a href="qa.html">常見問題</a></div>
         <div class="col-md-12 mb-4" id="oh"><a href="#">線上客服</a></div>
-        <div class="col-md-12 mb-4" id="rp"><a href="#">通報/舉報</a></div>
+        <div class="col-md-12 mb-4" id="rp"><a href="report.html">通報/舉報</a></div>
       </div>
       <!-- ==================================表單區=============================================== -->
       <div class="col-md-8">
         <!-- 頁面標題 -->
         <h1 class="mb-5">通報/舉報</h1>
-        <form>
-          <!-- 欄位:身分(固定)
-          <div class="mb-3 row">
-              <label for="staticIdentity" class="col-sm-2 col-form-label">*身分:</label>
-              <div class="col-sm-10">
-              <input type="text" readonly class="form-control-plaintext" id="staticIdentity" value="學生" style="width: 200px;">
-              </div>
-          </div> -->
-          <!-- 欄位:姓名(固定) -->
-          <div class="mb-3 row">
-            <label for="staticName" class="col-sm-2 col-form-label">姓名:</label>
-            <div class="col-sm-10">
-              <input type="text" readonly class="form-control-plaintext" id="staticName" value="王小美" style="width: 200px;">
-            </div>
-          </div>
-          <!-- 欄位:電話(固定) -->
-          <div class="mb-3 row">
-            <label for="staticPhone" class="col-sm-2 col-form-label">電話:</label>
-            <div class="col-sm-10">
-              <input type="text" readonly class="form-control-plaintext" id="staticPhone" value="0900-111222" style="width: 200px;">
-            </div>
-          </div>
-          <!-- 欄位:信箱(固定) -->
-          <div class="mb-3 row">
-            <label for="staticEmail" class="col-sm-2 col-form-label">電子信箱:</label>
-            <div class="col-sm-10">
-              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="xiaomei@gmail.com" style="width: 200px;">
-            </div>
-          </div>
-          <!-- 欄位:問題類別 -->
-          <div class="row">
-            <label for="validationDefault04" class="form-label col-sm-2">*問題類別:</label>
-            <select class="form-select text-secondary" id="validationDefault04" required style="width: 200px;">
-              <option selected disabled value="">請選擇</option>
-              <option value="1">課程</option>
-              <option value="2">訂單</option>
-              <option value="3">網站</option>
-              <option value="4">論壇</option>
-            </select>
-          </div>
-          <!-- 欄位:內容 -->
-          <div class=" mb-3  mt-3">
-            <label for="content" class="form-label col-sm-2">*內容:</label>
-            <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="content" required
-                                  style="height: 200px; resize: none"></textarea>
-              <label for="floatingTextarea2">輸入內容...</label>
-            </div>
-          </div>
-        </form>
-        <div class="row justify-content-end">
-          <!-- 離開 -->
-          <!-- Button trigger modal -->
-          <button id="leave" type="button" class="btn btn-primary col-md-1 mx-lg-3" data-bs-toggle="modal"data-bs-target="#exampleModal">離開</button>
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">確定離開?</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    取消
-                  </button>
-                  <button type="submit" class="btn btn-primary leaveSure">
-                    確定
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- 送出 -->
-          <!-- Button trigger modal -->
-          <button id="sentOut" type="button" class="btn btn-primary col-md-1 mx-lg-3" data-bs-toggle="modal"data-bs-target="#exampleModa2">送出</button>
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModa2" tabindex="-1" aria-labelledby="exampleModalLabe2"aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabe2">確定送出?</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    取消
-                  </button>
-                  <button type="submit" class="btn btn-primary sentOutSure">
-                    確定
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Question</th>
+<!--            <th scope="col"></th>-->
+            <th scope="col">Answer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>請問該如何註冊成為會員?</td>
+<!--            <td></td>-->
+            <td>在網站右上角按下登入,即可前往註冊</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>請問有那些老師?</td>
+<!--            <td></td>-->
+            <td>有很多領域的老師,您可親自瀏覽我們的網站尋找你喜歡的老師,並報名參加課程</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>除了線上課程,是否還會有實體課程?</td>
+<!--            <td></td>-->
+            <td>實體課程可參考我們的活動,每位老師不定期會推出活動,您都可以參考看看</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+  </div>
   </div>
 
 </main>
