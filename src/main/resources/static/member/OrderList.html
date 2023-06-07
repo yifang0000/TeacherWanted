@@ -62,7 +62,7 @@
     <link href="/member/OrderList.html" rel="stylesheet" type="text/css" />
 
     <!-- 要登入驗證解開這個 -->
-    <!-- <script src="../js/loginCheck.js"></script> -->
+    <script src="../js/loginCheck.js"></script>
     <title>懸賞啼雀-訂單明細</title>
   </head>
   <body class="TeacherWanted">
@@ -191,47 +191,16 @@
               <!--按鈕圖示-->
               <div class="" style="position: relative; top: 2px">
                 <div style="padding: 20px 10px 40px">
-                  <form id="navSearch" action="">
+                  <form id="navSearch1" action="">
                     <select
                       style="width: 125px; margin-left: 80px"
                       name="formal"
-                      onchange="javascript:handleSelect(this)"
                     >
-                      <option value="MemberCenter">
-                        <a
-                          class="flexAllCenter"
-                          href="/member/MemberCenter.html"
-                        ></a>
-                        我的課程
-                      </option>
-                      <option value="MemberDetail">
-                        <a
-                          class="flexAllCenter"
-                          href="/member/MemberDetail.html"
-                        ></a>
-                        會員資料
-                      </option>
-                      <option value="MySubscribe">
-                        <a
-                          class="flexAllCenter"
-                          href="/member/MySubscribe.html"
-                        ></a>
-                        訂閱與收藏
-                      </option>
-                      <option value="orderList">
-                        <a
-                          class="flexAllCenter"
-                          href="/member/OrderList.html"
-                        ></a>
-                        訂單管理
-                      </option>
-                      <option value="inboxmail">
-                        <a
-                          class="flexAllCenter"
-                          href="/inboxmail/inbox.html"
-                        ></a>
-                        站內信
-                      </option>
+                      <option value="MemberCenter">我的課程</option>
+                      <option value="MemberDetail">會員資料</option>
+                      <option value="MySubscribe">訂閱與收藏</option>
+                      <option value="orderList">訂單管理</option>
+                      <option value="inboxmail">站內信</option>
                     </select>
                   </form>
                 </div>

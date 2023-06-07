@@ -17,8 +17,12 @@ public interface InBoxMailDao {
     //    已讀未讀狀態
     public Inboxmail selectBymailId(Integer mailId);
     //    顯示所有站內信
-    public List<Inboxmail> selectAll();
+    public List<Inboxmail> selectAll(Integer mailId);
 
+
+    List<Inboxmail> getInboxmailByMemId(Integer memId);
+
+    Integer updateStatusById(Integer mailId, Integer status);
 }
 
 

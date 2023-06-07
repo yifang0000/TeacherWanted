@@ -1,6 +1,7 @@
 package com.example.teacherwanted.administrator.service.impl;
 
 import com.example.teacherwanted.administrator.dao.AdministratorDao;
+import com.example.teacherwanted.administrator.dao.TeacherDao;
 import com.example.teacherwanted.administrator.model.Administrator;
 import com.example.teacherwanted.administrator.service.AdministratorService;
 import org.slf4j.Logger;
@@ -20,6 +21,8 @@ public class AdministratorServiceImpl implements AdministratorService {
     private final static Logger log = LoggerFactory.getLogger(AdministratorServiceImpl.class);
     @Autowired
     private AdministratorDao administratorDao;
+    @Autowired
+    private TeacherDao teacherDao;
 
     @Override
     @Transactional
@@ -44,7 +47,9 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     @Transactional
     public int deleteByAdminId(Integer adminId) {
-        return administratorDao.deleteByAdminId(adminId);
+        administratorDao.deleteByAdminId(adminId);
+        teacherDao.deleteByAdminId(adminId);
+        return 1;
     }
 
     @Override

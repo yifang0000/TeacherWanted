@@ -1,3 +1,32 @@
+//==========option 切換頁面===========//
+$(document).ready(function() {
+    console.log('test : ', 12345789)
+    $("#navSearch1").change(function() {
+      let switchValue = $('#navSearch1').find(":selected").val();;
+      console.log('switchValue:',switchValue)
+      switch (switchValue) {
+        case "MemberCenter":
+          location.href="/member/MemberCenter.html";
+          break;
+        case "MemberDetail":
+          location.href="/member/MemberDetail.html";
+          break;
+        case "MySubscribe":
+          location.href="/member/MySubscribe.html";
+          break;
+        case "orderList":
+          location.href="/member/orderList.html";
+          break;
+        case "inboxmail":
+          location.href="/member/inboxmail.html";
+          break;
+        default:
+          return;
+      }
+    });
+  });
+
+
 // 引入Data Table, 中文化
 $(document).ready( function () {
     $('#courseOrderTable').DataTable({
@@ -741,123 +770,6 @@ $(document).ready( function () {
 });
 
 
-// const app = Vue.createApp({          
-//     data() {
-//       return {
-//         url:"/OrderList",
-//         groupOrderDetailId :"",
-//         activity:"",
-//         memId :"",
-//         registerTime:"",
-//         memMail: "",
-//         memName: "",
-//         memPhone: "" ,
-//         groupOrderDetail:[],
-//         isDisabled: true
-        
-//       };
-//     },
-//     mounted() {
-//       // 呼叫預先執行的函式
-//       // const url= "http://localhost:8080/memberInfo";
-//       // const urlParams = new URLSearchParams(window.location.search);
-//       // const memId = urlParams.get("memId");
-//       // console.log(this.memId);    
-//       // this.getmemberOrderDetail();
-//          this.initializeDataTable(); 
-//          this.getMemberOrderDetail();
-//     },
-//     methods: {
-//       getMemberOrderDetail(){
-//         axios.post(this.url,{                            //promise 等後端回應
-                  
-//             groupOrderDetailId: this.groupOrderDetailId,
-//             activity: this.activity,
-//             memId :this.memId,
-//             registerTime: this.registerTime,
-//             memMail: this.memMail,
-//             memName: this.memName,
-//             memPhone: this.memPhone
-            
-        
-//         })
-//           .then((response) => {   
-//             console.log(response.data)                         // 後端回傳的資訊
-//             // response = {memId: 10}        
-//             this.groupOrderDetail = response.data;
-//             console.log(this.groupOrderDetail)
-//             this.groupOrderDetailId = response.data[0].groupOrderDetailId,
-//             this.activity = response.data[0].activity,
-//             this.memId = response.data[0].memId,
-//             this.registerTime = response.data[0].registerTime,
-//             this.memMail = response.data[0].memMail,
-//             this.memName = response.data[0].memName,
-//             this.memPhone = response.data[0].memPhone      
-//             console.log(this.groupOrderDetailId)
-//           })
-//           .catch((error) => console.log(error))       
-        
-//     },
-      
-//     //   initializeDataTable() {
-//     //     console.log(this.groupOrderDetail[0])
-//     //     const table = $('#myTable').DataTable({
-//     //       data: this.groupOrderDetail[0],
-//     //       columns: [
-//     //         { data: 'groupOrderDetailId' },
-//     //         { data: 'activity' },
-//     //         { data: 'memId' },
-//     //         { data: 'registerTime' },
-//     //         { data: 'memMail' },
-//     //         { data: 'memName' },
-//     //         { data: 'memPhone' },
-//     //         {
-//     //           data: null,
-//     //           render: function (data, type, row) {
-//     //             return `
-//     //               <button id="delet-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">刪除</button>
-//     //               <button id="rate-btn" data-bs-toggle="modal" data-bs-target="#exampleModal1">評價</button>
-//     //             `;
-//     //           },
-//     //         },
-//     //       ],
-//     //     });
-//     //   },
-//     },
-
-//       edit(){
-//         this.isDisabled = false;
-//         console.log(this.memId);
-        
-        
-//       },
-//       //取消時
-//       cancel() {
-//         this.isDisabled = true;
-//         this.getMemberOrderDetail();
-//       },
-
-//       submit(){
-//         //按送出之後要作業送出的資料
-//         axios.put(this.url, {
-//           //   headers: {
-//           //     'Content-Type': 'application/x-www-form-urlencoded'
-//           // },
-//             groupOrderDetailId: this.groupOrderDetail,
-//             activity: this.activity,
-//             memId :this.memId,
-//             registerTime: this.registerTime,
-//             memMail: this.memMail,
-//             memName: this.memName,
-//             memPhone: this.memPhone
-          
-//           })
-//       }
-       
-
-//       // }
-//     // },
-//   });
 
 
 
@@ -868,8 +780,8 @@ $(document).ready(function() {
   
     // 發送AJAX請求取得資料
     $.ajax({
-      url: '/OrderList',  // 請將URL替換為實際的資料取得端點
-      type: 'POST',
+      url: '/course_orders/{memId}',  // 請將URL替換為實際的資料取得端點
+      type: 'GET',
       dataType: 'json',
       success: function(response) {
         // 將取得的資料填入DataTable的欄位
@@ -879,15 +791,14 @@ $(document).ready(function() {
         // 將每筆資料加入DataTable
         response.forEach(function(order) {
           table.row.add([
-            order.groupOrderDetailId,
-            order.activityId,
+            order.orderId,
             order.memId,
-            order.registerTime,
-            order.memEmail,
-            order.memName,
-            order.memPhone,
-            '<button id="delet-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">刪除</button>&nbsp;' +
-            '<button id="rate-btn" data-bs-toggle="modal" data-bs-target="#exampleModal1">評價</button>'
+            order.original,
+            order.couponCode,
+            order.discount,
+            order.discountPrice,
+            order.orderStatus,
+            
           ]);
         });
   
@@ -1014,15 +925,16 @@ $(document).ready(function() {
         // 將每筆資料加入DataTable
         response.forEach(function(order) {
           table.row.add([
-            order.groupOrderDetailId,
-            order.activityId,
+            order.shopOrderId,
             order.memId,
-            order.registerTime,
-            order.memEmail,
-            order.memName,
-            order.memPhone,
-            '<button id="delet-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">刪除</button>&nbsp;' +
-            '<button id="rate-btn" data-bs-toggle="modal" data-bs-target="#exampleModal1">評價</button>'
+            order.originalPrice,
+            order.couponCode,
+            order.discount,
+            order.discountPrice,
+            order.orderStatus,
+            order.address,
+            order.phone,
+            order.deliverCode,
           ]);
         });
   
