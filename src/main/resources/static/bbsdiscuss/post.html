@@ -818,7 +818,7 @@
                                                   <h6 class="card-subtitle mb-2 text-muted">
                                                     ${updateTime} 回覆
                                                   </h6>
-                                                  <h6 class="card-subtitle mb-2 text-muted mt-2">
+                                                  <h6 id="h6commId" class="card-subtitle mb-2 text-muted mt-2">
                                                      第 ${bbsCommentId} 樓
                                                   </h6>
                                                 </div>
@@ -1658,6 +1658,7 @@
 
         if (will_sav_bbsComment) {
           let post_id = document.getElementById("cardId").textContent;
+          let bbsCommentId = document.getElementById("cardId").textContent;
           let post_bbsComment_update =
             document.getElementById("bbs_title_test2").textContent;
 
@@ -1668,7 +1669,7 @@
             postContent: post_bbsComment_update,
           };
           $.ajax({
-            url: "/bbsdiscussGet/content/" + post_id,
+            url: "/bbsdiscussGet/commupdate/" + bbsCommentId,
             type: "PUT",
             data: JSON.stringify(jason_data_content_update),
             dataType: "json",
