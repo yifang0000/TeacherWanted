@@ -17,4 +17,6 @@ public interface ActiveOrderDetailService {
     boolean queryActiveOrderHistory(Integer activityId, Integer memId);
 
     List<ActiveOrderDetail> findByActiveId(Integer id);
+
+    String deleteById(Integer id);
 }

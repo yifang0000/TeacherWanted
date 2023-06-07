@@ -38,6 +38,8 @@ public class ActiveOrderDetailDaoImpl implements ActiveOrderDetailDao {
 
     @Override
     public int deleteById(Integer id) {
+        ActiveOrderDetail activeOrderDetail = entityManager.find(ActiveOrderDetail.class,id);
+        entityManager.remove(activeOrderDetail);
         return 0;
     }
 
