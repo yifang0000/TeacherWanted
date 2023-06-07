@@ -516,7 +516,8 @@
             </div>
             <div class="forHorizontalCenterFlex" style="width: 20%">
                 <div class="member_name" style="width: 80%">
-                    <img :src="feedbackmembers[index].memPhoto" style="width: 100%"/>
+                    <img src="../img/logo1.png" style="width: 100%" v-if="feedbackmembers[index].memPhoto === 0"/>
+                    <img :src="feedbackmembers[index].memPhoto" style="width: 100%" v-else/>
                 </div>
             </div>
             <div style="width: 80%">
@@ -633,7 +634,8 @@
             <!-- 發問者圖片 -->
             <div class="forHorizontalCenterFlex" style="width: 20%">
                 <div class="member_name" style="width: 80%">
-                    <img :src="members[index].memPhoto" style=" width: 100%"/><br/>
+                    <img src="../img/logo1.png" style=" width: 100%" v-if="members[index].memPhoto === 0"/>
+                    <img :src="members[index].memPhoto" style=" width: 100%" v-else="members[index].memPhoto != 0"/><br/>
                     <div>
                         <button type="button" class="btn btn-success"
                                 v-if="memId === members[index].memId"
@@ -697,8 +699,12 @@
                         >
                             <div class="forHorizontalCenterFlex" style="width: 20%"
                             >
-                                <div class="member_name" style="width: 80%">
-                                    <img :src="'data:image/png;base64,' + reply.memPhoto" style=" width: 100%"/><br/>
+                                <div class="member_name" style="width: 80%" v-if="reply.memId != null">
+                                    <img src="../img/logo1.png" style=" width: 100%" v-if="reply.memPhoto == null"/>
+                                    <img :src="'data:image/png;base64,' + reply.memPhoto" style=" width: 100%" v-else/><br/>
+                                </div>
+                                <div class="member_name" style="width: 80%" v-if="reply.memId === null">
+                                    <img :src="'data:image/png;base64,' + teacher.teaPhoto" style=" width: 100%"/><br/>
                                 </div>
                             </div>
                             <div style="width: 80%">
@@ -707,8 +713,12 @@
                                     <li class="forVerticalCenterFlex" style="height: 20px"
                                     >
                                         <span class="comment_info">{{ reply.updateTime | formatDate }}</span><span
-                                            class="comment_info" v-if="reply.teaId === this.teaId">授課教師</span><span
-                                            class="comment_info">{{ reply.memName }}</span>
+                                            class="comment_info" v-if="reply.memId === null">授課教師</span>
+                                        <span class="comment_info" v-if="reply.memId === null">
+                                            {{ teacher.teaName }}
+                                        </span>
+                                        <span
+                                                class="comment_info">{{ reply.memName }}</span>
                                     </li>
                                     <!-- 時間結束 -->
                                     <!-- 回覆內容 -->
@@ -1104,8 +1114,12 @@
                     })
                     .then((commentsResponse) => {
                         this.members = commentsResponse.data.members.map(member => {
-                            const base64Image = 'data:image/png;base64,' + member.memPhoto;
-                            return {...member, memPhoto: base64Image};
+                            if(member.memPhoto != null) {
+                                const base64Image = 'data:image/png;base64,' + member.memPhoto;
+                                return {...member, memPhoto: base64Image};
+                            }else {
+                                return {...member, memPhoto: 0};
+                            }
                         })
                         this.courseCommentIds = [];
                         this.comments = commentsResponse.data.courseComments.map(comment => {
@@ -1261,8 +1275,12 @@
 
                 .then((commentsResponse) => {
                     this.members = commentsResponse.data.members.map(member => {
-                        const base64Image = 'data:image/png;base64,' + member.memPhoto;
-                        return {...member, memPhoto: base64Image};
+                        if(member.memPhoto != null) {
+                            const base64Image = 'data:image/png;base64,' + member.memPhoto;
+                            return {...member, memPhoto: base64Image};
+                        }else {
+                            return {...member, memPhoto: 0};
+                        }
                     })
                     this.comments = commentsResponse.data.courseComments.map(comment => {
                         this.showupStates.push(false);//初始化所有留言
@@ -1298,8 +1316,12 @@
                 })
                 .then((feedbackResponse) => {
                     this.feedbackmembers = feedbackResponse.data.members.map(feedbackmember => {
-                        const base64Image = 'data:image/png;base64,' + feedbackmember.memPhoto;
-                        return {...feedbackmember, memPhoto: base64Image};
+                        if(feedbackmember.memPhoto != null) {
+                            const base64Image = 'data:image/png;base64,' + feedbackmember.memPhoto;
+                            return {...feedbackmember, memPhoto: base64Image};
+                        }else {
+                            return {...feedbackmember, memPhoto: 0};
+                        }
                     })
                     this.feedbacks = feedbackResponse.data.courseComments.map(feedback => {
 

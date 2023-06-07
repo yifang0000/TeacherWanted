@@ -383,37 +383,37 @@
       }
     },
   });
-  new Vue({
-    el: "#searchHead",
-    data() {
-      return {
-        keyword: "",
-        category: "課程",
-        courseId: "",
-      };
-    },
-    methods: {
-      handleSearch() {
-        const params = new URLSearchParams();
-        params.append("keyword", this.keyword);
-        params.append("category", this.category);
-
-        const url = `http://localhost:8080/courses/${this.keyword}`;
-        const urlResult = `./CourseSearchRsVue.html?${params.toString()}`;
-        window.location.href = urlResult;
-
-        axios
-                .get(url)
-                .then((response) => {
-                  bus.$emit("search-results", response.data);
-                  console.log(this.course);
-                })
-                .catch((error) => {
-                  console.error(error);
-                });
-      },
-    },
-  });
+  // new Vue({
+  //   el: "#searchHead",
+  //   data() {
+  //     return {
+  //       keyword: "",
+  //       category: "課程",
+  //       courseId: "",
+  //     };
+  //   },
+  //   methods: {
+  //     handleSearch() {
+  //       const params = new URLSearchParams();
+  //       params.append("keyword", this.keyword);
+  //       params.append("category", this.category);
+  //
+  //       const url = `http://localhost:8080/courses/${this.keyword}`;
+  //       const urlResult = `./CourseSearchRsVue.html?${params.toString()}`;
+  //       window.location.href = urlResult;
+  //
+  //       axios
+  //               .get(url)
+  //               .then((response) => {
+  //                 bus.$emit("search-results", response.data);
+  //                 console.log(this.course);
+  //               })
+  //               .catch((error) => {
+  //                 console.error(error);
+  //               });
+  //     },
+  //   },
+  // });
 </script>
 <footer
         class="TeacherWanted"

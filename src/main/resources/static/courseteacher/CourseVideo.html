@@ -497,7 +497,8 @@
             </div>
             <div class="forHorizontalCenterFlex" style="width: 20%">
                 <div class="member_name" style="width: 80%">
-                    <img :src="feedbackmembers[index].memPhoto" style="width: 100%"/>
+                    <img src="../img/logo1.png" style="width: 100%" v-if="feedbackmembers[index].memPhoto === 0"/>
+                    <img :src="feedbackmembers[index].memPhoto" style="width: 100%" v-else/>
                     <div style="margin-top: 20px">
                         <button type="button" class="btn btn-success"
                                 v-if="memId === feedbackmembers[index].memId"
@@ -550,18 +551,21 @@
             <ul style="margin-left: 2%">
                 <li style="height: 25px">
                     <div>
-                        <form id="navSearch" action="">
-                            <input
-                                    type="text"
-                                    style="background-color: white; font-size: 10px"
-                                    placeholder="發問前可以先找找類似問題唷"
-                            />
-                            <img src="../img/base/search.svg" alt=""/>
-                        </form>
+<!--                        <form id="navSearch" action="">-->
+<!--                            <input-->
+<!--                                    type="text"-->
+<!--                                    style="background-color: white; font-size: 10px"-->
+<!--                                    placeholder="發問前可以先找找類似問題唷"-->
+<!--                            />-->
+<!--                            <img src="../img/base/search.svg" alt=""/>-->
+<!--                        </form>-->
                     </div>
                 </li>
             </ul>
-            <button type="button" class="btn btn-secondary btn-sm" style="height: 40px" @click="togglePop">我要發問
+            <button type="button" class="btn btn-secondary btn-sm"
+                    style="height: 40px"
+                    v-if="memId != null"
+                    @click="togglePop">我要發問
             </button>
         </div>
         <!-- 問題查詢結束 -->
@@ -623,7 +627,8 @@
             <!-- 發問者圖片 -->
             <div class="forHorizontalCenterFlex" style="width: 20%">
                 <div class="member_name" style="width: 80%">
-                    <img :src="members[index].memPhoto" style=" width: 100%"/><br/>
+                    <img src="../img/logo1.png" style=" width: 100%" v-if="members[index].memPhoto === 0"/>
+                    <img :src="members[index].memPhoto" style=" width: 100%" v-else="members[index].memPhoto != 0"/><br/>
                     <div>
                         <button type="button" class="btn btn-success"
                                 v-if="memId === members[index].memId"
@@ -686,8 +691,12 @@
                         >
                             <div class="forHorizontalCenterFlex" style="width: 20%"
                             >
-                                <div class="member_name" style="width: 80%">
-                                    <img :src="'data:image/png;base64,' + reply.memPhoto" style=" width: 100%"/><br/>
+                                <div class="member_name" style="width: 80%" v-if="reply.memId != null">
+                                    <img src="../img/logo1.png" style=" width: 100%" v-if="reply.memPhoto == null"/>
+                                    <img :src="'data:image/png;base64,' + reply.memPhoto" style=" width: 100%" v-else/><br/>
+                                </div>
+                                <div class="member_name" style="width: 80%" v-if="reply.memId === null">
+                                    <img :src="'data:image/png;base64,' + teacher.teaPhoto" style=" width: 100%"/><br/>
                                 </div>
                             </div>
                             <div style="width: 80%">
@@ -696,7 +705,11 @@
                                     <li class="forVerticalCenterFlex" style="height: 20px"
                                     >
                                         <span class="comment_info">{{ reply.updateTime | formatDate }}</span><span
-                                            class="comment_info" v-if="reply.teaId === this.teaId">授課教師</span><span
+                                            class="comment_info" v-if="reply.memId === null">授課教師</span>
+                                        <span class="comment_info" v-if="reply.memId === null">
+                                            {{ teacher.teaName }}
+                                        </span>
+                                        <span
                                             class="comment_info">{{ reply.memName }}</span>
                                     </li>
                                     <!-- 時間結束 -->
@@ -791,6 +804,13 @@
 <script>
     Vue.component("star-rating", VueStarRating.default);
     const memberData = JSON.parse(sessionStorage.getItem("memberStorage"));
+    const adminData = JSON.parse(sessionStorage.getItem("adminStorage"));
+    if(adminData != null){
+        var teaId = adminData.teaId;
+    }
+    if(adminData == null){
+        var teaId = null;
+    }
     if (memberData != null) {
         var memId = memberData.memId;
     }
@@ -959,8 +979,12 @@
                     })
                     .then((feedbackResponse) => {
                         this.feedbackmembers = feedbackResponse.data.members.map(feedbackmember => {
-                            const base64Image = 'data:image/png;base64,' + feedbackmember.memPhoto;
-                            return {...feedbackmember, memPhoto: base64Image};
+                            if(feedbackmember.memPhoto != null) {
+                                const base64Image = 'data:image/png;base64,' + feedbackmember.memPhoto;
+                                return {...feedbackmember, memPhoto: base64Image};
+                            }else {
+                                return {...feedbackmember, memPhoto: 0};
+                            }
                         })
                         this.feedbacks = feedbackResponse.data.courseComments.map(feedback => {
 
@@ -1148,8 +1172,12 @@
                     })
                     .then((commentsResponse) => {
                         this.members = commentsResponse.data.members.map(member => {
-                            const base64Image = 'data:image/png;base64,' + member.memPhoto;
-                            return {...member, memPhoto: base64Image};
+                            if(member.memPhoto != null) {
+                                const base64Image = 'data:image/png;base64,' + member.memPhoto;
+                                return {...member, memPhoto: base64Image};
+                            }else {
+                                return {...member, memPhoto: 0};
+                            }
                         })
                         this.courseCommentIds = [];
                         this.comments = commentsResponse.data.courseComments.map(comment => {
@@ -1236,8 +1264,9 @@
         mixins: [courseDetailMixin],
 
         mounted() {
-            if(memId != null) {
+            if(memId != null || teaId != null) {
                 this.memId = memId;
+                this.teaId = teaId;
                 axios
                     .get("http://localhost:8080/course/" + courseId)
                     .then((courseResponse) => {
@@ -1284,19 +1313,23 @@
                         });
                         this.videoType = this.chapters[0].chapterStatus;
 
-                        const memId = this.memId;
+                        // const memId = this.memId;
                         // const courseId = this.courseId;
-                        return axios.get("http://localhost:8080/favcourses/" + memId + "/" + courseId)
-                    })
-                    .then((favcoursesResponse) => {
-                        this.fav = favcoursesResponse.data;
-                        console.log(this.fav);
+                    //     return axios.get("http://localhost:8080/favcourses/" + memId + "/" + courseId)
+                    // })
+                    // .then((favcoursesResponse) => {
+                    //     this.fav = favcoursesResponse.data;
+                    //     console.log(this.fav);
                         return axios.get("http://localhost:8080/comments/" + courseId)
                     })
                     .then((commentsResponse) => {
                         this.members = commentsResponse.data.members.map(member => {
-                            const base64Image = 'data:image/png;base64,' + member.memPhoto;
-                            return {...member, memPhoto: base64Image};
+                            if(member.memPhoto != null) {
+                                const base64Image = 'data:image/png;base64,' + member.memPhoto;
+                                return {...member, memPhoto: base64Image};
+                            }else {
+                                return {...member, memPhoto: 0};
+                            }
                         })
                         this.comments = commentsResponse.data.courseComments.map(comment => {
                             this.showupStates.push(false);//初始化所有留言
@@ -1332,8 +1365,12 @@
                     })
                     .then((feedbackResponse) => {
                         this.feedbackmembers = feedbackResponse.data.members.map(feedbackmember => {
-                            const base64Image = 'data:image/png;base64,' + feedbackmember.memPhoto;
-                            return {...feedbackmember, memPhoto: base64Image};
+                            if(feedbackmember.memPhoto != null) {
+                                const base64Image = 'data:image/png;base64,' + feedbackmember.memPhoto;
+                                return {...feedbackmember, memPhoto: base64Image};
+                            }else {
+                                return {...feedbackmember, memPhoto: 0};
+                            }
                         })
                         this.feedbacks = feedbackResponse.data.courseComments.map(feedback => {
 
