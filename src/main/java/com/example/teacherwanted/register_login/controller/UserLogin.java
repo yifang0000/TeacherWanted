@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.Optional;
 
 @Controller
@@ -39,7 +41,7 @@ public class UserLogin {
 
 
     @PostMapping("/userLogin")
-    public String userLogin(@ModelAttribute("user") User user, Model model, HttpSession session) {
+    public String userLogin(@ModelAttribute("user") User user, Model model, HttpSession session, RedirectAttributes ra) {
         String xxx = user.getMemAccount();
         Optional<User> userdata = repo.findByMemAccount(xxx);
         if (!userdata.isPresent()) {
@@ -57,10 +59,10 @@ public class UserLogin {
             model.addAttribute("memNickname", userdata.get().getMemNickname());
 
             session.setAttribute("memAccount", userdata.get().getMemAccount());
-            model.addAttribute("msg", "登入成功，٩(◕‿◕｡)۶歡迎回來~ " + userdata.get().getMemNickname());
+            ra.addFlashAttribute("msg", "登入成功，٩(◕‿◕｡)۶歡迎回來~ " + userdata.get().getMemNickname());
 
 
-            return "index";
+            return "redirect:/index";
         } else {
 
             return "loginFail";
@@ -76,13 +78,13 @@ public class UserLogin {
     }
 
     @GetMapping("/logout")
-    public String logout(@ModelAttribute("user")User user, HttpSession session, Model model) {
+    public String logout(@ModelAttribute("user")User user, HttpSession session, Model model, RedirectAttributes ra) {
         // 清除会话中的用户信息
         session.removeAttribute("userInfo");
         session.invalidate();
-        model.addAttribute("msg", "您已登出，( •́ω•̩̥̀ )下次再會~");
+        ra.addFlashAttribute("msg", "您已登出，( •́ω•̩̥̀ )下次再會~");
         System.out.println(user.getMemAccount()+" already logout");
-        return "index";
+        return "redirect:/index";
     }
 
 

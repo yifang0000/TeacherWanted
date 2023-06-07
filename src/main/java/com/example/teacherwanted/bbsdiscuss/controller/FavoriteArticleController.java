@@ -2,6 +2,7 @@ package com.example.teacherwanted.bbsdiscuss.controller;
 
 import com.example.teacherwanted.bbsdiscuss.model.FavoriteArticle;
 import com.example.teacherwanted.bbsdiscuss.service.FavoriteArticleService;
+import com.example.teacherwanted.register_login.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +24,11 @@ public class FavoriteArticleController {
 //
 //    查詢我的收藏
     @GetMapping("/bbsdiscussGet/fav")
-    public ResponseEntity<List<FavoriteArticle>> getBbsFavoriteBymemId(@SessionAttribute(value = "MemberId", required = false) Integer memId){
+    public ResponseEntity<List<FavoriteArticle>> getBbsFavoriteBymemId(@SessionAttribute(value = "userInfo", required = false) User user){
         System.out.println("test-我的收藏");
-        System.out.println(memId);
-        List<FavoriteArticle> favoriteArticleList = favoriteArticleService.getBbsFavoriteBymemId(memId);
-        if (memId == null) {
+        System.out.println(user.getMemId());
+        List<FavoriteArticle> favoriteArticleList = favoriteArticleService.getBbsFavoriteBymemId(user.getMemId());
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

@@ -50,6 +50,16 @@ public class ActiveOrderDetailServiceImpl implements ActiveOrderDetailService {
         return activeOrderDetailDao.findByActiveId(id);
     }
 
+    @Override
+    public String deleteById(Integer id) {
+        try{
+            activeOrderDetailDao.deleteById(id);
+            return "更新成功";
+        }catch (Exception e){
+            return "錯誤:"+e;
+        }
+    }
+
     //    查找訂單使用者簡易資訊
     @Override
     public MemberActive selectMemBerOrderInfo(Integer id) {

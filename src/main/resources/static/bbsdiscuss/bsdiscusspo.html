@@ -68,7 +68,7 @@
         <a href="/courseteacher/CourseVue.html" class="">課程</a>
         <a href="/active/activeIndex.html" class="">活動</a>
         <a href="/wish" class="">許願池</a>
-        <a href="/bbsdiscuss/index.html" class="">論壇</a>
+        <a href="/bbsdiscuss/index.html?posttype=all" class="">論壇</a>
         <a href="/baseVer3/homepage.html" class="">商城</a>
       </div>
       <div class="navBar">
@@ -116,7 +116,7 @@
               >
               <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
               <a class="flexAllCenter" href="/wish">許願池</a>
-              <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+              <a class="flexAllCenter" href="/bbsdiscuss/index.html?posttype=all">論壇</a>
               <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
             </div>
             <div
@@ -197,80 +197,49 @@
                   我的收藏
                 </button>
               </div>
-              <form class="d-flex">
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="查詢文章請輸入..."
-                  aria-label="Search"
-                />
-                <button class="btn btn-outline-success" type="submit">
-                  Search
-                </button>
-              </form>
-            </div>
-          </nav>
-        </div>
-        <div class="row">
-          <!-- 側邊欄 -->
-          <div class="col-md-2 mt-3">
-            <div class="list-group" id="list-tab" role="tablist">
-              <a
-                class="list-group-item list-group-item-action active bbs_kb_lg"
-                data-bs-toggle="list"
-                href="#list-home"
-                role="tab"
-                aria-controls="list-home"
-                >語言討論版</a
-              >
-              <a
-                class="list-group-item list-group-item-action bbs_kb_pg"
-                data-bs-toggle="list"
-                href="#list-profile"
-                role="tab"
-                aria-controls="list-profile"
-                >程式討論版</a
-              >
-              <a
-                class="list-group-item list-group-item-action bbs_kb_lf"
-                data-bs-toggle="list"
-                href="#list-messages"
-                role="tab"
-                aria-controls="list-messages"
-                >生活討論版</a
-              >
-              <a
-                class="list-group-item list-group-item-action bbs_kb_gm"
-                data-bs-toggle="list"
-                href="#list-settings"
-                role="tab"
-                aria-controls="list-settings"
-                >電競討論版</a
-              >
-            </div>
+            <!-- <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="查詢文章請輸入..." aria-label="Search" />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form> -->
           </div>
-          <div class="col-md-9 mt-3">
-            <!-- 發文細項 -->
-            <div class="container">
-              <h1>發文紀錄</h1>
-              <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item">
-                    <a href="/bbsdiscuss/index.html?posttype=all">論壇</a>
-                  </li>
-                  <li class="breadcrumb-item active" aria-current="page">
-                    發文紀錄
-                  </li>
-                </ol>
-              </nav>
-            </div>
-            <div class="container">
-              <ul class="row row-cols-1 row-cols-md-3 g-4 bbs_po_list"></ul>
-            </div>
+        </nav>
+      </div>
+      <div class="row">
+        <!-- 側邊欄 -->
+        <div class="col-md-2 mt-3">
+          <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active bbs_kb_lg" data-bs-toggle="list" href="#list-home"
+               role="tab" aria-controls="list-home">語言討論版</a>
+            <a class="list-group-item list-group-item-action bbs_kb_pg" data-bs-toggle="list" href="#list-profile"
+               role="tab" aria-controls="list-profile">程式討論版</a>
+            <a class="list-group-item list-group-item-action bbs_kb_lf" data-bs-toggle="list" href="#list-messages"
+               role="tab" aria-controls="list-messages">生活討論版</a>
+            <a class="list-group-item list-group-item-action bbs_kb_gm" data-bs-toggle="list" href="#list-settings"
+               role="tab" aria-controls="list-settings">電競討論版</a>
+          </div>
+        </div>
+        <div class="col-md-9 mt-3">
+          <!-- 發文細項 -->
+          <div class="container">
+            <h1>發文紀錄</h1>
+            <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/bbsdiscuss/index.html?posttype=all">論壇</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  發文紀錄
+                </li>
+              </ol>
+            </nav>
+          </div>
+          <div class="container bbs_no_bsdiscusspo">
+            <ul class="row row-cols-1 row-cols-md-3 g-4 bbs_po_list"></ul>
           </div>
         </div>
       </div>
-    </main>
+    </div>
+  </main>
 
     <footer
     class="TeacherWanted"
@@ -380,7 +349,7 @@
                 <a class="webMapLink" href="/wish">>許願池</a>
               </li>
               <li style="margin-top: 5px">
-                <a class="webMapLink" href="/bbsdiscuss/index.html">>論壇</a>
+                <a class="webMapLink" href="/bbsdiscuss/index.html?posttype=all">>論壇</a>
               </li>
               <li style="margin-top: 5px">
                 <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
@@ -392,30 +361,37 @@
     </div>
   </footer>
 
-    <script>
-      $(function () {
-        // =========================================================================================================
-
-        $.ajax({
-          url: "/bbsdiscussGet/mypost", // 資料請求的網址
-          type: "GET", // GET | POST | PUT | DELETE | PATCH
-          data: {},
-          //processData: false,
-          dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-          success: function (data) {
-            // request 成功取得回應後執行
-            // console.log(data);
-            // 使用迴圈遍歷資料陣列
-            console.log(data);
-            for (let i = 0; i < data.length; i++) {
-              // 獲取每個資料項目的相關屬性值
-              let bbsPostId = data[i].bbsPostId;
-              let postTitle = data[i].postTitle;
-              let postContent = data[i].postContent;
-              // let bbsPostIdUrl = "http://localhost:8080/bbsdiscuss/" + data[i].bbsPostId;
-              let bbsPostIdUrl = `post.html?bbsPostId=${bbsPostId}`;
-              console.log(bbsPostIdUrl);
-              let bbs_po_html = `
+  <script>
+    $(function () {
+      // =========================================================================================================
+      $.ajax({
+        url: "/bbsdiscussGet/session",
+        type: "GET",
+        data: {},
+        dataType: "json",
+        success: function (data_id) {
+          //   }
+          // });
+          $.ajax({
+            url: "/bbsdiscussGet/mypost", // 資料請求的網址
+            type: "GET", // GET | POST | PUT | DELETE | PATCH
+            data: {},
+            //processData: false,
+            dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+            success: function (data) {
+              // request 成功取得回應後執行
+              // console.log(data);
+              // 使用迴圈遍歷資料陣列
+              console.log(data);
+              for (let i = 0; i < data.length; i++) {
+                // 獲取每個資料項目的相關屬性值
+                let bbsPostId = data[i].bbsPostId;
+                let postTitle = data[i].postTitle;
+                let postContent = data[i].postContent;
+                // let bbsPostIdUrl = "http://localhost:8080/bbsdiscuss/" + data[i].bbsPostId;
+                let bbsPostIdUrl = `post.html?bbsPostId=${bbsPostId}`;
+                console.log(bbsPostIdUrl);
+                let bbs_po_html = `
                 <li class="col-sm-4" style="list-style: none">
                   <div class="card" style="width: 18rem">
                     <div class="card-body">
@@ -430,21 +406,38 @@
                   </div>
                 </li>
                 `;
-              $("ul.bbs_po_list").append(bbs_po_html);
-              //跳轉到發表文章
-              $(".bbs_btn_edit").on("click", function () {
-                window.location.href = "edit.html";
-              });
-              //跳轉到我的收藏
-              $(".bbs_btn_favorite").on("click", function () {
-                window.location.href = "heart.html";
-              });
+                $("ul.bbs_po_list").append(bbs_po_html);
+              }
+            },
+            error: function (xhr, status, error) {
+              // 错误响应处理逻辑
+              console.log("請求失敗");
+              console.log("狀態碼" + xhr.status);
+              console.log("錯誤訊息" + error);
+              if (xhr.status == 404) {
+                let no_bsdiscusspo_html = `
+                <div class=" mt-5 mb-5" style=" display: flex; justify-content: center;  align-items: center; 
+                     height: 300px; background-color: rgba(0, 100, 0, 0.5); color: white; text-align: center;"   
+                  <h6>無發文紀錄~~</h6>
+                </div>
+                `
+                $("div.bbs_no_bsdiscusspo").append(no_bsdiscusspo_html);
+              }
             }
-          },
-        });
+          });
+        }
       });
+    });
+    //跳轉到發表文章
+    $(".bbs_btn_edit").on("click", function () {
+      window.location.href = "/bbsdiscuss/edit.html";
+    });
+    //跳轉到我的收藏
+    $(".bbs_btn_favorite").on("click", function () {
+      window.location.href = "/bbsdiscuss/heart.html";
+    });
+  // ==============================================================================
+  </script>
+</body>
 
-      // ==============================================================================
-    </script>
-  </body>
 </html>

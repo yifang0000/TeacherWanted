@@ -85,6 +85,30 @@ const app = Vue.createApp({
     });
   },
   methods: {
+    // 分享按鈕 右鍵複製連結 開始
+    copyURL() {
+      // 獲取當前網址
+      this.currentURL = window.location.href;
+
+      // 建立一個臨時的文本框元素
+      const tempInput = document.createElement("input");
+      tempInput.value = this.currentURL;
+      document.body.appendChild(tempInput);
+
+      // 選擇文本框內容
+      tempInput.select();
+      tempInput.setSelectionRange(0, 99999); // 適用於移動設備
+
+      // 複製內容到剪貼板
+      document.execCommand("copy");
+
+      // 刪除臨時文本框元素
+      document.body.removeChild(tempInput);
+
+      // 顯示複製成功的提示訊息
+      alert("已複製當前網址到剪貼板！");
+    },
+    // 分享按鈕 右鍵複製連結 結束
     // 推薦課程 時間轉換 Vue方法裡 開始
     convertToFormattedDate(dateString) {
       // 移除 "T" 字元並分割時間字串
