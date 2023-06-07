@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"xmlns="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>許願池</title>
 
-
+  <!-- bootstrap相關 -->
   <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -17,7 +16,7 @@
           integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
           crossorigin="anonymous"
   ></script>
-
+  <!-- bootstrap相關 -->
 
   <link href="../css/baseVer2.css" rel="stylesheet" type="text/css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,106 +27,43 @@
   />
   <script src="../jquery/jquery-3.6.4.min.js"></script>
   <script src="../js/base.js"></script>
-  <script src="../js/auth.js"></script>
-
-  <style media="screen">
-    *,
-    *:before,
-    *:after {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-    }
-
-
-    #myform {
-      max-width: 540px;
-      width: 400px;
-      background: #3d8f32;
-      margin: 10px auto;
-      padding: 30px 35px;
-      border-radius: 8px;
-    }
-
-
-
-
-    #myform {
-      font-family: "Poppins", sans-serif;
-      color: #ffffff;
-      letter-spacing: 0.5px;
-
-    }
-    form h3 {
-      font-size: 32px;
-      font-weight: 500;
-      line-height: 42px;
-      text-align: center;
-    }
-
-    #email
-     {
-      display: block;
-      height: 50px;
-      width: 100%;
-      background-color: rgba(255, 255, 255, 0.363);
-      border-radius: 3px;
-      padding: 0 10px;
-      margin-top: 8px;
-      font-size: 20px;
-      font-weight: 300;
-    }
-    #validText {
-      display: block;
-      height: 50px;
-      width: 50%;
-      background-color: rgba(255, 255, 255, 0.363);
-      border-radius: 3px;
-      padding: 0 10px;
-      margin-top: 8px;
-      font-size: 20px;
-      font-weight: 300;
-    }
-
-    ::placeholder {
-      color: #e5e5e5;
-    }
-
-    #mail {
-      margin-top: 20px;
-      width: 100%;
-      background-color: #ffffff;
-      color: #080710;
-      padding: 15px 0;
-      font-size: 18px;
-      font-weight: 600;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    #mail:hover {
-      color: #3d8f32;
-    }
-
-    .col-6 {
-      text-align: center;
-    }
-
-    .input_block {
-      display: flex;
-      align-items: center;
-    }
-
-    .input_block input,
-    .input_block canvas,
-    .input_block button {
-      margin-right: 10px;
-    }
-
-
-  </style>
-  <title>忘記密碼</title>
+  <script src="../js/dropdown.js"></script>
 </head>
-<body class="TeacherWanted">
+<style>
+
+  .container {
+    width: 1800px;
+    background-color: rgb(238, 245, 212);
+  }
+  .dropdown-toggle {
+    position: relative;
+  }
+
+  .dropdown-toggle .arrow {
+    display: inline-block;
+    margin-left: 5px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid black;
+  }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    padding: 10px;
+  }
+
+  .dropdown.open .dropdown-menu {
+    display: block;
+  }
+
+</style>
+<body>
 <!-- 手機板導引列(粗糙) -->
 <header class="TeacherWanted">
   <div id="mySidebar">
@@ -244,34 +180,138 @@
 
 
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-<main class="TeacherWanted">
 
-  <form action="/forgotpassword" th:object="${user}" method="post" id="myform">
-    <h3>忘記密碼</h3>
-    <br />
-    <!--        <input type="text" placeholder="請輸入帳號" th:field="*{memAccount}" name="memAccount" id="memAccount" />-->
-    <!--        <br />-->
-    <input type="text" placeholder="請輸入信箱" th:field="*{memEmail}" name="email" id="email" />
-    <br />
+<!--  <div>-->
+<!--  <a class="h3 d-block ml-auto" style="margin-right: 20px;" th:href="@{/wish/new}">新增許願</a>-->
+<!--</div>-->
+<div class="container">
+  <div class="row" style="margin-bottom: 60px">
+    <br>
+    <br>
+    <div class="col-3"></div>
+    <div class="col-3" style="display: flex; align-items: center;color: #3c6a36;">
+      <h2 style="font-weight: bold;" >今晚~我想學點...</h2>
+    </div>
+    <div class="col-3" style="display: flex; flex-direction: column; align-items: flex-end; margin-top: 20px;">
+      <img src="../img/wish/angel.png" width="200px" />
+    </div>
 
-    <button type="submit" id="mail" value="Send">寄送重設密碼信</button>
+    <div class="col-3"></div>
+    <div class="col-4" style="margin-left: 50px;font-size:20px;display: flex;font-weight: bold; align-items:end;color: #ba8b00;">
+      <p >
+        這座許願池有個古老的傳說...
+        <br>
+        只要在此許下心願，
+        <br>
+        小天使就會替你找到適合的老師!!
+      </p>
+    </div>
+    <div
+            class="col-4"
+            style="display: flex; justify-content: center; margin-bottom: 15px"
+    >
+      <img src="../img/wish/wish.png" alt="" width="250px" />
+    </div>
 
-  </form>
 
-  <!-- form end -->
-  <div th:if="${message != null }">
-    <script th:inline="javascript">
-      alert([[${message}]]);
-    </script>
+
+    <div class="col-4" >
+      <a id="postwish"
+         th:href="@{/wish/new}"
+         style="
+      font-size: 20px;
+      text-align: center;
+      color: rgb(1, 47, 5);
+      font-weight: bold;
+      background-color: #a4c964;
+      margin-left: 1100px;
+      text-decoration: none;
+      width: 150px;
+      border-radius: 5px;
+      line-height: 55px;
+      height: 56px;
+      position: absolute;
+      margin-bottom: 50px;
+    ">
+        張貼許願</a>
+    </div>
+
   </div>
+  <br>
+</div>
 
 
 
+<div>
+  <table class="table table-stripe table-hover" style="width: 1320px; margin: 0 auto;">
 
-  <br><br><br>
-</main>
+    <thead >
+    <tr class="success"
+        style="
+            text-align: center;
+              font-weight: bold;
+              font-size: 20px;
+              background-color: green;
+              color: white;
+            ">
+      <th>許願帳號</th>
+      <th>許願科目</th>
+      <th>上課地點</th>
+      <th>學生人數</th>
+      <th>上課時段</th>
+      <th>時薪</th>
+      <th>課程需求</th>
+      <th>聯絡信箱</th>
 
+      <th></th>
+    </tr>
+    </thead>
+    <tbody style="vertical-align: middle;
+            text-align: center;">
+    <th:block th:each="wish : ${myWishList}">
+      <tr>
+        <td th:text="${wish.memAccount}"></td>
+        <td>[[${wish.wishSubject}]]</td>
+        <td>[[${wish.wishLocation}]]</td>
+        <td>[[${wish.wishStudents}]]</td>
+        <td>[[${wish.wishPeriod}]]</td>
+        <td>[[${wish.wishSalary}]]</td>
+        <td>[[${wish.wishContent}]]</td>
+        <td>[[${wish.wishEmail}]]</td>
+
+        <td>
+
+                     <a class="btn btn-success m-2" th:href="@{'/wish/edit/' + ${wish.wishId}}" style="font-size: 16px;margin-right: 10px; ">編輯</a>
+          <a class="btn btn-secondary m-2" th:href="@{'/wish/delete/' + ${wish.wishId}}"
+             style="font-size: 16px;"
+             onclick="return confirm('確定要刪除嗎？')">刪除</a>
+
+
+        </td>
+      </tr>
+    </th:block>
+
+
+    </tbody>
+  </table>
+
+
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <footer
         class="TeacherWanted"
         style="background-color: #3c6a36; color: white"
@@ -391,11 +431,7 @@
     </div>
   </div>
 </footer>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
 
 </script>
-
 </body>
 </html>

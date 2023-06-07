@@ -22,6 +22,10 @@ public class WishService {
         repo.save(wish);
     }
 
+    public List<Wish> listByMemberAccount(String memberAccount) {
+        return repo.findByMemAccount(memberAccount);
+    }
+
     public Wish get(Integer wishId) throws WishNotFoundException {
         Optional<Wish> result = repo.findByWishId(wishId);
         if (result.isPresent()) {

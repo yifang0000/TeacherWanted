@@ -81,44 +81,15 @@ $(function () {
 });
 
 $(function () {
-  console.log(sessionStorage.getItem("memberStorage"));
-  if (sessionStorage.getItem("memberStorage") == null) {
-    console.log("hi你不用登入");
-    var ulElement = document.querySelector("#loginOrUser");
-    ulElement.innerHTML = "";
-    $("#loginOrUser").html(`                <a
-  class="btnCss flexAllCenter"
-  style="color: white"
-  href="/login"
-  >登入</a
-  >`);
-    loginCheck();
-    function loginCheck() {
-      $.ajax({
-        type: "GET",
-        url: "/user/session",
-        contentType: "application/json",
-        success: function (Data) {
-          sessionStorage.setItem("memberStorage", JSON.stringify(Data));
-          //         var loginOrUser = document.getElementById('loginOrUser');
-          //         var userCenter = document.getElementById('userCenter');
-
-          //         loginOrUser.setAttribute("hidden", "");
-          //         userCenter.removeAttribute("hidden");
-
-          // $("#userName").text(Data.memNickname);
-
-          // var a=
-        },
-        error: function () {
-          // alert("沒登入");
-          // window.location.href ="/login";
-          return; // 錯誤發生時立即結束函式，不執行其他的JavaScript代碼
-        },
-      });
-    }
-  } else {
-    var b = `<div id="userCenter" class="btn-group">
+  loginCheck();
+  function loginCheck() {
+    $.ajax({
+      type: "GET",
+      url: "/user/session",
+      contentType: "application/json",
+      success: function (Data) {
+        sessionStorage.setItem("memberStorage", JSON.stringify(Data));
+        var b = `<div id="userCenter" class="btn-group">
     <button
       class="btn btn-sm dropdown-toggle flexWrap flexVerticalCenter"
       type="button"
@@ -126,9 +97,7 @@ $(function () {
       aria-expanded="false"
     >
       <!-- <img src="/img/base/logo3D.png" id="userImg" /> -->
-      <p id="userName">${
-        JSON.parse(sessionStorage.getItem("memberStorage")).memNickname
-      }</p>
+      <p id="userName">${Data.memNickname}</p>
     </button>
     <ul class="dropdown-menu">
       <li>
@@ -144,14 +113,32 @@ $(function () {
       </li>
     </ul>
   </div>`;
-    var ulElement = document.querySelector("#loginOrUser");
-    ulElement.innerHTML = "";
-    $("#loginOrUser").append(b);
+        var ulElement = document.querySelector("#loginOrUser");
+        ulElement.innerHTML = "";
+        $("#loginOrUser").append(b);
 
-    $("#exitBtn").on("click", () => {
-      logOut();
+        $("#exitBtn").on("click", () => {
+          logOut();
+        });
+      },
+      error: function () {
+        var ulElement = document.querySelector("#loginOrUser");
+        ulElement.innerHTML = "";
+        $("#loginOrUser").html(`<a
+      class="btnCss flexAllCenter"
+      style="color: white"
+      href="/login"
+      >登入</a
+      >`);
+        return; // 錯誤發生時立即結束函式，不執行其他的JavaScript代碼
+      },
     });
+  }
 
+  console.log(sessionStorage.getItem("memberStorage"));
+  if (sessionStorage.getItem("memberStorage") == null) {
+    console.log("hi你不用登入");
+  } else {
     function logOut() {
       $.ajax({
         url: "/logout", // 修正URL
@@ -167,18 +154,96 @@ $(function () {
       });
     }
   }
-  // ===========登出的方法===============
-  // function logOut() {
-  //   $.ajax({
-  //     url: "/logout", // 修正URL
-  //     type: "GET",
-  //     success: function(Data) {
-  //       sessionStorage.removeItem('memberStorage');
-  //       window.location.href = "/index";
-  //     },
-  //     error: function(xhr, status, error) {
-  //       console.log("登出失敗");
-  //     }
-  //   });
-  // }
 });
+// ===========前端為主的登入判斷===============
+
+// $(function () {
+//   console.log(sessionStorage.getItem("memberStorage"));
+//   if (sessionStorage.getItem("memberStorage") == null) {
+//     console.log("hi你不用登入");
+//     var ulElement = document.querySelector("#loginOrUser");
+//     ulElement.innerHTML = "";
+//     $("#loginOrUser").html(`<a
+//   class="btnCss flexAllCenter"
+//   style="color: white"
+//   href="/login"
+//   >登入</a
+//   >`);
+//     loginCheck();
+//     function loginCheck() {
+//       $.ajax({
+//         type: "GET",
+//         url: "/user/session",
+//         contentType: "application/json",
+//         success: function (Data) {
+//           sessionStorage.setItem("memberStorage", JSON.stringify(Data));
+//         },
+//         error: function () {
+//           return; // 錯誤發生時立即結束函式，不執行其他的JavaScript代碼
+//         },
+//       });
+//     }
+//   } else {
+//     var b = `<div id="userCenter" class="btn-group">
+//     <button
+//       class="btn btn-sm dropdown-toggle flexWrap flexVerticalCenter"
+//       type="button"
+//       data-bs-toggle="dropdown"
+//       aria-expanded="false"
+//     >
+//       <!-- <img src="/img/base/logo3D.png" id="userImg" /> -->
+//       <p id="userName">${
+//         JSON.parse(sessionStorage.getItem("memberStorage")).memNickname
+//       }</p>
+//     </button>
+//     <ul class="dropdown-menu">
+//       <li>
+//         <a class="dropdown-item" href="/member/MemberDetail.html"
+//           >會員中心</a
+//         >
+//       </li>
+
+//       <li><hr class="dropdown-divider" /></li>
+//       <li>
+//         <a class="dropdown-item" id=exitBtn>登出</a>
+//       </li>
+//     </ul>
+//   </div>`;
+//     var ulElement = document.querySelector("#loginOrUser");
+//     ulElement.innerHTML = "";
+//     $("#loginOrUser").append(b);
+
+//     $("#exitBtn").on("click", () => {
+//       logOut();
+//     });
+
+//     function logOut() {
+//       $.ajax({
+//         url: "/logout", // 修正URL
+//         type: "GET",
+//         success: function (Data) {
+//           sessionStorage.removeItem("memberStorage");
+//           // window.location.href = "/index";
+//           location.reload();
+//         },
+//         error: function (xhr, status, error) {
+//           console.log("登出失敗");
+//         },
+//       });
+//     }
+//   }
+// });
+// ===========登出的方法===============
+// function logOut() {
+//   $.ajax({
+//     url: "/logout", // 修正URL
+//     type: "GET",
+//     success: function(Data) {
+//       sessionStorage.removeItem('memberStorage');
+//       window.location.href = "/index";
+//     },
+//     error: function(xhr, status, error) {
+//       console.log("登出失敗");
+//     }
+//   });
+// }
