@@ -77,7 +77,7 @@
           <!-- ====================主要區========================== -->
           <div class="card card-info m-3">
             <div class="card-header">
-              <div class="card-title">帳號設定</div>
+              <div class="card-title">修改密碼</div>
             </div>
 
             <div class="card-body">
@@ -103,16 +103,24 @@
                     type="text"
                     class="form-control-plaintext"
                     id="adminAccount"
-                    value="這是帳號"
                     style="width: 250px"
                     readonly
                   />
                 </div>
               </div>
               <div class="form-group row mb-2">
-                <label for="adminPassword" class="col-sm-2 col-form-label"
-                  >密碼</label
-                >
+                <div class="col-sm-2">
+                  <label for="adminPassword" class="col-form-label col-sm-3"
+                    >密碼</label
+                  >
+                  <!-- <button
+                    id="toggleInputBtn"
+                    class="btn btn-outline-success btn-sm ml-2 col-sm"
+                    onclick="toggleInputHidden()"
+                  >
+                    修改
+                  </button> -->
+                </div>
                 <div class="col-sm-4">
                   <input
                     type="password"
@@ -121,14 +129,11 @@
                     pattern="[A-Za-z0-9]{1,12}"
                     maxlength="12"
                     style="width: 250px"
-                    required
                   />
-                  <div class="invalid-feedback">
-                    請在12字以內，只能包含英文及數字。
-                  </div>
                 </div>
               </div>
-              <div class="form-group row mb-2" id="pass" hidden>
+
+              <div class="form-group row mb-2" id="pass2">
                 <label for="adminPassword2" class="col-sm-2 col-form-label"
                   >再次填寫密碼</label
                 >
@@ -146,7 +151,7 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group row mb-2">
+              <!-- <div class="form-group row mb-2">
                 <label for="adminName" class="col-sm-2 col-form-label"
                   >姓名</label
                 >
@@ -192,7 +197,7 @@
                   />
                   <div class="invalid-feedback">請輸入正確的手機號碼</div>
                 </div>
-              </div>
+              </div> -->
 
               <button
                 type="button"

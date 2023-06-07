@@ -163,6 +163,11 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
+    public void updateBoughtCount(CourseVo courseVo) {
+        session.merge(courseVo);
+    }
+
+    @Override
     public void deleteCourseById(Integer courseId) {
         session.remove(getCourseById(courseId));
     }

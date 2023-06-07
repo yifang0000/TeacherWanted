@@ -1,520 +1,556 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- backindex的css連結 -->
-  <link rel="stylesheet" href="../css/course/backindex.css" />
+    <!-- backindex的css連結 -->
+    <link rel="stylesheet" href="../css/course/backindex.css"/>
 
-  <link rel="stylesheet" href="../css/course/courseBack.css" />
+    <link rel="stylesheet" href="../css/course/courseBack.css"/>
 
-  <!-- Bootstrap 連結1 -->
-  <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
-          crossorigin="anonymous"
-  />
-  <!-- bootstrap相關 -->
-  <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
-          crossorigin="anonymous"
-  />
-  <script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-          crossorigin="anonymous"
-  ></script>
-  <!-- bootstrap相關 -->
-  <!-- 表格的 -->
-  <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
-  />
-  <link
-          rel="stylesheet"
-          href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
-  />
-  <!-- vue與axios -->
-  <script src="../js/courseJS/vue.js"></script>
-  <script src="../js/courseJS/axios.min.js"></script>
-  <!-- vue與axios -->
-  <link href="../css/course/baseVer2.css" rel="stylesheet" type="text/css" />
-  <link href="../css/course/course.css" rel="stylesheet" type="text/css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
-          rel="stylesheet"
-  />
-  <script src="../jquery/jquery-3.6.4.min.js"></script>
-  <script src="../js/courseJS/base.js"></script>
+    <!-- Bootstrap 連結1 -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+            crossorigin="anonymous"
+    />
+    <!-- bootstrap相關 -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+            crossorigin="anonymous"
+    />
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"
+    ></script>
+    <!-- bootstrap相關 -->
+    <!-- 表格的 -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
+    />
+    <!-- vue與axios -->
+    <script src="../js/courseJS/vue.js"></script>
+    <script src="../js/courseJS/axios.min.js"></script>
+    <!-- vue與axios -->
+    <link href="../css/course/baseVer2.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/course/course.css" rel="stylesheet" type="text/css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+            rel="stylesheet"
+    />
+    <script src="../jquery/jquery-3.6.4.min.js"></script>
+    <script src="../js/courseJS/base.js"></script>
+    <!-- 要登入驗證請解開這個 -->
+    <!-- <script src="../js/loginCheck.js"></script> -->
+    <script src="../js/base.js"></script>
 
-  <title>Document</title>
+    <title>Document</title>
 </head>
 <body class="TeacherWanted">
 <!-- 手機板導引列(粗糙) -->
 <header class="TeacherWanted">
-  <div id="mySidebar">
-    <img src="../img/base/logo.png" alt="" />
-    <a href="#" class="">首頁</a>
-    <a href="#" class="">課程</a>
-    <a href="#" class="">活動</a>
-    <a href="#" class="">許願池</a>
-    <a href="#" class="">論壇</a>
-    <a href="#" class="">商城</a>
-  </div>
-  <div class="navBar">
-    <ul class="containerHearder flexWrap flexVerticalCenter">
-      <li>
-        <img
-                src="../img/base/menu.png"
-                id="phoneMenu"
-                class="mobileHave"
-                style="height: 30px; margin: 10px"
-                alt=""
-        />
-      </li>
+    <div id="mySidebar">
+        <img src="../img/base/logo.png" alt=""/>
+        <a href="/index" class="">首頁</a>
+        <a href="/courseteacher/CourseVue.html" class="">課程</a>
+        <a href="/active/activeIndex.html" class="">活動</a>
+        <a href="/wish" class="">許願池</a>
+        <a href="/bbsdiscuss/index.html" class="">論壇</a>
+        <a href="/baseVer3/homepage.html" class="">商城</a>
+    </div>
+    <div class="navBar">
+        <ul class="containerHearder flexWrap flexVerticalCenter">
+            <li>
+                <img
+                        src="../img/base/menu.png"
+                        id="phoneMenu"
+                        class="mobileHave"
+                        style="height: 30px; margin: 10px"
+                        alt=""
+                />
+            </li>
 
-      <li
-              class="flexWrap flexAllCenter"
-              style="font-size: 50px; color: #a4c964; margin: 10px 0px"
-      >
-        <img
-                src="../img/base/logo.png"
-                class="miniMobile"
-                style="height: 50px; margin: 0px 5px"
-                alt=""
-        />
-        <p>懸賞啼雀</p>
-      </li>
-      <li
-              class="flexWrap"
-              style="
+            <li
+                    class="flexWrap flexAllCenter"
+                    style="font-size: 50px; color: #a4c964; margin: 10px 0px"
+            >
+                <img
+                        src="../img/base/logo.png"
+                        class="miniMobile"
+                        style="height: 50px; margin: 0px 5px"
+                        alt=""
+                />
+                <p>懸賞啼雀</p>
+            </li>
+            <li
+                    class="flexWrap"
+                    style="
               flex-grow: 1;
               display: flex;
               align-items: center;
               justify-content: end;
             "
-      >
-        <!-- 電腦版導引列 -->
-        <div
-                id="navLink"
-                class="flexWrap flexAllCenter pcHave"
-                style="flex-grow: 1"
-        >
-          <a class="flexAllCenter" href="">首頁</a>
-          <a class="flexAllCenter" href="">課程</a>
-          <a class="flexAllCenter" href="">活動</a>
-          <a class="flexAllCenter" href="">許願池</a>
-          <a class="flexAllCenter" href="">論壇</a>
-          <a class="flexAllCenter" href="">商城</a>
-        </div>
-        <div
-                class="flexWrap flexAllCenter"
-                style="position: relative; top: 2px"
-        >
-          <div id="searchHead" class="miniMobile">
-            <form
-                    id="navSearch"
-                    ref="navSearch"
-                    @submit.prevent="handleSearch"
             >
-              <select v-model="category">
-                <option>課程</option>
-                <option>活動</option>
-                <option>商城</option>
-                <option>許願</option>
-              </select>
-              <input type="text" v-model="keyword" />
-              <img
-                      src="../img/base/search.svg"
-                      alt=""
-                      id="searchButton"
-                      @click="handleSearch"
-              />
-            </form>
-          </div>
-          <img
-                  src="../img//base/mailForNavbar.svg"
-                  class="miniMobile"
-                  style="
+                <!-- 電腦版導引列 -->
+                <div
+                        id="navLink"
+                        class="flexWrap flexAllCenter pcHave"
+                        style="flex-grow: 1"
+                >
+                    <a class="flexAllCenter" href="/index">首頁</a>
+                    <a class="flexAllCenter" href="/courseteacher/CourseVue.html"
+                    >課程</a
+                    >
+                    <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
+                    <a class="flexAllCenter" href="/wish">許願池</a>
+                    <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+                    <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
+                </div>
+                <div
+                        class="flexWrap flexAllCenter"
+                        style="position: relative; top: 2px"
+                >
+                    <div class="miniMobile">
+                        <div id="navSearch" action="">
+                            <select id="serchType">
+                                <option value="課程">課程</option>
+                                <option value="活動">活動</option>
+                                <!-- <option value="商城">商城</option>
+                                <option value="許願">許願</option> -->
+                            </select>
+                            <input id="searchText" type="text"/>
+                            <img id="searchIcon" src="../img/base/search.svg" alt=""/>
+                        </div>
+                    </div>
+
+                    <img
+                            src="../img/base/bell.svg"
+                            id="navAnn"
+                            class="miniMobile"
+                            style="height: 30px; margin: 3px 5px; cursor: pointer"
+                            alt=""
+                    />
+                    <img
+                            src="../img/base/mailForNavbar.svg"
+                            id="navMail"
+                            class="miniMobile"
+                            style="
                   height: 30px;
                   margin: 3px 5px;
                   cursor: pointer;
                   position: relative;
                   bottom: 1px;
                 "
-                  alt=""
-          />
-          <img
-                  src="../img/base/shoppingCart.svg"
-                  class="miniMobile"
-                  style="height: 30px; margin: 3px 5px; cursor: pointer"
-                  alt=""
-          />
-          <img
-                  src="../img/base/bell.svg"
-                  class="miniMobile"
-                  style="height: 30px; margin: 3px 5px; cursor: pointer"
-                  alt=""
-          />
+                            alt=""
+                    />
+                    <img
+                            src="../img/base/shoppingCart.svg"
+                            id="navShoppingcart"
+                            class="miniMobile"
+                            style="height: 30px; margin: 3px 5px; cursor: pointer"
+                            alt=""
+                    />
 
-          <a class="btnCss flexAllCenter" style="color: white" href=""
-          >登入</a
-          >
-        </div>
-      </li>
-    </ul>
-  </div>
+                    <!--登入按鈕 開始 -->
+
+                    <div id="loginOrUser"></div>
+                    <!-- 登入按鈕 結束 -->
+                </div>
+            </li>
+        </ul>
+    </div>
 </header>
 
 <main class="TeacherWanted">
-  <!-- ！！！寫在這裡！！！
-  如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
+    <!-- ！！！寫在這裡！！！
+    如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
 
-  <div id="main" class="main">
-    <!--主體文字1  -->
-    <!-- ====================主要區========================== -->
-    <div class="containerActive">
-      <section >
-        <section id="section1">
-          <div class="pb-1 bg-body-tertiary rounded-3">
-            <div class="container-fluid">
-              <p>課程結帳</p>
-            </div>
-          </div>
-        </section>
-        <div class="tableOutside">
-          <table class="activeBackTable">
-            <thead>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td><img :src="'data:image/png;base64,' + course.coursePhoto1" style="height: 100px"></td>
-              <td>{{course.courseName}}</td>
-              <td>NT${{course.coursePrice}}</td>
-              <td>
-<!--                <select-->
-<!--                        v-model="course.courseStatus"-->
-<!--                        @change="updateCourseStatus(course)"-->
-<!--                >-->
-<!--                  <option :value="1">上架中</option>-->
-<!--                  <option :value="0">已下架</option>-->
-<!--                </select>-->
-              </td>
-              <td class="tbodyBtn">
-<!--                <button-->
-<!--                        type="button"-->
-<!--                        class="btn btn-success"-->
-<!--                        @click="toEditCourse(course)"-->
-<!--                >-->
-<!--                  修改-->
-<!--                </button>-->
-<!--                <button-->
-<!--                        type="button"-->
-<!--                        class="btn btn-danger"-->
-<!--                        @click="deleteCourse(course)"-->
-<!--                >-->
-<!--                  刪除-->
-<!--                </button>-->
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <section class="activeSearch flexWrap">
-            <div class="col_30" style="margin-left: 50px">
-            </div>
-            <div class="col_30"  style="margin-left: 10px">
-              <p>使用優惠券</p>
-              <input
-                      type="text"
-                      style="border: solid 1px black; font-size: 15px"
-                      placeholder="請輸入折扣碼"
-                      v-model="couponCode"
-                      @change="checkCoupon(couponCode)"
-              />
-              <h6 style="color: #0ea75a;font-size: 10px" v-if="isValid === true">折扣碼有效</h6>
-              <h6 style="color: crimson;font-size: 10px" v-if="isValid === false">折扣碼無效</h6>
-            </div>
-            <div class="col_30" style="margin-left: 10px">
-              <p>折扣金額</p>
-              <input
-                      type="text"
-                      id="searchKey"
-                      style="border: solid 1px black; font-size: 15px"
-                      v-model="discount"
-              disabled/>
-            </div>
-            <div class="col_30">
-              <input
-                      type="text"
-                      style="background-color: white"
-                      disabled/>
-            </div>
-            <div class="col_30">
-              <p>結帳金額</p>
-              <p>NT${{coursePrice}}</p>
-            </div>
-            <div class="col_30" style="margin-left: 50px">
-              <br/>
-              <button type="button" class="btn btn-success" style="height: 60%;width: 120%" @click="createOrder">來去結帳</button>
-            </div>
-          </section>
+    <div id="main" class="main">
+        <!--主體文字1  -->
+        <!-- ====================主要區========================== -->
+        <div class="containerActive">
+            <section>
+                <section id="section1">
+                    <div class="pb-1 bg-body-tertiary rounded-3">
+                        <div class="container-fluid">
+                            <p>課程結帳</p>
+                        </div>
+                    </div>
+                </section>
+                <div class="tableOutside">
+                    <table class="activeBackTable">
+                        <thead>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><img :src="'data:image/png;base64,' + course.coursePhoto1" style="height: 100px"></td>
+                            <td>{{course.courseName}}</td>
+                            <td>NT${{course.coursePrice}}</td>
+                            <td>
+                                <!--                <select-->
+                                <!--                        v-model="course.courseStatus"-->
+                                <!--                        @change="updateCourseStatus(course)"-->
+                                <!--                >-->
+                                <!--                  <option :value="1">上架中</option>-->
+                                <!--                  <option :value="0">已下架</option>-->
+                                <!--                </select>-->
+                            </td>
+                            <td class="tbodyBtn">
+                                <!--                <button-->
+                                <!--                        type="button"-->
+                                <!--                        class="btn btn-success"-->
+                                <!--                        @click="toEditCourse(course)"-->
+                                <!--                >-->
+                                <!--                  修改-->
+                                <!--                </button>-->
+                                <!--                <button-->
+                                <!--                        type="button"-->
+                                <!--                        class="btn btn-danger"-->
+                                <!--                        @click="deleteCourse(course)"-->
+                                <!--                >-->
+                                <!--                  刪除-->
+                                <!--                </button>-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <section class="activeSearch flexWrap">
+                        <div class="col_30" style="margin-left: 50px">
+                        </div>
+                        <div class="col_30" style="margin-left: 10px">
+                            <p>使用優惠券</p>
+                            <input
+                                    type="text"
+                                    style="border: solid 1px black; font-size: 15px"
+                                    placeholder="請輸入折扣碼"
+                                    v-model="couponCode"
+                                    @change="checkCoupon(couponCode)"
+                            />
+                            <h6 style="color: #0ea75a;font-size: 10px" v-if="isValid === true">折扣碼有效</h6>
+                            <h6 style="color: crimson;font-size: 10px" v-if="isValid === false">折扣碼無效</h6>
+                        </div>
+                        <div class="col_30" style="margin-left: 10px">
+                            <p>折扣金額</p>
+                            <input
+                                    type="text"
+                                    id="searchKey"
+                                    style="border: solid 1px black; font-size: 15px"
+                                    v-model="discount"
+                                    disabled/>
+                            <h6 style="color: #0ea75a;font-size: 10px" v-if="isValid === true">{{couponDetail}}</h6>
+                            <h6 style="color: crimson;font-size: 10px" v-if="isValid === false"></h6>
+                        </div>
+                        <div class="col_30">
+                            <input
+                                    type="text"
+                                    style="background-color: white"
+                                    disabled/>
+                        </div>
+                        <div class="col_30">
+                            <p>結帳金額</p>
+                            <p>NT${{coursePrice}}</p>
+                        </div>
+                        <div class="col_30" style="margin-left: 50px">
+                            <br/>
+                            <button type="button" class="btn btn-success" style="height: 60%;width: 120%"
+                                    @click="createOrder">來去結帳
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </section>
         </div>
-      </section>
     </div>
-  </div>
 </main>
 <script>
-  const bus = new Vue();
-  const urlParams = new URLSearchParams(window.location.search);
-  const courseId = urlParams.get("courseId");
-  var memId = 1;
-  new Vue({
-    el: "#main",
-    data() {
-      return {
-        course: null,
-        coupons:[],
-        courseId: "",
-        coursePrice:"",
-        couponCode:"",
-        discount: "",
-        isValid: null,
-      };
-    },
-    computed: {
+    const memberData = JSON.parse(sessionStorage.getItem("memberStorage"));
+    if (memberData != null) {
+        var memId = memberData.memId;
+    }
+    if (memberData == null) {
+        var memId = null;
+    }
+    const bus = new Vue();
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseId = urlParams.get("courseId");
+    new Vue({
+        el: "#main",
+        data() {
+            return {
+                memId: null,
+                course: null,
+                coupons: [],
+                courseId: "",
+                coursePrice: "",
+                couponCode: "",
+                couponDetail: "",
+                discount: "",
+                isValid: null,
+            };
+        },
+        computed: {},
+        methods: {
+            checkCoupon(couponCode) {
+                const coupon = this.coupons.find((coupon) => coupon.couponCode === couponCode);
+                this.coursePrice = this.course.coursePrice
 
-    },
-    methods: {
-      checkCoupon(couponCode){
-        const coupon = this.coupons.find((coupon) => coupon.couponCode === couponCode);
-        this.coursePrice = this.course.coursePrice
+                if (coupon) {
+                    // couponCode 存在于返回的 coupons 中
+                    console.log("Coupon code is valid.");
+                    this.discount = coupon.discount;
+                    this.couponDetail = coupon.couponDetail;
+                    this.isValid = true;
+                } else {
+                    // couponCode 不存在于返回的 coupons 中
+                    console.log("Coupon code is not valid.");
+                    this.discount = "";
+                    this.coursePrice = this.course.coursePrice
+                    this.isValid = false;
+                }
+                this.coursePrice = this.coursePrice - this.discount;
+            },
+            createOrder() {
+                let code;
+                if (this.isValid === true) {
+                    code = this.couponCode;
+                }
+                if (this.isValid === false) {
+                    code = "";
+                }
+                if (confirm("確認要購買嗎?")) {
+                    const data = {
+                        memId: memId,
+                        originalPrice: this.course.coursePrice,
+                        couponCode: code,
+                        discount: this.discount,
+                        discountPrice: this.coursePrice,
+                        orderStatus: 0,
+                    }
+                    console.log(data);
+                    axios
+                        .post("http://localhost:8080/course_order", data)
+                        .then((orderResponse) => {
+                            console.log(orderResponse.data);
+                            const orderId = orderResponse.data.orderId;
+                            const detail = {
+                                memId: memId,
+                                courseId: courseId,
+                                orderId: orderId,
+                                courseRank: 0,
+                            }
 
-        if (coupon) {
-          // couponCode 存在于返回的 coupons 中
-          console.log("Coupon code is valid.");
-          this.discount = coupon.discount;
-          this.isValid = true;
-        } else {
-          // couponCode 不存在于返回的 coupons 中
-          console.log("Coupon code is not valid.");
-          this.discount = "";
-          this.coursePrice = this.course.coursePrice
-          this.isValid = false;
-        }
-        this.coursePrice = this.coursePrice - this.discount;
-      },
-      createOrder(){
-        let code;
-        if(this.isValid === true){
-          code = this.couponCode;
-        }
-        if(this.isValid === false){
-          code = "";
-        }
-        if(confirm("確認要購買嗎?")) {
-          const data = {
-            memId: memId,
-            originalPrice: this.course.coursePrice,
-            couponCode: code,
-            discount: this.discount,
-            discountPrice: this.coursePrice,
-            orderStatus: 0,
-          }
-          console.log(data);
-          axios
-                  .post("http://localhost:8080/course_order", data)
-                  .then((orderResponse) => {
-                    console.log(orderResponse.data);
-                    alert("金額" + this.coursePrice + "結帳成功，感謝您的購買!")
-                    const targetUrl = `./CourseVideo.html?courseId=${courseId}`;
-                    window.location.href = targetUrl;
-                  })
-                  .catch((error) => {
-                    console.error(error);
-                  });
-        }
-      },
-    },
-    mounted() {
-      axios
-              .get("http://localhost:8080/course/" + courseId)
-              .then((coursesResponse) => {
-                this.course = coursesResponse.data;
-                console.log(this.course);
-                this.coursePrice = this.course.coursePrice;
-                return  axios.get("http://localhost:8080/coupons")
+                            return axios.post("http://localhost:8080/order_detail", detail)
+                                .then((orderDetailResponse) => {
+                                    alert("金額" + this.coursePrice + "結帳成功，感謝您的購買!")
+                                    const targetUrl = `./CourseVideo.html?courseId=${courseId}`;
+                                    window.location.href = targetUrl;
+                                })
+                                .catch((error) => {
+                                    console.error(error);
+                                });
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                }
+            },
+        },
+        mounted() {
+            if (memId != null) {
+                axios
+                    .get("http://localhost:8080/course/" + courseId)
+                    .then((coursesResponse) => {
+                        this.course = coursesResponse.data;
+                        console.log(this.course);
+                        this.coursePrice = this.course.coursePrice;
+                        return axios.get("http://localhost:8080/coupons")
 
-              })
-              .then((couponsResponse) => {
-                this.coupons = couponsResponse.data;
-                console.log(this.coupons);
-              })
-              .catch((error) => {
-                console.error(error);
-              });
-    },
-  });
-  new Vue({
-    el: "#searchHead",
-    data() {
-      return {
-        keyword: "",
-        category: "課程",
-        courseId: "",
-      };
-    },
-    methods: {
-      handleSearch() {
-        const params = new URLSearchParams();
-        params.append("keyword", this.keyword);
-        params.append("category", this.category);
-
-        const url = `http://localhost:8080/courses/${this.keyword}`;
-        const urlResult = `./CourseSearchRsVue.html?${params.toString()}`;
-        window.location.href = urlResult;
-
-        axios
-                .get(url)
-                .then((response) => {
-                  bus.$emit("search-results", response.data);
-                  console.log(this.course);
-                })
-                .catch((error) => {
-                  console.error(error);
-                });
-      },
-    },
-  });
+                    })
+                    .then((couponsResponse) => {
+                        this.coupons = couponsResponse.data;
+                        console.log(this.coupons);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            } else {
+                alert("請先登入");
+                const targetUrl = `./CourseVue.html`;
+                window.location.href = targetUrl;
+            }
+        },
+    });
+    // new Vue({
+    //   el: "#searchHead",
+    //   data() {
+    //     return {
+    //       keyword: "",
+    //       category: "課程",
+    //       courseId: "",
+    //     };
+    //   },
+    //   methods: {
+    //     handleSearch() {
+    //       const params = new URLSearchParams();
+    //       params.append("keyword", this.keyword);
+    //       params.append("category", this.category);
+    //
+    //       const url = `http://localhost:8080/courses/${this.keyword}`;
+    //       const urlResult = `./CourseSearchRsVue.html?${params.toString()}`;
+    //       window.location.href = urlResult;
+    //
+    //       axios
+    //               .get(url)
+    //               .then((response) => {
+    //                 bus.$emit("search-results", response.data);
+    //                 console.log(this.course);
+    //               })
+    //               .catch((error) => {
+    //                 console.error(error);
+    //               });
+    //     },
+    //   },
+    // });
 </script>
 <footer
         class="TeacherWanted"
         style="background-color: #3c6a36; color: white"
 >
-  <div
-          class="containerFooter flexAllCenter"
-          style="box-sizing: border-box; padding-top: 50px"
-  >
-    <div class="flexWrap">
-      <ul class="col_33">
-        <li class="flexAllCenter" style="color: #a4c964; font-size: 40px">
-          懸賞啼雀
-        </li>
-        <li
-                class="flexAllCenter"
-                style="margin: 10px 30px; font-weight: normal"
-        >
-          Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
-          dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
-          elitr stet diam duo eos rebum ipsum diam ipsum elitr.
-        </li>
-        <li
-                id="imgIcon"
-                class="flexVerticalCenter"
-                style="margin: 20px 30px"
-        >
-          <img src="../img/base/facebook.svg" class="imgIntroduce" alt="" />
-          <img src="../img/base/twitter.svg" class="imgIntroduce" alt="" />
-          <img
-                  src="../img/base/instagram.svg"
-                  class="imgIntroduce"
-                  alt=""
-          />
-        </li>
-      </ul>
-      <ul class="col_33 flexHorizontalCenter footerMobile">
-        <div style="width: 70%">
-          <li
-                  class="flexAllCenter"
-                  style="color: #a4c964; font-size: 30px; height: 65px"
-          >
-            Get In Touch
-          </li>
-          <div class="" style="height: 250px; font-weight: 400">
-            <li class="flexWrap" style="margin-top: 10px">
-              <img
-                      src="../img/base/map-marker.svg"
-                      style="height: 24px; padding-right: 10px; margin-top: 6px"
-                      alt=""
-              />
-              <div>
-                <h3 style="font-size: 1.3rem">地址</h3>
-                <h5 style="font-size: 1rem">123</h5>
-              </div>
-            </li>
+    <div
+            class="containerFooter flexAllCenter"
+            style="box-sizing: border-box; padding-top: 50px"
+    >
+        <div class="flexWrap">
+            <ul class="col_33">
+                <li class="flexAllCenter" style="color: #a4c964; font-size: 40px">
+                    懸賞啼雀
+                </li>
+                <li
+                        class="flexAllCenter"
+                        style="margin: 10px 30px; font-weight: normal"
+                >
+                    現代⼈⽣活步相當緊湊我們的課平台幫助
+                    ⼈們學並且除了線上課提供了實家的合會⼤了學的⾯向
+                    課元可提⾼學⽣的學興積性 並促學⽣的⾯發展
+                </li>
+                <li
+                        id="imgIcon"
+                        class="flexVerticalCenter"
+                        style="margin: 20px 30px"
+                >
+                    <img src="../img/base/facebook.svg" class="imgIntroduce" alt=""/>
+                    <img src="../img/base/twitter.svg" class="imgIntroduce" alt=""/>
+                    <img
+                            src="../img/base/instagram.svg"
+                            class="imgIntroduce"
+                            alt=""
+                    />
+                </li>
+            </ul>
+            <ul class="col_33 flexHorizontalCenter footerMobile">
+                <div style="width: 70%">
+                    <li
+                            class="flexAllCenter"
+                            style="color: #a4c964; font-size: 30px; height: 65px"
+                    >
+                        Get In Touch
+                    </li>
+                    <div class="" style="height: 250px; font-weight: 400">
+                        <li class="flexWrap" style="margin-top: 10px">
+                            <img
+                                    src="../img/base/map-marker.svg"
+                                    style="height: 24px; padding-right: 10px; margin-top: 6px"
+                                    alt=""
+                            />
+                            <div>
+                                <h3 style="font-size: 1.3rem">地址</h3>
+                                <h5 style="font-size: 1rem">台北市中山區南京東路三段</h5>
+                            </div>
+                        </li>
 
-            <li class="flexWrap" style="margin-top: 10px">
-              <img
-                      src="../img/base/mail.svg"
-                      style="height: 24px; padding-right: 10px; margin-top: 6px"
-                      alt=""
-              />
-              <div>
-                <h3 style="font-size: 1.3rem">信箱</h3>
-                <h5 style="font-size: 1rem">a1234567890@gmail.com</h5>
-              </div>
-            </li>
+                        <li class="flexWrap" style="margin-top: 10px">
+                            <img
+                                    src="../img/base/mail.svg"
+                                    style="height: 24px; padding-right: 10px; margin-top: 6px"
+                                    alt=""
+                            />
+                            <div>
+                                <h3 style="font-size: 1.3rem">信箱</h3>
+                                <h5 style="font-size: 1rem">a1234567890@gmail.com</h5>
+                            </div>
+                        </li>
 
-            <li class="flexWrap" style="margin-top: 10px">
-              <img
-                      src="../img/base/phone.svg"
-                      style="height: 24px; padding-right: 10px; margin-top: 6px"
-                      alt=""
-              />
-              <div>
-                <h3 style="font-size: 1.3rem">連絡電話</h3>
-                <h5 style="font-size: 1rem">0900123456</h5>
-              </div>
-            </li>
-          </div>
+                        <li class="flexWrap" style="margin-top: 10px">
+                            <img
+                                    src="../img/base/phone.svg"
+                                    style="height: 24px; padding-right: 10px; margin-top: 6px"
+                                    alt=""
+                            />
+                            <div>
+                                <h3 style="font-size: 1.3rem">連絡電話</h3>
+                                <h5 style="font-size: 1rem">0900123456</h5>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+            </ul>
+            <ul class="col_33 flexHorizontalCenter footerMobile">
+                <div style="width: 40%">
+                    <li
+                            class="flexAllCenter"
+                            style="color: #a4c964; font-size: 30px; height: 65px"
+                    >
+                        網站地圖
+                    </li>
+                    <div class="webMap">
+                        <li style="margin-top: 5px">
+                            <a class="webMapLink" href="/index">>首頁</a>
+                        </li>
+                        <li style="margin-top: 5px">
+                            <a class="webMapLink" href="/courseteacher/CourseVue.html"
+                            >>課程</a
+                            >
+                        </li>
+                        <li style="margin-top: 5px">
+                            <a class="webMapLink" href="/active/activeIndex.html"
+                            >>活動</a
+                            >
+                        </li>
+                        <li style="margin-top: 5px">
+                            <a class="webMapLink" href="/wish">>許願池</a>
+                        </li>
+                        <li style="margin-top: 5px">
+                            <a class="webMapLink" href="/bbsdiscuss/index.html">>論壇</a>
+                        </li>
+                        <li style="margin-top: 5px">
+                            <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
+                        </li>
+                    </div>
+                </div>
+            </ul>
         </div>
-      </ul>
-      <ul class="col_33 flexHorizontalCenter footerMobile">
-        <div style="width: 40%">
-          <li
-                  class="flexAllCenter"
-                  style="color: #a4c964; font-size: 30px; height: 65px"
-          >
-            網站地圖
-          </li>
-          <div class="webMap">
-            <li style="margin-top: 5px">
-              <a class="webMapLink" href="">>首頁</a>
-            </li>
-            <li style="margin-top: 5px">
-              <a class="webMapLink" href="">>課程</a>
-            </li>
-            <li style="margin-top: 5px">
-              <a class="webMapLink" href="">>活動</a>
-            </li>
-            <li style="margin-top: 5px">
-              <a class="webMapLink" href="">>許願池</a>
-            </li>
-            <li style="margin-top: 5px">
-              <a class="webMapLink" href="">>論壇</a>
-            </li>
-            <li style="margin-top: 5px">
-              <a class="webMapLink" href="">>商城</a>
-            </li>
-          </div>
-        </div>
-      </ul>
     </div>
-  </div>
 </footer>
 </body>
 </html>

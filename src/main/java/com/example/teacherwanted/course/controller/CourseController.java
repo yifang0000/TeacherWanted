@@ -1,6 +1,7 @@
 package com.example.teacherwanted.course.controller;
 
 import com.example.teacherwanted.course.model.vo.CourseVo;
+import com.example.teacherwanted.course.model.vo.TeacherVo;
 import com.example.teacherwanted.course.service.CourseService;
 import com.example.teacherwanted.course.constant.CourseCategory;
 import jakarta.validation.Valid;
@@ -132,6 +133,10 @@ public class CourseController {
             CourseVo updatedCourse = courseService.getCourseById(courseId);
             return ResponseEntity.status(HttpStatus.OK).body(updatedCourse);
         }
+    }
+    public ResponseEntity<Void> updateBoughtCount(CourseVo courseVo) {
+        courseService.updateBoughtCount(courseVo);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/courses/{courseId}")

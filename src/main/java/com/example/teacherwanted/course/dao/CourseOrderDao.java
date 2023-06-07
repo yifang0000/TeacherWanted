@@ -10,7 +10,8 @@ public interface CourseOrderDao {
     CourseOrderVo getCourseOrderById(Integer id);
     List<CourseOrderVo> getCourseOrdersByMemId(Integer memId);
 
-    void createCourseOrder(CourseOrderVo courseOrder);
+    Integer createCourseOrder(CourseOrderVo courseOrder);
+    void createOrderDetail(CourseOrderDetailVo courseOrderDetail);
 
     void updateCourseOrder(CourseOrderVo courseOrder);
 
@@ -20,9 +21,11 @@ public interface CourseOrderDao {
     List<CourseOrderDetailVo> getFeedbackByCourseId(Integer courseId);
     CourseOrderDetailVo getOrderDetailById(Integer id);
     void createFeedback(CourseOrderDetailVo courseOrderDetail);
+    void newFeedback(CourseOrderDetailVo detail);
 
     void updateFeedback(CourseOrderDetailVo courseOrderDetail);
 
-    void deleteFeedback(Integer id);
+    void deleteFeedback(CourseOrderDetailVo courseOrderDetail);
 
+    void deleteOrderDetail(Integer id);
 }
