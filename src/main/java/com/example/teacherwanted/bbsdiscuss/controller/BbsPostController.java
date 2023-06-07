@@ -91,7 +91,7 @@ public class BbsPostController {
 //        Response;
         Response response = new Response();
         response.setMemAccount(member.getMemAccount());
-        response.setMemName(member.getMemName());
+        response.setMemNickname(member.getMemNickname());
         response.setMemPhoto(member.getMemPhoto());
         response.setFavStatus(favoriteArticle.getFavStatus());
         response.setReaction_status(postReaction.getReactionStatus());

@@ -448,7 +448,7 @@
 
       let theme_data = await my_ajax(url, 'GET', {})
       theme_data = sort(theme_data, 'bbsPostId')
-      // console.log(theme_data)
+      console.log(theme_data)
 
       let theme_post_content = await get_theme_post_content(theme_data)
 
@@ -589,7 +589,7 @@
             let favStatus = e_theme_post_content['favStatus'];
             let reaction_status = e_theme_post_content['reaction_status'];
             let memAccount = e_theme_post_content['memAccount'];
-            let memName = e_theme_post_content['memName'];
+            let memName = e_theme_post_content['memNickname'];
 
             let reaction_str = check_fav_reaction(reaction, bbsPostId, 'reaction', postLikes)
             let fav_str = check_fav_reaction(fav, bbsPostId, 'fav', postFav)

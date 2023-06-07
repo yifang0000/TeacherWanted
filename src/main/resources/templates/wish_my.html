@@ -188,30 +188,32 @@
 <br>
 
 
-<!--  <div>-->
-<!--  <a class="h3 d-block ml-auto" style="margin-right: 20px;" th:href="@{/wish/new}">新增許願</a>-->
-<!--</div>-->
+
 <div class="container">
-  <div class="row" style="margin-bottom: 60px">
+  <div class="row" style="margin-bottom: 10px">
     <br>
     <br>
     <div class="col-3"></div>
-    <div class="col-3" style="display: flex; align-items: center;color: #3c6a36;">
-      <h2 style="font-weight: bold;" >今晚~我想學點...</h2>
+    <div class="col-3" style="display: flex; align-items: center;">
+
+      <p style="color: #3c6a36;font-size:30px;font-weight: bold;background-color: yellow;">你的心願快要實現了</p>
+
     </div>
     <div class="col-3" style="display: flex; flex-direction: column; align-items: flex-end; margin-top: 20px;">
       <img src="../img/wish/angel.png" width="200px" />
     </div>
 
-    <div class="col-3"></div>
-    <div class="col-4" style="margin-left: 50px;font-size:20px;display: flex;font-weight: bold; align-items:end;color: #ba8b00;">
+    <div class="col-3"style="display: flex; align-items: center; color: #1c7430; font-size: 20px;font-weight: bold">
       <p >
         這座許願池有個古老的傳說...
         <br>
         只要在此許下心願，
         <br>
-        小天使就會替你找到適合的老師!!
+        小天使就會替你找到適合的老師~
       </p>
+    </div>
+
+    <div class="col-4">
     </div>
     <div
             class="col-4"
@@ -219,35 +221,95 @@
     >
       <img src="../img/wish/wish.png" alt="" width="250px" />
     </div>
-
-
-
-    <div class="col-4" >
-      <a id="postwish"
-         th:href="@{/wish/new}"
-         style="
-      font-size: 20px;
-      text-align: center;
-      color: rgb(1, 47, 5);
-      font-weight: bold;
-      background-color: #a4c964;
-      margin-left: 1100px;
-      text-decoration: none;
-      width: 150px;
-      border-radius: 5px;
-      line-height: 55px;
-      height: 56px;
-      position: absolute;
-      margin-bottom: 50px;
-    ">
-        張貼許願</a>
+    <div class="col-4">
     </div>
 
+
+    <div class="col-4" style="display: flex; align-items: center">
+      <!--        <form action="/wish/search" method="get">-->
+      <!--          <input type="text" name="keyword" placeholder="請輸入關鍵字" style="-->
+      <!--            margin-left: 50px;-->
+      <!--            width: 200px;-->
+      <!--            height: 48px;-->
+      <!--            border-radius: 5px;-->
+      <!--            font-size: 20px;-->
+      <!--            border: 3px solid #a4c964;-->
+      <!--        "><button type="submit" style="-->
+
+      <!--            align-items: center;-->
+      <!--            font-size: 22px;-->
+      <!--            text-align: center;-->
+      <!--            color: black;-->
+      <!--            font-weight: bold;-->
+      <!--            background-color: #a4c964;-->
+      <!--            text-decoration: none;-->
+      <!--            width: 80px;-->
+      <!--            border-radius: 5px;-->
+      <!--            line-height: 50%;-->
+      <!--            height: 46px;-->
+      <!--            border: none;-->
+      <!--        ">搜尋</button>-->
+      <!--        </form>-->
+
+
+    </div>
+
+    <div class="col-4"></div>
+    <div class="col-4">
+      <a
+              th:href="@{/wish/new}"
+              class="postwish"
+              style="
+
+              align-items: center;
+              margin-left: 45px;
+              font-size: 22px;
+              text-align: center;
+              color: rgb(1, 47, 5);
+              font-weight: bold;
+              background-color: #a4c964;
+              display: inline-block;
+              text-decoration: none;
+              width: 130px;
+              border-radius: 5px;
+              line-height: 55px;
+              height: 56px;
+            "
+      >張貼許願</a
+      >
+
+      <a
+              th:href="@{/mywish}"
+              class="mywish"
+              style="
+
+              align-items: center;
+              font-size: 22px;
+              text-align: center;
+              color: black;
+              font-weight: bold;
+              background-color: #a4c964;
+              display: inline-block;
+              text-decoration: none;
+              width: 130px;
+              border-radius: 5px;
+              line-height: 55px;
+              height: 56px;
+              margin-left: 30px;
+            "
+      >我的許願</a
+      >
+    </div>
   </div>
+
   <br>
 </div>
 
-
+<div th:if="${message != null}" class="popup">
+  <script th:inline="javascript">
+    alert([[${message}]]);
+  </script>
+</div>
 
 <div>
   <table class="table table-stripe table-hover" style="width: 1320px; margin: 0 auto;">
