@@ -76,6 +76,22 @@ $(document).ready(function(){
                 );
               },
             },
+          ],     
+          columnDefs: [
+            {
+              targets: [1, 2, 3, 4, 5],
+              className: "align-middle",
+            },
+            {
+              targets: [6],
+              orderable: false,
+              "searchable": false
+            },
+            // {
+            //   "targets": [1, 2], // 隱藏第2和第3欄
+            //   "visible": false,
+            //   "searchable": false
+            // },
           ],
           
               // 表格翻譯

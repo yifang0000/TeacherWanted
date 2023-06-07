@@ -32,10 +32,10 @@ public class WishServiceImpl implements WishService {
         return repo.findByMemAccount(memberAccount);
     }
 
-//    @Override
-//    public List<Wish> searchByKeyword(String keyword) {
-//        return repo.searchByKeyword(keyword);
-//    }
+
+    public List<Wish> searchByKeyword(String keyword) {
+        return repo.searchByKeyword(keyword);
+    }
 
     public Wish get(Integer wishId) throws WishNotFoundException {
         Optional<Wish> result = repo.findByWishId(wishId);
