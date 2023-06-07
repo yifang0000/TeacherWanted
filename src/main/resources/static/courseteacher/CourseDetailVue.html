@@ -35,12 +35,16 @@
     <script src="../jquery/jquery-3.6.4.min.js"></script>
     <script src="../js/courseJS/base.js"></script>
     <script src="../js/courseJS/page.js"></script>
+    <!-- 要登入驗證請解開這個 -->
+    <!-- <script src="../js/loginCheck.js"></script> -->
+    <script src="../js/base.js"></script>
 
     <title>Document</title>
     <style>
         .comment_info {
             margin-right: 10px;
         }
+
         .vue-star-rating-rating-text {
             display: none;
         }
@@ -51,12 +55,12 @@
 <header class="TeacherWanted">
     <div id="mySidebar">
         <img src="../img/base/logo.png" alt=""/>
-        <a href="#" class="">首頁</a>
-        <a href="#" class="">課程</a>
-        <a href="#" class="">活動</a>
-        <a href="#" class="">許願池</a>
-        <a href="#" class="">論壇</a>
-        <a href="#" class="">商城</a>
+        <a href="/index" class="">首頁</a>
+        <a href="/courseteacher/CourseVue.html" class="">課程</a>
+        <a href="/active/activeIndex.html" class="">活動</a>
+        <a href="/wish" class="">許願池</a>
+        <a href="/bbsdiscuss/index.html" class="">論壇</a>
+        <a href="/baseVer3/homepage.html" class="">商城</a>
     </div>
     <div class="navBar">
         <ul class="containerHearder flexWrap flexVerticalCenter">
@@ -97,34 +101,42 @@
                         class="flexWrap flexAllCenter pcHave"
                         style="flex-grow: 1"
                 >
-                    <a class="flexAllCenter" href="">首頁</a>
-                    <a class="flexAllCenter" href="">課程</a>
-                    <a class="flexAllCenter" href="">活動</a>
-                    <a class="flexAllCenter" href="">許願池</a>
-                    <a class="flexAllCenter" href="">論壇</a>
-                    <a class="flexAllCenter" href="">商城</a>
+                    <a class="flexAllCenter" href="/index">首頁</a>
+                    <a class="flexAllCenter" href="/courseteacher/CourseVue.html"
+                    >課程</a
+                    >
+                    <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
+                    <a class="flexAllCenter" href="/wish">許願池</a>
+                    <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+                    <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
                 </div>
                 <div
                         class="flexWrap flexAllCenter"
                         style="position: relative; top: 2px"
                 >
-                    <div id="searchHead" class="miniMobile">
-                        <form id="navSearch" ref="navSearch"
-                              @submit.prevent="handleSearch">
-                            <select>
-                                <option>課程</option>
-                                <option>活動</option>
-                                <option>商城</option>
-                                <option>許願</option>
+                    <div class="miniMobile">
+                        <div id="navSearch" action="">
+                            <select id="serchType">
+                                <option value="課程">課程</option>
+                                <option value="活動">活動</option>
+                                <!-- <option value="商城">商城</option>
+                                <option value="許願">許願</option> -->
                             </select>
-                            <input type="text" v-model="keyword"/>
-                            <img src="../img/base/search.svg"
-                                 id="searchButton"
-                                 @click="handleSearch"/>
-                        </form>
+                            <input id="searchText" type="text"/>
+                            <img id="searchIcon" src="../img/base/search.svg" alt=""/>
+                        </div>
                     </div>
+
                     <img
-                            src="../img//base/mailForNavbar.svg"
+                            src="../img/base/bell.svg"
+                            id="navAnn"
+                            class="miniMobile"
+                            style="height: 30px; margin: 3px 5px; cursor: pointer"
+                            alt=""
+                    />
+                    <img
+                            src="../img/base/mailForNavbar.svg"
+                            id="navMail"
                             class="miniMobile"
                             style="
                   height: 30px;
@@ -137,20 +149,16 @@
                     />
                     <img
                             src="../img/base/shoppingCart.svg"
-                            class="miniMobile"
-                            style="height: 30px; margin: 3px 5px; cursor: pointer"
-                            alt=""
-                    />
-                    <img
-                            src="../img/base/bell.svg"
+                            id="navShoppingcart"
                             class="miniMobile"
                             style="height: 30px; margin: 3px 5px; cursor: pointer"
                             alt=""
                     />
 
-                    <a class="btnCss flexAllCenter" style="color: white" href=""
-                    >登入</a
-                    >
+                    <!--登入按鈕 開始 -->
+
+                    <div id="loginOrUser"></div>
+                    <!-- 登入按鈕 結束 -->
                 </div>
             </li>
         </ul>
@@ -189,7 +197,9 @@
                         />
                     </div>
                     <div class="col_55"
-                         style="display: flex; text-align: center; justify-content: center;align-content: center;" v-if="photoValue === 0">此課程尚未上傳圖片唷!</div>
+                         style="display: flex; text-align: center; justify-content: center;align-content: center;"
+                         v-if="photoValue === 0">此課程尚未上傳圖片唷!
+                    </div>
                     <!-- 課程簡介 -->
                     <div
                             class="col_45 forAllCenterFlex"
@@ -222,7 +232,8 @@
                                 <!--                    </div>-->
                                 <div class="button-container" style="display: flex;justify-content: center;/">
                                     <div v-if="this.fav === 0">
-                                        <button type="button" class="btn btn-success" style="width: 90px;margin-right: 5px"
+                                        <button type="button" class="btn btn-success"
+                                                style="width: 90px;margin-right: 5px"
                                                 @click="addToFavorite()"><img src="../img/base/cards-heart.svg" alt=""/>收藏
                                         </button>
                                     </div>
@@ -252,7 +263,7 @@
                                     class="forHorizontalCenterFlex intdroucePadding"
                                     style="padding-bottom: 10px"
                             >
-                                <button class="btn" @click="butCourse">立即參加</button>
+                                <button class="btn" @click="buyCourse">立即參加</button>
                             </li>
                             <div class="course_info">
                                 <ul class="forHorizontalCenterFlex">
@@ -400,8 +411,8 @@
 
     <!-- 分頁2 老師介紹開始 -->
     <section id="page2" class="containerLession">
-        <div class="bulletinBoard borderShadow" style="height: fit-content" >
-            <div class="introduceTeacher" v-if="teacherWithPhotoUrl" >
+        <div class="bulletinBoard borderShadow" style="height: fit-content">
+            <div class="introduceTeacher" v-if="teacherWithPhotoUrl">
                 <h1>老師介紹</h1>
                 <h1>&nbsp;</h1>
                 <div class="forFlex">
@@ -438,19 +449,19 @@
                     <!-- 老師簡介 -->
                     <div class="col_60" style="text-align: center">
                         <h3>{{teacher.teaProfile}}</h3>
-<!--                        <h1>&nbsp;</h1>-->
-<!--                        <h3>JAVA 語言課程將由具有豐富實踐經驗的專業講師擔任。</h3>-->
-<!--                        <h3>他熟悉 Java SE 平台的開發技術和相關工具，</h3>-->
-<!--                        <h3>能夠向學員講解清晰易懂的課程內容，</h3>-->
-<!--                        <h3>解答學員的問題，並提供實用的開發技巧。</h3>-->
-<!--                        <h3>他們還擁有豐富的實踐經驗，能夠引導學員掌握開發技能，</h3>-->
-<!--                        <h3>並在學習過程中給予指導和建議。</h3>-->
-<!--                        <h3>JAVA 語言課程將由具有豐富實踐經驗的專業講師擔任。</h3>-->
-<!--                        <h3>他熟悉 Java SE 平台的開發技術和相關工具，</h3>-->
-<!--                        <h3>能夠向學員講解清晰易懂的課程內容，</h3>-->
-<!--                        <h3>解答學員的問題，並提供實用的開發技巧。</h3>-->
-<!--                        <h3>他們還擁有豐富的實踐經驗，能夠引導學員掌握開發技能，</h3>-->
-<!--                        <h3>並在學習過程中給予指導和建議。</h3>-->
+                        <!--                        <h1>&nbsp;</h1>-->
+                        <!--                        <h3>JAVA 語言課程將由具有豐富實踐經驗的專業講師擔任。</h3>-->
+                        <!--                        <h3>他熟悉 Java SE 平台的開發技術和相關工具，</h3>-->
+                        <!--                        <h3>能夠向學員講解清晰易懂的課程內容，</h3>-->
+                        <!--                        <h3>解答學員的問題，並提供實用的開發技巧。</h3>-->
+                        <!--                        <h3>他們還擁有豐富的實踐經驗，能夠引導學員掌握開發技能，</h3>-->
+                        <!--                        <h3>並在學習過程中給予指導和建議。</h3>-->
+                        <!--                        <h3>JAVA 語言課程將由具有豐富實踐經驗的專業講師擔任。</h3>-->
+                        <!--                        <h3>他熟悉 Java SE 平台的開發技術和相關工具，</h3>-->
+                        <!--                        <h3>能夠向學員講解清晰易懂的課程內容，</h3>-->
+                        <!--                        <h3>解答學員的問題，並提供實用的開發技巧。</h3>-->
+                        <!--                        <h3>他們還擁有豐富的實踐經驗，能夠引導學員掌握開發技能，</h3>-->
+                        <!--                        <h3>並在學習過程中給予指導和建議。</h3>-->
                     </div>
                     <!-- 老師簡介結束 -->
                 </div>
@@ -505,7 +516,8 @@
             </div>
             <div class="forHorizontalCenterFlex" style="width: 20%">
                 <div class="member_name" style="width: 80%">
-                    <img :src="feedbackmembers[index].memPhoto" style="width: 100%"/>
+                    <img src="../img/logo1.png" style="width: 100%" v-if="feedbackmembers[index].memPhoto === 0"/>
+                    <img :src="feedbackmembers[index].memPhoto" style="width: 100%" v-else/>
                 </div>
             </div>
             <div style="width: 80%">
@@ -557,7 +569,10 @@
                     </div>
                 </li>
             </ul>
-            <button type="button" class="btn btn-secondary btn-sm" style="height: 40px" @click="togglePop">我要發問
+            <button type="button" class="btn btn-secondary btn-sm"
+                    style="height: 40px"
+                    v-if="memId != null"
+                    @click="togglePop">我要發問
             </button>
         </div>
         <!-- 問題查詢結束 -->
@@ -619,7 +634,8 @@
             <!-- 發問者圖片 -->
             <div class="forHorizontalCenterFlex" style="width: 20%">
                 <div class="member_name" style="width: 80%">
-                    <img :src="members[index].memPhoto" style=" width: 100%"/><br/>
+                    <img src="../img/logo1.png" style=" width: 100%" v-if="members[index].memPhoto === 0"/>
+                    <img :src="members[index].memPhoto" style=" width: 100%" v-else="members[index].memPhoto != 0"/><br/>
                     <div>
                         <button type="button" class="btn btn-success"
                                 v-if="memId === members[index].memId"
@@ -667,10 +683,10 @@
                                       style="float:right"
                                       v-if="comment.commentStatus === 1">已解決</span>
                             </div>
-                            <span class="comment_info">{{comment.commentTitle}}</span>
+                            <h3 class="comment_info">{{comment.commentTitle}}</h3>
                         </li>
                         <!-- 發問標題結束 -->
-                        <h3>{{comment.courseCommentContext}}</h3>
+                        <h6 style="font-size: 16px; margin-top: 10px">{{comment.courseCommentContext}}</h6>
                     </div>
                     <!-- 回覆區塊 -->
                     <div class="replybox" v-for="(reply, index) in replies[index]"
@@ -683,8 +699,12 @@
                         >
                             <div class="forHorizontalCenterFlex" style="width: 20%"
                             >
-                                <div class="member_name" style="width: 80%">
-                                    <img :src="'data:image/png;base64,' + reply.memPhoto" style=" width: 100%"/><br/>
+                                <div class="member_name" style="width: 80%" v-if="reply.memId != null">
+                                    <img src="../img/logo1.png" style=" width: 100%" v-if="reply.memPhoto == null"/>
+                                    <img :src="'data:image/png;base64,' + reply.memPhoto" style=" width: 100%" v-else/><br/>
+                                </div>
+                                <div class="member_name" style="width: 80%" v-if="reply.memId === null">
+                                    <img :src="'data:image/png;base64,' + teacher.teaPhoto" style=" width: 100%"/><br/>
                                 </div>
                             </div>
                             <div style="width: 80%">
@@ -693,8 +713,12 @@
                                     <li class="forVerticalCenterFlex" style="height: 20px"
                                     >
                                         <span class="comment_info">{{ reply.updateTime | formatDate }}</span><span
-                                            class="comment_info" v-if="reply.teaId === this.teaId">授課教師</span><span
-                                            class="comment_info">{{ reply.memName }}</span>
+                                            class="comment_info" v-if="reply.memId === null">授課教師</span>
+                                        <span class="comment_info" v-if="reply.memId === null">
+                                            {{ teacher.teaName }}
+                                        </span>
+                                        <span
+                                                class="comment_info">{{ reply.memName }}</span>
                                     </li>
                                     <!-- 時間結束 -->
                                     <!-- 回覆內容 -->
@@ -708,7 +732,7 @@
                         </div>
                     </div>
                     <!-- 留言結束 -->
-                    <div style="text-align: right">
+                    <div style="text-align: right" v-if="memId != null">
                         <input class="form-control" type="text" placeholder="留言回覆"
                                aria-label="default input example" style="margin: 20px 0 20px 0"
                                v-model="replyContents[index]"
@@ -717,7 +741,7 @@
                         <input class="form-control" type="text" placeholder="問題已解決，如有需求請再次留言"
                                style="margin: 20px 0 20px 0"
                                v-if="comment.commentStatus === 1" disabled>
-                        <div :style="{ display: showupStates[index] ? 'block' : 'none' }" style="display: none">
+                        <div :style="{ display: showupStates[index] ? 'block' : 'none' }" style="display: none; margin-bottom: 5px">
                             <button type="button" class="btn btn-outline-success"
                                     style="background-color: white; color: #3c6a36"
                                     @click="toggleShowup(index)">
@@ -735,9 +759,9 @@
             </div>
         </div>
         <!-- 問題結束 -->
-<!--        <div class="more">-->
-<!--            <h5>顯示更多...</h5>-->
-<!--        </div>-->
+        <!--        <div class="more">-->
+        <!--            <h5>顯示更多...</h5>-->
+        <!--        </div>-->
     </section>
     <!-- 分頁4 問題討論結束 -->
     <!-- 精選課程 -->
@@ -755,31 +779,29 @@
                             <img :src="course.coursesPhotoUrl" alt=""/>
                         </div>
                         <div class="col">{{ course.courseName }}</div>
+                        <div class="col"
+                             style="font-size: 16px;font-family: Serif  ;"
+                        >by{{ getTeacherName(course.teaId) }}
+                        </div>
+                        <div class="col"
+                             style="font-size: 16px;font-family: Serif;">
+                            <star-rating
+                                    :inline="true"
+                                    :star-size="20"
+                                    :read-only="true"
+                                    :show-rating="false"
+                                    :rating="rankings[i]"
+                                    class="single-star"
+                            ></star-rating>
+                            <span class="more"
+                            >{{ course.courseLength }}小時</span
+                            >
+                            <span class="more"
+                            >{{ course.boughtCount }}人</span
+                            >
+                        </div>
                         <div class="col" style="color: #3fb652">
                             NT{{ course.coursePrice }}
-                        </div>
-                        <div class="col">{{ getTeacherName(course.teaId) }}</div>
-                        <div class="col">
-                            {{ course.boughtCount }}人<span class="more"
-                        >{{ course.courseLength }}小時</span
-                        >
-                        </div>
-                        <div class="col">
-                  <span class="star" data-star="1"
-                  ><i class="fas fa-star"></i
-                  ></span>
-                            <span class="star" data-star="2"
-                            ><i class="fas fa-star"></i
-                            ></span>
-                            <span class="star" data-star="3"
-                            ><i class="fas fa-star"></i
-                            ></span>
-                            <span class="star" data-star="4"
-                            ><i class="fas fa-star"></i
-                            ></span>
-                            <span class="star" data-star="5"
-                            ><i class="fas fa-star"></i
-                            ></span>
                         </div>
                     </li>
                 </ul>
@@ -791,6 +813,13 @@
 </main>
 <script>
     Vue.component("star-rating", VueStarRating.default);
+    const memberData = JSON.parse(sessionStorage.getItem("memberStorage"));
+    if (memberData != null) {
+        var memId = memberData.memId;
+    }
+    if (memberData == null) {
+        var memId = null;
+    }
     const urlParams = new URLSearchParams(window.location.search);
     const courseId = urlParams.get("courseId");
     const courseDetailMixin = {
@@ -820,12 +849,13 @@
             return {
                 courses: [],
                 course: null,
+                rankings: [],
                 teacher: null,
                 teachers: [],
                 teaId: null,
                 teaName: null,
                 members: [],
-                memId: 1,
+                memId: null,
                 courseId: null,
                 createTime: new Date(),
                 updateTime: new Date(),
@@ -843,7 +873,7 @@
                 feedbackmembers: [],
                 feedbacks: [],
                 orderDetailId: null,
-                orderList:[],
+                orderList: [],
                 requests: [],
                 feedbackStatus: [],
                 feedbackPopup: false, // 初始化時設為 false，控制彈出框的顯示狀態
@@ -892,23 +922,27 @@
             },
         },
         methods: {
-            butCourse(){
-                const memId = this.memId;
-                axios.get("http://localhost:8080/orderdetails/" + memId)
-                    .then((response) => {
-                        const orderList = response.data;
-                        const foundCourse = orderList.find((course) => course.courseId === this.courseId);
+            buyCourse() {
+                if (memId != null) {
+                    // const memId = this.memId;
+                    axios.get("http://localhost:8080/orderdetails/" + memId)
+                        .then((response) => {
+                            const orderList = response.data;
+                            const foundCourse = orderList.find((course) => course.courseId === this.courseId);
 
-                        if (foundCourse) {
-                            alert("您已購買過此課程囉!")
-                        } else {
-                            const targetUrl = `./CourseCheck.html?courseId=${courseId}`;
-                            window.location.href = targetUrl;
-                        }
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
+                            if (foundCourse) {
+                                alert("您已購買過此課程囉!")
+                            } else {
+                                const targetUrl = `./CourseCheck.html?courseId=${courseId}`;
+                                window.location.href = targetUrl;
+                            }
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                } else {
+                    alert("請先登入!");
+                }
             },
             //切換圖片
             changeValue() {
@@ -998,26 +1032,31 @@
                     });
             },
             addToFavorite() {
-                const data = {
-                    memId: this.memId,
-                    courseId: this.courseId,
-                    createTime: new Date(),
-                    favCoursePhoto: this.course.coursePhoto1,
-                    favCourseName: this.course.courseName,
-                };
-                console.log(data);
+                if (memId != null) {
+                    this.memId = memId;
+                    const data = {
+                        memId: this.memId,
+                        courseId: this.courseId,
+                        createTime: new Date(),
+                        favCoursePhoto: this.course.coursePhoto1,
+                        favCourseName: this.course.courseName,
+                    };
+                    console.log(data);
 
-                axios
-                    .post("http://localhost:8080/favcourses", data)
-                    .then((response) => {
-                        console.log(response.data);
-                        this.fav = 1;
-                        console.log("加入收藏成功!");
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        console.log("加入收藏失敗!");
-                    });
+                    axios
+                        .post("http://localhost:8080/favcourses", data)
+                        .then((response) => {
+                            console.log(response.data);
+                            this.fav = 1;
+                            console.log("加入收藏成功!");
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                            console.log("加入收藏失敗!");
+                        });
+                } else {
+                    alert("請先登入才能加入收藏唷!");
+                }
             },
             removeFromFavorite() {
                 const memId = this.memId;
@@ -1053,6 +1092,7 @@
                 this.replyContents[index] = "";//將輸入框內容清空
             },
             createComment() {
+                this.memId = memId;
                 const data = {
                     courseId: this.courseId,
                     memId: this.memId,
@@ -1074,8 +1114,12 @@
                     })
                     .then((commentsResponse) => {
                         this.members = commentsResponse.data.members.map(member => {
-                            const base64Image = 'data:image/png;base64,' + member.memPhoto;
-                            return {...member, memPhoto: base64Image};
+                            if(member.memPhoto != null) {
+                                const base64Image = 'data:image/png;base64,' + member.memPhoto;
+                                return {...member, memPhoto: base64Image};
+                            }else {
+                                return {...member, memPhoto: 0};
+                            }
                         })
                         this.courseCommentIds = [];
                         this.comments = commentsResponse.data.courseComments.map(comment => {
@@ -1169,18 +1213,18 @@
                     this.courseId = this.course.courseId;
                     this.teaId = this.course.teaId;
                     console.log(this.course);
-                    if(this.course.coursePhoto1 != null){
+                    if (this.course.coursePhoto1 != null) {
                         photoCount = photoCount + 1;
                     }
-                    if(this.course.coursePhoto2 != null){
+                    if (this.course.coursePhoto2 != null) {
                         photoCount = photoCount + 1;
                     }
-                    if(this.course.coursePhoto3 != null){
+                    if (this.course.coursePhoto3 != null) {
                         photoCount = photoCount + 1;
                     }
                     this.photoCount = photoCount;
                     console.log(this.photoCount);
-                    if(this.photoCount > 0){
+                    if (this.photoCount > 0) {
                         this.photoValue = 1;
                     }
                     this.totalEvaluate = this.course.courseTotalEvaluate;
@@ -1203,25 +1247,40 @@
                 .then((coursesResponse) => {
                     this.courses = coursesResponse.data;
                     console.log(this.courses);
+                    this.rankings = this.courses.map(course => {
+                        return course.courseTotalEvaluate === 0 ? "" : course.courseTotalRank / course.courseTotalEvaluate;
+                    });
+                    console.log(this.rankings);
                     return axios.get("http://localhost:8080/teachers");
                 })
                 .then((teachersResponse) => {
                     this.teachers = teachersResponse.data;
                     console.log(this.teachers);
-                    // 儲存數據
-                    const memId = this.memId;
-                    const courseId = this.courseId;
-                    return axios.get("http://localhost:8080/favcourses/" + memId + "/" + courseId)
                 })
-                .then((favcoursesResponse) => {
-                    this.fav = favcoursesResponse.data;
-                    console.log(this.fav);
-                    return axios.get("http://localhost:8080/comments/" + courseId)
-                })
+            if (memId != null) {
+                this.memId = memId;
+                // const memId = this.memId;
+                axios.get("http://localhost:8080/favcourses/" + memId + "/" + courseId)
+                    .then((favcoursesResponse) => {
+                        this.fav = favcoursesResponse.data;
+                        console.log(this.fav);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            } else {
+                this.fav = 0;
+            }
+            axios.get("http://localhost:8080/comments/" + courseId)
+
                 .then((commentsResponse) => {
                     this.members = commentsResponse.data.members.map(member => {
-                        const base64Image = 'data:image/png;base64,' + member.memPhoto;
-                        return {...member, memPhoto: base64Image};
+                        if(member.memPhoto != null) {
+                            const base64Image = 'data:image/png;base64,' + member.memPhoto;
+                            return {...member, memPhoto: base64Image};
+                        }else {
+                            return {...member, memPhoto: 0};
+                        }
                     })
                     this.comments = commentsResponse.data.courseComments.map(comment => {
                         this.showupStates.push(false);//初始化所有留言
@@ -1257,8 +1316,12 @@
                 })
                 .then((feedbackResponse) => {
                     this.feedbackmembers = feedbackResponse.data.members.map(feedbackmember => {
-                        const base64Image = 'data:image/png;base64,' + feedbackmember.memPhoto;
-                        return {...feedbackmember, memPhoto: base64Image};
+                        if(feedbackmember.memPhoto != null) {
+                            const base64Image = 'data:image/png;base64,' + feedbackmember.memPhoto;
+                            return {...feedbackmember, memPhoto: base64Image};
+                        }else {
+                            return {...feedbackmember, memPhoto: 0};
+                        }
                     })
                     this.feedbacks = feedbackResponse.data.courseComments.map(feedback => {
 
@@ -1279,39 +1342,40 @@
                 const formattedDate = dateTime.toISOString().split('T')[0];
                 return formattedDate;
             });
+
         },
     });
-    new Vue({
-        el: "#searchHead",
-        data() {
-            return {
-                keyword: "",
-                category: "課程",
-            };
-        },
-        methods: {
-            handleSearch() {
-                const params = new URLSearchParams();
-                params.append("keyword", this.keyword);
-                params.append("category", this.category);
-
-                const url = `http://localhost:8080/courses/${this.keyword}`;
-                const urlResult = `./CourseSearchRsVue.html?${params.toString()}`;
-                window.location.href = urlResult;
-
-                axios
-                    .get(url)
-                    .then((response) => {
-                        // 更新 courses 數組
-                        bus.$emit("search-results", response.data);
-                        console.log(this.courses);
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            },
-        },
-    });
+    // new Vue({
+    //     el: "#searchHead",
+    //     data() {
+    //         return {
+    //             keyword: "",
+    //             category: "課程",
+    //         };
+    //     },
+    //     methods: {
+    //         handleSearch() {
+    //             const params = new URLSearchParams();
+    //             params.append("keyword", this.keyword);
+    //             params.append("category", this.category);
+    //
+    //             const url = `http://localhost:8080/courses/${this.keyword}`;
+    //             const urlResult = `./CourseSearchRsVue.html?${params.toString()}`;
+    //             window.location.href = urlResult;
+    //
+    //             axios
+    //                 .get(url)
+    //                 .then((response) => {
+    //                     // 更新 courses 數組
+    //                     bus.$emit("search-results", response.data);
+    //                     console.log(this.courses);
+    //                 })
+    //                 .catch((error) => {
+    //                     console.error(error);
+    //                 });
+    //         },
+    //     },
+    // });
 </script>
 <footer
         class="TeacherWanted"
@@ -1330,9 +1394,9 @@
                         class="flexAllCenter"
                         style="margin: 10px 30px; font-weight: normal"
                 >
-                    Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
-                    dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
-                    elitr stet diam duo eos rebum ipsum diam ipsum elitr.
+                    現代⼈⽣活步相當緊湊我們的課平台幫助
+                    ⼈們學並且除了線上課提供了實家的合會⼤了學的⾯向
+                    課元可提⾼學⽣的學興積性 並促學⽣的⾯發展
                 </li>
                 <li
                         id="imgIcon"
@@ -1365,7 +1429,7 @@
                             />
                             <div>
                                 <h3 style="font-size: 1.3rem">地址</h3>
-                                <h5 style="font-size: 1rem">123</h5>
+                                <h5 style="font-size: 1rem">台北市中山區南京東路三段</h5>
                             </div>
                         </li>
 
@@ -1405,22 +1469,26 @@
                     </li>
                     <div class="webMap">
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>首頁</a>
+                            <a class="webMapLink" href="/index">>首頁</a>
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>課程</a>
+                            <a class="webMapLink" href="/courseteacher/CourseVue.html"
+                            >>課程</a
+                            >
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>活動</a>
+                            <a class="webMapLink" href="/active/activeIndex.html"
+                            >>活動</a
+                            >
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>許願池</a>
+                            <a class="webMapLink" href="/wish">>許願池</a>
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>論壇</a>
+                            <a class="webMapLink" href="/bbsdiscuss/index.html">>論壇</a>
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>商城</a>
+                            <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
                         </li>
                     </div>
                 </div>

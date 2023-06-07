@@ -1,0 +1,13 @@
+#mailTbody{
+    cursor: pointer;
+}
+#deleteBtn{
+    padding: 2px 5px;
+    border-radius: 4px;
+    background-color: rgb(66, 66, 66);
+    color: white;
+}
+#deleteBtn:hover{
+    background-color: black;
+    color: white;
+}

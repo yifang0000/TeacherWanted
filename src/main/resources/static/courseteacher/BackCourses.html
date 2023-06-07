@@ -295,7 +295,7 @@
                       <td>編號</td>
                       <td>類型</td>
                       <td>課程名稱</td>
-                      <td>預覽課程</td>
+                      <td v-if="teaId != null">預覽課程</td>
                       <td>狀態</td>
                       <td>操作</td>
                     </tr>
@@ -305,7 +305,13 @@
                       <td class="activityId">{{course.courseId}}</td>
                       <td>{{ getCategoryText(course.courseCategoryId) }}</td>
                       <td class="activityName">{{course.courseName}}</td>
-                      <td>{{course.boughtCount}}人</td>
+                      <td v-if="teaId != null"><button
+                              type="button"
+                              class="btn btn-success"
+                              @click="viewCourse(course)"
+                      >
+                        預覽
+                      </button></td>
                       <td>
                         <select
                           v-model="course.courseStatus"
@@ -424,6 +430,11 @@
           },
         },
         methods: {
+          viewCourse(course){
+            const courseId = course.courseId;
+            const targetUrl = `./CourseVideo.html?courseId=${courseId}`;
+            window.location.href = targetUrl;
+          },
           toEditCourse(course) {
             const courseId = course.courseId;
             const targetUrl = `./EditCourse.html?courseId=${courseId}`;
