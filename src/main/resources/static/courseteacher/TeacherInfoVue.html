@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -37,15 +37,15 @@
     <!-- <script src="../js/loginCheck.js"></script> -->
     <script src="../js/base.js"></script>
 
-    <title>Document</title>
+    <title>教師檔案</title>
     <style>
-        .teacher_info {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px 20px 20px 20px;
-        }
+        /*.teacher_info {*/
+        /*    display: flex;*/
+        /*    flex-direction: column;*/
+        /*    justify-content: center;*/
+        /*    align-items: center;*/
+        /*    padding: 20px 20px 20px 20px;*/
+        /*}*/
 
         .teacher_more {
             font-size: 25px;
@@ -178,15 +178,15 @@
     </div>
 </header>
 
-<main class="TeacherWanted">
+<main id="app" class="TeacherWanted">
     <!-- ！！！寫在這裡！！！
     如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
-    <ul id="app" class="item_list">
-        <div class="container">
-            <div v-if="teacherWithPhotoUrl" class="teacher_info">
+    <div class="container" style="display: flex; margin-bottom: 20px;border-radius: 1ch;
+    box-shadow: 2px 2px 5px rgba(0.3, 0.3, 0.3, 0.3);">
+        <div class="col-2" style="margin-bottom: 20px;height: 100%; display: flex;text-align: center;justify-content: center">
+            <div v-if="teacherWithPhotoUrl">
                 <div><img :src="teacherWithPhotoUrl.teacherPhotoUrl" alt=""/></div>
                 <div>{{teacherWithPhotoUrl.teaName}}</div>
-                <div>資深工程師</div>
                 <div class="button-container" style="display: flex;justify-content: center;/">
                     <div v-if="this.fav === 0">
                         <button type="button" class="btn btn-success" style="width: 90px;margin-right: 5px"
@@ -199,22 +199,27 @@
                                 @click="removeFromFavorite()"><img src="../img/base/cards-heart.svg" alt=""/>已收藏
                         </button>
                     </div>
-                    <button type="button" class="btn btn-success" style="width: 90px"><img src="../img/base/message.svg"
-                                                                                           alt=""/>私信
-                    </button>
+                    <!--                    <button type="button" class="btn btn-success" style="width: 90px"><img src="../img/base/message.svg"-->
+                    <!--                                                                                           alt=""/>私信-->
+                    <!--                    </button>-->
                 </div>
+                <span>關於我</span>
+                </br>
+                <span style="font-size: 14px;color: #616161">{{teacher.teaProfile}}</span>
+                </br>
+                </br>
+                <span>擅長科目</span>
+                </br>
+                <span style="font-size: 14px;color: #616161">{{ teacher.teachingSubject1 | formatSubject }}</span>
+                <span style="font-size: 14px;color: #616161">{{ teacher.teachingSubject2 | formatSubject }}</span>
+                <span style="font-size: 14px;color: #616161">{{ teacher.teachingSubject3 | formatSubject }}</span>
             </div>
         </div>
-        <div class="container">
-            <div class="split" style="background-color: #d9d9d9">
-                擅長科目:線性代數、航空學<br/>
-                座右銘: 不管黑貓或白貓，能抓老鼠都是好貓
-            </div>
-            <!-- 開授課程 -->
-
+        <div class="col-1" ></div>
+        <div class="col-9" style="">
             <div class="box">
                 <div class="teacher_more">
-                    開授課程<span class="more">更多課程></span>
+                    開授課程<span class="more"></span>
                 </div>
                 <ul class="item_list">
                     <li
@@ -254,7 +259,83 @@
                 </ul>
             </div>
         </div>
-    </ul>
+        </div>
+    </div>
+
+<!--    <ul  class="item_list">-->
+<!--        <div class="container">-->
+<!--            <div v-if="teacherWithPhotoUrl" class="teacher_info">-->
+<!--                <div><img :src="teacherWithPhotoUrl.teacherPhotoUrl" alt=""/></div>-->
+<!--                <div>{{teacherWithPhotoUrl.teaName}}</div>-->
+<!--                <div>資深工程師</div>-->
+<!--                <div class="button-container" style="display: flex;justify-content: center;/">-->
+<!--                    <div v-if="this.fav === 0">-->
+<!--                        <button type="button" class="btn btn-success" style="width: 90px;margin-right: 5px"-->
+<!--                                @click="addToFavorite()"><img src="../img/base/cards-heart.svg" alt=""/>收藏-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                    <div v-if="this.fav === 1">-->
+<!--                        <button type="button" class="btn btn-success"-->
+<!--                                style="width: 90px;margin-right: 5px; background-color: white; color: #3c6a36 "-->
+<!--                                @click="removeFromFavorite()"><img src="../img/base/cards-heart.svg" alt=""/>已收藏-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--&lt;!&ndash;                    <button type="button" class="btn btn-success" style="width: 90px"><img src="../img/base/message.svg"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                                           alt=""/>私信&ndash;&gt;-->
+<!--&lt;!&ndash;                    </button>&ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="container">-->
+<!--            <div class="split" style="background-color: #d9d9d9">-->
+<!--                擅長科目:線性代數、航空學<br/>-->
+<!--                座右銘: 不管黑貓或白貓，能抓老鼠都是好貓-->
+<!--            </div>-->
+            <!-- 開授課程 -->
+
+<!--            <div class="box">-->
+<!--                <div class="teacher_more">-->
+<!--                    開授課程<span class="more"></span>-->
+<!--                </div>-->
+<!--                <ul class="item_list">-->
+<!--                    <li-->
+<!--                            v-for="(course, i) in coursesWithPhotoUrl"-->
+<!--                            :key="i"-->
+<!--                            @click="handleClick(course)"-->
+<!--                    >-->
+<!--                        <div class="img_block">-->
+<!--                            <img :src="course.coursePhotoUrl" alt=""/>-->
+<!--                        </div>-->
+<!--                        <div class="col">{{ course.courseName }}</div>-->
+<!--                        <div class="col"-->
+<!--                             style="font-size: 16px;font-family: Serif  ;"-->
+<!--                        >by{{ teacher.teaName }}-->
+<!--                        </div>-->
+<!--                        <div class="col"-->
+<!--                             style="font-size: 16px;font-family: Serif;">-->
+<!--                            <star-rating-->
+<!--                                    :inline="true"-->
+<!--                                    :star-size="20"-->
+<!--                                    :read-only="true"-->
+<!--                                    :show-rating="false"-->
+<!--                                    :rating="rankings[i]"-->
+<!--                                    class="single-star"-->
+<!--                            ></star-rating>-->
+<!--                            <span class="more"-->
+<!--                            >{{ course.courseLength }}小時</span-->
+<!--                            >-->
+<!--                            <span class="more"-->
+<!--                            >{{ course.boughtCount }}人</span-->
+<!--                            >-->
+<!--                        </div>-->
+<!--                        <div class="col" style="color: #3fb652">-->
+<!--                            NT{{ course.coursePrice }}-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </ul>-->
 </main>
 <script>
     Vue.component("star-rating", VueStarRating.default);
@@ -311,6 +392,37 @@
                 }
                 return null;
             },
+            // subject1() {
+            //     return this.getSubjectValue(this.teacher.teachingSubject1);
+            // },
+            // subject2() {
+            //     return this.getSubjectValue(this.teacher.teachingSubject2);
+            // },
+            // subject3() {
+            //     return this.getSubjectValue(this.teacher.teachingSubject3);
+            // },
+        },
+        filters: {
+            formatSubject(subjectNumber) {
+                switch (subjectNumber) {
+                    case 1:
+                        return "語言";
+                    case 2:
+                        return "生活";
+                    case 3:
+                        return "程式語言";
+                    case 4:
+                        return "音樂";
+                    case 5:
+                        return "美術";
+                    case 6:
+                        return "運動";
+                    case 7:
+                        return "未填";
+                    default:
+                        return ""; // 處理其他情況
+                }
+            }
         },
         methods: {
             addToFavorite() {
