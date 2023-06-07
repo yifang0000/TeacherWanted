@@ -24,21 +24,30 @@ public class UserRegister {
 
     }
     @PostMapping("/registerUser")
-    public String registerUser(@ModelAttribute User user, HttpSession session) { //傳送html的user的資料丟到後端
+    public String registerUser(@ModelAttribute User user,Model model, HttpSession session) { //傳送html的user的資料丟到後端
 
-        boolean f = service.checkMemAccount(user.getMemAccount());
-        if (f) {
+        boolean isAccountExists = service.checkMemAccount(user.getMemAccount());
+        if (isAccountExists) {
             session.setAttribute("msg", "帳號與他人重複，請重新設定");
+            return "register";
+        }
 
-        } else {
+        boolean isEmailExists = service.checkMemEmail(user.getMemEmail());
+        if (isEmailExists) {
+            session.setAttribute("msg", "電子郵件與他人重複，請重新設定");
+            return "register";
+        }
+
+        // 其他註冊相關邏輯...
+
             String password = user.getMemPassword();//取出密碼
             String encodePassWord = AES256Util.encode(password);//密碼加密
             user.setMemPassword(encodePassWord);//塞回物件存進資料庫
             service.registerUser(user);//使用了UserService中的registerUser方法
 
             return "registerSuccess";//回傳字串到thymeleaf>>註冊成功頁面
-        }
-        return "redirect:/register";
+
+
     }
     @GetMapping("/test")
     public String test() {

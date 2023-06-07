@@ -26,10 +26,13 @@ annDate.min = now;
 
 function toggleScheduledTime(show) {
     var scheduledTimeDiv = document.getElementById('scheduled_time');
+    var annStatus0 = document.getElementById('status');
     if (show) {
         scheduledTimeDiv.removeAttribute("hidden");
+        annStatus0.removeAttribute("hidden");
     } else {
         scheduledTimeDiv.setAttribute("hidden", "");
+        annStatus0.setAttribute("hidden", "");
     }
   }
 
@@ -113,7 +116,7 @@ $(document).ready(function(){
                 // 格式化日期時間字串
                 var annDate = year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 
-                annStatus=1;
+                annStatus=$('#annStatus').val();
             } else if (scheduleOptions[2].checked) {
                 annDate = "";
                 annStatus=0;
@@ -122,7 +125,7 @@ $(document).ready(function(){
 
               // =====================ajax======//
             var formData = {
-                adminId:"2",
+                adminId:"8",
                 annTitle:$('#annTitle').val(),
               annCategory:$('#annCategory').val(),
               annContent:htmlValue,

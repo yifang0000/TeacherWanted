@@ -165,13 +165,13 @@
 <!-- 手機板導引列(粗糙) -->
 <header class="TeacherWanted">
     <div id="mySidebar">
-        <img src="../img/base/logo.png" alt=""/>
-        <a href="#" class="">首頁</a>
-        <a href="#" class="">課程</a>
-        <a href="#" class="">活動</a>
-        <a href="#" class="">許願池</a>
-        <a href="#" class="">論壇</a>
-        <a href="#" class="">商城</a>
+        <img src="../img/base/logo.png" alt="" />
+        <a href="/index" class="">首頁</a>
+        <a href="/courseteacher/CourseVue.html" class="">課程</a>
+        <a href="/active/activeIndex.html" class="">活動</a>
+        <a href="/wish" class="">許願池</a>
+        <a href="/bbsdiscuss/index.html" class="">論壇</a>
+        <a href="/baseVer3/homepage.html" class="">商城</a>
     </div>
     <div class="navBar">
         <ul class="containerHearder flexWrap flexVerticalCenter">
@@ -212,31 +212,42 @@
                         class="flexWrap flexAllCenter pcHave"
                         style="flex-grow: 1"
                 >
-                    <a class="flexAllCenter" href="">首頁</a>
-                    <a class="flexAllCenter" href="">課程</a>
-                    <a class="flexAllCenter" href="">活動</a>
-                    <a class="flexAllCenter" href="">許願池</a>
-                    <a class="flexAllCenter" href="">論壇</a>
-                    <a class="flexAllCenter" href="">商城</a>
+                    <a class="flexAllCenter" href="/index">首頁</a>
+                    <a class="flexAllCenter" href="/courseteacher/CourseVue.html"
+                    >課程</a
+                    >
+                    <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
+                    <a class="flexAllCenter" href="/wish">許願池</a>
+                    <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+                    <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
                 </div>
                 <div
                         class="flexWrap flexAllCenter"
                         style="position: relative; top: 2px"
                 >
                     <div class="miniMobile">
-                        <form id="navSearch" action="">
-                            <select>
-                                <option>課程</option>
-                                <option>活動</option>
-                                <option>商城</option>
-                                <option>許願</option>
+                        <div id="navSearch" action="">
+                            <select id="serchType">
+                                <option value="課程">課程</option>
+                                <option value="活動">活動</option>
+                                <!-- <option value="商城">商城</option>
+                                <option value="許願">許願</option> -->
                             </select>
-                            <input type="text"/>
-                            <img src="../img/base/search.svg" alt=""/>
-                        </form>
+                            <input id="searchText" type="text" />
+                            <img id="searchIcon" src="../img/base/search.svg" alt="" />
+                        </div>
                     </div>
+
+                    <img
+                            src="../img/base/bell.svg"
+                            id="navAnn"
+                            class="miniMobile"
+                            style="height: 30px; margin: 3px 5px; cursor: pointer"
+                            alt=""
+                    />
                     <img
                             src="../img/base/mailForNavbar.svg"
+                            id="navMail"
                             class="miniMobile"
                             style="
                   height: 30px;
@@ -249,34 +260,28 @@
                     />
                     <img
                             src="../img/base/shoppingCart.svg"
-                            class="miniMobile"
-                            style="height: 30px; margin: 3px 5px; cursor: pointer"
-                            alt=""
-                    />
-                    <img
-                            src="../img/base/bell.svg"
+                            id="navShoppingcart"
                             class="miniMobile"
                             style="height: 30px; margin: 3px 5px; cursor: pointer"
                             alt=""
                     />
 
-                    <li>
-                        <a id="loginButton" href="/login" class="nav-link" style="display: flex; justify-content: center;">登入</a>
-                    </li>
-                    <li>
-                        <a id="logoutButton" href="/logout" class="nav-link" style="display: flex; justify-content: center;">登出</a>
-                    </li>
+                    <!--登入按鈕 開始 -->
+
+                    <div id="loginOrUser"></div>
+                    <!-- 登入按鈕 結束 -->
                 </div>
             </li>
         </ul>
     </div>
 </header>
 
-<!--<div th:if="${session.msg}">-->
-<!--    <script th:inline="javascript">-->
-<!--         alert([[${session.msg}]]);-->
-<!--    </script>-->
-<!--</div>-->
+
+<div th:if="${session.msg}">
+    <script th:inline="javascript">
+         alert([[${session.msg}]]);
+    </script>
+</div>
 
 <main class="TeacherWanted">
     <!-- apply form start -->
@@ -374,18 +379,22 @@
                         class="flexAllCenter"
                         style="margin: 10px 30px; font-weight: normal"
                 >
-                    Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
-                    dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
-                    elitr stet diam duo eos rebum ipsum diam ipsum elitr.
+                    現代⼈⽣活步相當緊湊，我們的課平台幫助各年齡層
+                    的⼈們學習，除了線上課也提供了家教的媒合。
+                    相信這裡的課程的多元性可促進學⽣的全⾯發展。
                 </li>
                 <li
                         id="imgIcon"
                         class="flexVerticalCenter"
                         style="margin: 20px 30px"
                 >
-                    <img src="img/base/facebook.svg" class="imgIntroduce" alt=""/>
-                    <img src="img/base/twitter.svg" class="imgIntroduce" alt=""/>
-                    <img src="img/base/instagram.svg" class="imgIntroduce" alt=""/>
+                    <img src="../img/base/facebook.svg" class="imgIntroduce" alt="" />
+                    <img src="../img/base/twitter.svg" class="imgIntroduce" alt="" />
+                    <img
+                            src="../img/base/instagram.svg"
+                            class="imgIntroduce"
+                            alt=""
+                    />
                 </li>
             </ul>
             <ul class="col_33 flexHorizontalCenter footerMobile">
@@ -399,19 +408,19 @@
                     <div class="" style="height: 250px; font-weight: 400">
                         <li class="flexWrap" style="margin-top: 10px">
                             <img
-                                    src="img/base/map-marker.svg"
+                                    src="../img/base/map-marker.svg"
                                     style="height: 24px; padding-right: 10px; margin-top: 6px"
                                     alt=""
                             />
                             <div>
                                 <h3 style="font-size: 1.3rem">地址</h3>
-                                <h5 style="font-size: 1rem">123</h5>
+                                <h5 style="font-size: 1rem">台北市中山區南京東路三段</h5>
                             </div>
                         </li>
 
                         <li class="flexWrap" style="margin-top: 10px">
                             <img
-                                    src="img/base/mail.svg"
+                                    src="../img/base/mail.svg"
                                     style="height: 24px; padding-right: 10px; margin-top: 6px"
                                     alt=""
                             />
@@ -423,7 +432,7 @@
 
                         <li class="flexWrap" style="margin-top: 10px">
                             <img
-                                    src="img/base/phone.svg"
+                                    src="../img/base/phone.svg"
                                     style="height: 24px; padding-right: 10px; margin-top: 6px"
                                     alt=""
                             />
@@ -445,22 +454,26 @@
                     </li>
                     <div class="webMap">
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>首頁</a>
+                            <a class="webMapLink" href="/index">>首頁</a>
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>課程</a>
+                            <a class="webMapLink" href="/courseteacher/CourseVue.html"
+                            >>課程</a
+                            >
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>活動</a>
+                            <a class="webMapLink" href="/active/activeIndex.html"
+                            >>活動</a
+                            >
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>許願池</a>
+                            <a class="webMapLink" href="/wish">>許願池</a>
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>論壇</a>
+                            <a class="webMapLink" href="/bbsdiscuss/index.html">>論壇</a>
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>商城</a>
+                            <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
                         </li>
                     </div>
                 </div>

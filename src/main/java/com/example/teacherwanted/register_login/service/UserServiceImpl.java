@@ -23,7 +23,8 @@ public class UserServiceImpl implements UserService{
         return repo.existsByMemAccount(memAccount);
     }
     @Override
-    public boolean checkMemEmail(String memEmail) {
+    public boolean checkMemEmail(String memEmail)
+    {
         return repo.existsByMemEmail(memEmail);
     }
     @Override

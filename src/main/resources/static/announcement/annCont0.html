@@ -31,36 +31,32 @@
       rel="stylesheet"
       href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
     />
-    <link href="../css/baseVer2.css" rel="stylesheet" type="text/css" />
     <link href="../css/announcement/ann.css" rel="stylesheet" type="text/css" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
       rel="stylesheet"
     />
-
     <script src="../jquery/jquery-3.6.4.min.js"></script>
-    <!-- 要登入驗證請解開這個 -->
-    <!-- <script src="../js/loginCheck.js"></script> -->
-    <script src="../js/base.js"></script>
-
-    <script src="../js/announcement/ann.js"></script>
+    <script src="../js/announcement/annCont.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    <title>公告</title>
+
+    <title>Document</title>
   </head>
   <body class="TeacherWanted">
     <!-- 手機板導引列(粗糙) -->
     <header class="TeacherWanted">
       <div id="mySidebar">
         <img src="../img/base/logo.png" alt="" />
-        <a href="/index" class="">首頁</a>
-        <a href="/courseteacher/CourseVue.html" class="">課程</a>
-        <a href="/active/activeIndex.html" class="">活動</a>
-        <a href="/wish" class="">許願池</a>
-        <a href="/bbsdiscuss/index.html" class="">論壇</a>
-        <a href="/baseVer3/homepage.html" class="">商城</a>
+        <a href="#" class="">首頁</a>
+        <a href="#" class="">課程</a>
+        <a href="#" class="">活動</a>
+        <a href="#" class="">許願池</a>
+        <a href="#" class="">論壇</a>
+        <a href="#" class="">商城</a>
       </div>
       <div class="navBar">
         <ul class="containerHearder flexWrap flexVerticalCenter">
@@ -101,42 +97,31 @@
               class="flexWrap flexAllCenter pcHave"
               style="flex-grow: 1"
             >
-              <a class="flexAllCenter" href="/index">首頁</a>
-              <a class="flexAllCenter" href="/courseteacher/CourseVue.html"
-                >課程</a
-              >
-              <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
-              <a class="flexAllCenter" href="/wish">許願池</a>
-              <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
-              <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
+              <a class="flexAllCenter" href="">首頁</a>
+              <a class="flexAllCenter" href="">課程</a>
+              <a class="flexAllCenter" href="">活動</a>
+              <a class="flexAllCenter" href="">許願池</a>
+              <a class="flexAllCenter" href="">論壇</a>
+              <a class="flexAllCenter" href="">商城</a>
             </div>
             <div
               class="flexWrap flexAllCenter"
               style="position: relative; top: 2px"
             >
               <div class="miniMobile">
-                <div id="navSearch" action="">
-                  <select id="serchType">
-                    <option value="課程">課程</option>
-                    <option value="活動">活動</option>
-                    <!-- <option value="商城">商城</option>
-                    <option value="許願">許願</option> -->
+                <form id="navSearch" action="">
+                  <select>
+                    <option>課程</option>
+                    <option>活動</option>
+                    <option>商城</option>
+                    <option>許願</option>
                   </select>
-                  <input id="searchText" type="text" />
-                  <img id="searchIcon" src="../img/base/search.svg" alt="" />
-                </div>
+                  <input type="text" />
+                  <img src="../img/base/search.svg" alt="" />
+                </form>
               </div>
-
               <img
-                src="../img/base/bell.svg"
-                id="navAnn"
-                class="miniMobile"
-                style="height: 30px; margin: 3px 5px; cursor: pointer"
-                alt=""
-              />
-              <img
-                src="../img/base/mailForNavbar.svg"
-                id="navMail"
+                src="../img//base/mailForNavbar.svg"
                 class="miniMobile"
                 style="
                   height: 30px;
@@ -149,16 +134,20 @@
               />
               <img
                 src="../img/base/shoppingCart.svg"
-                id="navShoppingcart"
+                class="miniMobile"
+                style="height: 30px; margin: 3px 5px; cursor: pointer"
+                alt=""
+              />
+              <img
+                src="../img/base/bell.svg"
                 class="miniMobile"
                 style="height: 30px; margin: 3px 5px; cursor: pointer"
                 alt=""
               />
 
-              <!--登入按鈕 開始 -->
-
-              <div id="loginOrUser"></div>
-              <!-- 登入按鈕 結束 -->
+              <a class="btnCss flexAllCenter" style="color: white" href=""
+                >登入</a
+              >
             </div>
           </li>
         </ul>
@@ -168,64 +157,39 @@
     <main class="TeacherWanted containerBase" id="containerann">
       <!-- ！！！寫在這裡！！！
   如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
-      <div class="row">
-        <div
-          class="col-md-2 mt-5 mb-5 pr-5"
-          style="
-            border: 5px solid #3c6a36;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-          "
-        >
-          <div class="mx-auto m-5" style="width: 80%">
-            <div
-              type="button"
-              class="btn btnCss3 mb-3"
-              style="width: 100%"
-              onclick="changeAnnCategory()"
+
+      <div>
+        <div class="col-md mt-5 mb-5 bg-body-tertiary">
+          <div class="mb-1">
+            <a href="ann.html"
+              ><i class="fa-solid fa-rotate-left"></i> 回到公告列表</a
             >
-              全部公告
-            </div>
-            <div
-              type="button"
-              class="btn btnCss2 mb-3"
-              style="width: 100%"
-              onclick="changeAnnCategory(1)"
-            >
-              優惠券　<i class="fa-solid fa-gift"></i>
-            </div>
-            <div
-              type="button"
-              class="btn btnCss2 mb-3"
-              style="width: 100%"
-              onclick="changeAnnCategory(2)"
-            >
-              綜　合　<i class="fa-solid fa-graduation-cap"></i>
-            </div>
           </div>
-        </div>
-        <!-- <div class="col-md-1"></div> -->
-        <div class="col-md-10 mt-5 mb-5 bg-body-tertiary">
           <div class="card card-info">
             <div class="card-header">
               <div class="card-title">公告</div>
             </div>
             <div class="card-body">
-              <div class="table-responsive scrollbar fs-6 mb-3 pr-3">
-                <table
-                  id="announcementTable"
-                  class="table table-striped table-sm"
-                  style="width: 100%"
-                >
-                  <thead>
-                    <tr>
-                      <th>編號</th>
-                      <th>分類</th>
-                      <th>標題</th>
-                      <th>日期</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
+              <div>
+                <div class="form-group row mb-2">
+                  <div class="col-sm-2 l">分類</div>
+                  <div id="annCategory" class="col-sm-4"></div>
+                </div>
+                <hr />
+                <div class="form-group row mb-2">
+                  <div class="col-sm-2 l">標題</div>
+                  <div id="annTitle" class="col-sm-4"></div>
+                </div>
+                <hr />
+                <div class="form-group row mb-2">
+                  <div class="col-sm-2">發布日期</div>
+                  <div id="annDate" class="col-sm-4"></div>
+                </div>
+                <hr />
+                <div class="form-group row mb-2">
+                  <div class="col-sm-2">內容</div>
+                  <div id="annContent" class="col-sm-10"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -250,9 +214,9 @@
               class="flexAllCenter"
               style="margin: 10px 30px; font-weight: normal"
             >
-              現代⼈⽣活步相當緊湊我們的課平台幫助
-              ⼈們學並且除了線上課提供了實家的合會⼤了學的⾯向
-              課元可提⾼學⽣的學興積性 並促學⽣的⾯發展
+              Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
+              dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
+              elitr stet diam duo eos rebum ipsum diam ipsum elitr.
             </li>
             <li
               id="imgIcon"
@@ -285,7 +249,7 @@
                   />
                   <div>
                     <h3 style="font-size: 1.3rem">地址</h3>
-                    <h5 style="font-size: 1rem">台北市中山區南京東路三段</h5>
+                    <h5 style="font-size: 1rem">123</h5>
                   </div>
                 </li>
 
@@ -325,26 +289,22 @@
               </li>
               <div class="webMap">
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="/index">>首頁</a>
+                  <a class="webMapLink" href="">>首頁</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="/courseteacher/CourseVue.html"
-                    >>課程</a
-                  >
+                  <a class="webMapLink" href="">>課程</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="/active/activeIndex.html"
-                    >>活動</a
-                  >
+                  <a class="webMapLink" href="">>活動</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="/wish">>許願池</a>
+                  <a class="webMapLink" href="">>許願池</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="/bbsdiscuss/index.html">>論壇</a>
+                  <a class="webMapLink" href="">>論壇</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
+                  <a class="webMapLink" href="">>商城</a>
                 </li>
               </div>
             </div>
