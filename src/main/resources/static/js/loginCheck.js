@@ -3,12 +3,9 @@
 // ============可印出來：console.log(test)
 // ============可印會員ID：console.log(test.teaId)
 $(function () {
-  console.log(sessionStorage.getItem("memberStorage"));
-  if (sessionStorage.getItem("memberStorage") == null) {
-    console.log("hi");
-    loginCheck();
-  } else {
-  }
+  console.log("hi");
+  loginCheck();
+
   // ===========登出的方法===============
   // function logOut() {
   //   $.ajax({

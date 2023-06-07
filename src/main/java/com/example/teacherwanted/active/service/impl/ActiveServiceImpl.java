@@ -56,14 +56,15 @@ public class ActiveServiceImpl implements ActiveService {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             Active active = iterator.next();
             int comparison = (active.getActivityDueTime()).compareTo(timestamp);
-            if (comparison > 0) {
+            if (comparison < 0) {
 //                System.out.println("时间戳1早于时间戳2");
                 iterator.remove();
             }
 
         }
+        List<Active> activesReturnFirstFive = activesReturn.subList(0, Math.min(5, activesReturn.size()));
 
-        return activesReturn;
+        return activesReturnFirstFive;
     }
 
     ;
