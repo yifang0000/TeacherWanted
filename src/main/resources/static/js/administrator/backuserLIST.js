@@ -84,7 +84,7 @@ $(document).ready(function(){
               "searchable": false
             },
             {
-              "targets": [2, 6], // 隱藏第3和第7欄
+              "targets": [2, 5,6], // 隱藏第3和第7欄
               "visible": false,
               "searchable": false
             },
