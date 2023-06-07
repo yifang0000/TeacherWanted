@@ -301,7 +301,13 @@
     <script>
       const urlParams = new URLSearchParams(window.location.search);
       const courseId = urlParams.get("courseId");
-      const teaId = 11;
+      const adminData = JSON.parse(sessionStorage.getItem("adminStorage"));
+      if(adminData != null){
+        var teaId = adminData.teaId;
+      }
+      if(adminData == null){
+        var teaId = null;
+      }
       new Vue({
         el: "#main",
         data() {
@@ -525,7 +531,7 @@
                 coursePrice: this.coursePrice,
                 courseLength: this.courseLength,
                 coolingOffPeriod: this.coolingOffPeriod,
-                teaId: this.teaId,
+                teaId: teaId,
                 updateTime: new Date(),
                 coursePhoto1: coursePhoto1,
                 coursePhoto2: coursePhoto2,
