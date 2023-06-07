@@ -21,6 +21,7 @@ public interface CourseDao {
     void updateCourseStatus(Integer courseId, CourseVo courseRequest);
 
     void updateCourse(Integer courseId, CourseVo courseRequest);
+    void updateBoughtCount(CourseVo courseVo);
 
     void deleteCourseById(Integer courseId);
 

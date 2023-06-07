@@ -1,6 +1,8 @@
 package com.example.teacherwanted.administrator.service;
 
 import com.example.teacherwanted.administrator.model.Administrator;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -18,6 +20,6 @@ public interface AdministratorService {
 
 //    登入=>儲存session =>js hidden
     public Administrator login(Administrator administrator);
-//    登出
-
+//    重設密碼
+public String resetPassword( Administrator administrator);
 }

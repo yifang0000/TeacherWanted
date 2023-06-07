@@ -6,8 +6,8 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public interface InboxmailService {
-    List<Inboxmail> selectAll();
-    int insert(Inboxmail inboxmail);
+    List<Inboxmail> selectAll(String receiver);
+    String insert(Inboxmail inboxmail);
 
     String deleteById(Integer mailId);
 

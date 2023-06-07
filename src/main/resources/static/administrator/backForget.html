@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/administrator/backlogin.css" />
+    <!-- Bootstrap 連結1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- 設定字體 -->
+    <!-- 可從這邊調整https://fonts.google.com/share?selection.family=DotGothic16%7CNoto%20Sans%20TC:wght@100;300;400;500;700;900 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Main Content -->
+    <div class="container-fluid">
+      <div class="row main-content bg-success text-center">
+        <div class="col-md-4 text-center company__info">
+          <span class="company__logo"
+            ><h2>
+              <img
+                src="../img/logowhite.png"
+                style="height: 100px; margin: 0px 5px"
+                alt=""
+              /></h2
+          ></span>
+          <h4 class="company_title">懸賞啼雀</h4>
+        </div>
+        <div class="col-md-8 col-xs-12 col-sm-12 login_form">
+          <div class="container-fluid">
+            <div class="row p-3">
+              <h2>重設密碼</h2>
+            </div>
+            <div class="row">
+              <p style="color: #3c6a36">送出後將寄信至您的信箱</p>
+            </div>
+            <div class="row">
+              <div class="row">
+                <input
+                  type="text"
+                  name="adminAccount"
+                  id="adminAccount"
+                  class="form__input needvalue"
+                  placeholder="帳號"
+                />
+              </div>
+              <div class="row">
+                <input
+                  type="text"
+                  name="adminEmail"
+                  id="adminEmail"
+                  class="form__input needvalue"
+                  placeholder="信箱"
+                />
+              </div>
+
+              <div>
+                <button
+                  type="submit"
+                  id="btnsubmit"
+                  class="btn btn-success"
+                  　style="width:10px"
+                >
+                  確認
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <p><a href="backlogin.html">返回登入頁面</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+
+    <!-- FontAwesome 連結 -->
+    <script
+      src="https://kit.fontawesome.com/664595efd5.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- JQuery連結 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Bootstrap 連結2 -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $("#adminAccount").keydown(function (e) {
+        if (event.keyCode === 13) {
+          // 检测到 Enter 键被按下
+          event.preventDefault(); // 阻止默认的表单提交行为
+          document.getElementById("adminPassword").focus(); // 将焦点设置到密码输入框
+        }
+      });
+
+      $("#adminPassword").keydown(function (event) {
+        if (event.which === 13) {
+          $("#btnsubmit").click();
+        }
+      });
+      $("#btnsubmit").click(function (event) {
+        // console.log("1111");
+        event.preventDefault();
+
+        // 檢查每個 input 元素的值
+        var allInputsFilled = true;
+        $(".needvalue").each(function () {
+          if ($(this).val() === "") {
+            allInputsFilled = false;
+            console.log("有空值");
+            return false; // 結束迴圈
+          }
+        });
+
+        // 如果所有 input 元素都有值，執行送出資料的動作
+        if (allInputsFilled) {
+        } else {
+          // 如果有任何一個 input 元素沒有值，提示使用者填寫完整
+          alert("請填寫完整資料！");
+          return;
+        }
+
+        // =====================ajax======//
+        var formData = {
+          adminAccount: $("#adminAccount").val(),
+          adminEmail: $("#adminEmail").val(),
+        };
+
+        $.ajax({
+          type: "POST",
+          url: "/administrators/resetPassword",
+          data: JSON.stringify(formData),
+          contentType: "application/json",
+          success: function (response) {
+            alert("已寄信至您的信箱");
+            sendmail(response);
+
+            location.href = "backlogin.html";
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            alert("帳號和信箱未匹配");
+          },
+        });
+      });
+
+      function sendmail(adminPassword) {
+        var mailbody = {
+          recipient: $("#adminEmail").val(),
+          msgBody: `老師您好，您的密碼已重設：\n密碼：${adminPassword}\n建議登入後重新更改密碼\n後台登入頁面請往：http://localhost:8080/administrator/backlogin.html`,
+          subject: "懸賞啼雀｜您的密碼已重設",
+        };
+        console.log(mailbody);
+        $.ajax({
+          type: "POST",
+          url: "/sendMail",
+          data: JSON.stringify(mailbody),
+          contentType: "application/json",
+          success: function (response) {},
+          error: function (xhr, textStatus, errorThrown) {
+            alert("發生錯誤");
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

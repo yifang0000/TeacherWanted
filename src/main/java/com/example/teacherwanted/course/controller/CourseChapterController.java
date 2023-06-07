@@ -43,6 +43,7 @@ public class CourseChapterController {
                                             @RequestParam("chapterTitle") List<String> chapterTitles,
                                             @RequestPart(value = "chapterPhoto", required = false) List<MultipartFile> chapterPhotos,
                                             @RequestParam(value = "chapterLink", required = false) List<String> chapterLinks,
+                                            @RequestParam(value = "chapterStatus") List<String> chapterStatuses,
                                             @RequestParam("courseId") Integer courseId) {
         List<Integer> chapterIds = new ArrayList<>();
 
@@ -89,6 +90,7 @@ public class CourseChapterController {
             chapterVo.setChapterOrder(Integer.valueOf(chapterOrders.get(i)));
             chapterVo.setChapterTitle(chapterTitles.get(i));
             chapterVo.setCourseId(courseId);
+            chapterVo.setChapterStatus(Integer.valueOf(chapterStatuses.get(i)));
             try {
                 if (chapterFile != null) {
                     chapterVo.setChapterFile(chapterFile.getBytes());
