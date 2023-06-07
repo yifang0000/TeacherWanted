@@ -499,6 +499,7 @@
         <div class="forFlex"
              style="padding: 1%; box-sizing: border-box;border-bottom: 1px solid black;"
              v-for="(feedback, index) in feedbacks"
+             v-if="feedbacks[index].courseRank != null"
         >
             <div
                     :style="{ display: feedbackStatus[index] ? 'block' : 'none' }"

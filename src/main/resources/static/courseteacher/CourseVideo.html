@@ -431,6 +431,7 @@
             <!-- 填寫評價 -->
             <div style="margin:10px 2% 0 2%;">
                 <button type="button" class="btn btn-success"
+                        v-if="alredyFeed === false"
                         @click="feedbackPop"
                 >填寫評價
                 </button>
@@ -468,6 +469,7 @@
         <div class="forFlex"
              style="padding: 1%; box-sizing: border-box;border-bottom: 1px solid black;"
              v-for="(feedback, index) in feedbacks"
+             v-if="feedbacks[index].courseRank != null"
         >
             <div
                     :style="{ display: feedbackStatus[index] ? 'block' : 'none' }"
@@ -869,6 +871,7 @@
                 replyMembers: [],
                 feedbackmembers: [],
                 feedbacks: [],
+                alredyFeed: true,
                 orderDetailId: null,
                 requests: [],
                 feedbackStatus: [],
@@ -952,7 +955,7 @@
                                 this.feedbackmembers.splice(index, 1);
                                 this.feedbacks.splice(index, 1);
                             }
-
+                            this.alredyFeed = false;
                         })
                         .catch((error) => {
                             // 請求失敗處理
@@ -962,7 +965,10 @@
                 }
             },
             createFeedback() {
+                const orderDetailId = this.orderDetailId;
+                const url = "http://localhost:8080/feedback";
                 const data = {
+                    orderDetailId: orderDetailId,
                     courseId: courseId,
                     memId: this.memId,
                     courseRank: this.courseRank,
@@ -971,10 +977,11 @@
                 };
                 console.log(data);
                 axios
-                    .post("http://localhost:8080/feedback", data)
+                    .put(url, data)
                     .then((response) => {
                         console.log(response.data);
                         this.feedbackPopup = !this.feedbackPopup; // 切換彈出框的顯示狀態
+                        this.alredyFeed = true;
                         return axios.get("http://localhost:8080/feedback/" + courseId)
                     })
                     .then((feedbackResponse) => {
@@ -987,7 +994,9 @@
                             }
                         })
                         this.feedbacks = feedbackResponse.data.courseComments.map(feedback => {
-
+                            if(feedback.memId === memId){
+                                this.orderDetailId = feedback.orderDetailId;
+                            }
                             const updateTime = feedback.updateTime;
                             const date = new Date(updateTime);
                             const formattedDate = date.toISOString().split('T')[0]; // 擷取日期部分，例如 "2023-06-01"
@@ -1303,16 +1312,17 @@
                         // 儲存數據
                     })
                     .then((chapterResponse) => {
-                        this.chapters = chapterResponse.data;
-                        console.log(this.chapters);
-                        this.getChapterYoutubeUrl();
-                        // this.playVideo(this.chapters[0]);
-                        this.chapters.forEach((chapter, index) => {
-                            console.log(chapter.videoUrl);
-                            this.playVideo(chapter);
-                        });
-                        this.videoType = this.chapters[0].chapterStatus;
-
+                        if(this.chapters && this.chapters.length > 0) {
+                            this.chapters = chapterResponse.data;
+                            console.log(this.chapters);
+                            this.getChapterYoutubeUrl();
+                            // this.playVideo(this.chapters[0]);
+                            this.chapters.forEach((chapter, index) => {
+                                console.log(chapter.videoUrl);
+                                this.playVideo(chapter);
+                            });
+                            this.videoType = this.chapters[0].chapterStatus;
+                        }
                         // const memId = this.memId;
                         // const courseId = this.courseId;
                     //     return axios.get("http://localhost:8080/favcourses/" + memId + "/" + courseId)
@@ -1374,6 +1384,12 @@
                         })
                         this.feedbacks = feedbackResponse.data.courseComments.map(feedback => {
 
+                            if(feedback.memId === memId){
+                                this.orderDetailId = feedback.orderDetailId;
+                            }
+                            if (feedback.courseRank === null){
+                                this.alredyFeed = false;
+                            }
                             const updateTime = feedback.updateTime;
                             const date = new Date(updateTime);
                             const formattedDate = date.toISOString().split('T')[0]; // 擷取日期部分，例如 "2023-06-01"

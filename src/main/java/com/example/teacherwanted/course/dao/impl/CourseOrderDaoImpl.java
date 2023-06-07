@@ -24,7 +24,7 @@ public class CourseOrderDaoImpl implements CourseOrderDao {
 
     @Override
     public CourseOrderVo getCourseOrderById(Integer id) {
-        return null;
+        return entityManager.find(CourseOrderVo.class, id);
     }
 
     @Override
@@ -36,8 +36,16 @@ public class CourseOrderDaoImpl implements CourseOrderDao {
     }
 
     @Override
-    public void createCourseOrder(CourseOrderVo courseOrder) {
+    public Integer createCourseOrder(CourseOrderVo courseOrder) {
+
         entityManager.persist(courseOrder);
+        entityManager.flush(); // 提交實體變更到數據庫，以確保生成的主鍵值已被設置
+        return courseOrder.getOrderId(); // 假設主鍵屬性名稱為"id"
+    }
+
+    @Override
+    public void createOrderDetail(CourseOrderDetailVo courseOrderDetail) {
+        entityManager.persist(courseOrderDetail);
     }
 
     @Override
@@ -77,13 +85,17 @@ public class CourseOrderDaoImpl implements CourseOrderDao {
     }
 
     @Override
+    public void newFeedback(CourseOrderDetailVo detail) {
+        entityManager.persist(detail);
+    }
+
+    @Override
     public void updateFeedback(CourseOrderDetailVo courseOrderDetail) {
         entityManager.merge(courseOrderDetail);
     }
 
     @Override
-    public void deleteFeedback(Integer id) {
-        entityManager.remove(getOrderDetailById(id));
-
+    public void deleteFeedback(CourseOrderDetailVo courseOrderDetail) {
+        entityManager.merge(courseOrderDetail);
     }
 }

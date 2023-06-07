@@ -45,8 +45,15 @@ public class CourseOrderController {
     }
 
     @PostMapping("/course_order")
-    public ResponseEntity<Void> createCourseOrder(@RequestBody @Valid CourseOrderVo courseOrder) {
-        courseOrderService.createCourseOrder(courseOrder);
+    public ResponseEntity<CourseOrderVo> createCourseOrder(@RequestBody @Valid CourseOrderVo courseOrder) {
+        Integer orderId = courseOrderService.createCourseOrder(courseOrder);
+        CourseOrderVo createdOrder = courseOrderService.getCourseOrderById(orderId);
+        return new ResponseEntity<>(createdOrder, HttpStatus.OK);
+    }
+
+    @PostMapping("/order_detail")
+    public ResponseEntity<Void> createOrderDetail(@RequestBody @Valid CourseOrderDetailVo courseOrderDetail) {
+        courseOrderService.createOrderDetail(courseOrderDetail);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -93,6 +100,22 @@ public class CourseOrderController {
         courseOrderService.createFeedback(courseOrderDetail);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    @PutMapping("/feedback")
+    public ResponseEntity<Void> newFeedback(@RequestBody @Valid CourseOrderDetailVo courseOrderDetail) {
+        CourseOrderDetailVo detail = courseOrderService.getOrderDetailById(courseOrderDetail.getOrderDetailId());
+        detail.setCourseFeedback(courseOrderDetail.getCourseFeedback());
+        detail.setCourseRank(courseOrderDetail.getCourseRank());
+        detail.setUpdateTime(courseOrderDetail.getUpdateTime());
+        Integer courseId = courseOrderDetail.getCourseId();
+        CourseVo courseVo = courseService.getCourseById(courseId);
+        Integer rank = courseVo.getCourseTotalRank() + courseOrderDetail.getCourseRank();
+        Integer totalEvaluate = courseVo.getCourseTotalEvaluate() + 1;
+        courseVo.setCourseTotalRank(rank);
+        courseVo.setCourseTotalEvaluate(totalEvaluate);
+        courseService.updateCourse(courseId, courseVo);
+        courseOrderService.newFeedback(detail);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
     @PutMapping("/feedback/{id}")
     public ResponseEntity<Void> updateFeedback(@PathVariable Integer id, @RequestBody @Valid CourseOrderDetailVo courseOrderDetail) {
@@ -117,7 +140,10 @@ public class CourseOrderController {
         courseVo.setCourseTotalRank(rank);
         courseVo.setCourseTotalEvaluate(totalEvaluate);
         courseService.updateCourse(courseId, courseVo);
-        courseOrderService.deleteFeedback(id);
+        courseOrderDetail.setUpdateTime(null);
+        courseOrderDetail.setCourseFeedback(null);
+        courseOrderDetail.setCourseRank(null);
+        courseOrderService.deleteFeedback(courseOrderDetail);
         return ResponseEntity.ok().build();
     }
 }
