@@ -31,8 +31,13 @@ public class CourseOrderServiceImpl implements CourseOrderService {
     }
 
     @Override
-    public void createCourseOrder(CourseOrderVo courseOrder) {
-        courseOrderDao.createCourseOrder(courseOrder);
+    public Integer createCourseOrder(CourseOrderVo courseOrder) {
+        return courseOrderDao.createCourseOrder(courseOrder);
+    }
+
+    @Override
+    public void createOrderDetail(CourseOrderDetailVo courseOrderDetail) {
+        courseOrderDao.createOrderDetail(courseOrderDetail);
     }
 
     @Override
@@ -66,12 +71,22 @@ public class CourseOrderServiceImpl implements CourseOrderService {
     }
 
     @Override
+    public void newFeedback(CourseOrderDetailVo detail) {
+        courseOrderDao.newFeedback(detail);
+    }
+
+    @Override
     public void updateFeedback(CourseOrderDetailVo courseOrderDetail) {
         courseOrderDao.updateFeedback(courseOrderDetail);
     }
 
     @Override
-    public void deleteFeedback(Integer id) {
-        courseOrderDao.deleteFeedback(id);
+    public void deleteFeedback(CourseOrderDetailVo courseOrderDetail) {
+        courseOrderDao.deleteFeedback(courseOrderDetail);
+    }
+
+    @Override
+    public void deleteOrderDetail(Integer id) {
+        courseOrderDao.deleteOrderDetail(id);
     }
 }

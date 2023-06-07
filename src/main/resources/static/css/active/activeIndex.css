@@ -111,3 +111,14 @@
     width: 100%;
   }
 }
+
+/* 分頁 */
+.pageOne {
+  margin: 2px 5px;
+  padding: 2px 5px;
+}
+.pageOne:hover {
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: rgb(182, 182, 182);
+}
