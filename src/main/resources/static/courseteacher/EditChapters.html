@@ -45,137 +45,22 @@
 <body>
 <!-- 設定字體 -->
 <!-- 可從這邊調整https://fonts.google.com/share?selection.family=DotGothic16%7CNoto%20Sans%20TC:wght@100;300;400;500;700;900 -->
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
         href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet"
 />
 
 <div class="container-all">
-    <!-- 左邊(側邊欄) -->
-    <!-- accordion與下方的data-bs-parent="#accordion一個sublist打開時讓其他關閉 -->
     <div class="container-left" id="accordion">
         <nav id="sidebar">
-            <!-- 展開/縮起按鈕 -->
             <div class="div1">
-                <!-- list列表,加入list-unstyled可去除列表的點點 -->
-
-                <div class="divtitle">後台管理</div>
+                <div class="divtitle">懸賞啼雀</div>
             </div>
-            <hr/>
+            <hr />
             <ul class="list-unstyled">
-                <li>
-                    <!-- 收和展開href="#sublist" data-bs-toggle="collapse" id="dropdown" -->
-                    <a href="#sublist1" data-bs-toggle="collapse" id="dropdown"
-                    >使用者管理 <i class="fa-solid fa-gears"></i
-                    ></a>
-                    <!-- 子連結 -->
-                    <ul
-                            id="sublist1"
-                            class="list-unstyled collapse"
-                            data-bs-parent="#accordion"
-                    >
-                        <li><a href="#">使用者列表</a></li>
-                        <li><a href="#">新增使用者</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">會員管理<i class="fa-solid fa-user"></i></a>
-                </li>
-                <li>
-                    <a href="#sublist2" data-bs-toggle="collapse" id="dropdown"
-                    >課程管理<i class="fa-solid fa-graduation-cap"></i
-                    ></a>
-                    <ul
-                            id="sublist2"
-                            class="list-unstyled collapse"
-                            data-bs-parent="#accordion"
-                    >
-                        <li><a href="#">課程列表</a></li>
-                        <li><a href="#">上傳課程</a></li>
-                        <li><a href="#">審核課程</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#sublist3" data-bs-toggle="collapse" id="dropdown"
-                    >活動管理<i class="fa-solid fa-calendar-days"></i
-                    ></a>
-                    <ul
-                            id="sublist3"
-                            class="list-unstyled collapse"
-                            data-bs-parent="#accordion"
-                    >
-                        <li><a href="#">活動列表</a></li>
-                        <li><a href="#">上傳活動</a></li>
-                        <li><a href="#">審核活動</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#sublist4" data-bs-toggle="collapse" id="dropdown"
-                    >商城管理<i class="fa-sharp fa-solid fa-shop"></i
-                    ></a>
-                    <ul
-                            id="sublist4"
-                            class="list-unstyled collapse"
-                            data-bs-parent="#accordion"
-                    >
-                        <li><a href="#">商品列表</a></li>
-                        <li><a href="#">新增商品</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#sublist5" data-bs-toggle="collapse" id="dropdown"
-                    >訂單管理<i class="fa-solid fa-cart-shopping"></i
-                    ></a>
-                    <ul
-                            id="sublist5"
-                            class="list-unstyled collapse"
-                            data-bs-parent="#accordion"
-                    >
-                        <li><a href="#">課程訂單</a></li>
-                        <li><a href="#">活動訂單</a></li>
-                        <li><a href="#">商城訂單</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">許願管理<i class="fa-solid fa-face-smile"></i></a>
-                </li>
-                <li>
-                    <a href="#">論壇管理<i class="fa-solid fa-comments"></i></a>
-                </li>
-                <li>
-                    <a href="#sublist6" data-bs-toggle="collapse" id="dropdown"
-                    >公告管理<i class="fa-solid fa-bell"></i
-                    ></a>
-                    <ul
-                            id="sublist6"
-                            class="list-unstyled collapse"
-                            data-bs-parent="#accordion"
-                    >
-                        <li><a href="#">公告列表</a></li>
-                        <li><a href="#">新增公告</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#sublist7" data-bs-toggle="collapse" id="dropdown"
-                    >優惠碼管理<i class="fa-solid fa-gift"></i
-                    ></a>
-                    <ul
-                            id="sublist7"
-                            class="list-unstyled collapse"
-                            data-bs-parent="#accordion"
-                    >
-                        <li><a href="#">優惠碼列表</a></li>
-                        <li><a href="#">新增優惠碼</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">站內信管理 <i class="fa-solid fa-envelope"></i></a>
-                </li>
-                <li>
-                    <a href="#">客服信管理<i class="fa-solid fa-paper-plane"></i></a>
-                </li>
+                <!-- =========這邊用check.js放入=============== -->
             </ul>
         </nav>
     </div>
@@ -183,55 +68,7 @@
     <!-- 右邊： -->
     <div class="container-right">
         <!-- 右邊的導航欄 -->
-        <header class="p-2 mb-2 border-bottom">
-            <div class="container m-0">
-                <div
-                        class="d-flex nowrap align-items-center justify-content-center justify-content-lg-start"
-                >
-                    <div>
-                        <button
-                                type="button"
-                                id="collapse"
-                                class="collapse-btn text-start"
-                        >
-                            <i class="fa-solid fa-bars"></i>
-                        </button>
-                    </div>
-                    <div class="bartitle">
-                        <span>懸賞啼雀</span>
-                    </div>
-                    <div class="dropdown text-end ms-auto mb-lg-0 me-lg-0 p-0 m-0">
-                        <a
-                                href="#"
-                                class="d-block link-dark text-decoration-none dropdown-toggle"
-                                id="dropdownUser1"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                        >
-                            <span class="barname"> 歡迎登入 三重金城武 老師</span>
-                            <img
-                                    src="https://github.com/mdo.png"
-                                    alt="mdo"
-                                    width="32"
-                                    height="32"
-                                    class="rounded-circle"
-                            />
-                        </a>
-                        <ul
-                                class="dropdown-menu text-small dropdown-menu-end"
-                                aria-labelledby="dropdownUser1"
-                        >
-                            <li><a class="dropdown-item" href="#">設定</a></li>
-                            <li><a class="dropdown-item" href="#">預覽</a></li>
-                            <li>
-                                <hr class="dropdown-divider"/>
-                            </li>
-                            <li><a class="dropdown-item" href="#">登出</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <!-- =========這邊用check.js放入=============== -->
         <div id="main" class="main">
             <!--主體文字1  -->
 
@@ -848,5 +685,36 @@
     })
     ;
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var collapseBtn = document.getElementById("collapse");
+        var sidebar = document.getElementById("sidebar");
+
+        collapseBtn.addEventListener("click", function () {
+            sidebar.classList.toggle("active");
+        });
+    });
+</script>
+<!-- FontAwesome 連結 -->
+<script
+        src="https://kit.fontawesome.com/664595efd5.js"
+        crossorigin="anonymous"
+></script>
+<!-- JQuery連結 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<!-- backindex的JS連結 -->
+<script src="../js/check.js"></script>
+<!-- ===============在此插入自己的JS======================== -->
+<!-- Bootstrap 連結2 -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"
+></script>
+
+<!-- table連結 -->
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 </body>
 </html>

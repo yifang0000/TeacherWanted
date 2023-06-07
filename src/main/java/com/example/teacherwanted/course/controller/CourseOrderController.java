@@ -44,6 +44,7 @@ public class CourseOrderController {
         return new ResponseEntity<>(courseOrders, HttpStatus.OK);
     }
 
+    //建立訂單
     @PostMapping("/course_order")
     public ResponseEntity<CourseOrderVo> createCourseOrder(@RequestBody @Valid CourseOrderVo courseOrder) {
         Integer orderId = courseOrderService.createCourseOrder(courseOrder);
@@ -51,9 +52,13 @@ public class CourseOrderController {
         return new ResponseEntity<>(createdOrder, HttpStatus.OK);
     }
 
+    //建立訂單明細
     @PostMapping("/order_detail")
     public ResponseEntity<Void> createOrderDetail(@RequestBody @Valid CourseOrderDetailVo courseOrderDetail) {
         courseOrderService.createOrderDetail(courseOrderDetail);
+        CourseVo courseVo = courseService.getCourseById(courseOrderDetail.getCourseId());
+        courseVo.setBoughtCount(courseVo.getBoughtCount() + 1);
+        courseService.updateBoughtCount(courseVo);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -106,6 +111,7 @@ public class CourseOrderController {
         detail.setCourseFeedback(courseOrderDetail.getCourseFeedback());
         detail.setCourseRank(courseOrderDetail.getCourseRank());
         detail.setUpdateTime(courseOrderDetail.getUpdateTime());
+        courseOrderService.newFeedback(detail);
         Integer courseId = courseOrderDetail.getCourseId();
         CourseVo courseVo = courseService.getCourseById(courseId);
         Integer rank = courseVo.getCourseTotalRank() + courseOrderDetail.getCourseRank();
@@ -113,7 +119,6 @@ public class CourseOrderController {
         courseVo.setCourseTotalRank(rank);
         courseVo.setCourseTotalEvaluate(totalEvaluate);
         courseService.updateCourse(courseId, courseVo);
-        courseOrderService.newFeedback(detail);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -142,7 +147,7 @@ public class CourseOrderController {
         courseService.updateCourse(courseId, courseVo);
         courseOrderDetail.setUpdateTime(null);
         courseOrderDetail.setCourseFeedback(null);
-        courseOrderDetail.setCourseRank(null);
+        courseOrderDetail.setCourseRank(0);
         courseOrderService.deleteFeedback(courseOrderDetail);
         return ResponseEntity.ok().build();
     }

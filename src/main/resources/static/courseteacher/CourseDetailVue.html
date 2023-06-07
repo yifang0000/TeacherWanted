@@ -221,7 +221,7 @@
                                         :read-only="true"
                                         :increment="0.1"
                                 ></star-rating>
-                                <h1 style="font-size: 30px; color: #3fb652; margin-left: 10px">{{ avgRank }}星</h1>
+                                <h1 style="font-size: 30px; color: #3fb652; margin-left: 10px">{{ avgRank }}</h1>
                             </li>
 
                             <!-- 分享和收藏 -->
@@ -1230,7 +1230,7 @@
                     }
                     this.totalEvaluate = this.course.courseTotalEvaluate;
                     if (this.course.courseTotalEvaluate === 0) {
-                        this.avgRank = ""; // 設定預設值為 "N/A" 或任何您希望的值
+                        this.avgRank = "尚無評價"; // 設定預設值為 "N/A" 或任何您希望的值
                     } else {
                         this.avgRank = Math.round((this.course.courseTotalRank / this.course.courseTotalEvaluate) * 10) / 10;
                     }
