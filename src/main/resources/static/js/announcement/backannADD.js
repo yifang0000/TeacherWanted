@@ -148,5 +148,27 @@ $(document).ready(function(){
                 alert('新增公告失敗');
               }
             });
+            const toEmailCheckbox = document.getElementById('toEmail');
+            if(toEmailCheckbox.checked){
+              var mailbody={
+                recipient:`javatha10127@gmail.com`,
+                msgBody:`${textareaValue}`,
+                subject:`懸賞啼雀｜公告｜${$('#annTitle').val()}`
+            }
+            console.log(mailbody)
+            $.ajax({
+              type: 'POST',
+              url: '/sendMail',
+              data: JSON.stringify(mailbody),
+              contentType: 'application/json',
+                success: function(response) {
+                  alert('寄信成功！');
+                },
+                error: function(xhr, textStatus, errorThrown) {
+
+                    alert("發生錯誤");
+                }
+            });
+            }
       })
 })

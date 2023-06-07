@@ -23,6 +23,20 @@ $(document).ready(function(){
         alert("電子信箱請依照規範");
         return false;  // 結束迴圈
       }
+      function validatePhoneNumber(phoneNumber) {
+        // 手機號碼的正則表達式
+        var phoneRegex = /^09\d{8}$/;
+      
+        // 使用正則表達式驗證手機號碼
+        return phoneRegex.test(phoneNumber);
+      }
+      
+      // 範例用法
+      var phoneNumber = $('#adminPhone').val();
+      if (!validatePhoneNumber(phoneNumber)) {
+        alert("手機號碼請依照規範");
+        return false;  // 結束迴圈
+      }
            // 檢查每個 input 元素的值
            var allInputsFilled = true;
            $(".needvalue").each(function() {
