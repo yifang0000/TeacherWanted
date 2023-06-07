@@ -7,6 +7,7 @@ import com.example.teacherwanted.bbsdiscuss.model.BbsPost;
 import com.example.teacherwanted.bbsdiscuss.model.FavoriteArticle;
 import com.example.teacherwanted.bbsdiscuss.model.PostReaction;
 import com.example.teacherwanted.bbsdiscuss.service.BbsPostService;
+import com.example.teacherwanted.register_login.entity.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,11 +25,11 @@ public class BbsPostController {
 
     //把session傳到前端
     @GetMapping("/bbsdiscussGet/session")
-    public Integer sessionToFront(@SessionAttribute(value = "MemberId", required = false) Integer memId){
-        if (memId == null) {
+    public Integer sessionToFront(@SessionAttribute(value = "userInfo", required = false) User user){
+        if (user.getMemId() == null) {
             return 0;
         } else {
-            return memId;
+            return user.getMemId();
         }
     }
 
@@ -37,12 +38,12 @@ public class BbsPostController {
     //   依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or bsdiscusspo.html
     @GetMapping("/bbsdiscussGet/memberInfo")
     public ResponseEntity<?> selectByMemId(
-            @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+            @SessionAttribute(value = "userInfo", required = false) User user) {
 //        System.out.println(memId);
-        if (memId == null) {
+        if (user.getMemId() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("無登入狀態");
         } else {
-            MemberActive memberInfo = bbsPostService.selectMemBerOrderInfo(memId);
+            MemberActive memberInfo = bbsPostService.selectMemBerOrderInfo(user.getMemId());
             return ResponseEntity.ok(memberInfo);
 
         }
@@ -50,16 +51,16 @@ public class BbsPostController {
     }
     //根據 memId 取得 收藏數據 及 按讚數據
     @GetMapping("/bbsdiscussGet/favandreaction")
-    public ResponseEntity <ResponseFandR> getFavAndReactionByMemId(@SessionAttribute(value = "MemberId", required = false) Integer memId) {
+    public ResponseEntity <ResponseFandR> getFavAndReactionByMemId(@SessionAttribute(value = "userInfo", required = false) User user) {
         System.out.println("test//根據 memid 取得 收藏數據 及 按讚數據");
 
-        List<FavoriteArticle> favoriteArticleList = bbsPostService.geFavByMemId(memId);
-        List<PostReaction> postReactionList = bbsPostService.getRectionByMemId(memId);
+        List<FavoriteArticle> favoriteArticleList = bbsPostService.geFavByMemId(user.getMemId());
+        List<PostReaction> postReactionList = bbsPostService.getRectionByMemId(user.getMemId());
         ResponseFandR responseFandR = new ResponseFandR();
         responseFandR.setFavoriteArticleList(favoriteArticleList);
         responseFandR.setPostReactionList(postReactionList);
 
-        if (memId == null) {
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -74,7 +75,7 @@ public class BbsPostController {
     //  根據文章id取得文章，大頭貼，tag，文章分類，收藏狀態，按讚狀態
     @GetMapping("/bbsdiscussGetAll")
     public ResponseEntity<Response> getBbsPostInfoById(@RequestParam(required = false) Integer bbsPostId,
-                                                  @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+                                                  @SessionAttribute(value = "userInfo", required = false) User user) {
         System.out.println("test查詢一筆文章-根據文章id取得文章，大頭貼，tag，文章分類，收藏狀態，按讚狀態");
 
         BbsPost bbsPost = bbsPostService.getBbsPostById(bbsPostId);
@@ -96,7 +97,7 @@ public class BbsPostController {
         response.setReaction_status(postReaction.getReactionStatus());
         response.setBbsPostId(bbsPost.getBbsPostId());
 
-        if (memId == null) {
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -113,13 +114,13 @@ public class BbsPostController {
     @GetMapping("/bbsdiscussGet/{bbsPostId}")
     // 根據文章編號取得文章的數據
     public ResponseEntity<BbsPost> getBbsPostById(@PathVariable Integer bbsPostId,
-                                                  @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+                                                  @SessionAttribute(value = "userInfo", required = false) User user) {
         System.out.println("test查詢一筆文章-根據文章編號取得文章的數據");
 
         BbsPost bbsPost = bbsPostService.getBbsPostById(bbsPostId);
 
 
-        if (memId == null) {
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -133,10 +134,10 @@ public class BbsPostController {
     //  根據文章id取得，留言數據
     @GetMapping("/bbsdiscussGet/comm")
     public ResponseEntity<List<BbsComment>> getCommById(@RequestParam Integer bbsPostId,
-                                                       @SessionAttribute(value = "MemberId", required = false) Integer memId){
+                                                       @SessionAttribute(value = "userInfo", required = false) User user){
         System.out.println("留言數據留言數據test根據文章id取得，留言數據");
         System.out.println("bbsPostId:" +bbsPostId);
-        System.out.println(memId);
+        System.out.println(user.getMemId());
         List<BbsComment> bbsCommentList = bbsPostService.getCommById(bbsPostId);
 
         if (bbsCommentList != null) {
@@ -152,12 +153,12 @@ public class BbsPostController {
     //  根據留言id取得，大頭貼
     @GetMapping("/bbsdiscussGet/commInfo")
     public ResponseEntity <MemberActive> getBbsCommInfoById(@RequestParam(required = false) Integer bbsCommentId,
-                                                       @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+                                                       @SessionAttribute(value = "userInfo", required = false) User user) {
         System.out.println("test根據留言id取得，大頭貼");
 //        根據文章id取得大頭貼，
         MemberActive member = bbsPostService.getBbsCommInfoById(bbsCommentId);
 
-        if (memId == null) {
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -170,11 +171,11 @@ public class BbsPostController {
     }
     @GetMapping("/bbsdiscussGet/mypost")
     // 發文紀錄-根據會員編號取得該會員的所有發文數據
-    public ResponseEntity<List<BbsPost>> getBbsPostBymemId(@SessionAttribute(value = "MemberId", required = false) Integer memId) {
+    public ResponseEntity<List<BbsPost>> getBbsPostBymemId(@SessionAttribute(value = "userInfo", required = false) User user) {
         System.out.println("test發文紀錄-根據會員編號取得文章的數據");
-        System.out.println(memId);
-        List<BbsPost> bbsPostList = bbsPostService.getBbsPostBymemId(memId);
-        if (memId == null) {
+        System.out.println(user.getMemId());
+        List<BbsPost> bbsPostList = bbsPostService.getBbsPostBymemId(user.getMemId());
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -187,9 +188,9 @@ public class BbsPostController {
     //討論版-顯示所有文章-無須登入
     @GetMapping("/bbsdiscussGet/lg/{bbsCategoryName}")
     public ResponseEntity<List<BbsPost>> getBbsPostsByKblg(@PathVariable String bbsCategoryName,
-                                                           @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+                                                           @SessionAttribute(value = "userInfo", required = false) User user) {
         System.out.println("test語言討論版-顯示所有文章-無須登入");
-        System.out.println(memId);
+        System.out.println(user.getMemId());
         System.out.println("bbsPostRequest:"+bbsCategoryName);
         List<BbsPost> bbsPostList = bbsPostService.getBbsPostsByKblg(bbsCategoryName);
 
@@ -203,9 +204,9 @@ public class BbsPostController {
 
     // 論壇首頁-顯示所有文章
     @GetMapping("/bbsdiscussGet")
-    public ResponseEntity<List<BbsPost>> getBbsPosts(@SessionAttribute(value = "MemberId", required = false) Integer memId) {
+    public ResponseEntity<List<BbsPost>> getBbsPosts(@SessionAttribute(value = "userInfo", required = false) User user) {
         System.out.println("test論壇首頁-顯示所有文章-無須登入");
-        System.out.println(memId);
+        System.out.println(user.getMemId());
         List<BbsPost> bbsPostList = bbsPostService.getBbsPosts();
 
         if (bbsPostList != null) {
@@ -220,15 +221,15 @@ public class BbsPostController {
     @PostMapping("/bbsdiscussGet/post")
     public ResponseEntity<?> createBbsPost(@RequestBody @Valid BbsPostRequest bbsPostRequest,
 
-                                           @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+                                           @SessionAttribute(value = "userInfo", required = false) User user) {
 
         System.out.println(bbsPostRequest);
-        System.out.println(memId);
-        bbsPostRequest.setMemId(memId);
+        System.out.println(user.getMemId());
+        bbsPostRequest.setMemId(user.getMemId());
         Integer bbsPostId = bbsPostService.createBbsPost(bbsPostRequest);
         BbsPost bbsPost = bbsPostService.getBbsPostById(bbsPostId);
 
-        if (memId == null) {
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -237,15 +238,15 @@ public class BbsPostController {
     // 新增留言
     @PostMapping("/bbsdiscussGet/newcomm")
     public ResponseEntity<?> createBbsComm(@RequestBody @Valid BbsCommentRequest bbsCommentRequest,
-                                           @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+                                           @SessionAttribute(value = "userInfo", required = false) User user) {
         System.out.println("新增留言有嗎?");
         System.out.println(bbsCommentRequest);
-        System.out.println(memId);
-        bbsCommentRequest.setMemId(memId);
+        System.out.println(user.getMemId());
+        bbsCommentRequest.setMemId(user.getMemId());
 
         Integer bbsCommentId = bbsPostService.createBbsComm(bbsCommentRequest);
         BbsComment bbsComment = bbsPostService.getBbsCommById(bbsCommentId);
-        if (memId == null) {
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -254,15 +255,15 @@ public class BbsPostController {
     // 新增我的收藏
     @PostMapping("/bbsdiscussGet/favStstatus")
     public ResponseEntity<?> createBbsPostFavArt(@RequestBody @Valid FavoriterArticleRequest favoriterArticleRequest,
-                                           @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+                                           @SessionAttribute(value = "userInfo", required = false) User user) {
 
         System.out.println(favoriterArticleRequest);
-        System.out.println(memId);
-        if (memId == null) {
+        System.out.println(user.getMemId());
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        favoriterArticleRequest.setMemId(memId);
+        favoriterArticleRequest.setMemId(user.getMemId());
         Integer favoriteArticleId = bbsPostService.createBbsPostFavArt(favoriterArticleRequest);
 
 
@@ -283,17 +284,17 @@ public class BbsPostController {
     // 新增讚/倒讚
     @PostMapping("/bbsdiscussGet/reactionstatus")
     public ResponseEntity<?> createPostReaction(@RequestBody @Valid PostReactionRequest postReactionRequest,
-                                                 @SessionAttribute(value = "MemberId", required = false) Integer memId) {
+                                                 @SessionAttribute(value = "userInfo", required = false) User user) {
 
         System.out.println(postReactionRequest);
-        System.out.println(memId);
-        if (memId == null) {
+        System.out.println(user.getMemId());
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         System.out.println(postReactionRequest);
-        System.out.println(memId);
-        postReactionRequest.setMemId(memId);
+        System.out.println(user.getMemId());
+        postReactionRequest.setMemId(user.getMemId());
         Integer postReactionId = bbsPostService.createPostReaction(postReactionRequest);
 
         if(postReactionId == null){
@@ -314,12 +315,12 @@ public class BbsPostController {
     @PutMapping("/bbsdiscussGet/title/{postId}")
     public ResponseEntity<?> updateBbsPostTitle(@PathVariable Integer postId,
                                                 @RequestBody @Valid BbsPostUpdateTitle bbsPostUpdateTitle,
-                                                @SessionAttribute(value = "MemberId", required = false) Integer memId) {
-        if (memId == null) {
+                                                @SessionAttribute(value = "userInfo", required = false) User user) {
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        System.out.println(memId);
+        System.out.println(user.getMemId());
         System.out.println(postId);
         System.out.println(bbsPostUpdateTitle.getPostTitle());
         //檢查 postId 是否存在
@@ -342,12 +343,12 @@ public class BbsPostController {
     @PutMapping("/bbsdiscussGet/content/{postId}")
     public ResponseEntity<?> updateBbsPostContent(@PathVariable Integer postId,
                                                   @RequestBody @Valid BbsPostUpdateContent bbsPostUpdateContent,
-                                                  @SessionAttribute(value = "MemberId", required = false) Integer memId) {
-        if (memId == null) {
+                                                  @SessionAttribute(value = "userInfo", required = false) User user) {
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        System.out.println(memId);
+        System.out.println(user.getMemId());
         System.out.println(postId);
         System.out.println(bbsPostUpdateContent.getPostContent());
         //檢查 postId 是否存在
@@ -371,12 +372,12 @@ public class BbsPostController {
     @PutMapping("/bbsdiscussGet/commupdate/{commId}")
     public ResponseEntity<?> updateComm(@PathVariable Integer commId,
                                         @RequestBody @Valid BbsCommUpdate bbsCommUpdate,
-                                        @SessionAttribute(value = "MemberId", required = false) Integer memId) {
-        if (memId == null) {
+                                        @SessionAttribute(value = "userInfo", required = false) User user) {
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        System.out.println(memId);
+        System.out.println(user.getMemId());
         System.out.println(commId);
         System.out.println(bbsCommUpdate.getCommentContent());
         //檢查 postId 是否存在
@@ -399,12 +400,12 @@ public class BbsPostController {
     @PutMapping("/bbsdiscussGet/bbspoststatus/{postId}")
     public ResponseEntity<?> updateBbsPostStatus(@PathVariable Integer postId,
                                                  @RequestBody @Valid BbsPostUpdateStatus bbsPostUpdateStatus,
-                                                 @SessionAttribute(value = "MemberId", required = false) Integer memId) {
-        if (memId == null) {
+                                                 @SessionAttribute(value = "userInfo", required = false) User user) {
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        System.out.println(memId);
+        System.out.println(user.getMemId());
         System.out.println(postId);
         System.out.println(bbsPostUpdateStatus.getPostStatus());
         //修改文章狀態為 0 (隱藏)
@@ -417,12 +418,12 @@ public class BbsPostController {
     //修改留言狀態為 0 (隱藏)  , 原本預設 1 (發布)
     @PutMapping("/bbsdiscussGet/bbscommstatus")
     public ResponseEntity<?> updateBbsCommStatus(@RequestBody @Valid BbsCommUpdateStatus bbsCommUpdateStatus,
-                                                 @SessionAttribute(value = "MemberId", required = false) Integer memId) {
-        if (memId == null) {
+                                                 @SessionAttribute(value = "userInfo", required = false) User user) {
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        System.out.println(memId);
+        System.out.println(user.getMemId());
         System.out.println(bbsCommUpdateStatus.getBbsCommentId());
         System.out.println("commId上面是幾號");
         System.out.println(bbsCommUpdateStatus.getCommentStatus());
@@ -434,21 +435,21 @@ public class BbsPostController {
     //修改收藏狀態為 0 (隱藏)
     @PutMapping("/bbsdiscussGet/bbsfavpagestatus")
     public ResponseEntity<?> updateBbsFavPageStatus(@RequestBody @Valid FavCancelRequest favCancelRequest,
-                                                 @SessionAttribute(value = "MemberId", required = false) Integer memId) {
-        if (memId == null) {
+                                                 @SessionAttribute(value = "userInfo", required = false) User user) {
+        if (user.getMemId() == null) {
             // 如果未獲取到會員ID，返回相應錯誤
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        System.out.println(memId);
+        System.out.println(user.getMemId());
         System.out.println(favCancelRequest.getBbsPostId());
         System.out.println("上面是文章postId");
         //修改收藏狀態為 0 (隱藏)
         //更新收藏 postid 及 memid 都符合者
-        bbsPostService.updateBbsFavPageStatus( favCancelRequest , memId);
+        bbsPostService.updateBbsFavPageStatus( favCancelRequest , user.getMemId());
 
 
         FavoriterArticleRequest favoriterArticleRequest = new FavoriterArticleRequest();
-        favoriterArticleRequest.setMemId(memId);
+        favoriterArticleRequest.setMemId(user.getMemId());
         favoriterArticleRequest.setBbsPostId(favCancelRequest.getBbsPostId());
         favoriterArticleRequest.setFavStatus(1);
 
