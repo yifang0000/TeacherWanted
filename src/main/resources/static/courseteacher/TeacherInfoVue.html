@@ -33,6 +33,9 @@
     />
     <script src="../jquery/jquery-3.6.4.min.js"></script>
     <script src="../js/courseJS/base.js"></script>
+    <!-- 要登入驗證請解開這個 -->
+    <!-- <script src="../js/loginCheck.js"></script> -->
+    <script src="../js/base.js"></script>
 
     <title>Document</title>
     <style>
@@ -65,12 +68,12 @@
 <header class="TeacherWanted">
     <div id="mySidebar">
         <img src="../img/base/logo.png" alt=""/>
-        <a href="#" class="">首頁</a>
-        <a href="#" class="">課程</a>
-        <a href="#" class="">活動</a>
-        <a href="#" class="">許願池</a>
-        <a href="#" class="">論壇</a>
-        <a href="#" class="">商城</a>
+        <a href="/index" class="">首頁</a>
+        <a href="/courseteacher/CourseVue.html" class="">課程</a>
+        <a href="/active/activeIndex.html" class="">活動</a>
+        <a href="/wish" class="">許願池</a>
+        <a href="/bbsdiscuss/index.html" class="">論壇</a>
+        <a href="/baseVer3/homepage.html" class="">商城</a>
     </div>
     <div class="navBar">
         <ul class="containerHearder flexWrap flexVerticalCenter">
@@ -111,31 +114,42 @@
                         class="flexWrap flexAllCenter pcHave"
                         style="flex-grow: 1"
                 >
-                    <a class="flexAllCenter" href="">首頁</a>
-                    <a class="flexAllCenter" href="">課程</a>
-                    <a class="flexAllCenter" href="">活動</a>
-                    <a class="flexAllCenter" href="">許願池</a>
-                    <a class="flexAllCenter" href="">論壇</a>
-                    <a class="flexAllCenter" href="">商城</a>
+                    <a class="flexAllCenter" href="/index">首頁</a>
+                    <a class="flexAllCenter" href="/courseteacher/CourseVue.html"
+                    >課程</a
+                    >
+                    <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
+                    <a class="flexAllCenter" href="/wish">許願池</a>
+                    <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+                    <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
                 </div>
                 <div
                         class="flexWrap flexAllCenter"
                         style="position: relative; top: 2px"
                 >
                     <div class="miniMobile">
-                        <form id="navSearch" action="">
-                            <select>
-                                <option>課程</option>
-                                <option>活動</option>
-                                <option>商城</option>
-                                <option>許願</option>
+                        <div id="navSearch" action="">
+                            <select id="serchType">
+                                <option value="課程">課程</option>
+                                <option value="活動">活動</option>
+                                <!-- <option value="商城">商城</option>
+                                <option value="許願">許願</option> -->
                             </select>
-                            <input type="text"/>
-                            <img src="../img/base/search.svg" alt=""/>
-                        </form>
+                            <input id="searchText" type="text"/>
+                            <img id="searchIcon" src="../img/base/search.svg" alt=""/>
+                        </div>
                     </div>
+
+                    <img
+                            src="../img/base/bell.svg"
+                            id="navAnn"
+                            class="miniMobile"
+                            style="height: 30px; margin: 3px 5px; cursor: pointer"
+                            alt=""
+                    />
                     <img
                             src="../img/base/mailForNavbar.svg"
+                            id="navMail"
                             class="miniMobile"
                             style="
                   height: 30px;
@@ -148,20 +162,16 @@
                     />
                     <img
                             src="../img/base/shoppingCart.svg"
-                            class="miniMobile"
-                            style="height: 30px; margin: 3px 5px; cursor: pointer"
-                            alt=""
-                    />
-                    <img
-                            src="../img/base/bell.svg"
+                            id="navShoppingcart"
                             class="miniMobile"
                             style="height: 30px; margin: 3px 5px; cursor: pointer"
                             alt=""
                     />
 
-                    <a class="btnCss flexAllCenter" style="color: white" href=""
-                    >登入</a
-                    >
+                    <!--登入按鈕 開始 -->
+
+                    <div id="loginOrUser"></div>
+                    <!-- 登入按鈕 結束 -->
                 </div>
             </li>
         </ul>
@@ -248,6 +258,13 @@
 </main>
 <script>
     Vue.component("star-rating", VueStarRating.default);
+    const memberData = JSON.parse(sessionStorage.getItem("memberStorage"));
+    if (memberData != null) {
+        var memId = memberData.memId;
+    }
+    if (memberData == null) {
+        var memId = null;
+    }
     const urlParams = new URLSearchParams(window.location.search);
     const teaId = urlParams.get("teaId");
     const courseDetailMixin = {
@@ -272,7 +289,7 @@
                 teacher: null,
                 courses: [],
                 rankings: [],
-                memId: 1,
+                memId: null,
                 teaId: null,
                 createTime: new Date(),
                 fav: null,
@@ -297,26 +314,30 @@
         },
         methods: {
             addToFavorite() {
-                const data = {
-                    memId: this.memId,
-                    teaId: this.teaId,
-                    createTime: new Date(),
-                    favTeaPhoto: this.teacher.teaPhoto,
-                    favTeaName: this.teacher.teaName,
-                };
-                console.log(data);
+                if (memId != null) {
+                    const data = {
+                        memId: this.memId,
+                        teaId: this.teaId,
+                        createTime: new Date(),
+                        favTeaPhoto: this.teacher.teaPhoto,
+                        favTeaName: this.teacher.teaName,
+                    };
+                    console.log(data);
 
-                axios
-                    .post("http://localhost:8080/favtea", data)
-                    .then((response) => {
-                        console.log(response.data);
-                        this.fav = 1;
-                        console.log("加入收藏成功!");
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        console.log("加入收藏失敗!");
-                    });
+                    axios
+                        .post("http://localhost:8080/favtea", data)
+                        .then((response) => {
+                            console.log(response.data);
+                            this.fav = 1;
+                            console.log("加入收藏成功!");
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                            console.log("加入收藏失敗!");
+                        });
+                }else{
+                    alert("請先登入才能加入收藏唷!")
+                }
             },
             removeFromFavorite() {
                 const memId = this.memId;
@@ -353,9 +374,15 @@
                         return course.courseTotalEvaluate === 0 ? "" : course.courseTotalRank / course.courseTotalEvaluate;
                     });
                     console.log(this.rankings);
-                    const memId = this.memId;
-                    const teaId = this.teaId;
-                    return axios.get("http://localhost:8080/favtea/" + memId + "/" + teaId)
+                    // const memId = this.memId;
+                    if (memId != null) {
+                        this.memId = memId;
+                        const teaId = this.teaId;
+                        return axios.get("http://localhost:8080/favtea/" + memId + "/" + teaId);
+                    } else {
+                        this.fav = 0;
+                        return Promise.reject("memId is null"); // 如果memId为null，返回一个拒绝的Promise对象
+                    }
                 })
                 .then((favteaResponse) => {
                     this.fav = favteaResponse.data;
@@ -384,9 +411,9 @@
                         class="flexAllCenter"
                         style="margin: 10px 30px; font-weight: normal"
                 >
-                    Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea
-                    dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet
-                    elitr stet diam duo eos rebum ipsum diam ipsum elitr.
+                    現代⼈⽣活步相當緊湊我們的課平台幫助
+                    ⼈們學並且除了線上課提供了實家的合會⼤了學的⾯向
+                    課元可提⾼學⽣的學興積性 並促學⽣的⾯發展
                 </li>
                 <li
                         id="imgIcon"
@@ -419,7 +446,7 @@
                             />
                             <div>
                                 <h3 style="font-size: 1.3rem">地址</h3>
-                                <h5 style="font-size: 1rem">123</h5>
+                                <h5 style="font-size: 1rem">台北市中山區南京東路三段</h5>
                             </div>
                         </li>
 
@@ -459,22 +486,26 @@
                     </li>
                     <div class="webMap">
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>首頁</a>
+                            <a class="webMapLink" href="/index">>首頁</a>
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>課程</a>
+                            <a class="webMapLink" href="/courseteacher/CourseVue.html"
+                            >>課程</a
+                            >
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>活動</a>
+                            <a class="webMapLink" href="/active/activeIndex.html"
+                            >>活動</a
+                            >
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>許願池</a>
+                            <a class="webMapLink" href="/wish">>許願池</a>
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>論壇</a>
+                            <a class="webMapLink" href="/bbsdiscuss/index.html">>論壇</a>
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="">>商城</a>
+                            <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
                         </li>
                     </div>
                 </div>

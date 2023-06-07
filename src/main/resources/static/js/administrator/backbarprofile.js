@@ -40,7 +40,7 @@ $(document).ready(function(){
               // 觸發oninput事件，以取得初始數值
             bankCodeInput.oninput();
         });
-
+        var admin =JSON.parse(sessionStorage.getItem('adminStorage'))
         $.ajax({
           type: 'GET',
           url: '/teachers/pro/'+admin.adminId,

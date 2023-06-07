@@ -26,7 +26,6 @@ public class WishController {
     public String showWishList(Model model) {
         List<Wish> listWish = service.listAll();
         model.addAttribute("listWish", listWish);
-
         return "wish";
     }
 
@@ -103,15 +102,10 @@ public class WishController {
         if (currentUser != null) {
             // 獲取當前會員的會員ID
             String memberAccount = currentUser.getMemAccount();
-
             // 根據會員ID查詢該會員發布的 Wish
             List<Wish> myWishList = service.listByMemberAccount(memberAccount);
-
             model.addAttribute("myWishList", myWishList);
-
             return "wish_my";
-
-
         } else {
             ra.addFlashAttribute("message", "請先登入再查看<(￣︶￣)>");
             return "redirect:/wish";

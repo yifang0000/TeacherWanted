@@ -73,6 +73,11 @@ const app = Vue.createApp({
           this.chatNameTitle = "主辦方";
           this.chatName = chatSession.chatUserName;
           alert("歡迎" + this.chatNameTitle + this.chatName);
+        } else if (chatSession.verifyMessage == "系統管理員") {
+          this.isTeacher = true;
+          this.chatNameTitle = "系統管理員";
+          this.chatName = chatSession.chatUserName;
+          alert("歡迎" + this.chatNameTitle + this.chatName);
         } else if (chatSession.verifyMessage == "成員") {
           this.isTeacher = false;
           this.chatNameTitle = "成員";
