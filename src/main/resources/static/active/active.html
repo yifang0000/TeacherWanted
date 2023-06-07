@@ -416,7 +416,7 @@
                   >
                     <a
                       class="activeBtn activeBtnShare"
-                      :href="'/active/activeChatRoom.html?activityId='+activityId"
+                      @click="activityChatRoomPermissions(activityId)"
                       >活動聊天室</a
                     >
                   </div>
