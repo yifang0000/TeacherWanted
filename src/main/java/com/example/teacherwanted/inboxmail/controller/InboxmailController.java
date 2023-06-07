@@ -19,20 +19,27 @@ public class InboxmailController {
 
     // 取得所有收件匣郵件
     @GetMapping
-    public List<Inboxmail> selectAll(@RequestParam(required = false) String searchKeyword,
-                                     @RequestParam(required = false) String activityType) {
+    public List<Inboxmail> selectAll(@RequestParam(required = false) String receiver,
+                                     @RequestParam(required = false) String mailId) {
         return inboxmailService.selectAll();
     }
 
     // 取得單一收件匣郵件
     @GetMapping("/inbox")
-    public ResponseEntity<Inboxmail> getInboxmailById(@PathVariable("id") Long id) {
-        Inboxmail inboxmail = inboxmailService.selectById(id);
+    public ResponseEntity<Inboxmail> getInboxmailById(@PathVariable("mailId") Integer mailId) {
+        Inboxmail inboxmail = inboxmailService.selectById(mailId);
         if (inboxmail != null) {
             return new ResponseEntity<>(inboxmail, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/inbox/{memId}")
+    public ResponseEntity<List<Inboxmail>> getInboxmailByMemId(@PathVariable("memId") Integer memId) {
+        List<Inboxmail> inboxmails = inboxmailService.getInboxmailByMemId(memId);
+
+            return new ResponseEntity<>(inboxmails, HttpStatus.OK);
     }
 
     // 新增收件匣郵件
@@ -44,13 +51,13 @@ public class InboxmailController {
 
     // 更新收件匣郵件
     @PutMapping("/{id}")
-    public ResponseEntity<Inboxmail> updateInboxmail(@PathVariable("id") Long id, @RequestBody Inboxmail updatedInboxmail) {
+    public ResponseEntity<Inboxmail> updateInboxmail(@PathVariable("id") Integer id, @RequestBody Inboxmail updatedInboxmail) {
         Inboxmail inboxmail = inboxmailService.selectById(id);
         if (inboxmail != null) {
             inboxmail.setSender(updatedInboxmail.getSender());
             inboxmail.setSender(updatedInboxmail.getSender());
             inboxmail.setMailStatus(updatedInboxmail.getMailStatus());
-            inboxmailService.update(inboxmail);
+            inboxmailService.updateById(inboxmail);
             return new ResponseEntity<>(inboxmail, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -59,10 +66,10 @@ public class InboxmailController {
 
     // 刪除收件匣郵件
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteInboxmail(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteInboxmail(@PathVariable("id") Integer id) {
         Inboxmail inboxmail = inboxmailService.selectById(id);
         if (inboxmail != null) {
-            inboxmailService.deleteBymailId(id);
+            inboxmailService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
