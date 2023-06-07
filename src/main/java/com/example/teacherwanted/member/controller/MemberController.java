@@ -6,8 +6,11 @@ import com.example.teacherwanted.active.model.ActiveOrderDetail;
 import com.example.teacherwanted.active.model.MemberActive;
 import com.example.teacherwanted.member.model.Member;
 import com.example.teacherwanted.member.service.MemberService;
+import com.example.teacherwanted.register_login.entity.User;
+import com.example.teacherwanted.register_login.service.UserService;
 import com.example.teacherwanted.wish.entity.Wish;
 import com.example.teacherwanted.wish.repo.WishRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,10 +47,12 @@ public class MemberController {
 //      用memId拿會員資料明細
     @PostMapping("/memberDetail")
     public ResponseEntity<Member> selectByMemId(
-        @RequestBody Member memberRequest, @SessionAttribute(value = "MemberId", required = false) Integer memId)  {
+            @RequestBody(required = true) Integer memId,
+         @SessionAttribute(value = "userInfo", required = false) User user)  {
 
         Member member = memberService.selectById(memId);
-        if (member != null) {
+        if (user != null) {
+            System.out.println(member);
             return ok(member);
         } else {
             return notFound().build();
@@ -57,10 +62,13 @@ public class MemberController {
 
 //      會員資料編輯
     @PutMapping("/memberDetail")
-    public String updateMemberDetail(@RequestBody Member member,
-                               @SessionAttribute("MemberId") Integer memId) {
-    member.setMemId(memId);
-    return memberService.update(member);
+    public String updateMemberDetail(@RequestBody Member member, HttpSession session
+                             ) {
+//        User user = new User();
+//        session.setAttribute("userInfo", userService.s);
+        System.out.println(member);
+        System.out.println(memberService.update(member));
+        return memberService.update(member);
 }
 
 
@@ -68,8 +76,8 @@ public class MemberController {
 
     @GetMapping("/mySubscribe/{wishId}")
     public ResponseEntity<List<Wish>> getWishByMemId(@PathVariable("wishId") int wishId,
-                               @SessionAttribute("MemberId") Integer memId){
-        List<Wish> wishes = memberService.getWishByMemId(memId);
+                                                     @SessionAttribute("userInfo")User user){
+        List<Wish> wishes = memberService.getWishByMemId(user.getMemId());
 
 //        if (optionalWish.isPresent()) {
 //            Wish wish = optionalWish.get();

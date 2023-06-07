@@ -4,7 +4,35 @@ $(document).ready(function() {
     $('#calendar').fullCalendar();
   });
 
-$('#calendar').fullCalendar();
+//===========option 切換頁面===========//
+$(document).ready(function() {
+  console.log('test : ', 12345789)
+  $("#navSearch1").change(function() {
+    let switchValue = $('#navSearch1').find(":selected").val();;
+    console.log('switchValue:',switchValue)
+    switch (switchValue) {
+      case "MemberCenter":
+        location.href="/member/MemberCenter.html";
+        break;
+      case "MemberDetail":
+        location.href="/member/MemberDetail.html";
+        break;
+      case "MySubscribe":
+        location.href="/member/MySubscribe.html";
+        break;
+      case "orderList":
+        location.href="/member/orderList.html";
+        break;
+      case "inboxmail":
+        location.href="/member/inboxmail.html";
+        break;
+      default:
+        return;
+    }
+  });
+});
+
+
 
 const app = Vue.createApp({          
   data() {

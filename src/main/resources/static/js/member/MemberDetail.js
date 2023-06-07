@@ -4,11 +4,38 @@ $(document).ready(function() {
     $('#calendar').fullCalendar();
 
   });
-  $('#calendar').fullCalendar(); 
+  // $('#calendar').fullCalendar(); 
 //===========頭貼上傳===========//
 const btn = document.querySelector('#detail_submit');
 const file = document.querySelector('#p_file');
 
+//===========option按鈕切換頁面==========//
+$(document).ready(function() {
+  console.log('test : ', 12345789)
+  $("#navSearch1").change(function() {
+    let switchValue = $('#navSearch1').find(":selected").val();;
+    console.log('switchValue:',switchValue)
+    switch (switchValue) {
+      case "MemberCenter":
+        location.href="/member/MemberCenter.html";
+        break;
+      case "MemberDetail":
+        location.href="/member/MemberDetail.html";
+        break;
+      case "MySubscribe":
+        location.href="/member/MySubscribe.html";
+        break;
+      case "orderList":
+        location.href="/member/orderList.html";
+        break;
+      case "inboxmail":
+        location.href="/member/inboxmail.html";
+        break;
+      default:
+        return;
+    }
+  });
+})
 // file.addEventListener('change', () => {
 //   const service_img = document.querySelector('#service_img');
 //   service_img.src = URL.createObjectURL(file.files[0]);
@@ -40,26 +67,25 @@ const file = document.querySelector('#p_file');
 
 
 
-function axiosGetMember(memId) {
-  return axios
-    .get("http://localhost:8080/memberDetail", { 
-      params: { 
-        memId: memId 
-      } 
-    })
-    .then((res) => {
-      console.log("------------>", res.data);
-      return res.data;
-    })
-    .catch((err) => {
-      console.log("沒有資料喔!");
-      // console.error(err.response.data);
-      // alert(err.response.data);
-      // window.location.href = "/member/MemberDetail.html";
-    });
-}
+// function axiosGetMember(memId) {
+//   return axios
+//     .get("http://localhost:8080/memberDetail", { 
+//       params: { 
+//         memId: memId 
+//       } 
+//     })
+//     .then((res) => {
+//       console.log("------------>", res.data);
+//       return res.data;
+//     })
+//     .catch((err) => {
+//       console.log("沒有資料喔!");
+//       // console.error(err.response.data);
+//       // alert(err.response.data);
+//       // window.location.href = "/member/MemberDetail.html";
+//     });
+// }
 
-var data;
 
 //===========使用Vue  =============//
  const app = Vue.createApp({          
@@ -101,49 +127,50 @@ var data;
       getMemberDetail() {
         axios.post(this.url,{                            //promise 等後端回應
         
-         
-          memAccount: this.memAccount,
-          memPassword: this.memPassword,
-          memName: this.memName,
-          memPhone: this.memPhone,
-          memNickname: this.memNickname,
-          memBirthday: this.memBirthday,
-          memGender: this.memGender,
-          memEmail: this.memEmail,
-          mailVerify: this.mailVerify,
-          memLocation: this.memLocation,
-          memPhoto: this.memPhoto,
-          interest1: this.interest1,
-          interest2: this.interest2,
-          interest3: this.interest3,
-          createTime: this.createTime,
-          updateTime: this.updateTime,
-          memStatus: this.memStatus
+          
+          // memAccount: this.memAccount,
+          // memPassword: this.memPassword,
+          // memName: this.memName,
+          // memPhone: this.memPhone,
+          // memNickname: this.memNickname,
+          // memBirthday: this.memBirthday,
+          // memGender: this.memGender,
+          // memEmail: this.memEmail,
+          // mailVerify: this.mailVerify,
+          // memLocation: this.memLocation,
+          // memPhoto: this.memPhoto,
+          // interest1: this.interest1,
+          // interest2: this.interest2,
+          // interest3: this.interest3,
+          // createTime: this.createTime,
+          // updateTime: this.updateTime,
+          // memStatus: this.memStatus
       
       })
         .then((response) => {   
           console.log(response.data)                         // 後端回傳的資訊
           // response = {memId: 10}
-          this.member = response.data,
-          console.log(this.member),
-          this.memId = response.data.memId,
-          this.memAccount = response.data.memAccount,
-          this.memPassword = response.data.memPassword,
-          this.memName = response.data.memName,
-          this.memPhone = response.data.memPhone,
-          this.memNickname = response.data.memNickname,
-          this.memBirthday = response.data.memBirthday,
-          this.memGender = response.data.memGender,
-          this.memEmail= response.data.memEmail,
-          this.mailVerify = response.data.mailVerify,
-          this.memLocation = response.data.memLocation,
-          this.memPhoto = response.data.memPhoto,
-          this.interest1 = response.data.interest1,
-          this.interest2 = response.data.interest2,
-          this.interest3 = response.data.interest3,
-          this.createTime = response.data.createTime,
-          this.updateTime = response.data.updateTime,
-          this.memStatus = response.data.memStatus
+          this.member = response.data;
+          console.log(this.member);
+          this.memId = response.data.memId;
+          console.log("memId:"+this.memId);
+          this.memAccount = response.data.memAccount;
+          this.memPassword = response.data.memPassword;
+          this.memName = response.data.memName;
+          this.memPhone = response.data.memPhone;
+          this.memNickname = response.data.memNickname;
+          this.memBirthday = response.data.memBirthday;
+          this.memGender = response.data.memGender;
+          this.memEmail= response.data.memEmail;
+          this.mailVerify = response.data.mailVerify;
+          this.memLocation = response.data.memLocation;
+          this.memPhoto = response.data.memPhoto;
+          this.interest1 = response.data.interest1;
+          this.interest2 = response.data.interest2;
+          this.interest3 = response.data.interest3;
+          this.createTime = response.data.createTime;
+          this.updateTime = response.data.updateTime;
+          this.memStatus = response.data.memStatus;
         })
         .catch((error) => console.log(error))
       },

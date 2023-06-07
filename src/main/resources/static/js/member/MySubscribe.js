@@ -1,19 +1,66 @@
 //==========行事曆============//
 //初始化
 $(document).ready(function() {
-    $('#calendar').fullCalendar();
+  $('#calendar').fullCalendar();
 
-  });
-  $('#calendar').fullCalendar(); 
-//==========新增行事曆============//
-//初始化
+});
+
+
+
+
+//==========option 切換頁面===========//
 $(document).ready(function() {
-    $('#mainCalendar').fullCalendar();
-
+  console.log('test : ', 12345789)
+  $("#navSearch1").change(function() {
+    let switchValue = $('#navSearch1').find(":selected").val();;
+    console.log('switchValue:',switchValue)
+    switch (switchValue) {
+      case "MemberCenter":
+        location.href="/member/MemberCenter.html";
+        break;
+      case "MemberDetail":
+        location.href="/member/MemberDetail.html";
+        break;
+      case "MySubscribe":
+        location.href="/member/MySubscribe.html";
+        break;
+      case "orderList":
+        location.href="/member/orderList.html";
+        break;
+      case "inboxmail":
+        location.href="/member/inboxmail.html";
+        break;
+      default:
+        return;
+    }
   });
-  $('#mainCalendar').fullCalendar(); 
 
-
+  // console.log('test : ', 12345789)
+  // let select = document.querySelector("#navSearch1");
+  // select.addEventListener("change", function() {
+  //   const switchValue = select.option[select.selectedIndex].value;
+  //   console.log('switchValue : ', switchValue)
+    // switch (switchValue) {
+    //   case "MemberCenter":
+    //     location.href="/member/MemberCenter.html";
+    //     break;
+    //   case "MemberDetail":
+    //     location.href="/member/MemberDetail.html";
+    //     break;
+    //   case "MySubscribe":
+    //     location.href="/member/MySubscribe.html";
+    //     break;
+    //   case "orderList":
+    //     location.href="/member/orderList.html";
+    //     break;
+    //   case "inboxmail":
+    //     location.href="/member/inboxmail.html";
+    //     break;
+    //   default:
+    //     return;
+    // }
+  // });
+})
 
 //===========Vue 訂閱部分 =============//
 const app_subscirbe = Vue.createApp({          
@@ -55,7 +102,7 @@ const app_subscirbe = Vue.createApp({
     getMemberDetail() {
       axios.post(this.url,{                            //promise 等後端回應
       
-       
+      
         memAccount: this.memAccount,
         memPassword: this.memPassword,
         memName: this.memName,
@@ -142,14 +189,14 @@ const app_subscirbe = Vue.createApp({
         
         })
     }
-     
+    
 
     // }
   },
 });
 
 window.addEventListener("load", () => {
-  app.mount("#app_subscribe");
+app.mount("#app_subscribe");
 });
 
 
@@ -193,7 +240,7 @@ const app_favorite = Vue.createApp({
     getMemberDetail() {
       axios.post(this.url,{                            //promise 等後端回應
       
-       
+      
         memAccount: this.memAccount,
         memPassword: this.memPassword,
         memName: this.memName,
@@ -280,14 +327,14 @@ const app_favorite = Vue.createApp({
         
         })
     }
-     
+    
 
     // }
   },
 });
 
 window.addEventListener("load", () => {
-  app.mount("#app_favorite");
+app.mount("#app_favorite");
 });
 
 
@@ -332,7 +379,7 @@ const app_wish = Vue.createApp({
     getMemberDetail() {
       axios.post(this.url,{                            //promise 等後端回應
       
-       
+      
         memAccount: this.memAccount,
         memPassword: this.memPassword,
         memName: this.memName,
@@ -419,14 +466,14 @@ const app_wish = Vue.createApp({
         
         })
     }
-     
+    
 
     // }
   },
 });
 
 window.addEventListener("load", () => {
-  app.mount("#app_wish");
+app.mount("#app_wish");
 });
 
 
@@ -470,7 +517,7 @@ const app_calendar = Vue.createApp({
     getMemberDetail() {
       axios.post(this.url,{                            //promise 等後端回應
       
-       
+      
         memAccount: this.memAccount,
         memPassword: this.memPassword,
         memName: this.memName,
@@ -557,7 +604,7 @@ const app_calendar = Vue.createApp({
         
         })
     }
-     
+    
 
     // }
   },
@@ -565,23 +612,23 @@ const app_calendar = Vue.createApp({
 
 
 window.addEventListener("load", () => {
-  app.mount("#app_calendar");
+app.mount("#app_calendar");
 });
 
 
 
 //===========Vue 左側部分 =============//
-onfile(event){
-  this.file=event.target.files[0]
-  let filereader=new FileReader();
-filereader.readAsDataURL(this.file)
-filereader.addEventListener("load",()=>{
-  this.memPhoto=filereader.result;
-console.warn(this.memPhoto)
+// onfile(event){
+// this.file=event.target.files[0]
+// let filereader=new FileReader();
+// filereader.readAsDataURL(this.file)
+// filereader.addEventListener("load",()=>{
+// this.memPhoto=filereader.result;
+// console.warn(this.memPhoto)
 
-})
+// })
 
-}
+// }
 
 const app = Vue.createApp({          
   data() {
@@ -607,7 +654,7 @@ const app = Vue.createApp({
     getMemberDetail() {
       axios.post(this.url,{                            //promise 等後端回應
       
-               
+              
         memName: this.memName,
         memPhoto: this.memPhoto,
         
@@ -632,6 +679,6 @@ const app = Vue.createApp({
 });
 
 window.addEventListener("load", () => {
-  app.mount("#app");
+app.mount("#app");
 });
 
