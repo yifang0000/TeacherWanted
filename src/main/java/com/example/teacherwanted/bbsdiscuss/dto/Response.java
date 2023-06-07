@@ -2,7 +2,7 @@ package com.example.teacherwanted.bbsdiscuss.dto;
 
 public class Response {
     private String memAccount;
-    private String memName;
+    private String memNickname;
     private byte[] memPhoto;
     private Integer favStatus;
     private Integer reaction_status;
@@ -16,12 +16,12 @@ public class Response {
         this.memAccount = memAccount;
     }
 
-    public String getMemName() {
-        return memName;
+    public String getMemNickname() {
+        return memNickname;
     }
 
-    public void setMemName(String memName) {
-        this.memName = memName;
+    public void setMemNickname(String memNickname) {
+        this.memNickname = memNickname;
     }
 
     public byte[] getMemPhoto() {
