@@ -52,7 +52,8 @@
   <script src="../vue/vue-3.3.4.js"></script>
   <!-- js匯入 -->
   <script src="../js/base.js"></script>
-  <script src="../js/active/active.js"></script>
+  <!-- <script src="../js/active/active.js"></script> -->
+  <script src="../js/inboxmail/writeinbox.js"></script>
 
   <title>Document</title>
 </head>
@@ -175,21 +176,21 @@
       <div class="col-md-12 mb-4" id="unreadMailButton" style="background-color: #3c6a36; color: white; padding: 5px"><a href="inbox.html">收件夾(未讀)</a></div>
     </div>
     <!--右邊區塊-->
-    <div class="col-md-9">
+    <div class="col-md-9" id="app">
       <form>
         <div class="mb-3">
           <label class="form-label">收件者:</label>
-          <input type="name" class="form-control">
+          <input type="name" class="form-control" v-model="receiver">
         </div>
         <div class="mb-3">
           <label class="form-label">標題:</label>
-          <input type="title" class="form-control">
+          <input type="title" class="form-control" v-model="mailTitle">
         </div>
         <div class="mb-3">
           <label class="form-label">內容:</label>
           <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="content"
-                          style="height: 200px; resize: none"></textarea>
+                          style="height: 200px; resize: none" v-model="mailContent"></textarea>
             <label for="floatingTextarea2">輸入內容...</label>
           </div>
         </div>
@@ -225,15 +226,15 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabe2">確定送出?</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     取消
                   </button>
-                  <button type="submit" class="btn btn-primary sentOutSure">
+                  <a  @click="submitMail" class="btn btn-primary sentOutSure">
                     確定
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

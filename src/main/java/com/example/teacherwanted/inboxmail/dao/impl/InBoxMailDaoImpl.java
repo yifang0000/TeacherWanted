@@ -1,5 +1,6 @@
 package com.example.teacherwanted.inboxmail.dao.impl;
 
+import com.example.teacherwanted.active.model.Active;
 import com.example.teacherwanted.course.model.vo.CourseVo;
 import com.example.teacherwanted.inboxmail.dao.InBoxMailDao;
 import com.example.teacherwanted.inboxmail.model.Inboxmail;
@@ -7,6 +8,7 @@ import com.example.teacherwanted.member.model.Member;
 import jakarta.mail.Session;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +26,7 @@ public class InBoxMailDaoImpl implements InBoxMailDao {
         return 0;
     }
 
-    @Override          //刪除語法 執行 回傳刪除結果
+    @Override
     public int deleteBymailId(Integer mailId) {
         Inboxmail inboxmail = entityManager.find(Inboxmail.class, mailId);
         entityManager.remove(inboxmail);
@@ -48,8 +50,13 @@ public class InBoxMailDaoImpl implements InBoxMailDao {
     }
 
     @Override
-    public List<Inboxmail> selectAll(Integer mailId) {
-        return null;
+    public List<Inboxmail> selectAll(String receiver) {
+
+        String sql = " FROM Inboxmail WHERE receiver = :receiver";
+        TypedQuery<Inboxmail> query = entityManager.createQuery(sql, Inboxmail.class) .setParameter("receiver", receiver);
+
+
+        return query.getResultList();
     }
 
     @Override
