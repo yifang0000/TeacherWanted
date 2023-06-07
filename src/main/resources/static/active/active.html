@@ -54,7 +54,7 @@
     <script src="../js/base.js"></script>
     <script src="../js/active/active.js"></script>
 
-    <title>Document</title>
+    <title>活動頁面</title>
   </head>
   <body class="TeacherWanted">
     <!-- 手機板導引列(粗糙) -->
@@ -290,6 +290,7 @@
                       <div
                         class="flexWrap flexAllCenter borderShadowLight activeBtn"
                         style="margin-left: 10px; color: #3c6a36"
+                        @click="copyURL"
                       >
                         <img
                           src="../img/active/share.svg"
@@ -405,7 +406,7 @@
                   >
                     <a
                       class="activeBtn activeBtnShare"
-                      :href="'/courseteacher/TeacherInfo.html?teaId='+teaId"
+                      :href="'/courseteacher/TeacherInfoVue.html?teaId='+teaId"
                       >主辦方頁面</a
                     >
                   </div>
@@ -415,7 +416,7 @@
                   >
                     <a
                       class="activeBtn activeBtnShare"
-                      :href="'/active/activeChatRoom.html?activityId='+activityId"
+                      @click="activityChatRoomPermissions(activityId)"
                       >活動聊天室</a
                     >
                   </div>

@@ -21,14 +21,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
-            rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
     />
     <!-- css   -->
-    <link href="/css/member/MemberCenter.css" rel="stylesheet" type="text/css" />
-    <link href="/css/baseVer2.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
-    
+    <link
+      href="/css/member/MemberCenter.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="/css/baseVer2.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css"
+    />
+
     <!-- 上傳小icon -->
     <script
       src="https://kit.fontawesome.com/664595efd5.js"
@@ -157,10 +164,10 @@
       </div>
     </header>
 
-    <main class="TeacherWanted" >
+    <main class="TeacherWanted">
       <!-- ！！！寫在這裡！！！
       如果要讓區塊至中的話可以使用containerBase這個class(目前寬度1140px) -->
-      <section class="container" style="display: flex"id="app">
+      <section class="container" style="display: flex" id="app">
         <!-- 頁面左邊 -->
         <div class="aside">
           <div style="width: 100%">
@@ -172,12 +179,15 @@
               >
                 <div>
                   <form id="navSearch1" action="">
-                    <select style="width: 125px; margin-left: 80px" name="formal" >
-                      <option value="MemberCenter"> 我的課程</option>
-                      <option value="MemberDetail"> 會員資料</option> 
-                        <option value="MySubscribe">訂閱與收藏 </option>
-                      <option value="orderList"> 訂單管理 </option>
-                      <option value="inboxmail"> 站內信</option>
+                    <select
+                      style="width: 125px; margin-left: 80px"
+                      name="formal"
+                    >
+                      <option value="MemberCenter">我的課程</option>
+                      <option value="MemberDetail">會員資料</option>
+                      <option value="MySubscribe">訂閱與收藏</option>
+                      <option value="orderList">訂單管理</option>
+                      <option value="inboxmail">站內信</option>
                     </select>
                   </form>
                 </div>
@@ -186,47 +196,48 @@
             <!--會員照片-->
             <div class="memInfo">
               <div class="flexWrap flexAllCenter">
-                
-                    <!-- 頭像開始 -->
+                <!-- 頭像開始 -->
 
-                    <div class="profile_picture m-0">
-                      <div style="text-align: center" class="pb-2"
-                      alt="頭像設置">                        
-                      </div>
-                      <div>
-                        <img
-                          id="eximg"
-                          class="rounded-circle"
-                          src="/img/member/aside/logobgg.png"
-                          alt=""
-                        />
-                      </div>
-                      <div class="setfileinput" v-else>
-                        <div>
-                          <input
-                            type="file"
-                            id="p_file"
-                            name="image_uploads"
-                            accept=".jpg, .jpeg, .png"
-                            :disabled=" isDisabled"
-                          />
-                        </div>
-                        <div id="file_camera">
-                          <i class="fa-solid fa-cloud-arrow-up"></i>
-                        </div>
-                      </div>
-                      
+                <div class="profile_picture m-0">
+                  <div
+                    style="text-align: center"
+                    class="pb-2"
+                    alt="頭像設置"
+                  ></div>
+                  <div>
+                    <img
+                      id="eximg"
+                      class="rounded-circle"
+                      :src="imageSrc"
+                      alt=""
+                    />
+                  </div>
+                  <div class="setfileinput" v-else>
+                    <div>
+                      <input
+                        type="file"
+                        id="p_file"
+                        name="image_uploads"
+                        accept=".jpg, .jpeg, .png"
+                        :disabled=" isDisabled"
+                        @change="handleFileUpload"
+                      />
                     </div>
-                    <!-- 頭像結束 -->
-                    
+                    <div id="file_camera">
+                      <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+                  </div>
+                </div>
+                <!-- 頭像結束 -->
+
                 <div class="memName">
                   <img
                     src="/teacherWanted/baseVer2/img/aside/icons8-bird-48.png"
                     alt=""
                   />
-                  <span >會員姓名: {{member.memName}}</span>
+                  <span>會員姓名: {{member.memName}}</span>
                 </div>
-  
+
                 <!-- <div class="flexHorizontalCenter">
                   <span>簽到日期:2023-04-11</span>
                 </div> -->
@@ -236,223 +247,332 @@
                 </div>
               </div>
             </div>
+          </div>
         </div>
-    </div>          
-                
 
-          <!-- 頁面右邊 -->
-          <div class="main" style="height: max-content;">                
-                    <div class="">
-                        <!-- 會員資料 -->
-                        <div class="">
-                            <h1>帳號管理</h1><br>
-                          <div class="memDetail" id="app">                              
-                            <!-- 會員資料表身 -->
-                            <form class="pure-form">
-                                                         
-                              <div class="d-grid gap-3" >
-                                <div class="row g-2">
-                                  <div class="col-md">
-                                    <div class="form-floating">
-                                      <input type="text" class="form-control" id="floatingInputGrid" placeholder="" disabled v-model="member.memId" > 
-                                      <label for="floatingInputGrid">會員編號</label>
-                                      
-                                    </div>
-                                  </div>
-                                  <div class="col-md">
-                                    <div class="form-floating">
-                                      <input type="" class="form-control" id="floatingInputGrid" placeholder="" value=""disabled v-model="member.memAccount">
-                                      <label for="floatingInputGrid">帳號</label>
-                                    </div>
-                                  </div>
-                                  </div>
-
-
-                                  <div class="row g-2">
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memName">
-                                        <label for="floatingInputGrid">姓名</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="password" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memPassword">
-                                        <label for="floatingInputGrid">密碼</label>
-                                      </div>
-                                    </div>
-                                  </div>
-
-
-                                  <div class="row g-2">
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memNickname">
-                                        <label for="floatingInputGrid">暱稱</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memBirthday">
-                                        <label for="floatingInputGrid">生日</label>
-                                      </div>
-                                    </div>
-                                  </div>
-
-
-                                  <div class="row g-2">
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example":disabled=" isDisabled" v-model="member.memGender" >
-                                          <option selected></option>
-                                          <option value="1">男</option>
-                                          <option value="2">女</option>
-                                          <option value="3">無</option>
-                                        </select>
-                                        <label for="floatingSelectGrid">性別</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memEmail">
-                                        <label for="floatingInputGrid">Email</label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                
-                                  <div class="row g-2">
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memLocation">
-                                        <label for="floatingInputGrid">地區</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.interest1">
-                                        <label for="floatingInputGrid">有興趣主題1</label>
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div class="row g-2">
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.interest2">
-                                        <label for="floatingInputGrid">有興趣主題2</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.interest3">
-                                        <label for="floatingInputGrid">有興趣主題3</label>
-                                      </div>
-                                    </div>
-                                  </div> 
-
-                                  <div class="row g-2">
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.createTime">
-                                        <label for="floatingInputGrid">新增日期</label>
-                                      </div>
-                                    </div>
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.updateTime">
-                                        <label for="floatingInputGrid">更新日期</label>
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div class="row g-2">
-                                    <div class="col-md">
-                                      <div class="form-floating">
-                                        <input type="" class="form-control" id="floatingInputGrid" placeholder="" value="":disabled=" isDisabled" v-model="member.memStatus">
-                                        <label for="floatingInputGrid">會員狀態</label>
-                                      </div>
-                                    </div>
-                                  </div>                                          
-                                
-                              </div>
-                          </form> <br>               
-                               
-        <!-- Modal -->
-                <div
-                class="modal fade"
-                id="exampleModal"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-                style="z-index: 10000"
-              >
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">
-                        資料修改
-                      </h5>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
+        <!-- 頁面右邊 -->
+        <div class="main" style="height: max-content">
+          <div class="">
+            <!-- 會員資料 -->
+            <div class="">
+              <h1>帳號管理</h1>
+              <br />
+              <div class="memDetail" id="app">
+                <!-- 會員資料表身 -->
+                <form class="pure-form">
+                  <div class="d-grid gap-3">
+                    <div class="row g-2">
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            disabled
+                            v-model="member.memId"
+                          />
+                          <label for="floatingInputGrid">會員編號</label>
+                        </div>
+                      </div>
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type=""
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            value=""
+                            disabled
+                            v-model="member.memAccount"
+                          />
+                          <label for="floatingInputGrid">帳號</label>
+                        </div>
+                      </div>
                     </div>
-                    <div class="modal-body"> 
-                      確定修改資料?</div>
-                    <div v-else class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-outline-success"
-                        data-bs-dismiss="modal"
-                      >
-                        關閉
-                      </button>
-                      <button
-                        id="btn-submit"
-                        type="button"
-                        class="btn btn-outline-success"
-                        data-bs-dismiss="modal"
-                        @click="submit"
-                      >
-                        確定變更
-                      </button>
+
+                    <div class="row g-2">
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type=""
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            value=""
+                            :disabled=" isDisabled"
+                            v-model="member.memName"
+                          />
+                          <label for="floatingInputGrid">姓名</label>
+                        </div>
+                      </div>
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type="password"
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            value=""
+                            :disabled=" isDisabled"
+                            v-model="member.memPassword"
+                          />
+                          <label for="floatingInputGrid">密碼</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row g-2">
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type=""
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            value=""
+                            :disabled=" isDisabled"
+                            v-model="member.memNickname"
+                          />
+                          <label for="floatingInputGrid">暱稱</label>
+                        </div>
+                      </div>
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type=""
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            value=""
+                            :disabled=" isDisabled"
+                            v-model="member.memBirthday"
+                          />
+                          <label for="floatingInputGrid">生日</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row g-2">
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <select
+                            class="form-select"
+                            id="floatingSelectGrid"
+                            aria-label="Floating label select example"
+                            :disabled=" isDisabled"
+                            v-model="member.memGender"
+                          >
+                            <option selected></option>
+                            <option value="1">男</option>
+                            <option value="2">女</option>
+                            <option value="3">無</option>
+                          </select>
+                          <label for="floatingSelectGrid">性別</label>
+                        </div>
+                      </div>
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type=""
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            value=""
+                            :disabled=" isDisabled"
+                            v-model="member.memEmail"
+                          />
+                          <label for="floatingInputGrid">Email</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row g-2">
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type=""
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            value=""
+                            :disabled=" isDisabled"
+                            v-model="member.memLocation"
+                          />
+                          <label for="floatingInputGrid">地區</label>
+                        </div>
+                      </div>
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type=""
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            value=""
+                            :disabled=" isDisabled"
+                            v-model="member.interest1"
+                          />
+                          <label for="floatingInputGrid">有興趣主題1</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row g-2">
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type=""
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            value=""
+                            :disabled=" isDisabled"
+                            v-model="member.interest2"
+                          />
+                          <label for="floatingInputGrid">有興趣主題2</label>
+                        </div>
+                      </div>
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type=""
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            value=""
+                            :disabled=" isDisabled"
+                            v-model="member.interest3"
+                          />
+                          <label for="floatingInputGrid">有興趣主題3</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row g-2">
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type=""
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            value=""
+                            :disabled=" isDisabled"
+                            v-model="member.createTime"
+                          />
+                          <label for="floatingInputGrid">新增日期</label>
+                        </div>
+                      </div>
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type=""
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            value=""
+                            :disabled=" isDisabled"
+                            v-model="member.updateTime"
+                          />
+                          <label for="floatingInputGrid">更新日期</label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row g-2">
+                      <div class="col-md">
+                        <div class="form-floating">
+                          <input
+                            type=""
+                            class="form-control"
+                            id="floatingInputGrid"
+                            placeholder=""
+                            value=""
+                            :disabled=" isDisabled"
+                            v-model="member.memStatus"
+                          />
+                          <label for="floatingInputGrid">會員狀態</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <br />
+
+                <!-- Modal -->
+                <div
+                  class="modal fade"
+                  id="exampleModal"
+                  tabindex="-1"
+                  aria-labelledby="exampleModalLabel"
+                  aria-hidden="true"
+                  style="z-index: 10000"
+                >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                          資料修改
+                        </h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">確定修改資料?</div>
+                      <div v-else class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-outline-success"
+                          data-bs-dismiss="modal"
+                        >
+                          關閉
+                        </button>
+                        <button
+                          id="btn-submit"
+                          type="button"
+                          class="btn btn-outline-success"
+                          data-bs-dismiss="modal"
+                          @click="submit"
+                        >
+                          確定變更
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div v-if="isDisabled" class="flexHorizontalCenter">
-                <button
-                  type="button"
-                  class="btn btn-outline-success"
-                  @click="edit"
-                >
-                  編輯
-                </button>
+                <div v-if="isDisabled" class="flexHorizontalCenter">
+                  <button
+                    type="button"
+                    class="btn btn-outline-success"
+                    @click="edit"
+                  >
+                    編輯
+                  </button>
+                </div>
+                <div v-else class="flexHorizontalCenter">
+                  <button
+                    type="button"
+                    class="btn btn-outline-success"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    確認</button
+                  >&emsp;
+                  <button
+                    type="button"
+                    class="btn btn-outline-success"
+                    @click="cancel"
+                  >
+                    取消
+                  </button>
+                </div>
               </div>
-              <div v-else class="flexHorizontalCenter">
-                <button
-                  type="button"
-                  class="btn btn-outline-success"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                >
-                  確認</button
-                >&emsp;
-                <button
-                  type="button"
-                  class="btn btn-outline-success"
-                  @click="cancel"
-                >
-                  取消
-                </button>
-              </div>
-                            
-                            </div>
-                        </div>
-                    </div> 
+            </div>
           </div>
         </div>
       </section>
@@ -581,8 +701,7 @@
     <script src="/jquery/jquery-3.6.4.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    
+
     <!--  axios -->
     <script src="/axios/axios.js"></script>
     <!--  vue   -->
@@ -593,7 +712,5 @@
     <!-- fullcalendar -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-
-
   </body>
 </html>

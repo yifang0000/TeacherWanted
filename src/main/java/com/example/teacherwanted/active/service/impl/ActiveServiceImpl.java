@@ -56,7 +56,7 @@ public class ActiveServiceImpl implements ActiveService {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             Active active = iterator.next();
             int comparison = (active.getActivityDueTime()).compareTo(timestamp);
-            if (comparison < 0) {
+            if (comparison > 0) {
 //                System.out.println("时间戳1早于时间戳2");
                 iterator.remove();
             }
