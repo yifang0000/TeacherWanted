@@ -55,7 +55,7 @@ public class CourseOrderDaoImpl implements CourseOrderDao {
 
     @Override
     public void deleteCourseOrder(Integer id) {
-        entityManager.remove(getOrderDetailById(id));
+        entityManager.remove(getCourseOrderById(id));
     }
 
     @Override
@@ -97,5 +97,13 @@ public class CourseOrderDaoImpl implements CourseOrderDao {
     @Override
     public void deleteFeedback(CourseOrderDetailVo courseOrderDetail) {
         entityManager.merge(courseOrderDetail);
+    }
+
+    @Override
+    public void deleteOrderDetail(Integer id) {
+        String hql = "DELETE FROM CourseOrderDetailVo od WHERE od.orderId = :orderId";
+        entityManager.createQuery(hql)
+                .setParameter("orderId", id)
+                .executeUpdate();
     }
 }

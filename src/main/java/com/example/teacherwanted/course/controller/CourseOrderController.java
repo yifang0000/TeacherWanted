@@ -69,9 +69,10 @@ public class CourseOrderController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/course_order/{id}")
-    public ResponseEntity<Void> deleteCourseOrder(@PathVariable Integer id) {
-        courseOrderService.deleteCourseOrder(id);
+    @DeleteMapping("/course_order/{orderId}")
+    public ResponseEntity<Void> deleteCourseOrder(@PathVariable Integer orderId) {
+        courseOrderService.deleteOrderDetail(orderId);
+        courseOrderService.deleteCourseOrder(orderId);
         return ResponseEntity.ok().build();
     }
 

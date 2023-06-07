@@ -84,4 +84,9 @@ public class CourseOrderServiceImpl implements CourseOrderService {
     public void deleteFeedback(CourseOrderDetailVo courseOrderDetail) {
         courseOrderDao.deleteFeedback(courseOrderDetail);
     }
+
+    @Override
+    public void deleteOrderDetail(Integer id) {
+        courseOrderDao.deleteOrderDetail(id);
+    }
 }

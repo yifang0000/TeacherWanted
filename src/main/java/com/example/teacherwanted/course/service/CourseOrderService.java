@@ -22,4 +22,5 @@ public interface CourseOrderService {
     void updateFeedback(CourseOrderDetailVo courseOrderDetail);
     void deleteFeedback(CourseOrderDetailVo courseOrderDetail);
 
+    void deleteOrderDetail(Integer id);
 }

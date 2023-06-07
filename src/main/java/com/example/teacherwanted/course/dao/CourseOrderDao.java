@@ -27,4 +27,5 @@ public interface CourseOrderDao {
 
     void deleteFeedback(CourseOrderDetailVo courseOrderDetail);
 
+    void deleteOrderDetail(Integer id);
 }
