@@ -218,7 +218,7 @@
                 data-bs-toggle="list"
                 href="#list-home"
                 role="tab"
-                aria-controls="list-home"
+                aria-controls="list-home" onclick="go_herf('語言討論版')"
                 >語言討論版</a
               >
               <a
@@ -226,7 +226,7 @@
                 data-bs-toggle="list"
                 href="#list-profile"
                 role="tab"
-                aria-controls="list-profile"
+                aria-controls="list-profile"  onclick="go_herf('程式討論版')"
                 >程式討論版</a
               >
               <a
@@ -234,7 +234,7 @@
                 data-bs-toggle="list"
                 href="#list-messages"
                 role="tab"
-                aria-controls="list-messages"
+                aria-controls="list-messages" onclick="go_herf('生活討論版')"
                 >生活討論版</a
               >
               <a
@@ -242,7 +242,7 @@
                 data-bs-toggle="list"
                 href="#list-settings"
                 role="tab"
-                aria-controls="list-settings"
+                aria-controls="list-settings" onclick="go_herf('電競討論版')"
                 >電競討論版</a
               >
             </div>
@@ -528,6 +528,32 @@
           window.location.href = "/bbsdiscuss/bsdiscusspo.html";
         });
       });
+
+
+      function go_herf(type) {
+      switch (type) {
+        case '語言討論版':
+          window.location.href = "/bbsdiscuss/index.html?posttype=語言討論版";
+          break;
+
+        case '程式討論版':
+          window.location.href = "/bbsdiscuss/index.html?posttype=程式討論版";
+          break;
+
+        case '生活討論版':
+          window.location.href = "/bbsdiscuss/index.html?posttype=生活討論版";
+          break;
+
+        case '電競討論版':
+          window.location.href = "/bbsdiscuss/index.html?posttype=電競討論版";
+          break;
+
+
+        default:
+          alert('無定義區域')
+          break;
+      }
+    }
     </script>
   </body>
 </html>
