@@ -10,6 +10,19 @@ $(function () {
 });
 
 $(function () {
+  // 監聽選項變更事件
+  $("#activityType").change(function () {
+    // 觸發搜尋按鈕的點擊事件
+    $(".searchBtn").click();
+  });
+  // 監聽輸入框的按鍵事件
+  $("#searchKey").keydown(function (event) {
+    // 檢查是否按下的是 Enter 鍵 (keyCode 13)
+    if (event.keyCode === 13) {
+      // 觸發搜尋按鈕的點擊事件
+      $(".searchBtn").click();
+    }
+  });
   // 搜尋按鈕 標籤選取 開始
   $(".searchBtn").on("click", function () {
     $("#activeTbody").empty();
@@ -53,7 +66,7 @@ function activeAjax(data) {
         } else if (data[i].activityStatus == 0) {
           status = "已下架";
           dropBtnText = "上架";
-        } else {
+        } else if (data[i].activityStatus == 2) {
           status = "已截止";
           dropBtnText = "限制";
         }
@@ -206,6 +219,9 @@ function tableAction(data) {
       $(this).find(".dropBtn").addClass("dropUpBtn");
     } else if (dropBtnTextColor == "下架") {
       $(this).find(".dropBtn").addClass("dropDownBtn");
+    } else if (dropBtnTextColor == "限制") {
+      $(this).find(".dropBtn").addClass("dropNoneBtn");
+      $(this).attr("disabled", true);
     }
     // 根據上下架狀態改變顏色 結束
     // 上/下架按鈕 點擊事件 開始
@@ -305,8 +321,8 @@ function updateStatus(data) {
         alert("下架成功");
         window.location.href = "/active/activeBack.html";
       } else {
-        alert("無法操作");
-        window.location.href = "/active/activeBack.html";
+        alert("無法操作，報名時間已截止");
+        // window.location.href = "/active/activeBack.html";
       }
     },
   });

@@ -189,7 +189,7 @@
           <section class="activeIndexList flexWrap">
             <!-- 活動列表區塊 開始 -->
             <div
-              v-for="activityIndex in activityIndexList"
+              v-for="activityIndex in currentPageItems"
               :key="activityIndex.id"
               class="activeIndexOneBlock"
             >
@@ -223,6 +223,16 @@
             <!-- 活動列表區塊 結束 -->
           </section>
         </div>
+        <ul class="flexWrap flexHorizontalCenter">
+          <li
+            @click="changePage(page)"
+            class="pageOne"
+            v-for="page in totalPages"
+            :key="page"
+          >
+            <a>{{ page }}</a>
+          </li>
+        </ul>
       </div>
     </main>
 
