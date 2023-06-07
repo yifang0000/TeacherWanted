@@ -72,7 +72,7 @@ public class WishController {
             }
         } catch (WishNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
-            return "wish";
+            return "redirect:/wish_my";
         }
     }
 
@@ -93,7 +93,7 @@ public class WishController {
         } catch (WishNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
         }
-        return "redirect:/wish";
+        return "redirect:/wish_my";
     }
 
     @GetMapping("/mywish")
