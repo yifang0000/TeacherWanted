@@ -1631,9 +1631,16 @@
         if (will_sav_bbsComment) {
           let post_id = document.getElementById("cardId").textContent;
           // let bbsCommentId = document.getElementById("cardId").textContent;
-          let post_bbsComment_update =
-            document.getElementById("bbs_title_test2").textContent;
-
+          //============================================復原============
+          // let post_bbsComment_update =
+          //   document.getElementById("bbs_title_test2").textContent;
+          let post_bbsComment_update = $(event)
+            .closest("li")
+            .find(".bbs_pare")
+            .text()
+            .trim();
+          console.log(post_bbsComment_update);
+          //=================================復原===============
           // alert(
           //   `要儲存comment留言了 內容:${post_bbsComment_update} , postId:${post_id} , bbsCommentId: ${bbsCommentId}`
           // );
