@@ -13,7 +13,6 @@
     <!-- backindex的css連結 -->
     <link rel="stylesheet" href="../css/course/back.css" />
 
-
     <link rel="stylesheet" href="../css/course/courseBackEdit.css" />
 
     <!-- Bootstrap 連結1 -->
@@ -43,32 +42,32 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
   </head>
   <body>
-  <!-- 設定字體 -->
-  <!-- 可從這邊調整https://fonts.google.com/share?selection.family=DotGothic16%7CNoto%20Sans%20TC:wght@100;300;400;500;700;900 -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-          href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
-          rel="stylesheet"
-  />
+    <!-- 設定字體 -->
+    <!-- 可從這邊調整https://fonts.google.com/share?selection.family=DotGothic16%7CNoto%20Sans%20TC:wght@100;300;400;500;700;900 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
 
-  <div class="container-all">
-    <div class="container-left" id="accordion">
-      <nav id="sidebar">
-        <div class="div1">
-          <div class="divtitle">懸賞啼雀</div>
-        </div>
-        <hr />
-        <ul class="list-unstyled">
-          <!-- =========這邊用check.js放入=============== -->
-        </ul>
-      </nav>
-    </div>
+    <div class="container-all">
+      <div class="container-left" id="accordion">
+        <nav id="sidebar">
+          <div class="div1">
+            <div class="divtitle">懸賞啼雀</div>
+          </div>
+          <hr />
+          <ul class="list-unstyled">
+            <!-- =========這邊用check.js放入=============== -->
+          </ul>
+        </nav>
+      </div>
 
-    <!-- 右邊： -->
-    <div class="container-right">
-      <!-- 右邊的導航欄 -->
-      <!-- =========這邊用check.js放入=============== -->
+      <!-- 右邊： -->
+      <div class="container-right">
+        <!-- 右邊的導航欄 -->
+        <!-- =========這邊用check.js放入=============== -->
         <div id="main" class="main">
           <!--主體文字1  -->
 
@@ -105,7 +104,10 @@
                           <option value="1">語言</option>
                           <option value="2">生活</option>
                           <option value="3">程式語言</option>
-                          <option value="4">電競</option>
+                          <option value="4">音樂</option>
+                          <option value="5">美術</option>
+                          <option value="6">運動</option>
+                          <option value="7">未填</option>
                         </select>
                       </div>
                     </section>
@@ -247,9 +249,9 @@
                   <!-- 表單 結束 -->
                   <div class="flexAllCenter submitActiveAdd">
                     <p
-                            class="flexAllCenter"
-                            id="submitActiveAddBtn"
-                            @click="toEditChapter"
+                      class="flexAllCenter"
+                      id="submitActiveAddBtn"
+                      @click="toEditChapter"
                     >
                       修改章節
                     </p>
@@ -302,10 +304,10 @@
       const urlParams = new URLSearchParams(window.location.search);
       const courseId = urlParams.get("courseId");
       const adminData = JSON.parse(sessionStorage.getItem("adminStorage"));
-      if(adminData != null){
+      if (adminData != null) {
         var teaId = adminData.teaId;
       }
-      if(adminData == null){
+      if (adminData == null) {
         var teaId = null;
       }
       new Vue({
@@ -425,7 +427,7 @@
         },
 
         methods: {
-          toEditChapter(){
+          toEditChapter() {
             const targetUrl = `./EditChapters.html?courseId=${courseId}`;
             window.location.href = targetUrl;
           },
@@ -515,13 +517,11 @@
                 });
             }
           },
-          updateCourse(){
+          updateCourse() {
             if (confirm("確認修改課程嗎？")) {
-
               // const coursePhoto1 = this.coursePhotos.coursePhoto1 ? this.coursePhotos.coursePhoto1 : this.course.coursePhoto1;
               // const coursePhoto2 = this.coursePhotos.coursePhoto2 ? this.coursePhotos.coursePhoto2 : this.course.coursePhoto2;
               // const coursePhoto3 = this.coursePhotos.coursePhoto3 ? this.coursePhotos.coursePhoto3 : this.course.coursePhoto3;
-
 
               const data = {
                 courseName: this.courseName,
@@ -540,15 +540,15 @@
               console.log(data);
 
               axios
-                      .put("http://localhost:8080/courses/" + courseId, data)
-                      .then((response) => {
-                        console.log(response.data);
-                      })
-                      .catch((error) => {
-                        console.error(error);
-                        // 请求失败后的处理逻辑
-                        alert("修改失敗，請重試！！");
-                      });
+                .put("http://localhost:8080/courses/" + courseId, data)
+                .then((response) => {
+                  console.log(response.data);
+                })
+                .catch((error) => {
+                  console.error(error);
+                  // 请求失败后的处理逻辑
+                  alert("修改失敗，請重試！！");
+                });
             }
           },
           //上傳圖片相關
@@ -678,8 +678,8 @@
     </script>
     <!-- FontAwesome 連結 -->
     <script
-            src="https://kit.fontawesome.com/664595efd5.js"
-            crossorigin="anonymous"
+      src="https://kit.fontawesome.com/664595efd5.js"
+      crossorigin="anonymous"
     ></script>
     <!-- JQuery連結 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -689,9 +689,9 @@
     <!-- ===============在此插入自己的JS======================== -->
     <!-- Bootstrap 連結2 -->
     <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-            crossorigin="anonymous"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
     ></script>
 
     <!-- table連結 -->
