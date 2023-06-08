@@ -475,7 +475,7 @@
     <script>
       $(function () {
         // DOM 載入完成之後
-        //================================== 根據文章編號取得文章的數據=====================================
+        //================================== 取得按讚及收藏表格=====================================
         $.ajax({
           url: "/bbsdiscussGet/favandreaction",
           type: "GET",
@@ -496,6 +496,7 @@
                 (x) => x.bbsPostId
               );
             }
+            //================================== 取得session =====================================
             $.ajax({
               url: "/bbsdiscussGet/session",
               type: "GET",
@@ -504,7 +505,7 @@
               success: function (data_id) {
                 //   }
                 // });
-
+                //================================== 根據文章編號取得文章的數據=====================================
                 $.ajax({
                   url: "/bbsdiscussGet",
                   type: "GET",
@@ -554,7 +555,7 @@
                         let reaction_status = data2.reaction_status;
                         let memAccount = data2.memAccount;
                         let memNickname = data2.memNickname;
-                        //  ========== 依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or bsdiscusspo.html==============
+                        //  ====== 依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or bsdiscusspo.html=====
                         $.ajax({
                           url: "/bbsdiscussGet/memberInfo",
                           type: "GET",
@@ -587,7 +588,7 @@
                                 ) {
                                   // console.log(currentBbsPostId);
                                   // console.log(bbsPostId);
-                                  // ======================================論壇>看板>文章=============================================
+                                  // ======================================論壇>看板>文章===============================
                                   let bbs_post_topper_html = `
                             <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
                               <ol class="breadcrumb">
@@ -771,6 +772,8 @@
                                           );
                                           console.log(data5);
                                           let memNamecomm5 = data5.memName;
+                                          let memNicknamecomm5 =
+                                            data5.memNickname;
                                           let memPhotocomm5 =
                                             "data:image/" +
                                             "null" +
@@ -823,7 +826,7 @@
                                                   <img src=${memPhotocomm5} class="img-fluid rounded-start" alt="頭像" />
                                                 </div>
                                                 <div class="col-md-6">
-                                                  <h5 id="bbs_title_test" class="card-title">${memNickname}</h5>
+                                                  <h5 id="bbs_title_test" class="card-title">${memNicknamecomm5}</h5>
                                                   <h6 id="bbs_title_test2" class="card-subtitle mb-2 mt-2 text-muted bbs_pare">
                                                     ${commentContent}
                                                   </h6>
@@ -1524,7 +1527,7 @@
         });
       }
 
-      // =====================================確認該會員是否曾經按過收藏或讚UI需做對應顯示==============================================
+      // =====================================確認該會員是否曾經按過收藏或讚UI需做對應顯示=============================
       function check_fav_reaction(list, postid, type, fav_reaction_count) {
         let result = false;
 
@@ -1628,9 +1631,16 @@
         if (will_sav_bbsComment) {
           let post_id = document.getElementById("cardId").textContent;
           // let bbsCommentId = document.getElementById("cardId").textContent;
-          let post_bbsComment_update =
-            document.getElementById("bbs_title_test2").textContent;
-
+          //============================================復原============
+          // let post_bbsComment_update =
+          //   document.getElementById("bbs_title_test2").textContent;
+          let post_bbsComment_update = $(event)
+            .closest("li")
+            .find(".bbs_pare")
+            .text()
+            .trim();
+          console.log(post_bbsComment_update);
+          //=================================復原===============
           // alert(
           //   `要儲存comment留言了 內容:${post_bbsComment_update} , postId:${post_id} , bbsCommentId: ${bbsCommentId}`
           // );
