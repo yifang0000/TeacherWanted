@@ -39,7 +39,7 @@
     <!-- <script src="../js/loginCheck.js"></script> -->
     <script src="../js/base.js"></script>
 
-    <title>Document</title>
+    <title>線上教學課程</title>
     <style>
         #the_video {
             width: 100%;
@@ -56,7 +56,7 @@
         <a href="/courseteacher/CourseVue.html" class="">課程</a>
         <a href="/active/activeIndex.html" class="">活動</a>
         <a href="/wish" class="">許願池</a>
-        <a href="/bbsdiscuss/index.html" class="">論壇</a>
+        <a href="/bbsdiscuss/index.html?posttype=all" class="">論壇</a>
         <a href="/baseVer3/homepage.html" class="">商城</a>
     </div>
     <div class="navBar">
@@ -104,7 +104,7 @@
                     >
                     <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
                     <a class="flexAllCenter" href="/wish">許願池</a>
-                    <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+                    <a class="flexAllCenter" href="/bbsdiscuss/index.html?posttype=all">論壇</a>
                     <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
                 </div>
                 <div
@@ -364,9 +364,9 @@
                             <li class="forHorizontalCenterFlex" style="padding-top: 5%">
                                 <h3>{{teacher.teaName}}</h3>
                             </li>
-                            <li class="forHorizontalCenterFlex" style="padding-top: 5%">
-                                <h3>資深工程師</h3>
-                            </li>
+<!--                            <li class="forHorizontalCenterFlex" style="padding-top: 5%">-->
+<!--                                <h3>資深工程師</h3>-->
+<!--                            </li>-->
                             <li class="forHorizontalCenterFlex" style="padding-top: 5%">
                                 <h2
                                         class="btn"
@@ -761,7 +761,7 @@
     <div class="ver2">
         <div id="app">
             <div class="container">
-                <div>猜你喜歡<span class="more">更多課程></span></div>
+                <div>猜你喜歡<span class="more"></span></div>
                 <ul class="item_list">
                     <li
                             v-for="(course, i) in coursesWithPhotoUrl"
@@ -1552,7 +1552,7 @@
                             <a class="webMapLink" href="/wish">>許願池</a>
                         </li>
                         <li style="margin-top: 5px">
-                            <a class="webMapLink" href="/bbsdiscuss/index.html">>論壇</a>
+                            <a class="webMapLink" href="/bbsdiscuss/index.html?posttype=all">>論壇</a>
                         </li>
                         <li style="margin-top: 5px">
                             <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
