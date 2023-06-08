@@ -1,0 +1,229 @@
+<!-- 
+1. 此板「64.72行」已刪除側邊欄+bar，用check.js根據老師或管理員打入不同的側邊欄+bar
+
+2. 搭配登入後的session
+在此檔有引入check.js中已設定session
+故可以在自己的js檔中(請放在「108行」)呼叫session
+使用範例：
+var test=JSON.parse(sessionStorage.getItem('adminStorage'));
+console.log(test)        //可印出來：
+console.log(test.teaId)  //印老師ID(管理員沒有teaId)
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 加上 viewport 的設定 -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>懸賞啼雀後台</title>
+    <!-- backindex的css連結 -->
+    <link rel="stylesheet" href="../css/back.css" />
+
+    <!-- Bootstrap 連結1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <!-- 表格的 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
+    />
+    <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+          crossorigin="anonymous"
+  ></script>
+  <!-- bootstrap相關 -->
+  <link href="../css/baseVer2.css" rel="stylesheet" type="text/css" />
+  <link href="../css/active/active.css" rel="stylesheet" type="text/css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet"
+  />
+  <link
+          rel="shortcut icon"
+          type="image/x-icon"
+          href="docs/images/favicon.ico"
+  />
+
+  <link
+          rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+          integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+          crossorigin=""
+  />
+  <script
+          src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+          integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+          crossorigin=""
+  ></script>
+  <!-- jquery套件 -->
+  <script src="../jquery/jquery-3.6.4.min.js"></script>
+  <!-- axios套件 -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+  <script src="../axios/axios.js"></script>
+  <!-- vue3套件 -->
+  <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+  <script src="../vue/vue-3.3.4.js"></script>
+  <!-- js匯入 -->
+  <!-- <script src="../js/base.js"></script> -->
+  <!-- <script src="../js/active/active.js"></script> -->
+  <script src="../js/inboxmail/writeinbox.js"></script>
+
+    <!--  -->
+  </head>
+  <body>
+    <!-- 設定字體 -->
+    <!-- 可從這邊調整https://fonts.google.com/share?selection.family=DotGothic16%7CNoto%20Sans%20TC:wght@100;300;400;500;700;900 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <div class="container-all">
+      <div class="container-left" id="accordion">
+        <nav id="sidebar">
+          <div class="div1">
+            <div class="divtitle">懸賞啼雀</div>
+          </div>
+          <hr />
+          <ul class="list-unstyled">
+            <!-- =========這邊用check.js放入=============== -->
+          </ul>
+        </nav>
+      </div>
+
+      <!-- 右邊： -->
+      <div class="container-right">
+        <!-- 右邊的導航欄 -->
+        <!-- =========這邊用check.js放入=============== -->
+        <div class="main">
+          <!--主體文字1  -->
+          <!-- <section id="section1">
+            <div class="pb-1 bg-body-tertiary rounded-3">
+              <div class="container-fluid">
+                <p>老師列表</p>
+              </div>
+            </div>
+          </section> -->
+          <!-- ====================主要區========================== -->
+          <div class="col-md-9" id="app">
+            <form>
+              <div class="mb-3">
+                <label class="form-label">收件者:</label>
+                <input type="name" class="form-control" v-model="receiver">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">標題:</label>
+                <input type="title" class="form-control" v-model="mailTitle">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">內容:</label>
+                <div class="form-floating">
+                      <textarea class="form-control" placeholder="Leave a comment here" id="content"
+                                style="height: 200px; resize: none" v-model="mailContent"></textarea>
+                  <label for="floatingTextarea2">輸入內容...</label>
+                </div>
+              </div>
+              <div class="row justify-content-end">
+                <!-- 離開 -->
+                <!-- Button trigger modal -->
+                <button id="leave" type="button" class="btn btn-primary col-md-1 mx-lg-3" data-bs-toggle="modal"data-bs-target="#exampleModal">離開</button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">確定離開?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                          取消
+                        </button>
+                        <button type="submit" class="btn btn-primary leaveSure">
+                          確定
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 送出 -->
+                <!-- Button trigger modal -->
+                <button id="sentOut" type="button" class="btn btn-primary col-md-1 mx-lg-3" data-bs-toggle="modal"data-bs-target="#exampleModa2">送出</button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModa2" tabindex="-1" aria-labelledby="exampleModalLabe2"aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabe2">確定送出?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                          取消
+                        </button>
+                        <a  @click="submitMail" class="btn btn-primary sentOutSure">
+                          確定
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- ===================================================== -->
+        </div>
+      </div>
+    </div>
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var collapseBtn = document.getElementById("collapse");
+        var sidebar = document.getElementById("sidebar");
+
+        collapseBtn.addEventListener("click", function () {
+          sidebar.classList.toggle("active");
+        });
+      });
+    </script> -->
+    <!-- FontAwesome 連結 -->
+    <script
+      src="https://kit.fontawesome.com/664595efd5.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- JQuery連結 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- backindex的JS連結 -->
+    <!-- <script src="../js/check.js"></script> 登入 -->
+    <!-- ===============在此插入自己的JS======================== -->
+    <script src="../js/inboxmail/teasendmeminboxmail.js"> </script>
+    <!-- Bootstrap 連結2 -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- table連結 -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+  </body>
+</html>

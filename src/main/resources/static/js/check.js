@@ -197,9 +197,7 @@ ulElement.innerHTML = '';
                 <li><a href="../baseVer3/backuserLIST.html">新增商品</a></li>
               </ul>
             </li>
-                        <li>
-              <a href="#">站內信管理 <i class="fa-solid fa-envelope"></i></a>
-            </li>
+
 
                        
 <!--             <li>-->
@@ -249,8 +247,8 @@ ulElement.innerHTML = '';
               </ul>
             </li>
             <li>
-              <a href="#">站內信管理 <i class="fa-solid fa-envelope"></i></a>
-            </li>
+            <a href="../inboxmail/teasendmeminboxmail.html">站內信管理 <i class="fa-solid fa-envelope"></i></a>
+          </li>
             `
             $(".list-unstyled").append(newSubMenu);
         // 新增屬性
