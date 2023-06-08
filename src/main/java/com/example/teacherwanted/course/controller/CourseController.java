@@ -129,6 +129,11 @@ public class CourseController {
             courseRequest.setCourseTotalEvaluate(courseVo.getCourseTotalEvaluate());
             courseRequest.setCourseStatus(courseVo.getCourseStatus());
             courseRequest.setCreateTime(courseVo.getCreateTime());
+            if(courseRequest.getCoursePhoto1() == null){
+                courseRequest.setCoursePhoto1(courseVo.getCoursePhoto1());
+                courseRequest.setCoursePhoto2(courseVo.getCoursePhoto2());
+                courseRequest.setCoursePhoto3(courseVo.getCoursePhoto3());
+            }
             courseService.updateCourse(courseId, courseRequest);
             CourseVo updatedCourse = courseService.getCourseById(courseId);
             return ResponseEntity.status(HttpStatus.OK).body(updatedCourse);

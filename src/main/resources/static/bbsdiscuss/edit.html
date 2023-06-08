@@ -316,7 +316,7 @@
                                 />
                               </div>
                               <div class="col-11">
-                                <h5 class="card-title text-primary">${data.memName}</h5>
+                                <h5 class="card-title text-primary">${data.memNickname}</h5>
                                 <p class="text-muted">樓主</p>
                               </div>
                               `;
@@ -361,7 +361,7 @@
                                 required
                                 style="resize: none; height: 80px"
                               ></textarea>
-                              <label for="floatingTextarea">輸入文章標題... (0/40字)</label>
+                              <label for="floatingTextarea">輸入文章標題... (限40字)</label>
                             </div>
                             <div class="container mb-3 text-success mt-3">
                               <div class="form-floating">
@@ -372,7 +372,7 @@
                                   required
                                   style="height: 200px; resize: none"
                                 ></textarea>
-                                <label for="floatingTextarea2">輸入內文...(0/2000字)</label>
+                                <label for="floatingTextarea2">輸入內文...(限200字)</label>
                               </div>
                             </div>
                             <div class="col-md-12">
@@ -387,14 +387,14 @@
 
 
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <button type="button" class="btn btn-success " data-bs-toggle="modal" data-bs-target="#exampleModal">
                                   送出發文
                                 </button>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                   <div class="modal-dialog">
-                                    <div class="modal-content">
+                                    <div class="modal-content bbs_sure_hide">
                                       <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -469,7 +469,7 @@
 
         if (discuss_dr_value == "" || post_dr_value == "" || post_title_value == "" || post_content_value == "") {
           // event.preventDefault(); // 阻止表單的預設提交行為
-          alert('內容有空值 不送出')
+          alert('有欄位未填寫 不送出')
           return
         }
         // console.log("第二個bbs_test_out 有嗎???????")

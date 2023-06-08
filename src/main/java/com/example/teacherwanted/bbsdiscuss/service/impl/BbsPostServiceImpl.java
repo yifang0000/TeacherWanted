@@ -27,6 +27,7 @@ public class BbsPostServiceImpl implements BbsPostService {
         MemberActive memberInfo = new MemberActive();
         memberInfo.setMemId(id);
         memberInfo.setMemName(member.getMemName());
+        memberInfo.setMemNickname(member.getMemNickname());
         memberInfo.setMemEmail(member.getMemEmail());
         memberInfo.setMemPhone(member.getMemPhone());
         memberInfo.setMemPhoto(member.getMemPhoto());
@@ -54,6 +55,7 @@ public class BbsPostServiceImpl implements BbsPostService {
         MemberActive memberInfo = new MemberActive();
         memberInfo.setMemAccount(member.getMemAccount());
         memberInfo.setMemName(member.getMemName());
+        memberInfo.setMemNickname(member.getMemNickname());
         memberInfo.setMemPhoto(member.getMemPhoto());
         return memberInfo;
     }

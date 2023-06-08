@@ -5,41 +5,36 @@
 
 // // });
 
-
-
-
 //==========option 切換頁面===========//
-$(document).ready(function() {
-  console.log('test : ', 12345789)
-  $("#navSearch1").change(function() {
-    let switchValue = $('#navSearch1').find(":selected").val();;
-    console.log('switchValue:',switchValue)
+$(document).ready(function () {
+  console.log("test : ", 12345789);
+  $("#navSearch1").change(function () {
+    let switchValue = $("#navSearch1").find(":selected").val();
+    console.log("switchValue:", switchValue);
     switch (switchValue) {
       case "MemberCenter":
-        location.href="/member/MemberCenter.html";
+        location.href = "/member/MemberCenter.html";
         break;
       case "MemberDetail":
-        location.href="/member/MemberDetail.html";
+        location.href = "/member/MemberDetail.html";
         break;
       case "MySubscribe":
-        location.href="/member/MySubscribe.html";
+        location.href = "/member/MySubscribe.html";
         break;
       case "orderList":
-        location.href="/member/orderList.html";
+        location.href = "/member/orderList.html";
         break;
       case "inboxmail":
-        location.href="/member/inboxmail.html";
+        location.href = "/member/inboxmail.html";
         break;
       default:
         return;
     }
   });
-
-  
-})
+});
 
 // //===========Vue 訂閱部分 =============//
-// // const app_subscirbe = Vue.createApp({          
+// // const app_subscirbe = Vue.createApp({
 // //   data() {
 // //     return {
 // //       courseId:"",
@@ -49,7 +44,7 @@ $(document).ready(function() {
 // //       acitvityTableData: [],
 // //       shopUrl:"/",
 // //       shopTableData: [],
-      
+
 // //     };
 // //   },
 // //   mounted() {
@@ -57,20 +52,20 @@ $(document).ready(function() {
 // //     // const url= "http://localhost:8080/memberInfo";
 // //     // const urlParams = new URLSearchParams(window.location.search);
 // //     // const memId = urlParams.get("memId");
-// //     // console.log(this.memId);    
-// //     this.getMemberSubscribe();   
-// //     this.getMemberActiviySubscribe();                      
+// //     // console.log(this.memId);
+// //     this.getMemberSubscribe();
+// //     this.getMemberActiviySubscribe();
 // //   },
 // //   methods: {
 // //     //拿到會員課程訂閱相關資料
 // //     getMemberCourseSubscribe() {
 // //       axios.get(this.courseUrl,{                            //promise 等後端回應
-      
+
 // //         courseId: this.courseId,
 // //         courseName: this.courseName,
-// //         coursePhoto1: this.coursePhoto1,   
+// //         coursePhoto1: this.coursePhoto1,
 // //     })
-// //       .then((response) => {   
+// //       .then((response) => {
 // //         console.log(response.data)                         // 後端回傳的資訊
 // //         // response = {memId: 10}
 // //         this.courseTableData = response.data,
@@ -78,19 +73,19 @@ $(document).ready(function() {
 // //         this.courseId = response.data.courseId,
 // //         this.courseName = response.data.courseName,
 // //         this.coursePhoto1 = response.data.coursePhoto1
-        
+
 // //       })
 // //       .catch((error) => console.log(error))
 // //     },
 // //     //拿到會員活動訂閱相關資料
 // //     getMemberActivitySubscribe() {
 // //       axios.get(this.activityUrl,{                            //promise 等後端回應
-      
+
 // //         activityId: this.activityId,
 // //         activiteName: this.activiteName,
-// //         activityPhoto: this.activityPhoto,   
+// //         activityPhoto: this.activityPhoto,
 // //     })
-// //       .then((response) => {   
+// //       .then((response) => {
 // //         console.log(response.data)                         // 後端回傳的資訊
 // //         // response = {memId: 10}
 // //         this.activityTableData = response.data,
@@ -98,7 +93,7 @@ $(document).ready(function() {
 // //         this.activityId = response.data.activityId,
 // //         this.activiteName = response.data.activiteName,
 // //         this.activityPhoto = response.data.activityPhoto
-        
+
 // //       })
 // //       .catch((error) => console.log(error))
 // //     },
@@ -110,9 +105,8 @@ $(document).ready(function() {
 // // app.mount("#app_subscribe");
 // // });
 
-
 // //===========Vue 收藏部分 =============//
-// const app_favorite = Vue.createApp({          
+// const app_favorite = Vue.createApp({
 //   data() {
 //     return {
 //       url:"/",
@@ -136,7 +130,7 @@ $(document).ready(function() {
 //       memStatus: "",
 //       member:[],
 //       isDisabled: true
-      
+
 //     };
 //   },
 //   mounted() {
@@ -144,14 +138,13 @@ $(document).ready(function() {
 //     // const url= "http://localhost:8080/memberInfo";
 //     // const urlParams = new URLSearchParams(window.location.search);
 //     // const memId = urlParams.get("memId");
-//     // console.log(this.memId);    
+//     // console.log(this.memId);
 //     this.getMemberDetail();                            //
 //   },
 //   methods: {
 //     getMemberDetail() {
 //       axios.post(this.url,{                            //promise 等後端回應
-      
-      
+
 //         memAccount: this.memAccount,
 //         memPassword: this.memPassword,
 //         memName: this.memName,
@@ -169,9 +162,9 @@ $(document).ready(function() {
 //         createTime: this.createTime,
 //         updateTime: this.updateTime,
 //         memStatus: this.memStatus
-    
+
 //     })
-//       .then((response) => {   
+//       .then((response) => {
 //         console.log(response.data)                         // 後端回傳的資訊
 //         // response = {memId: 10}
 //         this.member = response.data,
@@ -201,8 +194,7 @@ $(document).ready(function() {
 //     edit(){
 //       this.isDisabled = false;
 //       console.log(this.memId);
-      
-      
+
 //     },
 //     //取消時
 //     cancel() {
@@ -235,10 +227,9 @@ $(document).ready(function() {
 //           createTime: this.createTime,
 //           updateTime: this.updateTime,
 //           memStatus: this.memStatus
-        
+
 //         })
 //     }
-    
 
 //     // }
 //   },
@@ -248,10 +239,8 @@ $(document).ready(function() {
 // app.mount("#app_favorite");
 // });
 
-
-
 // //===========Vue 許願部分 =============//
-// const app_wish = Vue.createApp({          
+// const app_wish = Vue.createApp({
 //   data() {
 //     return {
 //       url:"/memberDetail",
@@ -275,7 +264,7 @@ $(document).ready(function() {
 //       memStatus: "",
 //       member:[],
 //       isDisabled: true
-      
+
 //     };
 //   },
 //   mounted() {
@@ -283,14 +272,13 @@ $(document).ready(function() {
 //     // const url= "http://localhost:8080/memberInfo";
 //     // const urlParams = new URLSearchParams(window.location.search);
 //     // const memId = urlParams.get("memId");
-//     // console.log(this.memId);    
+//     // console.log(this.memId);
 //     this.getMemberDetail();                            //
 //   },
 //   methods: {
 //     getMemberDetail() {
 //       axios.post(this.url,{                            //promise 等後端回應
-      
-      
+
 //         memAccount: this.memAccount,
 //         memPassword: this.memPassword,
 //         memName: this.memName,
@@ -308,9 +296,9 @@ $(document).ready(function() {
 //         createTime: this.createTime,
 //         updateTime: this.updateTime,
 //         memStatus: this.memStatus
-    
+
 //     })
-//       .then((response) => {   
+//       .then((response) => {
 //         console.log(response.data)                         // 後端回傳的資訊
 //         // response = {memId: 10}
 //         this.member = response.data,
@@ -340,8 +328,7 @@ $(document).ready(function() {
 //     edit(){
 //       this.isDisabled = false;
 //       console.log(this.memId);
-      
-      
+
 //     },
 //     //取消時
 //     cancel() {
@@ -374,10 +361,9 @@ $(document).ready(function() {
 //           createTime: this.createTime,
 //           updateTime: this.updateTime,
 //           memStatus: this.memStatus
-        
+
 //         })
 //     }
-    
 
 //     // }
 //   },
@@ -386,10 +372,6 @@ $(document).ready(function() {
 // window.addEventListener("load", () => {
 // app.mount("#app_wish");
 // });
-
-
-
-
 
 // //===========Vue 左側部分 =============//
 // // onfile(event){
@@ -404,15 +386,14 @@ $(document).ready(function() {
 
 // // }
 
-// const app = Vue.createApp({          
+// const app = Vue.createApp({
 //   data() {
 //     return {
 //       url:"/member/MySubscribe.html",
 //       memName: "",
 //       memPhoto: "",
 //       member:[],
-      
-      
+
 //     };
 //   },
 //   mounted() {
@@ -420,42 +401,37 @@ $(document).ready(function() {
 //     // const url= "http://localhost:8080/memberInfo";
 //     // const urlParams = new URLSearchParams(window.location.search);
 //     // const memId = urlParams.get("memId");
-//     // console.log(this.memId);    
+//     // console.log(this.memId);
 //     this.getMemberDetail();                            //
 //   },
 //   methods: {
 //     getMemberDetail() {
 //       axios.post(this.url,{                            //promise 等後端回應
-      
-              
+
 //         memName: this.memName,
 //         memPhoto: this.memPhoto,
-        
-    
+
 //     })
-//       .then((response) => {   
+//       .then((response) => {
 //         console.log(response.data)                         // 後端回傳的資訊
 //         // response = {memId: 10}
 //         this.member = response.data,
 //         console.log(this.member),
-        
+
 //         this.memName = response.data.memName,
-        
+
 //         this.memPhoto = response.data.memPhoto
-        
+
 //       })
 //       .catch((error) => console.log(error))
 //     },
 
-    
 //   },
 // });
 
 // window.addEventListener("load", () => {
 // app.mount("#app");
 // });
-
-
 
 //===========Vue 行事曆部分 =============//
 $(document).ready(function () {
@@ -641,7 +617,7 @@ $(document).ready(function () {
 
   // 創建單個活動物件，並寫到資料庫
   $("#submitCalender").on("click", function () {
-    console.log("submitCalender")
+    console.log("submitCalender");
     var data = {
       calendarName: $("#favtitle").val(),
       calendarStartTime: $("#favStart").val(),

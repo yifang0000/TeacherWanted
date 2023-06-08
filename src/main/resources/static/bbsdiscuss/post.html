@@ -182,7 +182,11 @@
               >
               <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
               <a class="flexAllCenter" href="/wish">許願池</a>
-              <a class="flexAllCenter" href="/bbsdiscuss/index.html?posttype=all">論壇</a>
+              <a
+                class="flexAllCenter"
+                href="/bbsdiscuss/index.html?posttype=all"
+                >論壇</a
+              >
               <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
             </div>
             <div
@@ -288,6 +292,7 @@
                 href="/bbsdiscuss/index.html?posttype=語言討論版"
                 role="tab"
                 aria-controls="list-home"
+                onclick="go_herf('語言討論版')"
                 >語言討論版</a
               >
               <a
@@ -296,6 +301,7 @@
                 href="/bbsdiscuss/index.html?posttype=程式討論版"
                 role="tab"
                 aria-controls="list-profile"
+                onclick="go_herf('程式討論版')"
                 >程式討論版</a
               >
               <a
@@ -304,6 +310,7 @@
                 href="/bbsdiscuss/index.html?posttype=生活討論版"
                 role="tab"
                 aria-controls="list-messages"
+                onclick="go_herf('生活討論版')"
                 >生活討論版</a
               >
               <a
@@ -312,6 +319,7 @@
                 href="/bbsdiscuss/index.html?posttype=電競討論版"
                 role="tab"
                 aria-controls="list-settings"
+                onclick="go_herf('電競討論版')"
                 >電競討論版</a
               >
             </div>
@@ -449,7 +457,11 @@
                   <a class="webMapLink" href="/wish">>許願池</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="/bbsdiscuss/index.html?posttype=all">>論壇</a>
+                  <a
+                    class="webMapLink"
+                    href="/bbsdiscuss/index.html?posttype=all"
+                    >>論壇</a
+                  >
                 </li>
                 <li style="margin-top: 5px">
                   <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
@@ -463,7 +475,7 @@
     <script>
       $(function () {
         // DOM 載入完成之後
-        //================================== 根據文章編號取得文章的數據=====================================
+        //================================== 取得按讚及收藏表格=====================================
         $.ajax({
           url: "/bbsdiscussGet/favandreaction",
           type: "GET",
@@ -484,6 +496,7 @@
                 (x) => x.bbsPostId
               );
             }
+            //================================== 取得session =====================================
             $.ajax({
               url: "/bbsdiscussGet/session",
               type: "GET",
@@ -492,7 +505,7 @@
               success: function (data_id) {
                 //   }
                 // });
-
+                //================================== 根據文章編號取得文章的數據=====================================
                 $.ajax({
                   url: "/bbsdiscussGet",
                   type: "GET",
@@ -541,8 +554,8 @@
                         let favStatus = data2.favStatus;
                         let reaction_status = data2.reaction_status;
                         let memAccount = data2.memAccount;
-                        let memName = data2.memName;
-                        //  ========== 依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or bsdiscusspo.html==============
+                        let memNickname = data2.memNickname;
+                        //  ====== 依據memId查找會員資料-回傳memName.memPhoto.memAccount-(參考)-post.html or bsdiscusspo.html=====
                         $.ajax({
                           url: "/bbsdiscussGet/memberInfo",
                           type: "GET",
@@ -559,11 +572,10 @@
                               data: { bbsPostId: data.bbsPostId },
                               dataType: "json",
                               success: function (data4) {
-                                console.log(data4);
-
                                 data4 = data4.sort(function (a, b) {
                                   return b.bbsCommentId - a.bbsCommentId;
                                 });
+                                console.log(data4);
 
                                 console.log(
                                   data4 + "// 根據文章id取得，留言數據"
@@ -576,7 +588,7 @@
                                 ) {
                                   // console.log(currentBbsPostId);
                                   // console.log(bbsPostId);
-                                  // ======================================論壇>看板>文章=============================================
+                                  // ======================================論壇>看板>文章===============================
                                   let bbs_post_topper_html = `
                             <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
                               <ol class="breadcrumb">
@@ -652,7 +664,7 @@
                                     <img src="${memPhoto}" class="img-fluid rounded-start" alt="頭像" />
                                   </div>
                                   <div class="col-11">
-                                    <h5 class="card-title text-primary">${memName}</h5>
+                                    <h5 class="card-title text-primary">${memNickname}</h5>
                                     <h6 class="mb-2">${memAccount}</h6>
                                     <p class="text-muted">樓主 | 發布於 ${updateTimepost}</p>
                                   </div>
@@ -760,6 +772,8 @@
                                           );
                                           console.log(data5);
                                           let memNamecomm5 = data5.memName;
+                                          let memNicknamecomm5 =
+                                            data5.memNickname;
                                           let memPhotocomm5 =
                                             "data:image/" +
                                             "null" +
@@ -776,8 +790,12 @@
                                             String(data_id) ===
                                             String(memIdcomm)
                                           ) {
+                                            console.log(
+                                              "***" + data4[j]["bbsCommentId"]
+                                            );
+
                                             editStr3 = ` <img id="bbs_pen_img" class="w-25" src="../img/bbsdiscuss/pen-to-square-solid.svg" alt="編輯" onClick="bbs_pen(this,${data4[j]["bbsCommentId"]})" />`;
-                                            editStr4 = ` <img id="bbs_xmark_img" data-bs-toggle="modal" data-bs-target="#${modalId}_comm" class="w-25" src="../img/bbsdiscuss/xmark-solid.svg" alt="刪除" />
+                                            editStr4 = ` <img id="bbs_xmark_img" data-bs-toggle="modal" data-bs-target="#${modalId}_comm" class="w-25" src="../img/bbsdiscuss/xmark-solid.svg" alt="刪除" onClick="bbs_xmark(this,${data4[j]["bbsCommentId"]})"/>
                                           <!-- Modal -->
                                           <div class="modal fade" id="${modalId}_comm" tabindex="-1" aria-labelledby="exampleModalLabel"
                                               aria-hidden="true">
@@ -808,7 +826,7 @@
                                                   <img src=${memPhotocomm5} class="img-fluid rounded-start" alt="頭像" />
                                                 </div>
                                                 <div class="col-md-6">
-                                                  <h5 id="bbs_title_test" class="card-title">${memNamecomm5}</h5>
+                                                  <h5 id="bbs_title_test" class="card-title">${memNicknamecomm5}</h5>
                                                   <h6 id="bbs_title_test2" class="card-subtitle mb-2 mt-2 text-muted bbs_pare">
                                                     ${commentContent}
                                                   </h6>
@@ -817,9 +835,6 @@
                                                 <div class="col-md-3 mt-2">
                                                   <h6 class="card-subtitle mb-2 text-muted">
                                                     ${updateTime} 回覆
-                                                  </h6>
-                                                  <h6 id="h6commId" class="card-subtitle mb-2 text-muted mt-2">
-                                                     第 ${bbsCommentId} 樓
                                                   </h6>
                                                 </div>
                                                 <div class="col-md-1 mt-2">
@@ -959,9 +974,10 @@
 
           if (will_sav_title) {
             let post_id = document.getElementById("cardId").textContent;
-            alert(
-              `要儲存tiltle了 , title標題:${post_title_update} , postId:${post_id}`
-            );
+            // alert(
+            //   `要儲存tiltle了 , title標題:${post_title_update} , postId:${post_id}`
+            // );
+            alert(`要儲存tiltle了 , 更正後文章標題:${post_title_update}`);
             let jason_data_title_update = {
               postTitle: post_title_update,
             };
@@ -1020,9 +1036,10 @@
             let post_content_update =
               this.parentNode.previousElementSibling.children[0].textContent;
 
-            alert(
-              `要儲存content了 內容:${post_content_update} , postId:${post_id}`
-            );
+            // alert(
+            //   `要儲存content了 內容:${post_content_update} , postId:${post_id}`
+            // );
+            alert(`要儲存content了 , 更正後文章內容:${post_content_update}`);
             let jason_data_content_update = {
               postContent: post_content_update,
             };
@@ -1081,15 +1098,15 @@
         //     // console.log(data);
         //   },
         // });
-        // =======================================留言區/按發送=============================================================
-        // 唯一ID的計數器
-        // let modalCounter = 0;
+        // // =======================================留言區/按發送=============================================================
+        // // 唯一ID的計數器
+        // let modalCounter1 = 0;
         // $("div.bbs_post_pen_group").on("click", ".bbs_send_msg", function () {
         //   let count = 0;
         //   count++;
 
-        //   let modalId = "exampleModal" + modalCounter;
-        //   modalCounter++;
+        //   let modalId = "exampleModal" + modalCounter1;
+        //   modalCounter1++;
 
         //   let bbs_msg_content_trim = $(".bbs_msg_content").val().trim();
         //   // console.log(text);
@@ -1099,19 +1116,19 @@
         //       <div class="card-body comment">
         //         <div class="row">
         //           <div class="col-md-1">
-        //             <img src=${bbs_post_msg_pic} class="img-fluid rounded-start" alt="頭像" />
+        //             <img src=${memPhotocomm5} class="img-fluid rounded-start" alt="頭像" />
         //           </div>
         //           <div class="col-md-7">
-        //             <h5 id="bbs_title_test" class="card-title">${bbs_post_msg_people}</h5>
+        //             <h5 id="bbs_title_test" class="card-title">${memNickname}</h5>
         //             <h6 id="bbs_title_test2" class="card-subtitle mb-2 text-muted bbs_pare">
-        //               ${bbs_msg_content_trim}
+        //               ${commentContent}
         //             </h6>
-        //             <input type="text" class="task_name_update -none" placeholder="編輯留言…" value="${bbs_msg_content_trim}">
+        //             <input type="text" class="task_name_update -none" placeholder="編輯留言…" value="${commentContent}">
         //           </div>
         //           <div class="col-md-2 mt-2">
-        //             <h6 class="card-subtitle mb-2 text-muted">B${bbs_post_msg_floor}</h6>
+        //             <h6 class="card-subtitle mb-2 text-muted">B${bbsCommentId}</h6>
         //             <h6 class="card-subtitle mb-2 text-muted">
-        //               ${bbs_post_msg_time} 回覆
+        //               ${updateTime} 回覆
         //             </h6>
         //           </div>
         //           <div class="col-md-1 mt-2">
@@ -1189,52 +1206,7 @@
             },
           });
         });
-        // ==========================================刪除留言==========================================================
-        $(".bbs_comment_list").on("click", "#bbs_xmark_img", function () {
-          console.log(this);
-          let bbsCommentId = $(this)
-            .parent("div")
-            .parent("div.row")
-            .find(".bbsCommentId")
-            .text();
-          console.log("-----------------------------bbsCommentId:");
-          console.log(bbsCommentId);
-          console.log("有bbsCommentId嗎??????????bbsCommentId");
-          //按確定後刪除留言
-          $(".bbs_comment_list").on("click", ".btn_bbs_sure2", function () {
-            console.log(this);
-            $(this).closest("li").fadeOut(1000);
-            // 淡出效果完成後關閉燈箱效果
-            $(this).closest(".modal").modal("hide");
-            // 使用jQuery的text()方法
-
-            let json_data_comm_status = {
-              bbsCommentId: bbsCommentId,
-              commentStatus: 0,
-            };
-            $.ajax({
-              url: "/bbsdiscussGet/bbscommstatus", // 資料請求的網址
-              type: "PUT", // GET | POST | PUT | DELETE | PATCH
-              data: JSON.stringify(json_data_comm_status),
-              dataType: "json",
-              contentType: "application/json",
-              beforeSend: function () {},
-              success: function (data8) {
-                console.log("data8成功了888888888888");
-                console.log(data8);
-                location.reload(); // 刷新页面
-              },
-              error: function (xhr) {
-                console.log("data8失敗了了GGGGGGG");
-                console.log(xhr);
-              },
-              complete: function (xhr) {
-                // window.location.href = "index.html";
-              },
-            });
-          });
-        });
-
+        // ===
         //==========================跳轉到發文紀錄====================================================
         $(".bbs_btn_view").on("click", function () {
           window.location.href = "bsdiscusspo.html";
@@ -1555,7 +1527,7 @@
         });
       }
 
-      // =============================================確認該會員是否曾經按過收藏或讚UI需做對應顯示===================================================
+      // =====================================確認該會員是否曾經按過收藏或讚UI需做對應顯示=============================
       function check_fav_reaction(list, postid, type, fav_reaction_count) {
         let result = false;
 
@@ -1658,15 +1630,18 @@
 
         if (will_sav_bbsComment) {
           let post_id = document.getElementById("cardId").textContent;
-          let bbsCommentId = document.getElementById("cardId").textContent;
+          // let bbsCommentId = document.getElementById("cardId").textContent;
           let post_bbsComment_update =
             document.getElementById("bbs_title_test2").textContent;
 
+          // alert(
+          //   `要儲存comment留言了 內容:${post_bbsComment_update} , postId:${post_id} , bbsCommentId: ${bbsCommentId}`
+          // );
           alert(
-            `要儲存comm留言了 內容:${post_bbsComment_update} , postId:${post_id} , bbsCommentId: ${bbsCommentId}`
+            `要儲存comment留言了 , 更正後留言內容:${post_bbsComment_update}`
           );
           let jason_data_content_update = {
-            postContent: post_bbsComment_update,
+            commentContent: post_bbsComment_update,
           };
           $.ajax({
             url: "/bbsdiscussGet/commupdate/" + bbsCommentId,
@@ -1678,6 +1653,81 @@
               console.log(data_content_update);
             },
           });
+        }
+      }
+
+      // ==========================================刪除留言==========================================================
+      function bbs_xmark(event, bbsCommentId) {
+        // $(".bbs_comment_list").on("click", "#bbs_xmark_img", function () {
+        // console.log(this);
+        // let bbsCommentId = $(this)
+        //   .parent("div")
+        //   .parent("div.row")
+        //   .find(".bbsCommentId")
+        //   .text();
+        console.log("-----------------------------bbsCommentId:");
+        console.log(bbsCommentId);
+        console.log("有bbsCommentId嗎??????????bbsCommentId");
+        //按確定後刪除留言
+        $(".bbs_comment_list").on("click", ".btn_bbs_sure2", function () {
+          console.log(this);
+          $(this).closest("li").fadeOut(1000);
+          // 淡出效果完成後關閉燈箱效果
+          $(this).closest(".modal").modal("hide");
+          // 使用jQuery的text()方法
+
+          let json_data_comm_status = {
+            bbsCommentId: bbsCommentId,
+            commentStatus: 0,
+          };
+
+          console.log(json_data_comm_status);
+          $.ajax({
+            url: "/bbsdiscussGet/bbscommstatus", // 資料請求的網址
+            type: "PUT", // GET | POST | PUT | DELETE | PATCH
+            data: JSON.stringify(json_data_comm_status),
+            dataType: "json",
+            contentType: "application/json",
+            beforeSend: function () {},
+            success: function (data8) {
+              console.log("data8成功了888888888888");
+              console.log(data8);
+              location.reload(); // 刷新页面
+            },
+            error: function (xhr) {
+              console.log("data8失敗了了GGGGGGG");
+              console.log(xhr);
+            },
+            complete: function (xhr) {
+              // window.location.href = "index.html";
+            },
+          });
+        });
+      }
+
+      // ==========================================跳轉頁面==========================================================
+      function go_herf(type) {
+        console.log(type);
+        switch (type) {
+          case "語言討論版":
+            window.location.href = "/bbsdiscuss/index.html?posttype=語言討論版";
+            break;
+
+          case "程式討論版":
+            window.location.href = "/bbsdiscuss/index.html?posttype=程式討論版";
+            break;
+
+          case "生活討論版":
+            window.location.href = "/bbsdiscuss/index.html?posttype=生活討論版";
+            break;
+
+          case "電競討論版":
+            window.location.href = "/bbsdiscuss/index.html?posttype=電競討論版";
+            break;
+
+          default:
+            alert("無定義區域");
+            break;
         }
       }
     </script>

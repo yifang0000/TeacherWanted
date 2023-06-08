@@ -46,9 +46,9 @@ $(function () {
       // 原本上下架狀態
       activityStatus = response.activityStatus;
       // 原本時間設定
-      $("#activeStartTime").val(inputFormattedDate(response.activityStartTime));
-      $("#activeStopTime").val(inputFormattedDate(response.activityEndTime));
-      $("#stopTime").val(inputFormattedDate(response.activityDueTime));
+      $("#activeStartTime").val(convertDateFormat(response.activityStartTime));
+      $("#activeStopTime").val(convertDateFormat(response.activityEndTime));
+      $("#stopTime").val(convertDateFormat(response.activityDueTime));
       // $("#activeStartTime").val(
       //   convertToDateTimeLocal(response.activityStartTime)
       // );
@@ -115,52 +115,71 @@ $(function () {
 //  $("#stopTime").val(),
 
 // 轉換時間格式 開始
-// 接收
-function inputFormattedDate(dateString) {
-  // 將時間字串轉換成 Date 物件
-  var date = new Date(dateString);
+function convertDateFormat(originalDate) {
+  var date = new Date(Date.parse(originalDate));
 
-  // 取得年、月、日、時、分
-  var year = date.getFullYear();
-  var month = ("0" + (date.getMonth() + 1)).slice(-2);
-  var day = ("0" + date.getDate()).slice(-2);
-  var hours = ("0" + date.getHours()).slice(-2);
-  var minutes = ("0" + date.getMinutes()).slice(-2);
+  var year = date.getUTCFullYear();
+  var month = addLeadingZero(date.getUTCMonth() + 1);
+  var day = addLeadingZero(date.getUTCDate());
+  var hours = addLeadingZero(date.getUTCHours());
+  var minutes = addLeadingZero(date.getUTCMinutes());
 
-  // 組合成指定格式的時間字串
-  var formattedDate =
+  var newFormattedDate =
     year + "-" + month + "-" + day + "T" + hours + ":" + minutes;
 
-  return formattedDate;
+  return newFormattedDate;
 }
-// 傳輸
-function convertToFormattedDate(dateString) {
-  var date = new Date(dateString);
 
-  // 取得年、月、日、時、分、秒
-  var year = date.getFullYear();
-  var month = ("0" + (date.getMonth() + 1)).slice(-2);
-  var day = ("0" + date.getDate()).slice(-2);
-  var hours = ("0" + date.getHours()).slice(-2);
-  var minutes = ("0" + date.getMinutes()).slice(-2);
-  var seconds = ("0" + date.getSeconds()).slice(-2);
-
-  // 組合成指定格式的時間字串
-  var formattedDate =
-    year +
-    "-" +
-    month +
-    "-" +
-    day +
-    " " +
-    hours +
-    ":" +
-    minutes +
-    ":" +
-    seconds;
-
-  return formattedDate;
+function addLeadingZero(number) {
+  return number < 10 ? "0" + number : number;
 }
+
+// 接收
+// function inputFormattedDate(dateString) {
+//   // 將時間字串轉換成 Date 物件
+//   var date = new Date(dateString);
+
+//   // 取得年、月、日、時、分
+//   var year = date.getFullYear();
+//   var month = ("0" + (date.getMonth() + 1)).slice(-2);
+//   var day = ("0" + date.getDate()).slice(-2);
+//   var hours = ("0" + date.getHours()).slice(-2);
+//   var minutes = ("0" + date.getMinutes()).slice(-2);
+
+//   // 組合成指定格式的時間字串
+//   var formattedDate =
+//     year + "-" + month + "-" + day + "T" + hours + ":" + minutes;
+
+//   return formattedDate;
+// }
+// // 傳輸
+// function convertToFormattedDate(dateString) {
+//   var date = new Date(dateString);
+
+//   // 取得年、月、日、時、分、秒
+//   var year = date.getFullYear();
+//   var month = ("0" + (date.getMonth() + 1)).slice(-2);
+//   var day = ("0" + date.getDate()).slice(-2);
+//   var hours = ("0" + date.getHours()).slice(-2);
+//   var minutes = ("0" + date.getMinutes()).slice(-2);
+//   var seconds = ("0" + date.getSeconds()).slice(-2);
+
+//   // 組合成指定格式的時間字串
+//   var formattedDate =
+//     year +
+//     "-" +
+//     month +
+//     "-" +
+//     day +
+//     " " +
+//     hours +
+//     ":" +
+//     minutes +
+//     ":" +
+//     seconds;
+
+//   return formattedDate;
+// }
 // 轉換時間格式 結束
 // 數字判斷 只能輸入大於0的數字 開始
 function numberCheck(input) {
@@ -419,6 +438,7 @@ $(document).ready(function () {
     } else if (!numberCheck($("#maxNumber").val())) {
       alert("上限人數請輸入大於0的數字");
     } else {
+      console.log($("#stopTime").val());
       console.log("------>activityId:" + activityId);
       const data = JSON.stringify({
         activityId: activityId,

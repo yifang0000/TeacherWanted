@@ -116,7 +116,11 @@
               >
               <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
               <a class="flexAllCenter" href="/wish">許願池</a>
-              <a class="flexAllCenter" href="/bbsdiscuss/index.html?posttype=all">論壇</a>
+              <a
+                class="flexAllCenter"
+                href="/bbsdiscuss/index.html?posttype=all"
+                >論壇</a
+              >
               <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
             </div>
             <div
@@ -219,6 +223,7 @@
                 href="#list-home"
                 role="tab"
                 aria-controls="list-home"
+                onclick="go_herf('語言討論版')"
                 >語言討論版</a
               >
               <a
@@ -227,6 +232,7 @@
                 href="#list-profile"
                 role="tab"
                 aria-controls="list-profile"
+                onclick="go_herf('程式討論版')"
                 >程式討論版</a
               >
               <a
@@ -235,6 +241,7 @@
                 href="#list-messages"
                 role="tab"
                 aria-controls="list-messages"
+                onclick="go_herf('生活討論版')"
                 >生活討論版</a
               >
               <a
@@ -243,6 +250,7 @@
                 href="#list-settings"
                 role="tab"
                 aria-controls="list-settings"
+                onclick="go_herf('電競討論版')"
                 >電競討論版</a
               >
             </div>
@@ -253,7 +261,9 @@
               <h1>我的收藏</h1>
               <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="/bbsdiscuss/index.html?posttype=all">論壇</a></li>
+                  <li class="breadcrumb-item">
+                    <a href="/bbsdiscuss/index.html?posttype=all">論壇</a>
+                  </li>
                   <li class="breadcrumb-item active" aria-current="page">
                     我的收藏
                   </li>
@@ -378,7 +388,11 @@
                   <a class="webMapLink" href="/wish">>許願池</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="/bbsdiscuss/index.html?posttype=all">>論壇</a>
+                  <a
+                    class="webMapLink"
+                    href="/bbsdiscuss/index.html?posttype=all"
+                    >>論壇</a
+                  >
                 </li>
                 <li style="margin-top: 5px">
                   <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
@@ -415,6 +429,7 @@
                   let postTitle = data[i].postTitle;
                   let postContent = data[i].postContent;
                   let memId = data[i].memId;
+                  let bbsPostIdUrl = `post.html?bbsPostId=${bbsPostId}`;
                   let bbs_favorite_html = `
                   <li class="col-sm-4" style="list-style: none">
                     <div class="card" style="width: 18rem">
@@ -451,32 +466,33 @@
                             </div>
                           </div>
                         </div>
+                        <a href="${bbsPostIdUrl}" class="btn btn-outline-primary ">檢視文章</a>
                       </div>
                     </div>
                   </li>
                   `;
-                  if(String(data_id) === String(memId)){
+                  if (String(data_id) === String(memId)) {
                     $("ul.bbs_favorite_list").append(bbs_favorite_html);
                   }
                 }
               },
-              error: function(xhr, status, error) {
+              error: function (xhr, status, error) {
                 // 错误响应处理逻辑
                 console.log("請求失敗");
                 console.log("狀態碼" + xhr.status);
                 console.log("錯誤訊息" + error);
-                if(xhr.status == 404){
+                if (xhr.status == 404) {
                   let no_fav_html = `
                 <div class=" mt-5 mb-5" style=" display: flex; justify-content: center;  align-items: center; 
                      height: 300px; background-color: rgba(0, 100, 0, 0.5); color: white; text-align: center;"   
                   <h6>無收藏的文章~~</h6>
                 </div>
-                `
-                $("div.bbs_no_fav").append(no_fav_html);
+                `;
+                  $("div.bbs_no_fav").append(no_fav_html);
                 }
-              }
+              },
             });
-          }
+          },
         });
         // ==============================================================================
 
@@ -490,19 +506,19 @@
         modalCounterMid++;
 
         //=======================================取消收藏=======================================
-       
-        
-       
-        
-        $("ul.bbs_favorite_list").on( "click", "#bbs_cancel_favorite",function () {
-          console.log(this);
-          let bbsPostId = $(this).siblings("#bbsPostId_cancel").text();
-          console.log(bbsPostId);
-          console.log(bbsPostId_cancel);
-          console.log("取消收藏的bbspostid");
-          let jason_data_fav_cancel = {
-          bbsPostId : bbsPostId,
-           }
+
+        $("ul.bbs_favorite_list").on(
+          "click",
+          "#bbs_cancel_favorite",
+          function () {
+            console.log(this);
+            let bbsPostId = $(this).siblings("#bbsPostId_cancel").text();
+            console.log(bbsPostId);
+            console.log(bbsPostId_cancel);
+            console.log("取消收藏的bbspostid");
+            let jason_data_fav_cancel = {
+              bbsPostId: bbsPostId,
+            };
             $(this).closest("li").fadeOut(1000);
             // 淡出效果完成後關閉燈箱效果
             $(this).closest(".bbsPostId").modal("hide");
@@ -514,7 +530,7 @@
               contentType: "application/json",
               success: function (data_fav_cancel) {
                 console.log(data_fav_cancel);
-              }
+              },
             });
           }
         );
@@ -528,6 +544,30 @@
           window.location.href = "/bbsdiscuss/bsdiscusspo.html";
         });
       });
+
+      function go_herf(type) {
+        switch (type) {
+          case "語言討論版":
+            window.location.href = "/bbsdiscuss/index.html?posttype=語言討論版";
+            break;
+
+          case "程式討論版":
+            window.location.href = "/bbsdiscuss/index.html?posttype=程式討論版";
+            break;
+
+          case "生活討論版":
+            window.location.href = "/bbsdiscuss/index.html?posttype=生活討論版";
+            break;
+
+          case "電競討論版":
+            window.location.href = "/bbsdiscuss/index.html?posttype=電競討論版";
+            break;
+
+          default:
+            alert("無定義區域");
+            break;
+        }
+      }
     </script>
   </body>
 </html>
