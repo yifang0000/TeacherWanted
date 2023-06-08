@@ -356,7 +356,7 @@ public class ActiveController {
     public String updateActiveBack(@RequestBody Active active,
                                    @SessionAttribute(value = "adminSession", required = false) Administrator administrator) {
 
-
+        System.out.println("controller active.getActivityDueTime():"+active.getActivityDueTime());
         //        判斷管理員
         if (administrator.getPermissionId() == 1 || active.getTeaId().equals(administrator.getAdminId())) {
             return activeService.update(active);

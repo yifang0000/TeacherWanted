@@ -279,11 +279,11 @@ $(document).ready(function () {
       alert("請輸入活動地址");
     } else if ($("#activityPrice").val().trim() == "") {
       alert("請輸入活動價錢");
-    } else if ($("#stopTime").val().trim() == "") {
+    } else if ($("#stopTime").val() == "") {
       alert("請輸入報名截止日期");
-    } else if ($("#activeStartTime").val().trim() == "") {
+    } else if ($("#activeStartTime").val() == "") {
       alert("請輸入活動開始日期");
-    } else if ($("#activeStopTime").val().trim() == "") {
+    } else if ($("#activeStopTime").val() == "") {
       alert("請輸入活動結束日期");
     } else if (editor.getData() == "") {
       alert("請輸入活動介紹");
@@ -294,6 +294,7 @@ $(document).ready(function () {
     } else if (!numberCheck($("#maxNumber").val())) {
       alert("上限人數請輸入大於0的數字");
     } else {
+      console.log($("#stopTime").val());
       // var teacherInfo = JSON.parse(sessionStorage.getItem("adminStorage"));
       const data = JSON.stringify({
         activityName: $("#activityName").val(),

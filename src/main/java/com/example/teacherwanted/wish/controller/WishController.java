@@ -72,7 +72,7 @@ public class WishController {
             }
         } catch (WishNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
-            return "wish";
+            return "redirect:/wish_my";
         }
     }
 
@@ -93,7 +93,7 @@ public class WishController {
         } catch (WishNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
         }
-        return "redirect:/wish";
+        return "redirect:/wish_my";
     }
 
     @GetMapping("/mywish")
@@ -101,9 +101,9 @@ public class WishController {
         // 檢查使用者是否已登入
         User currentUser = (User) session.getAttribute("userInfo");
         if (currentUser != null) {
-            // 獲取當前會員的會員資料
+            // 獲取當前會員的會員ID
             String memberAccount = currentUser.getMemAccount();
-            // 根據會員帳號查詢該會員發布的 Wish
+            // 根據會員ID查詢該會員發布的 Wish
             List<Wish> myWishList = service.listByMemberAccount(memberAccount);
             model.addAttribute("myWishList", myWishList);
             return "wish_my";
@@ -113,15 +113,10 @@ public class WishController {
         }
 
         }
-    @GetMapping("/wish/search")
-    public String searchWish(@RequestParam("keyword") String keyword, Model model) {
-        if (keyword == null || keyword.trim().isEmpty()) {
-            return "redirect:/wish";
-        }
-
-        List<Wish> searchResults = service.searchByKeyword(keyword);
-        model.addAttribute("searchResults", searchResults);
-
-        return "wish_search";
-    }
+//        @GetMapping("/wish/search")
+//        public String searchWish(@RequestParam("keyword") String keyword, Model model) {
+//            List<Wish> searchResults = service.searchByKeyword(keyword);
+//            model.addAttribute("searchResults", searchResults);
+//            return "wish_search";
+//        }
 }
