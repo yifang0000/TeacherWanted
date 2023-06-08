@@ -11,6 +11,7 @@ public class CommInfoRowMapper implements RowMapper<CommInfo> {
     public CommInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
         CommInfo commInfo = new CommInfo();
         commInfo.setMemName(rs.getString("mem_name"));
+        commInfo.setMemName(rs.getString("mem_nickname"));
         commInfo.setMem_photo(rs.getBytes("mem_photo"));
         return commInfo;
     }

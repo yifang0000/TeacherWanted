@@ -1,6 +1,7 @@
 package com.example.teacherwanted.course.controller;
 
 import com.example.teacherwanted.course.model.vo.CourseVo;
+import com.example.teacherwanted.course.model.vo.TeacherVo;
 import com.example.teacherwanted.course.service.CourseService;
 import com.example.teacherwanted.course.constant.CourseCategory;
 import jakarta.validation.Valid;
@@ -128,10 +129,19 @@ public class CourseController {
             courseRequest.setCourseTotalEvaluate(courseVo.getCourseTotalEvaluate());
             courseRequest.setCourseStatus(courseVo.getCourseStatus());
             courseRequest.setCreateTime(courseVo.getCreateTime());
+            if(courseRequest.getCoursePhoto1() == null){
+                courseRequest.setCoursePhoto1(courseVo.getCoursePhoto1());
+                courseRequest.setCoursePhoto2(courseVo.getCoursePhoto2());
+                courseRequest.setCoursePhoto3(courseVo.getCoursePhoto3());
+            }
             courseService.updateCourse(courseId, courseRequest);
             CourseVo updatedCourse = courseService.getCourseById(courseId);
             return ResponseEntity.status(HttpStatus.OK).body(updatedCourse);
         }
+    }
+    public ResponseEntity<Void> updateBoughtCount(CourseVo courseVo) {
+        courseService.updateBoughtCount(courseVo);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/courses/{courseId}")

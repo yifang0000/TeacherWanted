@@ -54,7 +54,7 @@
     <script src="../js/base.js"></script>
     <script src="../js/active/active.js"></script>
 
-    <title>Document</title>
+    <title>活動頁面</title>
   </head>
   <body class="TeacherWanted">
     <!-- 手機板導引列(粗糙) -->
@@ -65,7 +65,7 @@
         <a href="/courseteacher/CourseVue.html" class="">課程</a>
         <a href="/active/activeIndex.html" class="">活動</a>
         <a href="/wish" class="">許願池</a>
-        <a href="/bbsdiscuss/index.html" class="">論壇</a>
+        <a href="/bbsdiscuss/index.html?posttype=all" class="">論壇</a>
         <a href="/baseVer3/homepage.html" class="">商城</a>
       </div>
       <div class="navBar">
@@ -113,7 +113,11 @@
               >
               <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
               <a class="flexAllCenter" href="/wish">許願池</a>
-              <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+              <a
+                class="flexAllCenter"
+                href="/bbsdiscuss/index.html?posttype=all"
+                >論壇</a
+              >
               <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
             </div>
             <div
@@ -286,6 +290,7 @@
                       <div
                         class="flexWrap flexAllCenter borderShadowLight activeBtn"
                         style="margin-left: 10px; color: #3c6a36"
+                        @click="copyURL"
                       >
                         <img
                           src="../img/active/share.svg"
@@ -401,7 +406,7 @@
                   >
                     <a
                       class="activeBtn activeBtnShare"
-                      :href="'/courseteacher/TeacherInfo.html?teaId='+teaId"
+                      :href="'/courseteacher/TeacherInfoVue.html?teaId='+teaId"
                       >主辦方頁面</a
                     >
                   </div>
@@ -411,7 +416,7 @@
                   >
                     <a
                       class="activeBtn activeBtnShare"
-                      :href="'/active/activeChatRoom.html?activityId='+activityId"
+                      @click="activityChatRoomPermissions(activityId)"
                       >活動聊天室</a
                     >
                   </div>
@@ -567,7 +572,11 @@
                   <a class="webMapLink" href="/wish">>許願池</a>
                 </li>
                 <li style="margin-top: 5px">
-                  <a class="webMapLink" href="/bbsdiscuss/index.html">>論壇</a>
+                  <a
+                    class="webMapLink"
+                    href="/bbsdiscuss/index.html?posttype=all"
+                    >>論壇</a
+                  >
                 </li>
                 <li style="margin-top: 5px">
                   <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>

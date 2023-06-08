@@ -22,15 +22,12 @@ public class EmailServiceImpl implements EmailService {
 
     // Method 1
     // To send a simple email
-    public String sendSimpleMail(EmailDetails details)
-    {
+    public String sendSimpleMail(EmailDetails details) {
 
         // Try block to check for exceptions
         try {
-
             // Creating a simple mail message
-            SimpleMailMessage mailMessage
-                    = new SimpleMailMessage();
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
 
             // Setting up necessary details
             mailMessage.setFrom(sender);

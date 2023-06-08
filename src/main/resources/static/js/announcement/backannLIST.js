@@ -20,12 +20,12 @@ $(document).ready(function(){
                 now = yearnow + '/' + monthnow + '/' + daynow + ' ' + hoursnow + ':' + minutesnow + ':' + secondsnow;
          
         $("#annTable").DataTable({
-          headerCallback: function(thead, data, start, end, display) {
-            // 設定表頭的背景顏色
-            $(thead).find('th').css('background-color', '#F8F9FA');
-          },
-          stripe: false,
-          stripeClasses: ["#ffffff", "#f6f6f6"],
+          // headerCallback: function(thead, data, start, end, display) {
+          //   // 設定表頭的背景顏色
+          //   $(thead).find('th').css('background-color', '#F8F9FA');
+          // },
+          // stripe: false,
+          // stripeClasses: ["#ffffff", "#f6f6f6"],
           order:[[4,"desc"]],
           // "serverSide": false, 
           ajax: {

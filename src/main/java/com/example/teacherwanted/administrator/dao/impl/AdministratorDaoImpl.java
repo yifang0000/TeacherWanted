@@ -126,6 +126,33 @@ public class AdministratorDaoImpl implements AdministratorDao {
         return 1;
     }
 
+    @Override
+    public String updateByadminAccount(Administrator administrator) {
+        final StringBuilder hql = new StringBuilder()
+                .append("UPDATE Administrator SET ");
+        final String adminPassword = administrator.getAdminPassword();
+
+            hql.append("adminPassword = :adminPassword, ");
+        hql.append("lastUpdatedDate = :lastUpdatedDate ")
+                .append("WHERE adminAccount = :adminAccount");
+//        密碼隨機生成
+        String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder randomPassword = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 8; i++) {
+            int index = random.nextInt(characters.length());
+            randomPassword.append(characters.charAt(index));
+        }
+        String password = randomPassword.toString();
+
+        Query query = entityManager.createQuery(hql.toString())
+                .setParameter("adminPassword", password);
+        query.setParameter("lastUpdatedDate", new Date())
+                .setParameter("adminAccount", administrator.getAdminAccount())
+                .executeUpdate();
+        return password;
+    }
+
 
     @Override
     public Administrator selectByAdminId(Integer adminId) {

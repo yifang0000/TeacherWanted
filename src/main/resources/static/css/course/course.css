@@ -145,7 +145,7 @@ div.info h5 {
 }
 
 span.more {
-    margin: 5px 5px 0 0;
+    /*margin: 5px 5px 0 0;*/
     float: right;
     cursor: pointer;
 }

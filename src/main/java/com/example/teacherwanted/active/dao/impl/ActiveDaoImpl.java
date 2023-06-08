@@ -56,7 +56,6 @@ public class ActiveDaoImpl implements ActiveDao {
             query.setParameter("type", activityType);
         }
 
-        query.setMaxResults(5);
 
         return query.getResultList();
     }

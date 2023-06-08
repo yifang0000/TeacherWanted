@@ -103,4 +103,11 @@ public class AdministratorController {
     }
 
 
+    //重設密碼
+    @PostMapping("/administrators/resetPassword")
+    public ResponseEntity<?> resetPassword(@RequestBody Administrator administrator){
+        String password = administratorService.resetPassword(administrator);
+        return ResponseEntity.status(HttpStatus.OK).body(password);
+    }
+
 }

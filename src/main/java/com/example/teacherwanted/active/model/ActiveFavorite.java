@@ -28,5 +28,14 @@ public class ActiveFavorite {
 
     @Column(name = "create_time")
     public Timestamp createTime;
+
+    @Column(name = "activity_name")
+    private String activityName;  // 活動名稱
+
+    @Column(name = "activity_photo")
+    private byte[] activityPhoto;  // 活動圖片
+
+    @Column(name = "activity_photo_type")
+    private String activityPhotoType;
 }
 

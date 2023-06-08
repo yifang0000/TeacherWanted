@@ -4,7 +4,11 @@ public enum CourseCategory {
     LANGUAGE("語言", 1),
     LIFE("生活", 2),
     PROGRAMMING("程式語言", 3),
-    GAME("電競", 4),;
+    MUSIC("音樂", 4),
+    ART("美術", 5),
+    SPORT("運動", 6),
+    NONE("未填", 7),
+    ;
 
     private String categoryName;
     private int categoryId;
