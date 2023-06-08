@@ -34,6 +34,7 @@ public class ActiveServiceImpl implements ActiveService {
         Iterator<Active> iterator = activesReturn.iterator();
         while (iterator.hasNext()) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            timestamp.setTime(timestamp.getTime() + (8 * 60 * 60 * 1000));
             Active active = iterator.next();
             int comparison = (active.getActivityDueTime()).compareTo(timestamp);
             if (comparison < 0) {
@@ -50,10 +51,11 @@ public class ActiveServiceImpl implements ActiveService {
     //    推薦活動
     @Override
     public List<Active> recommendActivities(String activityType) {
-        List<Active> activesReturn =activeDao.recommendActivities(activityType);
+        List<Active> activesReturn = activeDao.recommendActivities(activityType);
         Iterator<Active> iterator = activesReturn.iterator();
         while (iterator.hasNext()) {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            timestamp.setTime(timestamp.getTime() + (8 * 60 * 60 * 1000));
             Active active = iterator.next();
             int comparison = (active.getActivityDueTime()).compareTo(timestamp);
             if (comparison < 0) {
@@ -62,8 +64,9 @@ public class ActiveServiceImpl implements ActiveService {
             }
 
         }
+        List<Active> activesReturnFirstFive = activesReturn.subList(0, Math.min(5, activesReturn.size()));
 
-        return activesReturn;
+        return activesReturnFirstFive;
     }
 
     ;
@@ -74,8 +77,9 @@ public class ActiveServiceImpl implements ActiveService {
     public Active selectById(Integer id) {
         Active active = activeDao.selectById(id);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        timestamp.setTime(timestamp.getTime() + (8 * 60 * 60 * 1000));
         int comparison = (active.getActivityDueTime()).compareTo(timestamp);
-        if (active != null && active.getActivityStatus() != 0 && comparison>0) {
+        if (active != null && active.getActivityStatus() != 0 && comparison > 0) {
             return active;
         } else {
             return null;
@@ -122,6 +126,18 @@ public class ActiveServiceImpl implements ActiveService {
         active.setCreateTime(activeCreateTime.getCreateTime());
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         active.setUpdateTime(timestamp);
+        System.out.println("active.getActivityDueTime()"+active.getActivityDueTime());
+//        判斷報名時間有沒有更新
+        int comparison = (active.getActivityDueTime()).compareTo(timestamp);
+        if (active.getActivityStatus().intValue() == 2) {
+//            報名時間在現在之後
+            if (comparison > 0) {
+//                System.out.println("时间戳1早于时间戳2");
+                active.setActivityStatus(0);
+            }
+        }
+
+
         try {
             activeDao.update(active);
             return "更新成功";
@@ -169,7 +185,27 @@ public class ActiveServiceImpl implements ActiveService {
             activityType = null; // 或根據需要設置為默認值
         }
 
-        return activeDao.selectBackAll(key, activityType, teaId);
+
+        List<Active> activesReturn = activeDao.selectBackAll(key, activityType, teaId);
+
+        Iterator<Active> iterator = activesReturn.iterator();
+        while (iterator.hasNext()) {
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            timestamp.setTime(timestamp.getTime() + (8 * 60 * 60 * 1000));
+            Active active = iterator.next();
+            System.out.println("---------------------------------");
+            System.out.println("ID:"+active.getActivityId());
+            System.out.println("1."+active.getActivityDueTime());
+            System.out.println("2."+timestamp);
+            int comparison = (active.getActivityDueTime()).compareTo(timestamp);
+            if (comparison < 0) {
+//                System.out.println("时间戳1早于时间戳2");
+                active.setActivityStatus(2);
+            }
+
+        }
+
+        return activesReturn;
     }
     //    後臺操作 結束
 

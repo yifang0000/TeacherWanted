@@ -98,7 +98,7 @@ $(document).ready(function () {
             console.log(res.data);
             if (res.data == "修改成功") {
               alert("修改成功");
-              window.location.href = "/active/calendarTest.html";
+              window.location.href = "/member/MySubscribe.html";
             }
           })
           .catch((err) => {
@@ -114,7 +114,7 @@ $(document).ready(function () {
             console.log(res.data);
             if (res.data == "刪除成功") {
               alert("刪除成功");
-              window.location.href = "/active/calendarTest.html";
+              window.location.href = "/member/MySubscribe.html";
             }
           })
           .catch((err) => {
@@ -202,7 +202,7 @@ $(document).ready(function () {
   // 從資料庫撈資料 開始
   axios.get("/calendarGet").then((res) => {
     for (let i = 0; i < res.data.length; i++) {
-      console.log(res.data[i]);
+      // console.log(res.data[i]);
       var event = {
         id: res.data[i].calendarId,
         title: res.data[i].calendarName,

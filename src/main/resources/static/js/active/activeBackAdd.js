@@ -4,7 +4,24 @@ var map; // 将 map 变量声明在更广泛的作用域
 var marker;
 var lng = 121.540678;
 var lat = 25.052128;
+// 數字判斷 只能輸入大於0的數字 開始
+function numberCheck(input) {
+  // 使用 parseFloat() 函式將輸入轉換為浮點數
+  var 數字 = parseFloat(input);
 
+  // 檢查數字是否為 NaN（非數字）
+  if (isNaN(數字)) {
+    return false;
+  }
+
+  // 檢查數字是否大於0
+  if (數字 > 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+// 數字判斷 只能輸入大於0的數字 結束
 // 轉換時間格式 開始
 // 接收
 function inputFormattedDate(dateString) {
@@ -252,14 +269,16 @@ $(document).ready(function () {
 
   // 送出按鈕相關 開始
   $("#submitActiveAddBtn").on("click", function () {
-    if ($("#activityName").val() == "") {
+    if ($("#activityName").val().trim() == "") {
       alert("請輸入活動名稱");
-    } else if ($("#activityType").val() == "") {
-      alert("請輸入活動名稱");
-    } else if ($("#maxNumber").val() == "") {
+    } else if ($("#activityType").val().trim() == "") {
+      alert("請輸入活動類型");
+    } else if ($("#maxNumber").val().trim() == "") {
       alert("請輸入上限人數");
-    } else if ($("#address-input").val() == "") {
+    } else if ($("#address-input").val().trim() == "") {
       alert("請輸入活動地址");
+    } else if ($("#activityPrice").val().trim() == "") {
+      alert("請輸入活動價錢");
     } else if ($("#stopTime").val() == "") {
       alert("請輸入報名截止日期");
     } else if ($("#activeStartTime").val() == "") {
@@ -269,8 +288,13 @@ $(document).ready(function () {
     } else if (editor.getData() == "") {
       alert("請輸入活動介紹");
     } else if (!$("#preview").children("img").attr("src")) {
-      alert("請輸入活動圖片");
+      alert("請上傳活動圖片");
+    } else if (!numberCheck($("#activityPrice").val())) {
+      alert("活動價格請輸入大於0的數字");
+    } else if (!numberCheck($("#maxNumber").val())) {
+      alert("上限人數請輸入大於0的數字");
     } else {
+      console.log($("#stopTime").val());
       // var teacherInfo = JSON.parse(sessionStorage.getItem("adminStorage"));
       const data = JSON.stringify({
         activityName: $("#activityName").val(),

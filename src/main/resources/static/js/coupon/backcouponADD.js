@@ -158,7 +158,7 @@ console.log(test)
                 if(toEmailCheckbox.checked){
                   var mailbody={
                     recipient:`javatha10127@gmail.com`,
-                    msgBody:`優惠代碼：${$('#couponCode').val()}\n有效期間：${forDateTime('activateTime')}~${forDateTime('expirationDate')}\n折扣金額：${$('#discount').val()}\n${htmlValue}`,
+                    msgBody:`優惠代碼：${$('#couponCode').val()}\n有效期間：${forDateTime('activateTime')}~${forDateTime('expirationDate')}\n折扣金額：${$('#discount').val()}\n${textareaValue}`,
                     subject:"懸賞啼雀｜限時優惠券！"
                 }
                 console.log(mailbody)

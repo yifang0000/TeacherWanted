@@ -28,7 +28,7 @@
     />
     <script src="../jquery/jquery-3.6.4.min.js"></script>
     <!-- 要登入驗證請解開這個 -->
-    <!-- <script src="../js/loginCheck.js"></script> -->
+    <script src="../js/loginCheck.js"></script>
     <script src="../js/base.js"></script>
 
     <title>Document</title>
@@ -71,7 +71,7 @@
         <a href="/courseteacher/CourseVue.html" class="">課程</a>
         <a href="/active/activeIndex.html" class="">活動</a>
         <a href="/wish" class="">許願池</a>
-        <a href="/bbsdiscuss/index.html" class="">論壇</a>
+        <a href="/bbsdiscuss/index.html?posttype=all" class="">論壇</a>
         <a href="/baseVer3/homepage.html" class="">商城</a>
       </div>
       <div class="navBar">
@@ -119,7 +119,7 @@
               >
               <a class="flexAllCenter" href="/active/activeIndex.html">活動</a>
               <a class="flexAllCenter" href="/wish">許願池</a>
-              <a class="flexAllCenter" href="/bbsdiscuss/index.html">論壇</a>
+              <a class="flexAllCenter" href="/bbsdiscuss/index.html?posttype=all">論壇</a>
               <a class="flexAllCenter" href="/baseVer3/homepage.html">商城</a>
             </div>
             <div
@@ -184,45 +184,41 @@
       <!-- ==================================(上)發表文章/發文紀錄/我的收藏/搜尋================================================= -->
       <!-- 發表文章/發文紀錄/我的收藏/搜尋 -->
       <div class="container-fluid">
-        <nav class="navbar">
-          <div class="container-fluid">
-            <div class="col-md">
-              <button
-                type="button"
-                class="btn btn-outline-success bbs_btn_edit"
-              >
-                發表文章
-              </button>
-            </div>
-            <div class="col-md">
-              <button
-                type="button"
-                class="btn btn-outline-success bbs_btn_view"
-              >
-                發文紀錄
-              </button>
-            </div>
-            <div class="col-md-7">
-              <button
-                type="button"
-                class="btn btn-outline-success bbs_btn_favorite"
-              >
-                我的收藏
-              </button>
-            </div>
-            <form class="d-flex col-md-3">
-              <input
-                class="form-control me-md-2"
-                type="search"
-                placeholder="查詢文章請輸入..."
-                aria-label="Search"
-              />
+        <div>
+          <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+              <div class="col-md-1">
+                <button
+                  type="button"
+                  class="btn btn-outline-success bbs_btn_edit"
+                >
+                  發表文章
+                </button>
+              </div>
+              <div class="col-md-1">
+                <button
+                  type="button"
+                  class="btn btn-outline-success bbs_btn_view"
+                >
+                  發文紀錄
+                </button>
+              </div>
+              <div class="col-md">
+                <button
+                  type="button"
+                  class="btn btn-outline-success bbs_btn_favorite"
+                >
+                  我的收藏
+                </button>
+              </div>
+              <!-- <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="查詢文章請輸入..." aria-label="Search" />
               <button class="btn btn-outline-success" type="submit">
                 Search
               </button>
-            </form>
-          </div>
-        </nav>
+            </form> -->
+            </div>
+          </nav>
       </div>
       <!-- =====================================(下)======================================================== -->
       <div class="row g-3">
@@ -280,7 +276,9 @@
           <!-- =================================結束複製大頭貼/發文者名稱/看版標籤======================================== -->
         </div>
       </div>
-    </main>
+    </div>
+  </div>
+  </main>
 
     <footer
     class="TeacherWanted"
@@ -390,7 +388,7 @@
                 <a class="webMapLink" href="/wish">>許願池</a>
               </li>
               <li style="margin-top: 5px">
-                <a class="webMapLink" href="/bbsdiscuss/index.html">>論壇</a>
+                <a class="webMapLink" href="/bbsdiscuss/index.html?posttype=all">>論壇</a>
               </li>
               <li style="margin-top: 5px">
                 <a class="webMapLink" href="/baseVer3/homepage.html">>商城</a>
@@ -448,73 +446,89 @@
         let type_theme = get_url_theme_type(type_content);
         let url = `/bbsdiscussGet/${type_theme}/${type_content}`;
 
-        let theme_data = await my_ajax(url, "GET", {});
-        // console.log(theme_data);
+      let theme_data = await my_ajax(url, 'GET', {})
+      theme_data = sort(theme_data, 'bbsPostId')
+      console.log(theme_data)
 
-        let theme_post_content = await get_theme_post_content(theme_data);
+      let theme_post_content = await get_theme_post_content(theme_data)
 
-        // console.log(theme_post_content)
+      // console.log(theme_post_content)
 
-        let theme_post_content_html = get_theme_post_content_html(
-          theme_data,
-          theme_post_content
-        );
+      let memberid_favandreaction = await my_ajax('/bbsdiscussGet/favandreaction', 'GET', {})
+
+      // console.log(current_session)
+
+
+      let theme_post_content_html = get_theme_post_content_html(theme_data, theme_post_content, memberid_favandreaction)
 
         $(".bbs_index_group").append(theme_post_content_html);
       }
 
-      function get_url_theme_type(type) {
-        switch (type) {
-          case "語言討論版":
-          case "程式討論版":
-          case "生活討論版":
-          case "電競討論版":
-            return "lg";
-          default:
-            aler("未設定的討論版");
-            break;
-        }
-      }
 
-      function my_ajax(url, type, json_data) {
-        // console.log(`use my_ajax
-        //              url: ${url}
-        //              type: ${type}
-        //              json_data: ${json_data}`)
-        return new Promise((resolve, reject) => {
-          $.ajax({
-            url: url, // 資料請求的網址
-            type: type, // GET | POST | PUT | DELETE | PATCH
-            data: json_data,
-            dataType: "json",
-            contentType: "application/json",
-            beforeSend: function () {},
-            success: function (data) {
-              // console.log(`response_data: ${data}`);
-              resolve(data);
-            },
-            error: function (xhr) {
-              console.log("error");
-              console.log(xhr);
-            },
-            complete: function (xhr) {
-              // window.location.href = "index.html";
-            },
-          });
+    function get_url_theme_type(type) {
+      switch (type) {
+        case "語言討論版":
+        case "程式討論版":
+        case "生活討論版":
+        case "電競討論版":
+          return 'lg';
+        default:
+          aler('未設定的討論版')
+          break;
+      }
+    }
+
+
+
+    function my_ajax(url, type, json_data) {
+
+      // console.log(`use my_ajax 
+      //              url: ${url} 
+      //              type: ${type}
+      //              json_data: ${json_data}`)
+      return new Promise((resolve, reject) => {
+        $.ajax({
+          url: url, // 資料請求的網址
+          type: type, // GET | POST | PUT | DELETE | PATCH
+          data: json_data,
+          dataType: "json",
+          contentType: "application/json",
+          beforeSend: function () {
+          },
+          success: function (data) {
+
+            // console.log(`response_data: ${data}`);
+            resolve(data)
+          },
+          error: function (xhr) {
+            console.log("error");
+            console.log(xhr);
+          },
+          complete: function (xhr) {
+            // window.location.href = "index.html";
+          },
         });
-      }
 
-      function get_theme_post_content(data) {
-        return new Promise((resolve, reject) => {
-          let url = "/bbsdiscussGetAll";
-          let type = "GET";
 
-          let results = [];
-          data.forEach((element) => {
-            json_data = {
-              bbsPostId: element["bbsPostId"],
-            };
-            ajax_result = my_ajax(url, type, json_data);
+      });
+
+
+    }
+
+
+    function get_theme_post_content(data) {
+
+      return new Promise((resolve, reject) => {
+
+        let url = "/bbsdiscussGetAll";
+        let type = "GET";
+
+        let results = [];
+        data.forEach(element => {
+          json_data = {
+            "bbsPostId": element['bbsPostId']
+          }
+          ajax_result = my_ajax(url, type, json_data)
 
             results.push(ajax_result);
           });
@@ -534,36 +548,53 @@
         });
       }
 
-      function get_theme_post_content_html(theme_data, theme_post_content) {
-        str_content = "";
-        theme_data.forEach((e_theme_data) => {
-          theme_post_content.forEach((e_theme_post_content) => {
-            if (
-              e_theme_data["bbsPostId"] === e_theme_post_content["bbsPostId"]
-            ) {
-              let bbsPostId = e_theme_data["bbsPostId"];
-              let postTitle = e_theme_data["postTitle"];
-              let postContent = e_theme_data["postContent"];
-              let bbsCategoryName = e_theme_data["bbsCategoryName"];
-              let bbsTagName = e_theme_data["bbsTagName"];
-              let memId = e_theme_data["memId"];
-              let updateTime = e_theme_data["updateTime"];
-              let postDislikes = e_theme_data["postDislikes"];
-              let postLikes = e_theme_data["postLikes"];
-              let postStatus = e_theme_data["postStatus"];
-              let postFav = e_theme_data["postFav"];
 
-              let elapsedTime = getElapsedTime(updateTime);
-              let memPhoto =
-                "data:image/" +
-                "null" +
-                ";base64," +
-                e_theme_post_content["memPhoto"];
-              let favStatus = e_theme_post_content["favStatus"];
-              let reaction_status = e_theme_post_content["reaction_status"];
-              let memAccount = e_theme_post_content["memAccount"];
-              let memName = e_theme_post_content["memName"];
-              str_content += `
+    function get_theme_post_content_html(theme_data, theme_post_content, memberid_favandreaction) {
+
+
+      str_content = '';
+      let fav = []
+      let reaction = []
+
+      if (memberid_favandreaction['favoriteArticleList'] != null) {
+        fav = memberid_favandreaction['favoriteArticleList'].map(x => x.bbsPostId);
+      }
+
+      if (memberid_favandreaction['postReactionList'] != null) {
+        reaction = memberid_favandreaction['postReactionList'].map(x => x.bbsPostId);
+      }
+
+
+      theme_data.forEach(e_theme_data => {
+
+        theme_post_content.forEach(e_theme_post_content => {
+
+          if (e_theme_data['bbsPostId'] === e_theme_post_content['bbsPostId']) {
+
+            let bbsPostId = e_theme_data['bbsPostId'];
+            let postTitle = e_theme_data['postTitle'];
+            let postContent = e_theme_data['postContent'];
+            let bbsCategoryName = e_theme_data['bbsCategoryName'];
+            let bbsTagName = e_theme_data['bbsTagName'];
+            let memId = e_theme_data['memId'];
+            let updateTime = e_theme_data['updateTime'];
+            let postDislikes = e_theme_data['postDislikes'];
+            let postLikes = e_theme_data['postLikes'];
+            let postStatus = e_theme_data['postStatus'];
+            let postFav = e_theme_data['postFav'];
+
+            let elapsedTime = getElapsedTime(updateTime);
+            let memPhoto =
+              "data:image/" + "null" + ";base64," + e_theme_post_content['memPhoto'];
+            let favStatus = e_theme_post_content['favStatus'];
+            let reaction_status = e_theme_post_content['reaction_status'];
+            let memAccount = e_theme_post_content['memAccount'];
+            let memName = e_theme_post_content['memNickname'];
+
+            let reaction_str = check_fav_reaction(reaction, bbsPostId, 'reaction', postLikes)
+            let fav_str = check_fav_reaction(fav, bbsPostId, 'fav', postFav)
+
+            str_content += `
               <div class="card mt-3 mb-3">
                 <div
                   class="card-header row"
@@ -596,42 +627,85 @@
                   </p>
                   <div class="show-more row justify-content-end mb-3" data-postid="${bbsPostId}">
                     <button class="btn btn-primary mt-3" onclick="show_more(${bbsPostId})" >查看完整文章</button>
-                  </div>
-                  <a class="btn border-primary text-dark col-md-1 bbs_click_up" onclick="lik(${bbsPostId} , this)">
-                    <span>
-                      <img
-                        src="/img/bbsdiscuss/thumbs-up-regular.svg"
-                        alt="讚"
-                        style="width: 20px"
-                        ;
-                        height="10px"
-                      />
-                      <!--    <h6>${reaction_status}${postLikes}</h6></span -->
-                       <h6>${postLikes}</h6></span
-                    >
-                  </a>
-                  <a  class="btn border-danger col-md-1 bbs_click_heart" onclick="fav(${bbsPostId} , this)">
-                    <span>
-                      <img
-                        src="/img/bbsdiscuss/heart-regular.svg"
-                        alt=""
-                        style="width: 20px"
-                        ;
-                        height="10px"
-                      />
-                      <h6>${postFav}</h6>
-                    </span>
-                  </a>
-                </div>
+                  </div>`
+              +
+              reaction_str
+              +
+              fav_str
+              +
+              `</div>
                 <div class="text-center card-footer text-muted">${elapsedTime}</div>
               </div>
               `;
-            }
-          });
+          }
         });
+      });
 
-        return str_content;
+      return str_content;
+    }
+
+    // =============================================確認該會員是否曾經按過收藏或讚UI需做對應顯示===================================================      
+    function check_fav_reaction(list, postid, type, fav_reaction_count) {
+
+      let result = false
+
+      if (list.indexOf(postid) > - 1) {
+        result = true
       }
+
+      // console.log(list)
+      // console.log(postid)
+      // console.log(type)
+
+      switch (type) {
+        case 'fav':
+          let str_fav = ''
+
+          if (result) {
+            str_fav = `<a class="btn border-danger col-md-1 bbs_click_heart btn-danger text-white" onclick="fav(${postid}  , this)">
+                    <span>
+                      <img src="/img/bbsdiscuss/heart-solid.svg" alt="" style="width: 20px" ;="" height="10px">
+                      <h6>${fav_reaction_count}</h6>
+                    </span>
+                  </a>`
+          } else {
+            str_fav =
+              `<a class="btn border-danger col-md-1 bbs_click_heart" onclick="fav(${postid}  , this)">
+                    <span>
+                      <img src="/img/bbsdiscuss/heart-regular.svg" alt="" style="width: 20px" ;="" height="10px">
+                      <h6>${fav_reaction_count}</h6>
+                    </span>
+                  </a>`
+          }
+
+          return str_fav
+
+        case 'reaction':
+          let str_reaction = ''
+
+          if (result) {
+            str_reaction = `<a class="btn border-primary text-dark col-md-1 bbs_click_up btn-primary text-white" onclick="lik(${postid} , this)">
+                    <span>
+                      <img src="/img/bbsdiscuss/thumbs-up-solid.svg" alt="讚" style="width: 20px" ;="" height="10px">
+                       <h6>${fav_reaction_count}</h6></span>
+                  </a>`
+          } else {
+            str_reaction = `<a class="btn border-primary text-dark col-md-1 bbs_click_up" onclick="lik(${postid} , this)">
+                    <span>
+                      <img src="/img/bbsdiscuss/thumbs-up-regular.svg" alt="讚" style="width: 20px" ;="" height="10px">
+                       <h6>${fav_reaction_count}</h6></span>
+                  </a>`
+          }
+
+          return str_reaction
+
+        default:
+          console.log('無判斷類別')
+          break;
+      }
+
+    }
+
 
       // =============================================查看完整文章===================================================
 
@@ -743,19 +817,15 @@
         let img_elements = event.querySelector("img");
         let current_src2 = img_element.getAttribute("src");
 
-        // 更新收藏的數量
-        json_data = {
-          bbsPostId: element,
-          reactionStatus: like_type,
-        };
-        let result_lik = await my_ajax(
-          "/bbsdiscussGet/reactionstatus",
-          "POST",
-          JSON.stringify(json_data)
-        );
-        // console.log(result_lik);
-        let h6 = event.querySelector("h6");
-        // console.log(h6)
+      // 更新收藏的數量
+      json_data = {
+        "bbsPostId": element,
+        "reactionStatus": like_type
+      }
+      let result_lik = await my_ajax('/bbsdiscussGet/reactionstatus', 'POST', JSON.stringify(json_data))
+      // console.log(result_lik);
+      let h6 = event.querySelector('h6')
+      // console.log(h6)
 
         h6.textContent = result_lik;
       }
@@ -792,22 +862,29 @@
         let img_elements = event.querySelector("img");
         let current_src2 = img_element.getAttribute("src");
 
-        // 更新收藏的數量
-        json_data = {
-          bbsPostId: element,
-          favStatus: like_type,
-        };
-        let result_fav = await my_ajax(
-          "/bbsdiscussGet/favStstatus",
-          "POST",
-          JSON.stringify(json_data)
-        );
-        // console.log(result_fav);
-        let h6 = event.querySelector("h6");
-        // console.log(h6)
-
-        h6.textContent = result_fav;
+      // 更新收藏的數量
+      json_data = {
+        "bbsPostId": element,
+        "favStatus": like_type
       }
-    </script>
-  </body>
+      let result_fav = await my_ajax('/bbsdiscussGet/favStstatus', 'POST', JSON.stringify(json_data))
+      // console.log(result_fav);
+      let h6 = event.querySelector('h6')
+      // console.log(h6)
+
+      h6.textContent = result_fav;
+
+    }
+
+
+    function sort(arr, key) {
+      arr.sort(function (a, b) {
+        return b[key] - a[key];
+      });
+      return arr;
+    }
+
+  </script>
+</body>
+
 </html>

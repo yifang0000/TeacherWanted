@@ -9,10 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -21,6 +18,10 @@ import java.util.List;
 public class WishController {
     @Autowired
     private WishService service;
+
+    public WishController(WishService wishService) {
+        this.service = wishService;
+    }
 
     @GetMapping("/wish")
     public String showWishList(Model model) {
@@ -71,7 +72,7 @@ public class WishController {
             }
         } catch (WishNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
-            return "wish";
+            return "redirect:/wish_my";
         }
     }
 
@@ -92,7 +93,7 @@ public class WishController {
         } catch (WishNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
         }
-        return "redirect:/wish";
+        return "redirect:/wish_my";
     }
 
     @GetMapping("/mywish")
@@ -110,5 +111,12 @@ public class WishController {
             ra.addFlashAttribute("message", "請先登入再查看<(￣︶￣)>");
             return "redirect:/wish";
         }
-    }
+
+        }
+//        @GetMapping("/wish/search")
+//        public String searchWish(@RequestParam("keyword") String keyword, Model model) {
+//            List<Wish> searchResults = service.searchByKeyword(keyword);
+//            model.addAttribute("searchResults", searchResults);
+//            return "wish_search";
+//        }
 }

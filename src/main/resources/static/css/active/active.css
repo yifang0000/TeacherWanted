@@ -58,6 +58,7 @@
   padding-top: 15px;
 }
 .activeBtn {
+  cursor: pointer;
   padding: 5px 20px;
   box-sizing: border-box;
   border-radius: 30px;

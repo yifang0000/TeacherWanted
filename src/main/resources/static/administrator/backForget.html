@@ -13,7 +13,6 @@
       integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
       crossorigin="anonymous"
     />
-    <style></style>
   </head>
   <body>
     <!-- 設定字體 -->
@@ -41,7 +40,10 @@
         <div class="col-md-8 col-xs-12 col-sm-12 login_form">
           <div class="container-fluid">
             <div class="row p-3">
-              <h2>後台登入</h2>
+              <h2>重設密碼</h2>
+            </div>
+            <div class="row">
+              <p style="color: #3c6a36">送出後將寄信至您的信箱</p>
             </div>
             <div class="row">
               <div class="row">
@@ -54,13 +56,12 @@
                 />
               </div>
               <div class="row">
-                <!-- <span class="fa fa-lock"></span> -->
                 <input
-                  type="password"
-                  name="adminPassword"
-                  id="adminPassword"
+                  type="text"
+                  name="adminEmail"
+                  id="adminEmail"
                   class="form__input needvalue"
-                  placeholder="密碼"
+                  placeholder="信箱"
                 />
               </div>
 
@@ -76,7 +77,7 @@
               </div>
             </div>
             <div class="row">
-              <p>忘記帳號密碼？ <a href="backForget.html">請重設密碼</a></p>
+              <p><a href="backlogin.html">返回登入頁面</a></p>
             </div>
           </div>
         </div>
@@ -137,38 +138,44 @@
         // =====================ajax======//
         var formData = {
           adminAccount: $("#adminAccount").val(),
-          adminPassword: $("#adminPassword").val(),
+          adminEmail: $("#adminEmail").val(),
         };
 
         $.ajax({
           type: "POST",
-          url: "/administrators/login",
+          url: "/administrators/resetPassword",
           data: JSON.stringify(formData),
           contentType: "application/json",
           success: function (response) {
-            if (response.permissionId == 1) {
-              alert("歡迎管理員：" + response.adminName + "，登入成功！");
-              window.location.href = "../administrator/backIndex.html";
-            } else {
-              if (response.createdDate == response.lastUpdatedDate) {
-                sessionStorage.setItem("NewTeacher", "yes");
-                alert(
-                  "歡迎老師：" + response.adminName + "，首次登入請先修改密碼"
-                );
-                window.location.href = "../administrator/backbarsetting.html";
-                return;
-              }
-              alert("歡迎老師：" + response.adminName + "，登入成功！");
-              window.location.href = "../administrator/backIndex.html";
-            }
-            // window.location.href = 'activeBack.html';
-            // activeBack.html
+            alert("已寄信至您的信箱");
+            sendmail(response);
+
+            location.href = "backlogin.html";
           },
           error: function (jqXHR, textStatus, errorThrown) {
-            alert("登入失敗");
+            alert("帳號和信箱未匹配");
           },
         });
       });
+
+      function sendmail(adminPassword) {
+        var mailbody = {
+          recipient: $("#adminEmail").val(),
+          msgBody: `老師您好，您的密碼已重設：\n密碼：${adminPassword}\n建議登入後重新更改密碼\n後台登入頁面請往：http://localhost:8080/administrator/backlogin.html`,
+          subject: "懸賞啼雀｜您的密碼已重設",
+        };
+        console.log(mailbody);
+        $.ajax({
+          type: "POST",
+          url: "/sendMail",
+          data: JSON.stringify(mailbody),
+          contentType: "application/json",
+          success: function (response) {},
+          error: function (xhr, textStatus, errorThrown) {
+            alert("發生錯誤");
+          },
+        });
+      }
     </script>
   </body>
 </html>

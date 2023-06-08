@@ -109,3 +109,15 @@ form{
 	color: #3c6a36;
   } */
   
+
+  a:hover,
+  a:visited,
+  a:link,
+  a:active {
+	text-decoration: none;
+  }
+  a {
+	text-decoration: none;
+	color: #a4c964 !important;
+	border-bottom: 1px dotted #a4c964;
+  }
