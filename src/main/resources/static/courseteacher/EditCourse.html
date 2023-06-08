@@ -518,9 +518,9 @@
           updateCourse(){
             if (confirm("確認修改課程嗎？")) {
 
-              const coursePhoto1 = this.coursePhotos.coursePhoto1 ? this.coursePhotos.coursePhoto1 : this.course.coursePhoto1;
-              const coursePhoto2 = this.coursePhotos.coursePhoto2 ? this.coursePhotos.coursePhoto2 : this.course.coursePhoto2;
-              const coursePhoto3 = this.coursePhotos.coursePhoto3 ? this.coursePhotos.coursePhoto3 : this.course.coursePhoto3;
+              // const coursePhoto1 = this.coursePhotos.coursePhoto1 ? this.coursePhotos.coursePhoto1 : this.course.coursePhoto1;
+              // const coursePhoto2 = this.coursePhotos.coursePhoto2 ? this.coursePhotos.coursePhoto2 : this.course.coursePhoto2;
+              // const coursePhoto3 = this.coursePhotos.coursePhoto3 ? this.coursePhotos.coursePhoto3 : this.course.coursePhoto3;
 
 
               const data = {
@@ -533,9 +533,9 @@
                 coolingOffPeriod: this.coolingOffPeriod,
                 teaId: teaId,
                 updateTime: new Date(),
-                coursePhoto1: coursePhoto1,
-                coursePhoto2: coursePhoto2,
-                coursePhoto3: coursePhoto3,
+                coursePhoto1: this.coursePhotos.coursePhoto1,
+                coursePhoto2: this.coursePhotos.coursePhoto2,
+                coursePhoto3: this.coursePhotos.coursePhoto3,
               };
               console.log(data);
 
