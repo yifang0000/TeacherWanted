@@ -15,6 +15,53 @@ function extractBase64String(dataURL) {
   return null;
 }
 
+  // //===========option 切換頁面===========//
+  // $(document).ready(function() {
+  //   // console.log('test : ', 12345789)
+  //   $("#navSearch1").change(function() {
+  //     let switchValue = $('#navSearch1').find(":selected").val();
+  //     console.log('switchValue:',switchValue)
+  //     switch (switchValue) {
+  //       case "MemberDetail":
+  //         window.location.href="/member/MemberDetail.html";
+  //         break;
+  //       case "MySubscribe":
+  //         window.location.href="/member/MySubscribe.html";
+  //         break;
+  //       case "orderList":
+  //         window.location.href="/member/orderList.html";
+  //         break;
+  //       default:
+  //         return;
+  //     }
+  //   });
+  // });
+
+  $(document).ready(function() {
+    console.log('test : ', 12345789)
+    $("#navSearch1").change(function() {
+      let switchValue = $('#navSearch1').val();
+      console.log('test : ', 12345789)
+      switch (switchValue) {
+        case "MemberDetail":
+          window.location.href = "/member/MemberDetail.html";
+          break;
+        case "MySubscribe":
+          window.location.href = "/member/MySubscribe.html";
+          break;
+        case "orderList":
+          window.location.href = "/member/orderList.html";
+          break;
+        default:
+          return;
+      }
+    });
+  });
+  
+
+
+
+
 //==========行事曆============//
 //初始化
 $(document).ready(function () {
@@ -26,32 +73,34 @@ const btn = document.querySelector("#detail_submit");
 const file = document.querySelector("#p_file");
 
 //===========option按鈕切換頁面==========//
-$(document).ready(function () {
-  console.log("test : ", 12345789);
-  $("#navSearch1").change(function () {
-    let switchValue = $("#navSearch1").find(":selected").val();
-    console.log("switchValue:", switchValue);
-    switch (switchValue) {
-      case "MemberCenter":
-        location.href = "/member/MemberCenter.html";
-        break;
-      case "MemberDetail":
-        location.href = "/member/MemberDetail.html";
-        break;
-      case "MySubscribe":
-        location.href = "/member/MySubscribe.html";
-        break;
-      case "orderList":
-        location.href = "/member/orderList.html";
-        break;
-      case "inboxmail":
-        location.href = "/member/inboxmail.html";
-        break;
-      default:
-        return;
-    }
-  });
-});
+// $(document).ready(function () {
+//   $("#navSearch1").change(function() {
+//     console.log("Change event triggered"); // 检查事件是否被触发
+//     let switchValue = $(this).val(); // 使用$(this)获取当前元素的值
+//     console.log('switchValue:', switchValue); // 检查选中的值是否正确
+  
+//     // 进行页面切换操作
+//     switch (switchValue) {
+//       case "MemberCenter":
+//         window.location.href = "/member/MemberCenter.html";
+//         break;
+//       case "MemberDetail":
+//         window.location.href = "/member/MemberDetail.html";
+//         break;
+//       case "MySubscribe":
+//         window.location.href = "/member/MySubscribe.html";
+//         break;
+//       case "orderList":
+//         window.location.href = "/member/orderList.html";
+//         break;
+//       case "inboxmail":
+//         window.location.href = "/member/inboxmail.html";
+//         break;
+//       default:
+//         return;
+//     }
+//   });
+// });
 // file.addEventListener('change', () => {
 //   const service_img = document.querySelector('#service_img');
 //   service_img.src = URL.createObjectURL(file.files[0]);
