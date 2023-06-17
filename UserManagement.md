@@ -139,7 +139,8 @@ Request body
 | adminName | 使用者名稱|
 | adminEmail | 使用者信箱|
 | adminPhone | 使用者電話|
-
+| permissionId | 使用者權限，分為老師、管理員|
+| adminStatus | 使用者狀態，分為停權、正常狀態|
 
 ----
 
