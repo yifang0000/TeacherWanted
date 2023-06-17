@@ -27,7 +27,7 @@
 | :--- | :--- | :--- |
 | /coupons | `GET` | 查詢優惠券全部列表 |
 | /coupons/{couponId} | `GET` |查詢單一優惠券|
-| /coupons| `PUO` |新增優惠券|
+| /coupons| `POST` |新增優惠券|
 | /coupons/{couponId}| `PUT` |更新優惠券|
 | /coupons/{couponId}| `Delete` |刪除優惠券|
 
@@ -104,6 +104,24 @@
 ### 個別介紹API　(3)
 | URL | method | **Description** |
 | :--- | :--- | :--- |
+| /coupons/{couponId}| `PUT` |新增優惠券|
+
+
+Request body
+| 參數 |  **描述** |
+| :--- | :--- |
+| couponCode | 優惠券代碼|
+| couponDetail | 優惠券文案|
+| discount | 折扣金額|
+| activateTime | 優惠券開始時間|
+| expirationDate | 優惠券結束時間|
+
+
+----
+
+### 個別介紹API　(4)
+| URL | method | **Description** |
+| :--- | :--- | :--- |
 | /coupons/{couponId}| `PUT` |更新優惠券|
 
 
@@ -119,7 +137,7 @@ Request body
 
 ----
 
-### 個別介紹API　(4)
+### 個別介紹API　(5)
 | URL | method | **Description** |
 | :--- | :--- | :---
 | /coupons/{couponId}| `Delete` |刪除優惠券|
