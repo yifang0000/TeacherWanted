@@ -171,8 +171,7 @@ Request body
 
 ### 個別介紹API　(5)
 | URL | method | **Description** |
-| :--- | :--- | :---
-
+| :--- | :--- | :---|
 | /announcements/{annId}| `Delete` |刪除公告|
 
 ----
