@@ -16,8 +16,8 @@
 
 ### API 文件
 1. [後台使用者管理UserManagement](/UserManagement.md)  
-2. 後台優惠券管理CouponManagement  
-3. 前後台公告管理AnnouncementManagement  
+2. [後台優惠券管理CouponManagement](/CouponManagement.md)  
+3. [前後台公告管理AnnouncementManagement](/AnnouncementManagement.md)  
 
 撰寫者([yifang0000](https://github.com/yifang0000)) 寫於 2023/06/17
 
