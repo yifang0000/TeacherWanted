@@ -22,4 +22,4 @@
 撰寫者([yifang0000](https://github.com/yifang0000)) 寫於 2023/06/17
 
 
-![](https://img.shields.io/badge/Spring_Boot-3.1.0-181717?style=for-the-badge?style=plastic&logo=springboot&color) ![](https://img.shields.io/badge/MySQL-8.0-181717?style=for-the-badge?style=plastic&logo=mysql&color=blue) ![](https://img.shields.io/badge/Redis-3.2.1-181717?style=for-the-badge?style=plastic&logo=redis&color=red)
+![](https://img.shields.io/badge/Spring_Boot-3.1.0-181717?style=for-the-badge?style=plastic&logo=springboot&color) ![](https://img.shields.io/badge/MySQL-8.0.32-181717?style=for-the-badge?style=plastic&logo=mysql&color=blue) ![](https://img.shields.io/badge/Redis-3.2.1-181717?style=for-the-badge?style=plastic&logo=redis&color=red)
