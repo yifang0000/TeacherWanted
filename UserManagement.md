@@ -38,6 +38,7 @@
 | :--- | :--- | :--- |
 | /administrators | `GET` | 查詢使用者全部列表 |
 | /administrators/{adminId} | `GET` |查詢單一使用者|
+| /administrators| `POST` |新增使用者|
 | /administrators/{adminId}| `PUT` |更新使用者|
 | /administrators/{adminId}| `Delete` |刪除使用者|
 | /administrators/login| `POST` | 登入 |
@@ -126,6 +127,24 @@
 ### 個別介紹API　(3)
 | URL | method | **Description** |
 | :--- | :--- | :--- |
+| /announcements| `POST` |新增使用者|
+
+
+Request body
+| 參數 |  **描述** |
+| :--- | :--- |
+| adminAccount | 使用者帳號|
+| adminPassword | 使用者密碼|
+| adminName | 使用者名稱|
+| adminEmail | 使用者信箱|
+| adminPhone | 使用者電話|
+
+
+----
+
+### 個別介紹API　(4)
+| URL | method | **Description** |
+| :--- | :--- | :--- |
 | /administrators/{adminId}| `PUT` |更新使用者|
 
 
@@ -138,16 +157,17 @@ Request body
 | adminName | 使用者名稱，可以為空|
 | adminEmail | 使用者信箱，可以為空|
 | adminPhone | 使用者電話，可以為空|
+
 ----
 
-### 個別介紹API　(4)
+### 個別介紹API　(5)
 | URL | method | **Description** |
 | :--- | :--- | :---
 | /administrators/{adminId}| `Delete` |刪除使用者|
 
 ----
 
-### 個別介紹API　(5)
+### 個別介紹API　(6)
 | URL | method | **Description** |
 | :--- | :--- | :--- |
 | /administrators/login| `POST` | 登入 |
@@ -166,20 +186,20 @@ Response
 | 400 | 帳號、密碼、使用者狀態，任一錯誤則回傳400，令該使用者不可登入|
 
 ----
-### 個別介紹API　(6)
+### 個別介紹API　(7)
 | URL | method | **Description** |
 | :--- | :--- | :--- |
 | /administrators/session| `GET` | 確認是否有登入session |
 
 ----
 
-### 個別介紹API　(7)
+### 個別介紹API　(8)
 | URL | method | **Description** |
 | :--- | :--- | :--- |
 | /administrators/logout| `GET` | 登出 |
 
 ----
-### 個別介紹API　(8)
+### 個別介紹API　(9)
 | URL | method | **Description** |
 | :--- | :--- | :--- |
 | /administrators/resetPassword| `POST` | 重設密碼 |
